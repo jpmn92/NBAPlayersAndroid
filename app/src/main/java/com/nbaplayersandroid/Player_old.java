@@ -6,14 +6,14 @@ import android.widget.ImageView;
  * Created by jp on 17/05/2020.
  */
 
-public class Player {
+public class Player_old {
     int id;
     String lastName;
     String firstName;
     float contract;
     int image;
 
-    public Player(int id, String lastName, String firstName, float contract, int image) {
+    public Player_old(int id, String lastName, String firstName, float contract, int image) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;

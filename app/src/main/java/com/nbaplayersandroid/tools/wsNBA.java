@@ -1,6 +1,6 @@
 package com.nbaplayersandroid.tools;
 
-import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public interface wsNBA {
             @Query("season") String param2_season);
 
     @GET("players")
-    Call<ArrayList<BasketballPlayer>> getAllPlayers();
+    Call<ArrayList<PlayerSeasonStats>> getAllPlayers();
 
 
 

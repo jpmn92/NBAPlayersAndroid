@@ -1,8 +1,8 @@
-package com.nbaplayersandroid.lst_players;
+package com.nbaplayersandroid.lst_players_season_stats;
 
 import android.os.AsyncTask;
 
-import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.tools.wsNBA;
 
@@ -13,10 +13,10 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LstPlayerModel implements LstPlayerContract.Model {
+public class LstPlayerSeasonStatsModel implements LstPlayerSeasonStatsContract.Model {
 
     private OnLstPlayerListener onLstPlayerListener;
-    private ArrayList<BasketballPlayer> lstPlayers;
+    private ArrayList<PlayerSeasonStats> lstPlayers;
     private BasketballPlayerList basketballPlayerList;
 
 

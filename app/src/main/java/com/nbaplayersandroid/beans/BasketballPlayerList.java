@@ -3,18 +3,17 @@ package com.nbaplayersandroid.beans;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BasketballPlayerList {
 
     @SerializedName("data")
-    private ArrayList<BasketballPlayer> basketballPlayers;
+    private ArrayList<PlayerSeasonStats> playerSeasonStats;
 
-    public ArrayList<BasketballPlayer> getBasketballPlayers() {
-        return basketballPlayers;
+    public ArrayList<PlayerSeasonStats> getPlayerSeasonStats() {
+        return playerSeasonStats;
     }
 
-    public void setBasketballPlayers(ArrayList<BasketballPlayer> basketballPlayers) {
-        this.basketballPlayers = basketballPlayers;
+    public void setPlayerSeasonStats(ArrayList<PlayerSeasonStats> playerSeasonStats) {
+        this.playerSeasonStats = playerSeasonStats;
     }
 }

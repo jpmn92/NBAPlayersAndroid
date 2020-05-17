@@ -1,4 +1,4 @@
-        package com.nbaplayersandroid.beans;
+package com.nbaplayersandroid.beans;
 
 import java.io.Serializable;
 import android.os.Parcel;
@@ -10,72 +10,30 @@ import com.google.gson.annotations.SerializedName;
 public class BasketballPlayer implements Serializable, Parcelable
 {
 
-    @SerializedName("games_played")
+    @SerializedName("id")
     @Expose
-    private int gamesPlayed;
-    @SerializedName("player_id")
+    private int id;
+    @SerializedName("first_name")
     @Expose
-    private int playerId;
-    @SerializedName("season")
+    private String firstName;
+    @SerializedName("height_feet")
     @Expose
-    private int season;
-    @SerializedName("min")
+    private Object heightFeet;
+    @SerializedName("height_inches")
     @Expose
-    private String min;
-    @SerializedName("fgm")
+    private Object heightInches;
+    @SerializedName("last_name")
     @Expose
-    private float fgm;
-    @SerializedName("fga")
+    private String lastName;
+    @SerializedName("position")
     @Expose
-    private float fga;
-    @SerializedName("fg3m")
+    private String position;
+    @SerializedName("team")
     @Expose
-    private float fg3m;
-    @SerializedName("fg3a")
+    private Team team;
+    @SerializedName("weight_pounds")
     @Expose
-    private float fg3a;
-    @SerializedName("ftm")
-    @Expose
-    private float ftm;
-    @SerializedName("fta")
-    @Expose
-    private float fta;
-    @SerializedName("oreb")
-    @Expose
-    private float oreb;
-    @SerializedName("dreb")
-    @Expose
-    private float dreb;
-    @SerializedName("reb")
-    @Expose
-    private float reb;
-    @SerializedName("ast")
-    @Expose
-    private float ast;
-    @SerializedName("stl")
-    @Expose
-    private float stl;
-    @SerializedName("blk")
-    @Expose
-    private float blk;
-    @SerializedName("turnover")
-    @Expose
-    private float turnover;
-    @SerializedName("pf")
-    @Expose
-    private float pf;
-    @SerializedName("pts")
-    @Expose
-    private float pts;
-    @SerializedName("fg_pct")
-    @Expose
-    private float fgPct;
-    @SerializedName("fg3_pct")
-    @Expose
-    private float fg3Pct;
-    @SerializedName("ft_pct")
-    @Expose
-    private float ftPct;
+    private Object weightPounds;
     public final static Parcelable.Creator<BasketballPlayer> CREATOR = new Creator<BasketballPlayer>() {
 
 
@@ -92,235 +50,95 @@ public class BasketballPlayer implements Serializable, Parcelable
 
     }
             ;
-    private final static long serialVersionUID = -2625881109355125990L;
+    private final static long serialVersionUID = 8161452363399736315L;
 
     protected BasketballPlayer(Parcel in) {
-        this.gamesPlayed = ((int) in.readValue((int.class.getClassLoader())));
-        this.playerId = ((int) in.readValue((int.class.getClassLoader())));
-        this.season = ((int) in.readValue((int.class.getClassLoader())));
-        this.min = ((String) in.readValue((String.class.getClassLoader())));
-        this.fgm = ((float) in.readValue((float.class.getClassLoader())));
-        this.fga = ((float) in.readValue((float.class.getClassLoader())));
-        this.fg3m = ((float) in.readValue((float.class.getClassLoader())));
-        this.fg3a = ((float) in.readValue((float.class.getClassLoader())));
-        this.ftm = ((float) in.readValue((float.class.getClassLoader())));
-        this.fta = ((float) in.readValue((float.class.getClassLoader())));
-        this.oreb = ((float) in.readValue((float.class.getClassLoader())));
-        this.dreb = ((float) in.readValue((float.class.getClassLoader())));
-        this.reb = ((float) in.readValue((float.class.getClassLoader())));
-        this.ast = ((float) in.readValue((float.class.getClassLoader())));
-        this.stl = ((float) in.readValue((float.class.getClassLoader())));
-        this.blk = ((float) in.readValue((float.class.getClassLoader())));
-        this.turnover = ((float) in.readValue((float.class.getClassLoader())));
-        this.pf = ((float) in.readValue((float.class.getClassLoader())));
-        this.pts = ((float) in.readValue((float.class.getClassLoader())));
-        this.fgPct = ((float) in.readValue((float.class.getClassLoader())));
-        this.fg3Pct = ((float) in.readValue((float.class.getClassLoader())));
-        this.ftPct = ((float) in.readValue((float.class.getClassLoader())));
+        this.id = ((int) in.readValue((int.class.getClassLoader())));
+        this.firstName = ((String) in.readValue((String.class.getClassLoader())));
+        this.heightFeet = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.heightInches = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.lastName = ((String) in.readValue((String.class.getClassLoader())));
+        this.position = ((String) in.readValue((String.class.getClassLoader())));
+        this.team = ((Team) in.readValue((Team.class.getClassLoader())));
+        this.weightPounds = ((Object) in.readValue((Object.class.getClassLoader())));
     }
 
     public BasketballPlayer() {
     }
 
-    public int getGamesPlayed() {
-        return gamesPlayed;
+    public int getId() {
+        return id;
     }
 
-    public void setGamesPlayed(int gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getPlayerId() {
-        return playerId;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public int getSeason() {
-        return season;
+    public Object getHeightFeet() {
+        return heightFeet;
     }
 
-    public void setSeason(int season) {
-        this.season = season;
+    public void setHeightFeet(Object heightFeet) {
+        this.heightFeet = heightFeet;
     }
 
-    public String getMin() {
-        return min;
+    public Object getHeightInches() {
+        return heightInches;
     }
 
-    public void setMin(String min) {
-        this.min = min;
+    public void setHeightInches(Object heightInches) {
+        this.heightInches = heightInches;
     }
 
-    public float getFgm() {
-        return fgm;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setFgm(float fgm) {
-        this.fgm = fgm;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public float getFga() {
-        return fga;
+    public String getPosition() {
+        return position;
     }
 
-    public void setFga(float fga) {
-        this.fga = fga;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public float getFg3m() {
-        return fg3m;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setFg3m(float fg3m) {
-        this.fg3m = fg3m;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
-    public float getFg3a() {
-        return fg3a;
+    public Object getWeightPounds() {
+        return weightPounds;
     }
 
-    public void setFg3a(float fg3a) {
-        this.fg3a = fg3a;
-    }
-
-    public float getFtm() {
-        return ftm;
-    }
-
-    public void setFtm(float ftm) {
-        this.ftm = ftm;
-    }
-
-    public float getFta() {
-        return fta;
-    }
-
-    public void setFta(float fta) {
-        this.fta = fta;
-    }
-
-    public float getOreb() {
-        return oreb;
-    }
-
-    public void setOreb(float oreb) {
-        this.oreb = oreb;
-    }
-
-    public float getDreb() {
-        return dreb;
-    }
-
-    public void setDreb(float dreb) {
-        this.dreb = dreb;
-    }
-
-    public float getReb() {
-        return reb;
-    }
-
-    public void setReb(float reb) {
-        this.reb = reb;
-    }
-
-    public float getAst() {
-        return ast;
-    }
-
-    public void setAst(float ast) {
-        this.ast = ast;
-    }
-
-    public float getStl() {
-        return stl;
-    }
-
-    public void setStl(float stl) {
-        this.stl = stl;
-    }
-
-    public float getBlk() {
-        return blk;
-    }
-
-    public void setBlk(float blk) {
-        this.blk = blk;
-    }
-
-    public float getTurnover() {
-        return turnover;
-    }
-
-    public void setTurnover(float turnover) {
-        this.turnover = turnover;
-    }
-
-    public float getPf() {
-        return pf;
-    }
-
-    public void setPf(float pf) {
-        this.pf = pf;
-    }
-
-    public float getPts() {
-        return pts;
-    }
-
-    public void setPts(float pts) {
-        this.pts = pts;
-    }
-
-    public float getFgPct() {
-        return fgPct;
-    }
-
-    public void setFgPct(float fgPct) {
-        this.fgPct = fgPct;
-    }
-
-    public float getFg3Pct() {
-        return fg3Pct;
-    }
-
-    public void setFg3Pct(float fg3Pct) {
-        this.fg3Pct = fg3Pct;
-    }
-
-    public float getFtPct() {
-        return ftPct;
-    }
-
-    public void setFtPct(float ftPct) {
-        this.ftPct = ftPct;
+    public void setWeightPounds(Object weightPounds) {
+        this.weightPounds = weightPounds;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(gamesPlayed);
-        dest.writeValue(playerId);
-        dest.writeValue(season);
-        dest.writeValue(min);
-        dest.writeValue(fgm);
-        dest.writeValue(fga);
-        dest.writeValue(fg3m);
-        dest.writeValue(fg3a);
-        dest.writeValue(ftm);
-        dest.writeValue(fta);
-        dest.writeValue(oreb);
-        dest.writeValue(dreb);
-        dest.writeValue(reb);
-        dest.writeValue(ast);
-        dest.writeValue(stl);
-        dest.writeValue(blk);
-        dest.writeValue(turnover);
-        dest.writeValue(pf);
-        dest.writeValue(pts);
-        dest.writeValue(fgPct);
-        dest.writeValue(fg3Pct);
-        dest.writeValue(ftPct);
+        dest.writeValue(id);
+        dest.writeValue(firstName);
+        dest.writeValue(heightFeet);
+        dest.writeValue(heightInches);
+        dest.writeValue(lastName);
+        dest.writeValue(position);
+        dest.writeValue(team);
+        dest.writeValue(weightPounds);
     }
 
     public int describeContents() {

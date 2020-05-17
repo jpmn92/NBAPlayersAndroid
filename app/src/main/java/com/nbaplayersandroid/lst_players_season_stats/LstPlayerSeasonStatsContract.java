@@ -1,11 +1,8 @@
-package com.nbaplayersandroid.lst_players;
+package com.nbaplayersandroid.lst_players_season_stats;
 
-import com.nbaplayersandroid.beans.BasketballPlayer;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
 
-import java.util.ArrayList;
-
-public interface LstPlayerContract {
+public interface LstPlayerSeasonStatsContract {
 
     public interface View{
         void successListPlayers(BasketballPlayerList lstPlayers);

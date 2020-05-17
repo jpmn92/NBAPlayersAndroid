@@ -1,29 +1,26 @@
 package com.nbaplayersandroid;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
-import com.nbaplayersandroid.lst_players.LstPlayerContract;
-import com.nbaplayersandroid.lst_players.LstPlayerPresenter;
+import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
+import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity implements View.OnClickListener, LstPlayerContract.View {
+public class MainActivity extends Activity implements View.OnClickListener, LstPlayerSeasonStatsContract.View {
 
-    List<Player> players;
+    List<Player_old> playerOlds;
     int record;
-    Player player1;
-    Player player2;
+    Player_old playerOld1;
+    Player_old playerOld2;
 
     TextView txtP1;
     TextView txtP2;
@@ -34,8 +31,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     ImageView ivP1;
     ImageView ivP2;
 
-    LstPlayerPresenter lstPlayerPresenter;
-    ArrayList<BasketballPlayer> lstPlayers;
+    LstPlayerSeasonStatsPresenter lstPlayerSeasonStatsPresenter;
+    ArrayList<PlayerSeasonStats> lstPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +41,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         //Instanciamos presenter
 
-        players = new ArrayList<>();
+        playerOlds = new ArrayList<>();
         txtP1 = findViewById(R.id.txtP1);
         txtP2 = findViewById(R.id.txtP2);
         txtSalary = findViewById(R.id.txtSalary);
@@ -56,7 +53,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         ivP1 = findViewById(R.id.ivP1);
         ivP2 = findViewById(R.id.ivP2);
 
-        lstPlayerPresenter = new LstPlayerPresenter(this);
+        lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
         lstPlayers = new ArrayList<>();
 
 
@@ -67,46 +64,46 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     private void startGame() {
         record = 0;
         int random = 0;
-        random = (int) (Math.random()*players.size());
-        player1 = players.get(random);
+        random = (int) (Math.random()* playerOlds.size());
+        playerOld1 = playerOlds.get(random);
         selectPlayer2();
     }
 
     private void selectPlayer2() {
         int random = 0;
         do{
-            random = (int) (Math.random()*players.size());
-            player2 = players.get(random);
-        } while (player1.getId()-1 == player2.getId()-1 || player1.getContract() == player2.getContract());
+            random = (int) (Math.random()* playerOlds.size());
+            playerOld2 = playerOlds.get(random);
+        } while (playerOld1.getId()-1 == playerOld2.getId()-1 || playerOld1.getContract() == playerOld2.getContract());
 
-        txtP1.setText(player1.getFirstName() + " " + player1.getLastName());
-        txtSalary.setText("$" + String.valueOf(player1.getContract()) + "M");
-        ivP1.setImageResource(player1.getImage());
-        txtP2.setText(player2.getFirstName() + " " + player2.getLastName());
-        ivP2.setImageResource(player2.getImage());
+        txtP1.setText(playerOld1.getFirstName() + " " + playerOld1.getLastName());
+        txtSalary.setText("$" + String.valueOf(playerOld1.getContract()) + "M");
+        ivP1.setImageResource(playerOld1.getImage());
+        txtP2.setText(playerOld2.getFirstName() + " " + playerOld2.getLastName());
+        ivP2.setImageResource(playerOld2.getImage());
         txtRecord.setText(String.valueOf(record));
     }
 
     private void createPlayers() {
-        Player player;
-        player = new Player(1, "Doncic", "Luka", 7.3f, (R.drawable.doncic));
-        players.add(player);
-        player = new Player(2, "James", "LeBron", 37.43f, ( R.drawable.lebron));
-        players.add(player);
-        player = new Player(3, "Curry", "Stephen", 40.2f, ( R.drawable.curry));
-        players.add(player);
-        player = new Player(4, "Durant", "Kevin", 37.2f, ( R.drawable.durant));
-        players.add(player);
-        player = new Player(5, "Gasol", "Marc", 25.6f, ( R.drawable.marc));
-        players.add(player);
-        player = new Player(6, "Siakam", "Pascal", 2.35f, ( R.drawable.siakam));
-        players.add(player);
-        player = new Player(7, "Leonard", "Kawhi", 32.74f, ( R.drawable.leonard));
-        players.add(player);
-        player = new Player(8, "Simmons", "Ben", 8.11f, ( R.drawable.simmons));
-        players.add(player);
-        player = new Player(9, "Porzingis", "Kristaps", 27.28f, ( R.drawable.porzingis));
-        players.add(player);
+        Player_old playerOld;
+        playerOld = new Player_old(1, "Doncic", "Luka", 7.3f, (R.drawable.doncic));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(2, "James", "LeBron", 37.43f, ( R.drawable.lebron));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(3, "Curry", "Stephen", 40.2f, ( R.drawable.curry));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(4, "Durant", "Kevin", 37.2f, ( R.drawable.durant));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(5, "Gasol", "Marc", 25.6f, ( R.drawable.marc));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(6, "Siakam", "Pascal", 2.35f, ( R.drawable.siakam));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(7, "Leonard", "Kawhi", 32.74f, ( R.drawable.leonard));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(8, "Simmons", "Ben", 8.11f, ( R.drawable.simmons));
+        playerOlds.add(playerOld);
+        playerOld = new Player_old(9, "Porzingis", "Kristaps", 27.28f, ( R.drawable.porzingis));
+        playerOlds.add(playerOld);
     }
 
     private void finishGame() {
@@ -117,7 +114,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     private void continueGame() {
         record++;
-        player1 = player2;
+        playerOld1 = playerOld2;
         selectPlayer2();
 
     }
@@ -125,12 +122,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     @Override
     public void onClick(View v) {
 
-        lstPlayerPresenter.getPlayers();
+        lstPlayerSeasonStatsPresenter.getPlayers();
 
         switch (v.getId()){
             case R.id.buttonMas:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if(player2.getContract() > player1.getContract()){
+                if(playerOld2.getContract() > playerOld1.getContract()){
                     continueGame();
                 }
                 else{
@@ -140,7 +137,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
             case R.id.buttonMenos:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if(player2.getContract() < player1.getContract()){
+                if(playerOld2.getContract() < playerOld1.getContract()){
                     continueGame();
                 }
                 else{
@@ -154,7 +151,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     public void successListPlayers(BasketballPlayerList lstPlayers) {
 
         //convertimos el basketballplayerlist a arraylist de basketballplayers por probar
-        ArrayList<BasketballPlayer> list = lstPlayers.getBasketballPlayers();
+        ArrayList<PlayerSeasonStats> list = lstPlayers.getPlayerSeasonStats();
 
     }
 
