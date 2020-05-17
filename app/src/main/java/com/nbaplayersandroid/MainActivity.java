@@ -73,13 +73,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         txtP2.setText(player2.getFirstName() + " " + player2.getLastName());
         ivP2.setImageResource(player2.getImage());
         txtRecord.setText(String.valueOf(record));
-
-
-//        view.getLabelFNameP1().setText(player1.getFirstName() + " " + player1.getLastName());
-//        view.getLabelFNameP2().setText(player2.getFirstName() + " " + player2.getLastName());
-//        view.getRecord().setText(String.valueOf(record));
-//
-//        view.getFrame().pack();
     }
 
     private void createPlayers() {
