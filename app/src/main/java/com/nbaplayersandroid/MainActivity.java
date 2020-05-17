@@ -10,10 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.lst_players.LstPlayerContract;
+import com.nbaplayersandroid.lst_players.LstPlayerPresenter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener, LstPlayerContract.View {
 
     List<Player> players;
     int record;
@@ -29,11 +33,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
     ImageView ivP1;
     ImageView ivP2;
 
+    LstPlayerPresenter lstPlayerPresenter;
+    ArrayList<BasketballPlayer> lstPlayers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Instanciamos presenter
 
         players = new ArrayList<>();
         txtP1 = findViewById(R.id.txtP1);
@@ -46,6 +54,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         buttonMenos.setOnClickListener(this);
         ivP1 = findViewById(R.id.ivP1);
         ivP2 = findViewById(R.id.ivP2);
+
+        lstPlayerPresenter = new LstPlayerPresenter(this);
+        lstPlayers = new ArrayList<>();
 
 
         createPlayers();
@@ -112,6 +123,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+
+        lstPlayerPresenter.getPlayers();
+
         switch (v.getId()){
             case R.id.buttonMas:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
@@ -133,5 +147,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
                 break;
         }
+    }
+
+    @Override
+    public void successListPlayers(ArrayList<BasketballPlayer> lstPlayers) {
+
+        lstPlayers.get(0).getPlayerId();
+    }
+
+    @Override
+    public void failureListPlayers(String message) {
+
     }
 }
