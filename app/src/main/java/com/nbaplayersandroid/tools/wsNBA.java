@@ -1,6 +1,7 @@
 package com.nbaplayersandroid.tools;
 
 import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.BasketballPlayerList;
 
 import java.util.ArrayList;
 
@@ -10,8 +11,18 @@ import retrofit2.http.Query;
 
 public interface wsNBA {
 
+//    @GET("season_averages")
+//    Call<ArrayList<BasketballPlayer>> getPlayerSeasonAverage(
+//            @Query("player_ids[]") String param1_players,
+//            @Query("season") String param2_season);
+
+//    @GET("season_averages")
+//    Call<JSONObject> getPlayerSeasonAverage(
+//            @Query("player_ids[]") String param1_players,
+//            @Query("season") String param2_season);
+
     @GET("season_averages")
-    Call<ArrayList<BasketballPlayer>> getPlayerSeasonAverage(
+    Call<BasketballPlayerList> getPlayerSeasonAverage(
             @Query("player_ids[]") String param1_players,
             @Query("season") String param2_season);
 

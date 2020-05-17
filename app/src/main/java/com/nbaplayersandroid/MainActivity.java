@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.lst_players.LstPlayerContract;
 import com.nbaplayersandroid.lst_players.LstPlayerPresenter;
 
@@ -150,9 +151,11 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
     @Override
-    public void successListPlayers(ArrayList<BasketballPlayer> lstPlayers) {
+    public void successListPlayers(BasketballPlayerList lstPlayers) {
 
-        lstPlayers.get(0).getPlayerId();
+        //convertimos el basketballplayerlist a arraylist de basketballplayers por probar
+        ArrayList<BasketballPlayer> list = lstPlayers.getBasketballPlayers();
+
     }
 
     @Override

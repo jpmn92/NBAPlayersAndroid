@@ -1,13 +1,14 @@
 package com.nbaplayersandroid.lst_players;
 
 import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.BasketballPlayerList;
 
 import java.util.ArrayList;
 
 public interface LstPlayerContract {
 
     public interface View{
-        void successListPlayers(ArrayList<BasketballPlayer> lstPlayers);
+        void successListPlayers(BasketballPlayerList lstPlayers);
         void failureListPlayers(String message);
     }
 
@@ -17,7 +18,7 @@ public interface LstPlayerContract {
 
     public interface Model{
         interface OnLstPlayerListener{
-            void onFinished(ArrayList<BasketballPlayer> lstPlayers);
+            void onFinished(BasketballPlayerList lstPlayers);
             void onFailure(String error);
         }
 

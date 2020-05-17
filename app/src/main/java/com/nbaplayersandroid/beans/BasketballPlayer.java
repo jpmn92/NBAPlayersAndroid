@@ -1,9 +1,14 @@
-package com.nbaplayersandroid.beans;
+        package com.nbaplayersandroid.beans;
 
+import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BasketballPlayer {
+public class BasketballPlayer implements Serializable, Parcelable
+{
 
     @SerializedName("games_played")
     @Expose
@@ -71,6 +76,51 @@ public class BasketballPlayer {
     @SerializedName("ft_pct")
     @Expose
     private float ftPct;
+    public final static Parcelable.Creator<BasketballPlayer> CREATOR = new Creator<BasketballPlayer>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public BasketballPlayer createFromParcel(Parcel in) {
+            return new BasketballPlayer(in);
+        }
+
+        public BasketballPlayer[] newArray(int size) {
+            return (new BasketballPlayer[size]);
+        }
+
+    }
+            ;
+    private final static long serialVersionUID = -2625881109355125990L;
+
+    protected BasketballPlayer(Parcel in) {
+        this.gamesPlayed = ((int) in.readValue((int.class.getClassLoader())));
+        this.playerId = ((int) in.readValue((int.class.getClassLoader())));
+        this.season = ((int) in.readValue((int.class.getClassLoader())));
+        this.min = ((String) in.readValue((String.class.getClassLoader())));
+        this.fgm = ((float) in.readValue((float.class.getClassLoader())));
+        this.fga = ((float) in.readValue((float.class.getClassLoader())));
+        this.fg3m = ((float) in.readValue((float.class.getClassLoader())));
+        this.fg3a = ((float) in.readValue((float.class.getClassLoader())));
+        this.ftm = ((float) in.readValue((float.class.getClassLoader())));
+        this.fta = ((float) in.readValue((float.class.getClassLoader())));
+        this.oreb = ((float) in.readValue((float.class.getClassLoader())));
+        this.dreb = ((float) in.readValue((float.class.getClassLoader())));
+        this.reb = ((float) in.readValue((float.class.getClassLoader())));
+        this.ast = ((float) in.readValue((float.class.getClassLoader())));
+        this.stl = ((float) in.readValue((float.class.getClassLoader())));
+        this.blk = ((float) in.readValue((float.class.getClassLoader())));
+        this.turnover = ((float) in.readValue((float.class.getClassLoader())));
+        this.pf = ((float) in.readValue((float.class.getClassLoader())));
+        this.pts = ((float) in.readValue((float.class.getClassLoader())));
+        this.fgPct = ((float) in.readValue((float.class.getClassLoader())));
+        this.fg3Pct = ((float) in.readValue((float.class.getClassLoader())));
+        this.ftPct = ((float) in.readValue((float.class.getClassLoader())));
+    }
+
+    public BasketballPlayer() {
+    }
 
     public int getGamesPlayed() {
         return gamesPlayed;
@@ -246,6 +296,35 @@ public class BasketballPlayer {
 
     public void setFtPct(float ftPct) {
         this.ftPct = ftPct;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(gamesPlayed);
+        dest.writeValue(playerId);
+        dest.writeValue(season);
+        dest.writeValue(min);
+        dest.writeValue(fgm);
+        dest.writeValue(fga);
+        dest.writeValue(fg3m);
+        dest.writeValue(fg3a);
+        dest.writeValue(ftm);
+        dest.writeValue(fta);
+        dest.writeValue(oreb);
+        dest.writeValue(dreb);
+        dest.writeValue(reb);
+        dest.writeValue(ast);
+        dest.writeValue(stl);
+        dest.writeValue(blk);
+        dest.writeValue(turnover);
+        dest.writeValue(pf);
+        dest.writeValue(pts);
+        dest.writeValue(fgPct);
+        dest.writeValue(fg3Pct);
+        dest.writeValue(ftPct);
+    }
+
+    public int describeContents() {
+        return 0;
     }
 
 }

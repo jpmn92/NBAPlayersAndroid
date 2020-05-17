@@ -3,6 +3,7 @@ package com.nbaplayersandroid.lst_players;
 import android.os.AsyncTask;
 
 import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.tools.wsNBA;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class LstPlayerModel implements LstPlayerContract.Model {
 
     private OnLstPlayerListener onLstPlayerListener;
     private ArrayList<BasketballPlayer> lstPlayers;
+    private BasketballPlayerList basketballPlayerList;
 
 
     @Override
@@ -51,12 +53,13 @@ public class LstPlayerModel implements LstPlayerContract.Model {
 
             wsNBA service = retrofit.create(wsNBA.class);
 
-//            Call<ArrayList<BasketballPlayer>> response = service.getPlayerSeasonAverage(jugador, temporada);
 
-            Call<ArrayList<BasketballPlayer>> response = service.getAllPlayers();
+            Call<BasketballPlayerList> response = service.getPlayerSeasonAverage(jugador, temporada);
+
+//            Call<ArrayList<BasketballPlayer>> response = service.getAllPlayers();
 
             try {
-                lstPlayers = response.execute().body();
+                basketballPlayerList = response.execute().body();
 
 
             } catch (IOException e) {
@@ -71,7 +74,7 @@ public class LstPlayerModel implements LstPlayerContract.Model {
             try {
                 if (resp) {
                     //al componente reactivo le devuelvo la lista de sesiones
-                    onLstPlayerListener.onFinished(lstPlayers);
+                    onLstPlayerListener.onFinished(basketballPlayerList);
 
 
                 }

@@ -1,6 +1,7 @@
 package com.nbaplayersandroid.lst_players;
 
 import com.nbaplayersandroid.beans.BasketballPlayer;
+import com.nbaplayersandroid.beans.BasketballPlayerList;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class LstPlayerPresenter implements LstPlayerContract.Presenter {
 
         this.modelo.getPlayerService(new LstPlayerContract.Model.OnLstPlayerListener() {
             @Override
-            public void onFinished(ArrayList<BasketballPlayer> lstPlayers) {
+            public void onFinished(BasketballPlayerList lstPlayers) {
                 vista.successListPlayers(lstPlayers);
             }
 
