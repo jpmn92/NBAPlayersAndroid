@@ -88,11 +88,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                list.clear();
+                // list.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                     Object object = dataSnapshot.getValue(Object.class);
                     String json = new Gson().toJson(object);
+                    json = json.substring(json.indexOf('{', 3), json.length()-1);
                     FirebasePlayer fbPlayer = new Gson().fromJson(json, FirebasePlayer.class);
 
                     String name = (String) dataSnapshot.child(FirebaseReferences.JUGADORES_REFERENCE).child("name").getValue();
