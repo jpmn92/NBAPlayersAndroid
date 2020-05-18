@@ -11,6 +11,7 @@ import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
+import com.nbaplayersandroid.tools.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +111,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         record = 0;
         txtRecord.setText(String.valueOf(record));
         System.out.println("Perdiste");
+
     }
 
     private void continueGame() {
@@ -121,6 +123,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     @Override
     public void onClick(View v) {
+
+        DatabaseHelper conn = new DatabaseHelper(this, "preguntas_nba", null, 1);
+
 
         lstPlayerSeasonStatsPresenter.getPlayers();
 
