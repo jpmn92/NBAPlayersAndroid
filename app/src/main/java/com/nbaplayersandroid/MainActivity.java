@@ -3,15 +3,26 @@ package com.nbaplayersandroid;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.nbaplayersandroid.beans.FirebasePlayer;
 import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
-import com.nbaplayersandroid.tools.DatabaseHelper;
+import com.nbaplayersandroid.tools.FirebaseReferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +45,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     LstPlayerSeasonStatsPresenter lstPlayerSeasonStatsPresenter;
     ArrayList<PlayerSeasonStats> lstPlayers;
+
+    DatabaseReference reff;
+    FirebasePlayer fbPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +74,57 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         createPlayers();
         startGame();
+        getFbPlayer();
+
+
+    }
+
+    private void getFbPlayer(){
+
+        ArrayList<FirebasePlayer> list = new ArrayList<>();
+
+        reff = FirebaseDatabase.getInstance().getReference().child(FirebaseReferences.JUGADORES_REFERENCE);
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                list.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Object object = dataSnapshot.getValue(Object.class);
+                    String json = new Gson().toJson(object);
+                    FirebasePlayer fbPlayer = new Gson().fromJson(json, FirebasePlayer.class);
+
+                    String name = (String) dataSnapshot.child(FirebaseReferences.JUGADORES_REFERENCE).child("name").getValue();
+
+//                    list.add(snapshot.getValue());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+    }
+
+    private void createFbPlayer() {
+
+        reff = FirebaseDatabase.getInstance().getReference().child("Jugador");
+        fbPlayer = new FirebasePlayer();
+        fbPlayer.setIdAPI(132);
+        fbPlayer.setIdPlayer(1);
+        fbPlayer.setLastName("Doncic");
+        fbPlayer.setName("Luka");
+        fbPlayer.setUrlImage("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2019/260x190/1629029.png");
+
+        reff.push().setValue(fbPlayer);
     }
 
     private void startGame() {
@@ -112,6 +177,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         txtRecord.setText(String.valueOf(record));
         System.out.println("Perdiste");
 
+
+
     }
 
     private void continueGame() {
@@ -124,7 +191,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     @Override
     public void onClick(View v) {
 
-        DatabaseHelper conn = new DatabaseHelper(this, "preguntas_nba", null, 1);
 
 
         lstPlayerSeasonStatsPresenter.getPlayers();
@@ -164,4 +230,5 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     public void failureListPlayers(String message) {
 
     }
+
 }
