@@ -103,9 +103,11 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-                    Object object = dataSnapshot.getValue(Object.class);
+                    Object object = snapshot.getValue(Object.class);
                     String json = new Gson().toJson(object);
                     FirebasePlayer fbPlayer = new Gson().fromJson(json, FirebasePlayer.class);
+
+
 
                     String name = (String) dataSnapshot.child(FirebaseReferences.JUGADORES_REFERENCE).child("name").getValue();
 
@@ -200,6 +202,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     public void onClick(View v) {
 
 
+//        createFbPlayer();
         lstPlayerSeasonStatsPresenter.getPlayers();
 
         switch (v.getId()) {
