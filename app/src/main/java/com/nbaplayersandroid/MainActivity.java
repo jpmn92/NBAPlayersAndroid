@@ -2,6 +2,7 @@ package com.nbaplayersandroid;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -17,14 +18,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.nbaplayersandroid.beans.FirebasePlayer;
+import com.nbaplayersandroid.beans.FirebasePlayerList;
 import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
 import com.nbaplayersandroid.tools.FirebaseReferences;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends Activity implements View.OnClickListener, LstPlayerSeasonStatsContract.View {
@@ -46,7 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     LstPlayerSeasonStatsPresenter lstPlayerSeasonStatsPresenter;
     ArrayList<PlayerSeasonStats> lstPlayers;
 
-    DatabaseReference reff;
+    DatabaseReference reference;
     FirebasePlayer fbPlayer;
 
     @Override
@@ -79,27 +91,28 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     }
 
-    private void getFbPlayer(){
+    private void getFbPlayer() {
 
         ArrayList<FirebasePlayer> list = new ArrayList<>();
 
-        reff = FirebaseDatabase.getInstance().getReference().child(FirebaseReferences.JUGADORES_REFERENCE);
-        reff.addValueEventListener(new ValueEventListener() {
+        reference = FirebaseDatabase.getInstance().getReference().child(FirebaseReferences.JUGADORES_REFERENCE);
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                // list.clear();
+
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-                    //Object object = dataSnapshot.getValue(Object.class);
-                    Object object = snapshot.getValue();
+                    Object object = snapshot.getValue(Object.class);
                     String json = new Gson().toJson(object);
                     FirebasePlayer fbPlayer = new Gson().fromJson(json, FirebasePlayer.class);
 
-                    // String name = (String) dataSnapshot.child(FirebaseReferences.JUGADORES_REFERENCE).child("name").getValue();
 
-//                    list.add(snapshot.getValue());
+
+                    String name = (String) dataSnapshot.child(FirebaseReferences.JUGADORES_REFERENCE).child("name").getValue();
+
                 }
+
 
             }
 
@@ -109,15 +122,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
             }
         });
 
-
-
-
-
     }
+
 
     private void createFbPlayer() {
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Jugador");
+        reference = FirebaseDatabase.getInstance().getReference().child("Jugador");
         fbPlayer = new FirebasePlayer();
         fbPlayer.setIdAPI(132);
         fbPlayer.setIdPlayer(1);
@@ -125,23 +135,23 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         fbPlayer.setName("Luka");
         fbPlayer.setUrlImage("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2019/260x190/1629029.png");
 
-        reff.push().setValue(fbPlayer);
+        reference.push().setValue(fbPlayer);
     }
 
     private void startGame() {
         record = 0;
         int random = 0;
-        random = (int) (Math.random()* playerOlds.size());
+        random = (int) (Math.random() * playerOlds.size());
         playerOld1 = playerOlds.get(random);
         selectPlayer2();
     }
 
     private void selectPlayer2() {
         int random = 0;
-        do{
-            random = (int) (Math.random()* playerOlds.size());
+        do {
+            random = (int) (Math.random() * playerOlds.size());
             playerOld2 = playerOlds.get(random);
-        } while (playerOld1.getId()-1 == playerOld2.getId()-1 || playerOld1.getContract() == playerOld2.getContract());
+        } while (playerOld1.getId() - 1 == playerOld2.getId() - 1 || playerOld1.getContract() == playerOld2.getContract());
 
         txtP1.setText(playerOld1.getFirstName() + " " + playerOld1.getLastName());
         txtSalary.setText("$" + String.valueOf(playerOld1.getContract()) + "M");
@@ -155,21 +165,21 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         Player_old playerOld;
         playerOld = new Player_old(1, "Doncic", "Luka", 7.3f, (R.drawable.doncic));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(2, "James", "LeBron", 37.43f, ( R.drawable.lebron));
+        playerOld = new Player_old(2, "James", "LeBron", 37.43f, (R.drawable.lebron));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(3, "Curry", "Stephen", 40.2f, ( R.drawable.curry));
+        playerOld = new Player_old(3, "Curry", "Stephen", 40.2f, (R.drawable.curry));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(4, "Durant", "Kevin", 37.2f, ( R.drawable.durant));
+        playerOld = new Player_old(4, "Durant", "Kevin", 37.2f, (R.drawable.durant));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(5, "Gasol", "Marc", 25.6f, ( R.drawable.marc));
+        playerOld = new Player_old(5, "Gasol", "Marc", 25.6f, (R.drawable.marc));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(6, "Siakam", "Pascal", 2.35f, ( R.drawable.siakam));
+        playerOld = new Player_old(6, "Siakam", "Pascal", 2.35f, (R.drawable.siakam));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(7, "Leonard", "Kawhi", 32.74f, ( R.drawable.leonard));
+        playerOld = new Player_old(7, "Leonard", "Kawhi", 32.74f, (R.drawable.leonard));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(8, "Simmons", "Ben", 8.11f, ( R.drawable.simmons));
+        playerOld = new Player_old(8, "Simmons", "Ben", 8.11f, (R.drawable.simmons));
         playerOlds.add(playerOld);
-        playerOld = new Player_old(9, "Porzingis", "Kristaps", 27.28f, ( R.drawable.porzingis));
+        playerOld = new Player_old(9, "Porzingis", "Kristaps", 27.28f, (R.drawable.porzingis));
         playerOlds.add(playerOld);
     }
 
@@ -177,7 +187,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         record = 0;
         txtRecord.setText(String.valueOf(record));
         System.out.println("Perdiste");
-
 
 
     }
@@ -193,26 +202,24 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     public void onClick(View v) {
 
 
-
+//        createFbPlayer();
         lstPlayerSeasonStatsPresenter.getPlayers();
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.buttonMas:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if(playerOld2.getContract() > playerOld1.getContract()){
+                if (playerOld2.getContract() > playerOld1.getContract()) {
                     continueGame();
-                }
-                else{
+                } else {
                     finishGame();
                 }
                 break;
 
             case R.id.buttonMenos:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if(playerOld2.getContract() < playerOld1.getContract()){
+                if (playerOld2.getContract() < playerOld1.getContract()) {
                     continueGame();
-                }
-                else{
+                } else {
                     finishGame();
                 }
                 break;
