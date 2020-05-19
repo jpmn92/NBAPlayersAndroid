@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-NBAPlayersAndroid.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-NBAPlayersAndroid.iml" group="NBAPlayersAndroid" />
-      <module fileurl="file://$PROJECT_DIR$/NBAPlayersAndroid.iml" filepath="$PROJECT_DIR$/NBAPlayersAndroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/NBAPlayersAndroid-app.iml" filepath="$PROJECT_DIR$/app/NBAPlayersAndroid-app.iml" group="NBAPlayersAndroid/app" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NBAPlayersAndroid.iml" filepath="$PROJECT_DIR$/NBAPlayersAndroid.iml" group="NBAPlayersAndroid" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="NBAPlayersAndroid/app" />
     </modules>
   </component>
 </project>

@@ -2,10 +2,7 @@ package com.nbaplayersandroid;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,25 +15,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.nbaplayersandroid.beans.FirebasePlayer;
-import com.nbaplayersandroid.beans.FirebasePlayerList;
 import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
 import com.nbaplayersandroid.tools.FirebaseReferences;
 
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends Activity implements View.OnClickListener, LstPlayerSeasonStatsContract.View {
@@ -60,6 +46,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     DatabaseReference reference;
     FirebasePlayer fbPlayer;
+    FirebasePlayer fbPlayer1;
+    FirebasePlayer fbPlayer2;
+
+    ArrayList<FirebasePlayer> fbPlayerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,19 +73,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
         lstPlayers = new ArrayList<>();
 
-
-        createPlayers();
-        startGame();
         getFbPlayer();
-
-
     }
 
     private void getFbPlayer() {
-
-        ArrayList<FirebasePlayer> list = new ArrayList<>();
-
         reference = FirebaseDatabase.getInstance().getReference().child(FirebaseReferences.JUGADORES_REFERENCE);
+        fbPlayerList = new ArrayList<FirebasePlayer>();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -106,19 +89,15 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                     Object object = snapshot.getValue(Object.class);
                     String json = new Gson().toJson(object);
                     FirebasePlayer fbPlayer = new Gson().fromJson(json, FirebasePlayer.class);
-
-
-
-                    String name = (String) dataSnapshot.child(FirebaseReferences.JUGADORES_REFERENCE).child("name").getValue();
-
+                    fbPlayerList.add(fbPlayer);
                 }
 
+                startGame();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -128,37 +107,43 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     private void createFbPlayer() {
 
         reference = FirebaseDatabase.getInstance().getReference().child("Jugador");
-        fbPlayer = new FirebasePlayer();
-        fbPlayer.setIdAPI(132);
-        fbPlayer.setIdPlayer(1);
-        fbPlayer.setLastName("Doncic");
-        fbPlayer.setName("Luka");
-        fbPlayer.setUrlImage("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2019/260x190/1629029.png");
 
+        fbPlayer = new FirebasePlayer();
+        fbPlayer.setIdAPI(268);
+        fbPlayer.setIdPlayer(21);
+        fbPlayer.setLastName("LaVine");
+        fbPlayer.setName("Zach");
+        fbPlayer.setUrlImage("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612741/2019/260x190/203897.png");
         reference.push().setValue(fbPlayer);
+
+
     }
 
     private void startGame() {
         record = 0;
         int random = 0;
-        random = (int) (Math.random() * playerOlds.size());
-        playerOld1 = playerOlds.get(random);
+        random = (int) (Math.random() * fbPlayerList.size());
+        fbPlayer1 = fbPlayerList.get(random);
         selectPlayer2();
     }
 
     private void selectPlayer2() {
         int random = 0;
         do {
-            random = (int) (Math.random() * playerOlds.size());
-            playerOld2 = playerOlds.get(random);
-        } while (playerOld1.getId() - 1 == playerOld2.getId() - 1 || playerOld1.getContract() == playerOld2.getContract());
+            random = (int) (Math.random() * fbPlayerList.size());
+            fbPlayer2 = fbPlayerList.get(random);
+        } while (fbPlayer1.getIdPlayer() == fbPlayer2.getIdPlayer());
 
-        txtP1.setText(playerOld1.getFirstName() + " " + playerOld1.getLastName());
-        txtSalary.setText("$" + String.valueOf(playerOld1.getContract()) + "M");
-        ivP1.setImageResource(playerOld1.getImage());
-        txtP2.setText(playerOld2.getFirstName() + " " + playerOld2.getLastName());
-        ivP2.setImageResource(playerOld2.getImage());
-        txtRecord.setText(String.valueOf(record));
+        System.out.println("Jugador 1: " + fbPlayer1.getName() + " " + fbPlayer1.getLastName());
+        System.out.println("Jugador 2: " + fbPlayer2.getName() + " " + fbPlayer2.getLastName());
+        System.out.println();
+
+//        txtP1.setText(playerOld1.getFirstName() + " " + playerOld1.getLastName());
+//        txtSalary.setText("$" + String.valueOf(playerOld1.getContract()) + "M");
+//        ivP1.setImageResource(playerOld1.getImage());
+//        txtP2.setText(playerOld2.getFirstName() + " " + playerOld2.getLastName());
+//        ivP2.setImageResource(playerOld2.getImage());
+//        txtRecord.setText(String.valueOf(record));
     }
 
     private void createPlayers() {
