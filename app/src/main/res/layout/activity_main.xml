@@ -60,18 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <ImageButton
-                android:id="@+id/buttonMas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/arrow_up_float" />
-
-            <ImageButton
-                android:id="@+id/buttonMenos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/arrow_down_float" />
-
         </LinearLayout>
 
     </LinearLayout>

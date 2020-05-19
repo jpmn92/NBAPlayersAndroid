@@ -21,6 +21,7 @@ import com.nbaplayersandroid.beans.BasketballPlayerList;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
 import com.nbaplayersandroid.tools.FirebaseReferences;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     TextView txtP2;
     TextView txtRecord;
     TextView txtSalary;
-    ImageButton buttonMas;
-    ImageButton buttonMenos;
     ImageView ivP1;
     ImageView ivP2;
 
@@ -63,17 +62,15 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         txtP2 = findViewById(R.id.txtP2);
         txtSalary = findViewById(R.id.txtSalary);
         txtRecord = findViewById(R.id.txtRecord);
-        buttonMas = findViewById(R.id.buttonMas);
-        buttonMas.setOnClickListener(this);
-        buttonMenos = findViewById(R.id.buttonMenos);
-        buttonMenos.setOnClickListener(this);
         ivP1 = findViewById(R.id.ivP1);
+        ivP1.setOnClickListener(this);
         ivP2 = findViewById(R.id.ivP2);
+        ivP2.setOnClickListener(this);
 
         lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
         lstPlayers = new ArrayList<>();
 
-        getFbPlayer();
+        getFbPlayer(); // Esto no funciona si llamamos a algo despues ACOJONANTE
     }
 
     private void getFbPlayer() {
@@ -138,12 +135,20 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         System.out.println("Jugador 2: " + fbPlayer2.getName() + " " + fbPlayer2.getLastName());
         System.out.println();
 
+
+        txtP1.setText(fbPlayer1.getName() + " " + fbPlayer1.getLastName());
+        txtP2.setText(fbPlayer2.getName() + " " + fbPlayer2.getLastName());
+
+        Picasso.with(this).load(fbPlayer1.getUrlImage()).into(ivP1);
+        Picasso.with(this).load(fbPlayer2.getUrlImage()).into(ivP2);
+
+        txtRecord.setText(String.valueOf(record));
+
 //        txtP1.setText(playerOld1.getFirstName() + " " + playerOld1.getLastName());
 //        txtSalary.setText("$" + String.valueOf(playerOld1.getContract()) + "M");
 //        ivP1.setImageResource(playerOld1.getImage());
 //        txtP2.setText(playerOld2.getFirstName() + " " + playerOld2.getLastName());
 //        ivP2.setImageResource(playerOld2.getImage());
-//        txtRecord.setText(String.valueOf(record));
     }
 
     private void createPlayers() {
@@ -172,13 +177,14 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         record = 0;
         txtRecord.setText(String.valueOf(record));
         System.out.println("Perdiste");
+        //continueGame();
 
 
     }
 
     private void continueGame() {
         record++;
-        playerOld1 = playerOld2;
+        fbPlayer1 = fbPlayer2;
         selectPlayer2();
 
     }
@@ -191,18 +197,18 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         lstPlayerSeasonStatsPresenter.getPlayers();
 
         switch (v.getId()) {
-            case R.id.buttonMas:
+            case R.id.ivP2:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if (playerOld2.getContract() > playerOld1.getContract()) {
+                if (fbPlayer2.getIdPlayer() > fbPlayer1.getIdPlayer()) {
                     continueGame();
                 } else {
                     finishGame();
                 }
                 break;
 
-            case R.id.buttonMenos:
+            case R.id.ivP1:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if (playerOld2.getContract() < playerOld1.getContract()) {
+                if (fbPlayer2.getIdPlayer() < fbPlayer1.getIdPlayer()) {
                     continueGame();
                 } else {
                     finishGame();
