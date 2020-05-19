@@ -1,6 +1,9 @@
 package com.nbaplayersandroid;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,6 +27,7 @@ import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContra
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
 import com.nbaplayersandroid.tools.FirebaseReferences;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +68,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         txtP1 = findViewById(R.id.txtP1);
         txtP2 = findViewById(R.id.txtP2);
-        txtSalary = findViewById(R.id.txtSalary);
+        //txtSalary = findViewById(R.id.txtSalary);
         txtRecord = findViewById(R.id.txtRecord);
         ivP1 = findViewById(R.id.ivP1);
         ivP2 = findViewById(R.id.ivP2);
@@ -184,21 +188,58 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         int randomT2 = (int) (Math.random() * fbTeamList.size());
         // Fin prueba
 
+        //Para trucar a LeBron y Doncic
+//        fbPlayer1 = fbPlayerList.get(0);
+//        randomT = 13;
+//        fbPlayer2 = fbPlayerList.get(3);
+//        randomT2 = 6;
+        // Comentar hasta aqui para no trucarlos
+
+
         txtP1.setText(fbPlayer1.getName() + " " + fbPlayer1.getLastName());
         txtP2.setText(fbPlayer2.getName() + " " + fbPlayer2.getLastName());
 
         Picasso.with(this).load(fbPlayer1.getUrlImage()).into(ivP1);
         Picasso.with(this).load(fbTeamList.get(randomT).getUrlImage()).into(ivT1);
+
+        //Para cambiar el fondo, se podrá mejorar
+        Picasso.with(this).load(fbTeamList.get(randomT).getUrlBackground()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                linJ1.setBackground(new BitmapDrawable(bitmap));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+        Picasso.with(this).load(fbTeamList.get(randomT2).getUrlBackground()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                linJ2.setBackground(new BitmapDrawable(bitmap));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+
         Picasso.with(this).load(fbPlayer2.getUrlImage()).into(ivP2);
         Picasso.with(this).load(fbTeamList.get(randomT2).getUrlImage()).into(ivT2);
 
         txtRecord.setText(String.valueOf(record));
-
-//        txtP1.setText(playerOld1.getFirstName() + " " + playerOld1.getLastName());
-//        txtSalary.setText("$" + String.valueOf(playerOld1.getContract()) + "M");
-//        ivP1.setImageResource(playerOld1.getImage());
-//        txtP2.setText(playerOld2.getFirstName() + " " + playerOld2.getLastName());
-//        ivP2.setImageResource(playerOld2.getImage());
     }
 
     private void finishGame() {

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorAccent"
+            android:background="#D80E0E"
             android:orientation="vertical">
 
             <LinearLayout
@@ -52,11 +52,6 @@
                     android:layout_weight="1"
                     android:src="@drawable/azul" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/txtSalary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
