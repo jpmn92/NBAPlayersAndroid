@@ -1,6 +1,6 @@
 package com.nbaplayersandroid.lst_players_season_stats;
 
-import com.nbaplayersandroid.beans.BasketballPlayerList;
+import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
 
 public class LstPlayerSeasonStatsPresenter implements LstPlayerSeasonStatsContract.Presenter {
 
@@ -13,12 +13,12 @@ public class LstPlayerSeasonStatsPresenter implements LstPlayerSeasonStatsContra
     }
 
     @Override
-    public void getPlayers() {
+    public void getSeasonStatsPlayer() {
 
         this.modelo.getPlayerService(new LstPlayerSeasonStatsContract.Model.OnLstPlayerListener() {
             @Override
-            public void onFinished(BasketballPlayerList lstPlayers) {
-                vista.successListPlayers(lstPlayers);
+            public void onFinished(PlayerSeasonStatsList lstPlayers) {
+                vista.successListSeasonStatsPlayers(lstPlayers);
             }
 
             @Override

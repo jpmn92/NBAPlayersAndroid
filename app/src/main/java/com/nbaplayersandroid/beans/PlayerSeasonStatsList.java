@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class BasketballPlayerList {
+public class PlayerSeasonStatsList {
 
     @SerializedName("data")
     private ArrayList<PlayerSeasonStats> playerSeasonStats;

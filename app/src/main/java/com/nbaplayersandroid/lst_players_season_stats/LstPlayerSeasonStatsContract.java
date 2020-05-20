@@ -1,21 +1,21 @@
 package com.nbaplayersandroid.lst_players_season_stats;
 
-import com.nbaplayersandroid.beans.BasketballPlayerList;
+import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
 
 public interface LstPlayerSeasonStatsContract {
 
     public interface View{
-        void successListPlayers(BasketballPlayerList lstPlayers);
-        void failureListPlayers(String message);
+        void successListSeasonStatsPlayers(PlayerSeasonStatsList lstPlayers);
+        void failureListSeasonStatsPlayers(String message);
     }
 
     public interface Presenter{
-        void getPlayers();
+        void getSeasonStatsPlayer();
     }
 
     public interface Model{
         interface OnLstPlayerListener{
-            void onFinished(BasketballPlayerList lstPlayers);
+            void onFinished(PlayerSeasonStatsList lstPlayers);
             void onFailure(String error);
         }
 

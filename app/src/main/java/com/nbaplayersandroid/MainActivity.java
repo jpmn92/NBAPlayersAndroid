@@ -6,7 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,10 +18,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.nbaplayersandroid.beans.BasketballPlayer;
 import com.nbaplayersandroid.beans.FirebasePlayer;
 import com.nbaplayersandroid.beans.FirebaseTeam;
 import com.nbaplayersandroid.beans.PlayerSeasonStats;
-import com.nbaplayersandroid.beans.BasketballPlayerList;
+import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
+import com.nbaplayersandroid.lst_players_data.LstPlayerDataContract;
+import com.nbaplayersandroid.lst_players_data.LstPlayerDataPresenter;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
 import com.nbaplayersandroid.tools.FirebaseReferences;
@@ -30,9 +32,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends Activity implements View.OnClickListener, LstPlayerSeasonStatsContract.View {
+public class MainActivity extends Activity implements View.OnClickListener, LstPlayerSeasonStatsContract.View, LstPlayerDataContract.View {
 
     int record;
 
@@ -40,6 +41,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     TextView txtP2;
     TextView txtRecord;
     TextView txtSalary;
+    TextView txtPregunta;
     ImageView ivP1;
     ImageView ivP2;
     ImageView ivT1;
@@ -49,6 +51,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     LstPlayerSeasonStatsPresenter lstPlayerSeasonStatsPresenter;
     ArrayList<PlayerSeasonStats> lstPlayers;
+
+    LstPlayerDataPresenter lstPlayerDataPresenter;
+    ArrayList<BasketballPlayer> basketballPlayers;
 
     DatabaseReference reference;
     FirebasePlayer fbPlayer;
@@ -65,7 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         setContentView(R.layout.activity_main);
 
         //Instanciamos presenter
-
+        txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
         txtP2 = findViewById(R.id.txtP2);
         //txtSalary = findViewById(R.id.txtSalary);
@@ -79,10 +84,23 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         linJ2 = findViewById(R.id.linJ2);
         linJ2.setOnClickListener(this);
 
+
+
         lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
+        lstPlayerDataPresenter = new LstPlayerDataPresenter(this);
         lstPlayers = new ArrayList<>();
         getFbTeams();
         getFbPlayer(); // Esto no funciona si llamamos a algo despues ACOJONANTE
+
+        txtPregunta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                lstPlayerDataPresenter.getPlayers("370");
+
+            }
+        });
+
     }
 
     private void getFbPlayer() {
@@ -263,7 +281,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
 
 //        createFbPlayer();
-        lstPlayerSeasonStatsPresenter.getPlayers();
+//        lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer();
 
         switch (v.getId()) {
             case R.id.linJ2:
@@ -286,11 +304,22 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         }
     }
 
-    @Override
-    public void successListPlayers(BasketballPlayerList lstPlayers) {
 
-        //convertimos el basketballplayerlist a arraylist de basketballplayers por probar
-        ArrayList<PlayerSeasonStats> list = lstPlayers.getPlayerSeasonStats();
+
+    @Override
+    public void successListSeasonStatsPlayers(PlayerSeasonStatsList lstPlayers) {
+
+    }
+
+    @Override
+    public void failureListSeasonStatsPlayers(String message) {
+
+    }
+
+    @Override
+    public void successListPlayers(BasketballPlayer playerData) {
+
+        String lastName = playerData.getLastName();
 
     }
 
@@ -298,5 +327,4 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     public void failureListPlayers(String message) {
 
     }
-
 }

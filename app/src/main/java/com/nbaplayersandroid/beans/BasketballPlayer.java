@@ -12,16 +12,16 @@ public class BasketballPlayer implements Serializable, Parcelable
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private float id;
     @SerializedName("first_name")
     @Expose
     private String firstName;
     @SerializedName("height_feet")
     @Expose
-    private Object heightFeet;
+    private float heightFeet;
     @SerializedName("height_inches")
     @Expose
-    private Object heightInches;
+    private float heightInches;
     @SerializedName("last_name")
     @Expose
     private String lastName;
@@ -33,7 +33,7 @@ public class BasketballPlayer implements Serializable, Parcelable
     private Team team;
     @SerializedName("weight_pounds")
     @Expose
-    private Object weightPounds;
+    private float weightPounds;
     public final static Parcelable.Creator<BasketballPlayer> CREATOR = new Creator<BasketballPlayer>() {
 
 
@@ -50,27 +50,54 @@ public class BasketballPlayer implements Serializable, Parcelable
 
     }
             ;
-    private final static long serialVersionUID = 8161452363399736315L;
+    private final static long serialVersionUID = -3701246300664134129L;
 
     protected BasketballPlayer(Parcel in) {
-        this.id = ((int) in.readValue((int.class.getClassLoader())));
+        this.id = ((float) in.readValue((float.class.getClassLoader())));
         this.firstName = ((String) in.readValue((String.class.getClassLoader())));
-        this.heightFeet = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.heightInches = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.heightFeet = ((float) in.readValue((float.class.getClassLoader())));
+        this.heightInches = ((float) in.readValue((float.class.getClassLoader())));
         this.lastName = ((String) in.readValue((String.class.getClassLoader())));
         this.position = ((String) in.readValue((String.class.getClassLoader())));
         this.team = ((Team) in.readValue((Team.class.getClassLoader())));
-        this.weightPounds = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.weightPounds = ((float) in.readValue((float.class.getClassLoader())));
     }
 
+    /**
+     * No args constructor for use in serialization
+     *
+     */
     public BasketballPlayer() {
     }
 
-    public int getId() {
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param weightPounds
+     * @param heightInches
+     * @param id
+     * @param heightFeet
+     * @param position
+     * @param team
+     */
+    public BasketballPlayer(float id, String firstName, float heightFeet, float heightInches, String lastName, String position, Team team, float weightPounds) {
+        super();
+        this.id = id;
+        this.firstName = firstName;
+        this.heightFeet = heightFeet;
+        this.heightInches = heightInches;
+        this.lastName = lastName;
+        this.position = position;
+        this.team = team;
+        this.weightPounds = weightPounds;
+    }
+
+    public float getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(float id) {
         this.id = id;
     }
 
@@ -82,19 +109,19 @@ public class BasketballPlayer implements Serializable, Parcelable
         this.firstName = firstName;
     }
 
-    public Object getHeightFeet() {
+    public float getHeightFeet() {
         return heightFeet;
     }
 
-    public void setHeightFeet(Object heightFeet) {
+    public void setHeightFeet(float heightFeet) {
         this.heightFeet = heightFeet;
     }
 
-    public Object getHeightInches() {
+    public float getHeightInches() {
         return heightInches;
     }
 
-    public void setHeightInches(Object heightInches) {
+    public void setHeightInches(float heightInches) {
         this.heightInches = heightInches;
     }
 
@@ -122,11 +149,11 @@ public class BasketballPlayer implements Serializable, Parcelable
         this.team = team;
     }
 
-    public Object getWeightPounds() {
+    public float getWeightPounds() {
         return weightPounds;
     }
 
-    public void setWeightPounds(Object weightPounds) {
+    public void setWeightPounds(float weightPounds) {
         this.weightPounds = weightPounds;
     }
 

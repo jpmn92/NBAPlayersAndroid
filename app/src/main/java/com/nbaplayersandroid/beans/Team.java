@@ -12,7 +12,7 @@ public class Team implements Serializable, Parcelable
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private float id;
     @SerializedName("abbreviation")
     @Expose
     private String abbreviation;
@@ -47,10 +47,10 @@ public class Team implements Serializable, Parcelable
 
     }
             ;
-    private final static long serialVersionUID = -4120927843212369857L;
+    private final static long serialVersionUID = -8586768053796822501L;
 
     protected Team(Parcel in) {
-        this.id = ((int) in.readValue((int.class.getClassLoader())));
+        this.id = ((float) in.readValue((float.class.getClassLoader())));
         this.abbreviation = ((String) in.readValue((String.class.getClassLoader())));
         this.city = ((String) in.readValue((String.class.getClassLoader())));
         this.conference = ((String) in.readValue((String.class.getClassLoader())));
@@ -59,14 +59,39 @@ public class Team implements Serializable, Parcelable
         this.name = ((String) in.readValue((String.class.getClassLoader())));
     }
 
+    /**
+     * No args constructor for use in serialization
+     *
+     */
     public Team() {
     }
 
-    public int getId() {
+    /**
+     *
+     * @param division
+     * @param conference
+     * @param city
+     * @param name
+     * @param fullName
+     * @param id
+     * @param abbreviation
+     */
+    public Team(float id, String abbreviation, String city, String conference, String division, String fullName, String name) {
+        super();
+        this.id = id;
+        this.abbreviation = abbreviation;
+        this.city = city;
+        this.conference = conference;
+        this.division = division;
+        this.fullName = fullName;
+        this.name = name;
+    }
+
+    public float getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(float id) {
         this.id = id;
     }
 
