@@ -10,7 +10,7 @@ public interface LstPlayerSeasonStatsContract {
     }
 
     public interface Presenter{
-        void getSeasonStatsPlayer();
+        void getSeasonStatsPlayer(String id_api, String season);
     }
 
     public interface Model{
@@ -21,7 +21,7 @@ public interface LstPlayerSeasonStatsContract {
 
         void getPlayerService(
 
-                OnLstPlayerListener onLstPlayerListener
+                OnLstPlayerListener onLstPlayerListener, String id_api, String season
         );
     }
 }

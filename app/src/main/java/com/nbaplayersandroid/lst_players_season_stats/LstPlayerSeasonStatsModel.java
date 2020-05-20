@@ -2,6 +2,8 @@ package com.nbaplayersandroid.lst_players_season_stats;
 
 import android.os.AsyncTask;
 
+import com.google.gson.Gson;
+import com.nbaplayersandroid.beans.BasketballPlayer;
 import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
 import com.nbaplayersandroid.tools.wsNBA;
@@ -18,22 +20,26 @@ public class LstPlayerSeasonStatsModel implements LstPlayerSeasonStatsContract.M
     private OnLstPlayerListener onLstPlayerListener;
     private ArrayList<PlayerSeasonStats> lstPlayers;
     private PlayerSeasonStatsList playerSeasonStatsList;
+    private String id_api;
+    private String season;
 
 
     @Override
-    public void getPlayerService(final OnLstPlayerListener onLstPlayerListener) {
+    public void getPlayerService(final OnLstPlayerListener onLstPlayerListener, String id_api, String season) {
 
         this.onLstPlayerListener = onLstPlayerListener;
+        this.id_api = id_api;
+        this.season = season;
 
-        new PeticionGetPlayers().execute();
+        new PeticionGetPlayerStats().execute();
 
 
     }
 
 
-    public class PeticionGetPlayers extends AsyncTask<Void, Void, Boolean> {
+    public class PeticionGetPlayerStats extends AsyncTask<Void, Void, Boolean> {
 
-        public PeticionGetPlayers() {
+        public PeticionGetPlayerStats() {
             super();
 
         }
@@ -41,10 +47,10 @@ public class LstPlayerSeasonStatsModel implements LstPlayerSeasonStatsContract.M
         @Override
         protected Boolean doInBackground(Void... voids) {
 
-
+            String statsJson;
             String url = "https://www.balldontlie.io/api/v1/";
-            String jugador = "237";
-            String temporada = "2018";
+//            String jugador = "237";
+//            String temporada = "2018";
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(url)
@@ -54,12 +60,13 @@ public class LstPlayerSeasonStatsModel implements LstPlayerSeasonStatsContract.M
             wsNBA service = retrofit.create(wsNBA.class);
 
 
-            Call<PlayerSeasonStatsList> response = service.getPlayerSeasonAverage(jugador, temporada);
+            Call<PlayerSeasonStatsList> response = service.getPlayerSeasonAverage(id_api, season);
 
 //            Call<ArrayList<BasketballPlayer>> response = service.getAllPlayers();
 
             try {
-                playerSeasonStatsList = response.execute().body();
+                statsJson = new Gson().toJson(response.execute().body());
+                playerSeasonStatsList = new Gson().fromJson(statsJson, PlayerSeasonStatsList.class);
 
 
             } catch (IOException e) {

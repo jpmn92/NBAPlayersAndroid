@@ -13,7 +13,7 @@ public class LstPlayerSeasonStatsPresenter implements LstPlayerSeasonStatsContra
     }
 
     @Override
-    public void getSeasonStatsPlayer() {
+    public void getSeasonStatsPlayer(String id_api, String season) {
 
         this.modelo.getPlayerService(new LstPlayerSeasonStatsContract.Model.OnLstPlayerListener() {
             @Override
@@ -25,7 +25,7 @@ public class LstPlayerSeasonStatsPresenter implements LstPlayerSeasonStatsContra
             public void onFailure(String error) {
 
             }
-        });
+        }, id_api, season);
 
 
 

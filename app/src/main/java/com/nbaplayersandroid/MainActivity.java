@@ -40,7 +40,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     TextView txtP1;
     TextView txtP2;
     TextView txtRecord;
-    TextView txtSalary;
     TextView txtPregunta;
     ImageView ivP1;
     ImageView ivP2;
@@ -60,15 +59,27 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     FirebasePlayer fbPlayer1;
     FirebasePlayer fbPlayer2;
     FirebaseTeam fbTeam;
+    FirebaseTeam fbTeam1;
+    FirebaseTeam fbTeam2;
 
     ArrayList<FirebasePlayer> fbPlayerList;
     ArrayList<FirebaseTeam> fbTeamList;
+
+    BasketballPlayer basketballPlayer1;
+    BasketballPlayer basketballPlayer2;
+
+    PlayerSeasonStats playerSeasonStats1;
+    PlayerSeasonStats playerSeasonStats2;
+
+    boolean gameStarted;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        gameStarted = false;
         //Instanciamos presenter
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
@@ -89,21 +100,22 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
         lstPlayerDataPresenter = new LstPlayerDataPresenter(this);
         lstPlayers = new ArrayList<>();
+        //lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer("237", "2019");
         getFbTeams();
-        getFbPlayer(); // Esto no funciona si llamamos a algo despues ACOJONANTE
+        getFbPlayers(); // Esto no funciona si llamamos a algo despues ACOJONANTE
 
-        txtPregunta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                lstPlayerDataPresenter.getPlayers("370");
-
-            }
-        });
+//        txtPregunta.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                lstPlayerDataPresenter.getPlayers("370");
+//
+//            }
+//        });
 
     }
 
-    private void getFbPlayer() {
+    private void getFbPlayers() {
         reference = FirebaseDatabase.getInstance().getReference().child(FirebaseReferences.JUGADORES_REFERENCE);
         fbPlayerList = new ArrayList<FirebasePlayer>();
         reference.addValueEventListener(new ValueEventListener() {
@@ -191,7 +203,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         int random = 0;
         random = (int) (Math.random() * fbPlayerList.size());
         fbPlayer1 = fbPlayerList.get(random);
-        selectPlayer2();
+        lstPlayerDataPresenter.getPlayers(String.valueOf(fbPlayer1.getIdAPI()));
     }
 
     private void selectPlayer2() {
@@ -201,63 +213,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
             fbPlayer2 = fbPlayerList.get(random);
         } while (fbPlayer1.getIdPlayer() == fbPlayer2.getIdPlayer());
 
-        //Prueba para escudos
-        int randomT = (int) (Math.random() * fbTeamList.size());
-        int randomT2 = (int) (Math.random() * fbTeamList.size());
-        // Fin prueba
+        lstPlayerDataPresenter.getPlayers(String.valueOf(fbPlayer2.getIdAPI()));
 
-        //Para trucar a LeBron y Doncic
-//        fbPlayer1 = fbPlayerList.get(0);
-//        randomT = 13;
-//        fbPlayer2 = fbPlayerList.get(3);
-//        randomT2 = 6;
-        // Comentar hasta aqui para no trucarlos
-
-
-        txtP1.setText(fbPlayer1.getName() + " " + fbPlayer1.getLastName());
-        txtP2.setText(fbPlayer2.getName() + " " + fbPlayer2.getLastName());
-
-        Picasso.with(this).load(fbPlayer1.getUrlImage()).into(ivP1);
-        Picasso.with(this).load(fbTeamList.get(randomT).getUrlImage()).into(ivT1);
-
-        //Para cambiar el fondo, se podrá mejorar
-        Picasso.with(this).load(fbTeamList.get(randomT).getUrlBackground()).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                linJ1.setBackground(new BitmapDrawable(bitmap));
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        });
-        Picasso.with(this).load(fbTeamList.get(randomT2).getUrlBackground()).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                linJ2.setBackground(new BitmapDrawable(bitmap));
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        });
-
-        Picasso.with(this).load(fbPlayer2.getUrlImage()).into(ivP2);
-        Picasso.with(this).load(fbTeamList.get(randomT2).getUrlImage()).into(ivT2);
-
-        txtRecord.setText(String.valueOf(record));
     }
 
     private void finishGame() {
@@ -271,31 +228,98 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     private void continueGame() {
         record++;
+        basketballPlayer1 = basketballPlayer2;
+        playerSeasonStats1 = playerSeasonStats2;
         fbPlayer1 = fbPlayer2;
+        fbTeam1 = fbTeam2;
         selectPlayer2();
 
+    }
+
+    private void recogerDatos(){
+
+        int team1 = (int) basketballPlayer1.getTeam().getId() - 1;
+        int team2 = (int) basketballPlayer2.getTeam().getId() - 1;
+
+
+        txtP1.setText(fbPlayer1.getName() + " " + fbPlayer1.getLastName());
+        txtP2.setText(fbPlayer2.getName() + " " + fbPlayer2.getLastName());
+
+        Picasso.with(this).load(fbPlayer1.getUrlImage()).into(ivP1);
+        Picasso.with(this).load(fbTeamList.get(team1).getUrlImage()).into(ivT1);
+
+        txtP1.setText(fbPlayer1.getName() + " " + fbPlayer1.getLastName());
+        txtP2.setText(fbPlayer2.getName() + " " + fbPlayer2.getLastName());
+
+        //Para cambiar el fondo, se podrá mejorar
+//        Picasso.with(this).load(fbTeamList.get(team1).getUrlBackground()).into(new Target() {
+//            @Override
+//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                linJ1.setBackground(new BitmapDrawable(bitmap));
+//            }
+//
+//            @Override
+//            public void onBitmapFailed(Drawable errorDrawable) {
+//
+//            }
+//
+//            @Override
+//            public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//            }
+//        });
+//        Picasso.with(this).load(fbTeamList.get(team2).getUrlBackground()).into(new Target() {
+//            @Override
+//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                linJ2.setBackground(new BitmapDrawable(bitmap));
+//            }
+//
+//            @Override
+//            public void onBitmapFailed(Drawable errorDrawable) {
+//
+//            }
+//
+//            @Override
+//            public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//            }
+//        });
+
+        Picasso.with(this).load(fbPlayer2.getUrlImage()).into(ivP2);
+        Picasso.with(this).load(fbTeamList.get(team2).getUrlImage()).into(ivT2);
+
+        txtRecord.setText(String.valueOf(record));
     }
 
     @Override
     public void onClick(View v) {
 
-
-//        createFbPlayer();
-//        lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer();
-
         switch (v.getId()) {
             case R.id.linJ2:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if (fbPlayer2.getIdPlayer() > fbPlayer1.getIdPlayer()) {
+//                if (fbPlayer2.getIdPlayer() > fbPlayer1.getIdPlayer()) {
+//                    continueGame();
+//                } else {
+//                    finishGame();
+//                }
+
+                if(playerSeasonStats2.getFg3Pct() > playerSeasonStats1.getFg3Pct()) {
                     continueGame();
                 } else {
                     finishGame();
                 }
                 break;
 
+
+
             case R.id.linJ1:
                 //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-                if (fbPlayer2.getIdPlayer() < fbPlayer1.getIdPlayer()) {
+//                if (fbPlayer2.getIdPlayer() < fbPlayer1.getIdPlayer()) {
+//                    continueGame();
+//                } else {
+//                    finishGame();
+//                }
+                if(playerSeasonStats2.getFg3Pct() < playerSeasonStats1.getFg3Pct()) {
                     continueGame();
                 } else {
                     finishGame();
@@ -308,7 +332,16 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     @Override
     public void successListSeasonStatsPlayers(PlayerSeasonStatsList lstPlayers) {
-
+        if(!gameStarted){
+            playerSeasonStats1 = lstPlayers.getPlayerSeasonStats().get(0);
+            gameStarted = true;
+            selectPlayer2();
+        }
+        else{
+            playerSeasonStats2 = lstPlayers.getPlayerSeasonStats().get(0);
+            recogerDatos();
+        }
+        float pct3 = lstPlayers.getPlayerSeasonStats().get(0).getFg3Pct();
     }
 
     @Override
@@ -318,8 +351,19 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     @Override
     public void successListPlayers(BasketballPlayer playerData) {
+        if(!gameStarted){
+            basketballPlayer1 = playerData;
+            lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer(String.valueOf((int)basketballPlayer1.getId()), "2019");
 
-        String lastName = playerData.getLastName();
+        }
+        else{
+
+            basketballPlayer2 = playerData;
+            lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer(String.valueOf((int)basketballPlayer2.getId()), "2019");
+
+            //String lastName = playerData.getLastName();
+        }
+
 
     }
 
