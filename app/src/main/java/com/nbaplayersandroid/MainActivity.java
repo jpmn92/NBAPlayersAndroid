@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -221,6 +222,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         record = 0;
         txtRecord.setText(String.valueOf(record));
         System.out.println("Perdiste");
+        Toast.makeText(this, "PERDISTE", Toast.LENGTH_SHORT).show();
         //continueGame();
 
 
