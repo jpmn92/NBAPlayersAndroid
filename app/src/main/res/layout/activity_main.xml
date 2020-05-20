@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -56,12 +56,6 @@
                         android:src="@drawable/doncic"
                         />
 
-                    <TextView
-                        android:id="@+id/txtP1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:background="#BFBFBF"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -88,14 +82,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@android:drawable/progress_indeterminate_horizontal"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-
 
 
                 <LinearLayout
@@ -110,13 +103,8 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/doncic" />
 
-                    <TextView
-                        android:id="@+id/txtP2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:background="#BFBFBF"/>
                 </LinearLayout>
+
                 <ImageView
                     android:id="@+id/ivTeam2"
 
@@ -126,16 +114,47 @@
                     android:src="@drawable/ejemplo_logo" />
 
 
-
             </LinearLayout>
 
             <Button
+                android:id="@+id/btnObtener"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="OBTIENE PLAYERS"
-                android:id="@+id/btnObtener"></Button>
+                android:text="OBTIENE PLAYERS"></Button>
 
         </LinearLayout>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtP1"
+            android:layout_width="match_parent"
+            android:layout_height="381dp"
+            android:background="#00BFBFBF"
+            android:gravity="center|clip_vertical"
+            android:text="dshfjkshsd"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="36sp"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/txtP2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00BFBFBF"
+            android:gravity="center|clip_vertical"
+            android:text="djkfhkjshd"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="36sp"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</RelativeLayout>

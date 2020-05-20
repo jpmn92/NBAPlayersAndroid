@@ -1,9 +1,7 @@
 package com.nbaplayersandroid;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,8 +27,8 @@ import com.nbaplayersandroid.lst_players_data.LstPlayerDataPresenter;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
 import com.nbaplayersandroid.tools.FirebaseReferences;
+import com.nbaplayersandroid.tools.Mode;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -72,20 +70,33 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     PlayerSeasonStats playerSeasonStats1;
     PlayerSeasonStats playerSeasonStats2;
 
+    float valueP1;
+    float valueP2;
+
     boolean gameStarted;
+
+    String mode;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //txtP1.setVisibility(View.INVISIBLE);
+
 
         gameStarted = false;
+        mode = Mode.PORCENTAJE_TRIPLE;
         //Instanciamos presenter
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
+        txtP1.setTextColor(Color.RED);
+        txtP1.setTextSize(100);
+        txtP1.setVisibility(View.GONE);
         txtP2 = findViewById(R.id.txtP2);
-        //txtSalary = findViewById(R.id.txtSalary);
+        txtP2.setTextSize(100);
+        txtP2.setTextColor(Color.RED);
+        txtP2.setVisibility(View.GONE);
         txtRecord = findViewById(R.id.txtRecord);
         ivP1 = findViewById(R.id.ivP1);
         ivP2 = findViewById(R.id.ivP2);
@@ -229,6 +240,22 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
     private void continueGame() {
+        txtP1.setText(String.valueOf(valueP1));
+        txtP2.setText(String.valueOf(valueP2));
+        txtP1.setVisibility(View.VISIBLE);
+        txtP2.setVisibility(View.VISIBLE);
+        txtP1.postDelayed(new Runnable() { public void run() { txtP1.setVisibility(View.GONE); } }, 1000);
+        txtP2.postDelayed(new Runnable() { public void run() { txtP2.setVisibility(View.GONE); } }, 1000);
+//        Animacion animacion = new Animacion();
+//        txtP1.setVisibility(View.VISIBLE);
+//        animacion.start();
+//        try {
+//            animacion.join();
+//            txtP1.setVisibility(View.GONE);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
         record++;
         basketballPlayer1 = basketballPlayer2;
         playerSeasonStats1 = playerSeasonStats2;
@@ -291,6 +318,23 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         Picasso.with(this).load(fbTeamList.get(team2).getUrlImage()).into(ivT2);
 
         txtRecord.setText(String.valueOf(record));
+        calculateValues();
+    }
+
+    private void calculateValues() {
+        switch (mode){
+            case Mode.TIROS_LIBRES_INTENTADOS:
+                txtPregunta.setText("Tiros libres");
+                valueP1 = playerSeasonStats1.getFga();
+                valueP2 = playerSeasonStats2.getFga();
+                break;
+
+            case Mode.PORCENTAJE_TRIPLE:
+                txtPregunta.setText("Triples");
+                valueP1 = playerSeasonStats1.getFg3Pct();
+                valueP2 = playerSeasonStats2.getFg3Pct();
+                break;
+        }
     }
 
     @Override
@@ -298,32 +342,19 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         switch (v.getId()) {
             case R.id.linJ2:
-                //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-//                if (fbPlayer2.getIdPlayer() > fbPlayer1.getIdPlayer()) {
-//                    continueGame();
-//                } else {
-//                    finishGame();
-//                }
-
-                if(playerSeasonStats2.getFg3Pct() > playerSeasonStats1.getFg3Pct()) {
+                if(valueP2 > valueP1) {
                     continueGame();
                 } else {
+                    mode = Mode.PORCENTAJE_TRIPLE;
                     finishGame();
                 }
                 break;
 
-
-
             case R.id.linJ1:
-                //Toast.makeText(this, "PULSADO", Toast.LENGTH_SHORT).show();
-//                if (fbPlayer2.getIdPlayer() < fbPlayer1.getIdPlayer()) {
-//                    continueGame();
-//                } else {
-//                    finishGame();
-//                }
-                if(playerSeasonStats2.getFg3Pct() < playerSeasonStats1.getFg3Pct()) {
+                if(valueP2 < valueP1) {
                     continueGame();
                 } else {
+                    mode = Mode.TIROS_LIBRES_INTENTADOS;
                     finishGame();
                 }
                 break;
