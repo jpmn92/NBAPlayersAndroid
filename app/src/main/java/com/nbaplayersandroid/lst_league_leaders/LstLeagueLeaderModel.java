@@ -14,6 +14,7 @@ import com.nbaplayersandroid.tools.wsNBA;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -91,35 +92,34 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 JsonObject resultSetObject = resultSet.getAsJsonObject();
                 JsonElement headers = resultSetObject.get("headers");
                 JsonArray headersArray = headers.getAsJsonArray();
+                String jsonHeaders = headersArray.toString();
                 JsonElement rowSet = resultSetObject.get("rowSet");
                 JsonArray jsonArray = rowSet.getAsJsonArray();
                 String jsonRowSet = rowSet.toString();
-                //JsonObject rowSetObject = rowSet.getAsJsonObject();
-                //String jsonTexto = resultSetObject.getAsString();
-                for(JsonElement jsonElement: jsonArray){
+                ArrayList<LeagueLeader> leagueLeaders = new ArrayList<>();
+                JsonArray jsonArrayTop = new JsonArray();
+                for(int i = 0; i < 100; i++){
+                    jsonArrayTop.add(jsonArray.get(i));
+                }
+                for(JsonElement jsonElement: jsonArrayTop){
+                    jsonElement.toString();
+                    String jsonPlayer = "";
+                    jsonPlayer = intoString(jsonElement.toString(), headersArray.get(0) + ":", 1);
+                    jsonPlayer = jsonPlayer.substring(1,jsonPlayer.length()-1);
 
-
-//                    Object object;
-//
-//                    object = new Gson().fromJson(jsonElement, Object.class);
-//                    String objeto = object.toString();
-                    //POR EJEMPLO PARA SACAR EL EQUIPO
-                    String equipo = jsonElement.getAsJsonArray().get(3).toString();
-                    System.out.println(equipo);
-//                    leagueLeader = new Gson().fromJson(object.toString(), LeagueLeader.class);
-//                    leagueLeader = (LeagueLeader) object;
+                    jsonPlayer = intoString(jsonPlayer, "{", 0);
+                    jsonPlayer = intoString(jsonPlayer, "}", jsonPlayer.length());
+                    int posicion = jsonPlayer.indexOf(',')+1;
+                    for(int i = 1; i < headersArray.size(); i++){
+                        jsonPlayer = intoString(jsonPlayer, headersArray.get(i) + ":", posicion);
+                        posicion = jsonPlayer.indexOf(',', posicion+1)+1;
+                        System.out.println(jsonPlayer);
+                    }
+                    LeagueLeader leagueLeader = new Gson().fromJson(jsonPlayer,LeagueLeader.class);
+                    leagueLeaders.add(leagueLeader);
                 }
                 System.out.println("");
 
-                //JsonObject rowSet = resultSet.getAsJsonObject("rowSet");
-
-
-                //leagueLeaderList = new Gson().fromJson(jsonRowSet, LeagueLeaders.class);
-                leagueLeader = new Gson().fromJson(jsonRowSet, LeagueLeader.class);
-
-                //leagueLeader = new Gson().fromJson(jsonObject, LeagueLeader.class);
-
-                System.out.println("");
 
 
             } catch (IOException e) {
@@ -127,6 +127,12 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             }
 
             return true;
+        }
+
+        private String intoString(String textoReal, String textoInsert, int pos){
+            StringBuilder stringBuilder= new StringBuilder(textoReal);
+            stringBuilder.insert(pos,textoInsert);
+            return stringBuilder.toString();
         }
 
         @Override
