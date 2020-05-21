@@ -1,7 +1,5 @@
 package com.nbaplayersandroid.menu;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +9,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.nbaplayersandroid.R;
+import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
+import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
+import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderModel;
+import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
 import com.nbaplayersandroid.tools.Mode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Menu extends Activity {
+public class Menu extends Activity implements LstLeagueLeaderContract.View {
 
     ListView lvMenu;
     Button boton;
@@ -27,6 +29,9 @@ public class Menu extends Activity {
 
     private Mode modoSeleccionado;
     private int posicionLista;
+
+    private Button btnMiguel;
+    private LstLeagueLeaderPresenter lstLeagueLeaderPresenter;
 
 
     @Override
@@ -41,6 +46,9 @@ public class Menu extends Activity {
         lvMenu = findViewById(R.id.lvMenu);
 //        mAdapter.notifyDataSetChanged();
 
+        btnMiguel = findViewById(R.id.btnPruebaMiguel);
+        lstLeagueLeaderPresenter = new LstLeagueLeaderPresenter(this);
+
         mAdapter = new MenuAdapter(Menu.this,  buttons);
         lvMenu.setAdapter(mAdapter);
 
@@ -48,6 +56,15 @@ public class Menu extends Activity {
 
 
         crearClickListeners(mAdapter);
+
+        btnMiguel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                lstLeagueLeaderPresenter.getLeagueLeaders("prueba");
+
+            }
+        });
 
     }
 
@@ -77,4 +94,15 @@ public class Menu extends Activity {
     }
 
 
+    @Override
+    public void successListLeagueLeaders(PlayerSeasonStatsList lstPlayers) {
+
+        String hola = "a";
+
+    }
+
+    @Override
+    public void failureListLeagueLeaders(String message) {
+
+    }
 }
