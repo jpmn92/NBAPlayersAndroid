@@ -1,6 +1,7 @@
 package com.nbaplayersandroid.lst_league_leaders;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -24,22 +25,24 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
     private OnLstLeagueLeaderListener onLstLeagueLeaderListener;
     private PlayerSeasonStatsList playerSeasonStatsList;
-    private String id_api, season, leagueID, perMode, scope, seasonType, statCategory;
+    private String season, leagueID, perMode, scope, seasonType, statCategory;
     private JsonObject jsonObject;
     private LeagueLeader leagueLeader;
     private LeagueLeadersList leagueLeaderList;
+    private ArrayList<LeagueLeader> leagueLeaders;
+    private  Bundle bundle;
 
     @Override
-    public void getPlayerService(OnLstLeagueLeaderListener onLstLeagueLeaderListener, String id_api) {
+    public void getPlayerService(OnLstLeagueLeaderListener onLstLeagueLeaderListener, Bundle params) {
 
         this.onLstLeagueLeaderListener = onLstLeagueLeaderListener;
-        this.id_api = id_api;
         this.season = season;
         this.leagueID = leagueID;
         this.perMode = perMode;
         this.scope = scope;
         this.seasonType = seasonType;
         this.statCategory = statCategory;
+        this.bundle = params;
 
         new PeticionGetLeagueLeaders().execute();
 
@@ -62,12 +65,18 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             String statsJson;
             String url = "https://stats.nba.com/stats/";
 
+            // recogemos del bundle los parametros para el WS
             leagueID = "00";
-            perMode = "PerGame";
-            statCategory = "PTS";
-            season = "2016-17";
-            seasonType = "Playoffs";
+
+//            perMode = "Totals";
+//            statCategory = "FG3_PCT";
+//            season = "2018-19";
+//            seasonType = "Regular Season";
             scope = "S";
+            perMode = bundle.getString("PerMode");
+            statCategory = bundle.getString("StatCategory");
+            season = bundle.getString("Season");
+            seasonType = bundle.getString("SeasonType");
 
 
             Retrofit retrofit = new Retrofit.Builder()
@@ -96,30 +105,30 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 JsonElement rowSet = resultSetObject.get("rowSet");
                 JsonArray jsonArray = rowSet.getAsJsonArray();
                 String jsonRowSet = rowSet.toString();
-                ArrayList<LeagueLeader> leagueLeaders = new ArrayList<>();
+                leagueLeaders = new ArrayList<>();
                 JsonArray jsonArrayTop = new JsonArray();
-                for(int i = 0; i < 100; i++){
+                //TODO: PONER BUCLE A 100
+                for (int i = 0; i < 100; i++) {
                     jsonArrayTop.add(jsonArray.get(i));
                 }
-                for(JsonElement jsonElement: jsonArrayTop){
+                for (JsonElement jsonElement : jsonArrayTop) {
                     jsonElement.toString();
                     String jsonPlayer = "";
                     jsonPlayer = intoString(jsonElement.toString(), headersArray.get(0) + ":", 1);
-                    jsonPlayer = jsonPlayer.substring(1,jsonPlayer.length()-1);
+                    jsonPlayer = jsonPlayer.substring(1, jsonPlayer.length() - 1);
 
                     jsonPlayer = intoString(jsonPlayer, "{", 0);
                     jsonPlayer = intoString(jsonPlayer, "}", jsonPlayer.length());
-                    int posicion = jsonPlayer.indexOf(',')+1;
-                    for(int i = 1; i < headersArray.size(); i++){
+                    int posicion = jsonPlayer.indexOf(',') + 1;
+                    for (int i = 1; i < headersArray.size(); i++) {
                         jsonPlayer = intoString(jsonPlayer, headersArray.get(i) + ":", posicion);
-                        posicion = jsonPlayer.indexOf(',', posicion+1)+1;
+                        posicion = jsonPlayer.indexOf(',', posicion + 1) + 1;
                         System.out.println(jsonPlayer);
                     }
-                    LeagueLeader leagueLeader = new Gson().fromJson(jsonPlayer,LeagueLeader.class);
+                    LeagueLeader leagueLeader = new Gson().fromJson(jsonPlayer, LeagueLeader.class);
                     leagueLeaders.add(leagueLeader);
                 }
                 System.out.println("");
-
 
 
             } catch (IOException e) {
@@ -129,9 +138,9 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             return true;
         }
 
-        private String intoString(String textoReal, String textoInsert, int pos){
-            StringBuilder stringBuilder= new StringBuilder(textoReal);
-            stringBuilder.insert(pos,textoInsert);
+        private String intoString(String textoReal, String textoInsert, int pos) {
+            StringBuilder stringBuilder = new StringBuilder(textoReal);
+            stringBuilder.insert(pos, textoInsert);
             return stringBuilder.toString();
         }
 
@@ -140,7 +149,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             try {
                 if (resp) {
                     //al componente reactivo le devuelvo la lista de sesiones
-                    onLstLeagueLeaderListener.onFinished(playerSeasonStatsList);
+                    onLstLeagueLeaderListener.onFinished(leagueLeaders);
 
 
                 }

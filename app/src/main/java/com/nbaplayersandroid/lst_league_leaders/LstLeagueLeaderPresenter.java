@@ -1,6 +1,11 @@
 package com.nbaplayersandroid.lst_league_leaders;
 
+import android.os.Bundle;
+
+import com.nbaplayersandroid.beans.LeagueLeader;
 import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
+
+import java.util.ArrayList;
 
 public class LstLeagueLeaderPresenter implements LstLeagueLeaderContract.Presenter{
 
@@ -13,12 +18,12 @@ public class LstLeagueLeaderPresenter implements LstLeagueLeaderContract.Present
     }
 
     @Override
-    public void getLeagueLeaders(String id_api) {
+    public void getLeagueLeaders(Bundle params) {
 
         this.modelo.getPlayerService(new LstLeagueLeaderContract.Model.OnLstLeagueLeaderListener() {
             @Override
-            public void onFinished(PlayerSeasonStatsList lstPlayers) {
-                vista.successListLeagueLeaders(lstPlayers);
+            public void onFinished(ArrayList<LeagueLeader> leagueLeaders) {
+                vista.successListLeagueLeaders(leagueLeaders);
             }
 
             @Override
@@ -26,7 +31,7 @@ public class LstLeagueLeaderPresenter implements LstLeagueLeaderContract.Present
 
 
             }
-        }, id_api);
+        }, params);
 
 
 

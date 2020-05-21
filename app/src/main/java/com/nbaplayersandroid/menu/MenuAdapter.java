@@ -90,6 +90,14 @@ public class MenuAdapter extends BaseAdapter {
                             Intent juego = new Intent(context, MainActivity.class);
                             Bundle params = new Bundle();
                             params.putInt("mode", position);
+
+                            //parametros del modo de juego
+                            params.putString("Season", "2009-10");
+                            params.putString("SeasonType", "Regular Season"); //Playoffs
+                            params.putString("StatCategory", "FG3_PCT"); //PTS para puntos
+                            params.putString("PerMode", "Totals"); //PerGame para por partido
+
+
                             juego.putExtras(params);
                             context.startActivity(juego);
                             //Toast.makeText(context.getApplicationContext(), "PULSADO", Toast.LENGTH_SHORT);

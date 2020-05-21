@@ -21,8 +21,11 @@ import com.google.gson.Gson;
 import com.nbaplayersandroid.beans.BasketballPlayer;
 import com.nbaplayersandroid.beans.FirebasePlayer;
 import com.nbaplayersandroid.beans.FirebaseTeam;
+import com.nbaplayersandroid.beans.LeagueLeader;
 import com.nbaplayersandroid.beans.PlayerSeasonStats;
 import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
+import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
+import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
 import com.nbaplayersandroid.lst_players_data.LstPlayerDataContract;
 import com.nbaplayersandroid.lst_players_data.LstPlayerDataPresenter;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
@@ -33,45 +36,20 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements View.OnClickListener, LstPlayerSeasonStatsContract.View, LstPlayerDataContract.View {
+public class MainActivity extends Activity implements View.OnClickListener, LstPlayerSeasonStatsContract.View, LstPlayerDataContract.View, LstLeagueLeaderContract.View {
 
     int record;
 
-    TextView txtP1;
-    TextView txtP2;
-    TextView txtRecord;
-    TextView txtPregunta;
-    ImageView ivP1;
-    ImageView ivP2;
-    ImageView ivT1;
-    ImageView ivT2;
-    LinearLayout linJ1;
-    LinearLayout linJ2;
-    LinearLayout linFront;
+    TextView txtP1, txtP2, txtRecord, txtPregunta;
+    ImageView ivP1, ivP2, ivT1, ivT2;
+    LinearLayout linJ1, linJ2, linFront;
     RelativeLayout relCircle;
 
-    LstPlayerSeasonStatsPresenter lstPlayerSeasonStatsPresenter;
-    ArrayList<PlayerSeasonStats> lstPlayers;
+    LstLeagueLeaderPresenter lstLeagueLeaderPresenter;
+    ArrayList<LeagueLeader> leagueLeadersGlobal;
+    LeagueLeader leagueLeader1, leagueLeader2;
 
-    LstPlayerDataPresenter lstPlayerDataPresenter;
-    ArrayList<BasketballPlayer> basketballPlayers;
 
-    DatabaseReference reference;
-    FirebasePlayer fbPlayer;
-    FirebasePlayer fbPlayer1;
-    FirebasePlayer fbPlayer2;
-    FirebaseTeam fbTeam;
-    FirebaseTeam fbTeam1;
-    FirebaseTeam fbTeam2;
-
-    ArrayList<FirebasePlayer> fbPlayerList;
-    ArrayList<FirebaseTeam> fbTeamList;
-
-    BasketballPlayer basketballPlayer1;
-    BasketballPlayer basketballPlayer2;
-
-    PlayerSeasonStats playerSeasonStats1;
-    PlayerSeasonStats playerSeasonStats2;
 
     Bundle params;
 
@@ -92,7 +70,21 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         mode = params.getInt("mode");
 
         gameStarted = false;
-        //Instanciamos presenter
+
+        initComponents();
+
+
+        lstLeagueLeaderPresenter = new LstLeagueLeaderPresenter(this);
+
+
+        leagueLeadersGlobal = new ArrayList<>();
+        lstLeagueLeaderPresenter.getLeagueLeaders(params);
+
+
+    }
+
+    private void initComponents() {
+
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
         txtP1.setTextColor(Color.RED);
@@ -116,132 +108,45 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         relCircle = findViewById(R.id.relCircle);
 
         txtPregunta.setText(Mode.values()[mode].getNombre());
-        lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
-        lstPlayerDataPresenter = new LstPlayerDataPresenter(this);
-        lstPlayers = new ArrayList<>();
-        //lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer("237", "2019");
-        getFbTeams();
-        getFbPlayers(); // Esto no funciona si llamamos a algo despues ACOJONANTE
-
-//        txtPregunta.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                lstPlayerDataPresenter.getPlayers("370");
-//
-//            }
-//        });
-
-    }
-
-    private void getFbPlayers() {
-        reference = FirebaseDatabase.getInstance().getReference().child(FirebaseReferences.JUGADORES_REFERENCE);
-        fbPlayerList = new ArrayList<FirebasePlayer>();
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    Object object = snapshot.getValue(Object.class);
-                    String json = new Gson().toJson(object);
-                    FirebasePlayer fbPlayer = new Gson().fromJson(json, FirebasePlayer.class);
-                    fbPlayerList.add(fbPlayer);
-                }
-
-                startGame();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-    }
-
-    private void getFbTeams() {
-        reference = FirebaseDatabase.getInstance().getReference().child(FirebaseReferences.EQUIPOS_REFERENCE);
-        fbTeamList = new ArrayList<FirebaseTeam>();
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    Object object = snapshot.getValue(Object.class);
-                    String json = new Gson().toJson(object);
-                    FirebaseTeam fbTeam = new Gson().fromJson(json, FirebaseTeam.class);
-                    fbTeamList.add(fbTeam);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-    }
-
-
-    private void createFbPlayer() {
-
-        reference = FirebaseDatabase.getInstance().getReference().child("Jugador");
-
-        fbPlayer = new FirebasePlayer();
-        fbPlayer.setIdAPI(268);
-        fbPlayer.setIdPlayer(21);
-        fbPlayer.setLastName("LaVine");
-        fbPlayer.setName("Zach");
-        fbPlayer.setUrlImage("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612741/2019/260x190/203897.png");
-        reference.push().setValue(fbPlayer);
 
 
     }
 
-    private void createFbTeam() {
-
-        reference = FirebaseDatabase.getInstance().getReference().child("Equipo");
-
-        fbTeam = new FirebaseTeam();
-        fbTeam.setIdAPI(2);
-        fbTeam.setIdTeam(2);
-        fbTeam.setName("Boston Celtics");
-        fbTeam.setUrlImage("https://stats.nba.com/media/img/teams/logos/BOS_logo.svg");
-        fbTeam.setUrlBackground("-");
-        reference.push().setValue(fbTeam);
-//        (2, 'Boston Celtics', 2, 'https://stats.nba.com/media/img/teams/logos/BOS_logo.svg','-'),
-
-    }
 
     private void startGame() {
         record = 0;
         int random = 0;
-        random = (int) (Math.random() * fbPlayerList.size());
-        fbPlayer1 = fbPlayerList.get(random);
-        lstPlayerDataPresenter.getPlayers(String.valueOf(fbPlayer1.getIdAPI()));
+        random = (int) (Math.random() * leagueLeadersGlobal.size());
+        leagueLeader1 = leagueLeadersGlobal.get(random);
+        selectPlayer2();
+
+
     }
 
     private void selectPlayer2() {
         int random = 0;
         do {
-            random = (int) (Math.random() * fbPlayerList.size());
-            fbPlayer2 = fbPlayerList.get(random);
-        } while (fbPlayer1.getIdPlayer() == fbPlayer2.getIdPlayer());
 
-        lstPlayerDataPresenter.getPlayers(String.valueOf(fbPlayer2.getIdAPI()));
+            random = (int) (Math.random() * leagueLeadersGlobal.size());
+            leagueLeader2 = leagueLeadersGlobal.get(random);
+            recogerDatos();
 
+        } while (leagueLeader1.getPLAYER_ID() == leagueLeader2.getPLAYER_ID());
+
+        random = (int) (Math.random() * leagueLeadersGlobal.size());
+        leagueLeader2 = leagueLeadersGlobal.get(random);
     }
 
-    private void iluminar(String color){
+    private void iluminar(String color) {
         txtP1.setText(String.valueOf(valueP1));
         txtP2.setText(String.valueOf(valueP2));
         linFront.setBackgroundColor(Color.parseColor(color));
         linFront.setVisibility(View.VISIBLE);
-        linFront.postDelayed(new Runnable() { public void run() { linFront.setVisibility(View.GONE); } }, 1000);
+        linFront.postDelayed(new Runnable() {
+            public void run() {
+                linFront.setVisibility(View.GONE);
+            }
+        }, 1000);
 
     }
 
@@ -260,24 +165,36 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         iluminar("#4600FF0A");
 
         record++;
-        basketballPlayer1 = basketballPlayer2;
-        playerSeasonStats1 = playerSeasonStats2;
-        fbPlayer1 = fbPlayer2;
-        fbTeam1 = fbTeam2;
+
+        leagueLeader1 = leagueLeader2;
+
+
         selectPlayer2();
 
     }
 
-    private void recogerDatos(){
+    private void recogerDatos() {
 
-        int team1 = (int) basketballPlayer1.getTeam().getId() - 1;
-        int team2 = (int) basketballPlayer2.getTeam().getId() - 1;
+        Double id1 = leagueLeader1.getPLAYER_ID();
+        Double id2 = leagueLeader2.getPLAYER_ID();
 
-        Picasso.with(this).load(fbPlayer1.getUrlImage()).into(ivP1);
-        Picasso.with(this).load(fbTeamList.get(team1).getUrlImage()).into(ivT1);
+        String url_image = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/";
+        String url_imageTeam = "https://a.espncdn.com/i/teamlogos/nba/500/";
 
-        txtP1.setText(fbPlayer1.getName() + " " + fbPlayer1.getLastName());
-        txtP2.setText(fbPlayer2.getName() + " " + fbPlayer2.getLastName());
+        String url_imagen1 = url_image + id1.intValue() + ".png";
+        String url_imagen2 = url_image + id2.intValue() + ".png";
+
+        if(leagueLeader1.getPLAYER().equals("Steve Nash")){
+            url_imagen1 = "https://i.dlpng.com/static/png/219514_preview.png";
+        }if(leagueLeader2.getPLAYER().equals("Steve Nash")){
+            url_imagen2 = "https://i.dlpng.com/static/png/219514_preview.png";
+        }
+
+        Picasso.with(this).load(url_imagen1).into(ivP1);
+        Picasso.with(this).load(url_imageTeam + leagueLeader1.getTEAM() + ".png").into(ivT1);
+
+        txtP1.setText(leagueLeader1.getPLAYER());
+        txtP2.setText(leagueLeader2.getPLAYER());
 
         //Para cambiar el fondo, se podrá mejorar
 //        Picasso.with(this).load(fbTeamList.get(team1).getUrlBackground()).into(new Target() {
@@ -313,23 +230,51 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 //            }
 //        });
 
-        Picasso.with(this).load(fbPlayer2.getUrlImage()).into(ivP2);
-        Picasso.with(this).load(fbTeamList.get(team2).getUrlImage()).into(ivT2);
+        Picasso.with(this).load(url_imagen2).into(ivP2);
+        Picasso.with(this).load(url_imageTeam + leagueLeader2.getTEAM() + ".png").into(ivT2);
 
         txtRecord.setText(String.valueOf(record));
         calculateValues();
     }
 
+//    private String generaImagen(String equipo, String id_jugador) {
+//
+//        String url_image = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/";
+//
+//
+//        switch (equipo) {
+//            case "OKC":
+//                return url_image+"/1610612760/2019/260x190/"+id_jugador+".png";
+//
+//            case "CLE":
+//                return url_image+"/1610612739/2019/260x190/"+id_jugador+".png";
+//
+//            case "GSW":
+//                return url_image+"/1610612744/2019/260x190/"+id_jugador+".png";
+//
+//            case "GSW":
+//                return url_image+"/1610612744/2019/260x190/"+id_jugador+".png";
+//
+//            case "GSW":
+//                return url_image+"/1610612744/2019/260x190/"+id_jugador+".png";
+//
+//
+//            default: return url_image;
+//
+//        }
+//    }
+
+
     private void calculateValues() {
-        switch (Mode.values()[mode].getNombre()){
+        switch (Mode.values()[mode].getNombre()) {
             case "TRIPLES":
-                valueP1 = playerSeasonStats1.getFg3Pct();
-                valueP2 = playerSeasonStats2.getFg3Pct();
+                valueP1 = leagueLeader1.getFG3_PCT().floatValue();
+                valueP2 = leagueLeader2.getFG3_PCT().floatValue();
                 break;
 
             case "TIROS LIBRES INTENTADOS":
-                valueP1 = playerSeasonStats1.getFga();
-                valueP2 = playerSeasonStats2.getFga();
+                valueP1 = leagueLeader1.getFT_PCT().floatValue();
+                valueP2 = leagueLeader2.getFT_PCT().floatValue();
                 break;
         }
     }
@@ -339,7 +284,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         switch (v.getId()) {
             case R.id.linJ2:
-                if(valueP2 >= valueP1) {
+                if (valueP2 >= valueP1) {
                     continueGame();
                 } else {
                     //mode = Mode.PORCENTAJE_TRIPLE;
@@ -348,7 +293,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                 break;
 
             case R.id.linJ1:
-                if(valueP2 <= valueP1) {
+                if (valueP2 <= valueP1) {
                     continueGame();
                 } else {
                     //mode = Mode.TIROS_LIBRES_INTENTADOS;
@@ -359,19 +304,18 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
 
-
     @Override
     public void successListSeasonStatsPlayers(PlayerSeasonStatsList lstPlayers) {
-        if(!gameStarted){
-            playerSeasonStats1 = lstPlayers.getPlayerSeasonStats().get(0);
-            gameStarted = true;
-            selectPlayer2();
-        }
-        else{
-            playerSeasonStats2 = lstPlayers.getPlayerSeasonStats().get(0);
-            recogerDatos();
-        }
-        float pct3 = lstPlayers.getPlayerSeasonStats().get(0).getFg3Pct();
+//        if(!gameStarted){
+//            playerSeasonStats1 = lstPlayers.getPlayerSeasonStats().get(0);
+//            gameStarted = true;
+//            selectPlayer2();
+//        }
+//        else{
+//            playerSeasonStats2 = lstPlayers.getPlayerSeasonStats().get(0);
+//            recogerDatos();
+//        }
+//        float pct3 = lstPlayers.getPlayerSeasonStats().get(0).getFg3Pct();
     }
 
     @Override
@@ -381,24 +325,39 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     @Override
     public void successListPlayers(BasketballPlayer playerData) {
-        if(!gameStarted){
-            basketballPlayer1 = playerData;
-            lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer(String.valueOf((int)basketballPlayer1.getId()), "2019");
-
-        }
-        else{
-
-            basketballPlayer2 = playerData;
-            lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer(String.valueOf((int)basketballPlayer2.getId()), "2019");
-
-            //String lastName = playerData.getLastName();
-        }
+//        if(!gameStarted){
+//            basketballPlayer1 = playerData;
+//            lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer(String.valueOf((int)basketballPlayer1.getId()), "2019");
+//
+//        }
+//        else{
+//
+//            basketballPlayer2 = playerData;
+//            lstPlayerSeasonStatsPresenter.getSeasonStatsPlayer(String.valueOf((int)basketballPlayer2.getId()), "2019");
+//
+//        }
 
 
     }
 
     @Override
     public void failureListPlayers(String message) {
+
+    }
+
+    @Override
+    public void successListLeagueLeaders(ArrayList<LeagueLeader> leagueLeaders) {
+
+        //pasamos a arraylist global el arraygenerado
+        leagueLeadersGlobal = leagueLeaders;
+        //iniciamos juego
+        startGame();
+
+
+    }
+
+    @Override
+    public void failureListLeagueLeaders(String message) {
 
     }
 }
