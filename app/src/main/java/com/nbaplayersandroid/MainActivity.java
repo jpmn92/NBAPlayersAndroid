@@ -2,10 +2,7 @@ package com.nbaplayersandroid;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.media.SoundPool;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,12 +73,14 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     PlayerSeasonStats playerSeasonStats1;
     PlayerSeasonStats playerSeasonStats2;
 
+    Bundle params;
+
     float valueP1;
     float valueP2;
 
     boolean gameStarted;
 
-    String mode;
+    int mode;
 
 
     @Override
@@ -89,10 +88,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //txtP1.setVisibility(View.INVISIBLE);
-
+        params = this.getIntent().getExtras();
+        mode = params.getInt("mode");
 
         gameStarted = false;
-        mode = Mode.PORCENTAJE_TRIPLE;
         //Instanciamos presenter
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
@@ -116,6 +115,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         linFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircle);
 
+        txtPregunta.setText(Mode.values()[mode].getNombre());
         lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
         lstPlayerDataPresenter = new LstPlayerDataPresenter(this);
         lstPlayers = new ArrayList<>();
@@ -321,17 +321,15 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
     private void calculateValues() {
-        switch (mode){
-            case Mode.TIROS_LIBRES_INTENTADOS:
-                txtPregunta.setText("Tiros libres");
-                valueP1 = playerSeasonStats1.getFga();
-                valueP2 = playerSeasonStats2.getFga();
-                break;
-
-            case Mode.PORCENTAJE_TRIPLE:
-                txtPregunta.setText("Triples");
+        switch (Mode.values()[mode].getNombre()){
+            case "TRIPLES":
                 valueP1 = playerSeasonStats1.getFg3Pct();
                 valueP2 = playerSeasonStats2.getFg3Pct();
+                break;
+
+            case "TIROS LIBRES INTENTADOS":
+                valueP1 = playerSeasonStats1.getFga();
+                valueP2 = playerSeasonStats2.getFga();
                 break;
         }
     }
@@ -344,7 +342,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                 if(valueP2 >= valueP1) {
                     continueGame();
                 } else {
-                    mode = Mode.PORCENTAJE_TRIPLE;
+                    //mode = Mode.PORCENTAJE_TRIPLE;
                     finishGame();
                 }
                 break;
@@ -353,7 +351,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                 if(valueP2 <= valueP1) {
                     continueGame();
                 } else {
-                    mode = Mode.TIROS_LIBRES_INTENTADOS;
+                    //mode = Mode.TIROS_LIBRES_INTENTADOS;
                     finishGame();
                 }
                 break;
