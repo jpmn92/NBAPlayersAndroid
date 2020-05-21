@@ -2,10 +2,14 @@ package com.nbaplayersandroid;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.media.SoundPool;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +50,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     ImageView ivT2;
     LinearLayout linJ1;
     LinearLayout linJ2;
+    LinearLayout linFront;
+    RelativeLayout relCircle;
 
     LstPlayerSeasonStatsPresenter lstPlayerSeasonStatsPresenter;
     ArrayList<PlayerSeasonStats> lstPlayers;
@@ -91,12 +97,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
         txtP1.setTextColor(Color.RED);
-        txtP1.setTextSize(100);
-        txtP1.setVisibility(View.GONE);
+        txtP1.setTextSize(50);
+        //txtP1.setVisibility(View.GONE);
         txtP2 = findViewById(R.id.txtP2);
-        txtP2.setTextSize(100);
+        txtP2.setTextSize(50);
         txtP2.setTextColor(Color.RED);
-        txtP2.setVisibility(View.GONE);
+        //txtP2.setVisibility(View.GONE);
         txtRecord = findViewById(R.id.txtRecord);
         ivP1 = findViewById(R.id.ivP1);
         ivP2 = findViewById(R.id.ivP2);
@@ -106,8 +112,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         linJ1.setOnClickListener(this);
         linJ2 = findViewById(R.id.linJ2);
         linJ2.setOnClickListener(this);
-
-
+        linFront = findViewById(R.id.linFront);
+        linFront.setVisibility(View.GONE);
+        relCircle = findViewById(R.id.relCircle);
 
         lstPlayerSeasonStatsPresenter = new LstPlayerSeasonStatsPresenter(this);
         lstPlayerDataPresenter = new LstPlayerDataPresenter(this);
@@ -229,7 +236,17 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     }
 
+    private void iluminar(String color){
+        txtP1.setText(String.valueOf(valueP1));
+        txtP2.setText(String.valueOf(valueP2));
+        linFront.setBackgroundColor(Color.parseColor(color));
+        linFront.setVisibility(View.VISIBLE);
+        linFront.postDelayed(new Runnable() { public void run() { linFront.setVisibility(View.GONE); } }, 1000);
+
+    }
+
     private void finishGame() {
+        iluminar("#46FF0000");
         record = 0;
         txtRecord.setText(String.valueOf(record));
         System.out.println("Perdiste");
@@ -240,21 +257,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
     private void continueGame() {
-        txtP1.setText(String.valueOf(valueP1));
-        txtP2.setText(String.valueOf(valueP2));
-        txtP1.setVisibility(View.VISIBLE);
-        txtP2.setVisibility(View.VISIBLE);
-        txtP1.postDelayed(new Runnable() { public void run() { txtP1.setVisibility(View.GONE); } }, 1000);
-        txtP2.postDelayed(new Runnable() { public void run() { txtP2.setVisibility(View.GONE); } }, 1000);
-//        Animacion animacion = new Animacion();
-//        txtP1.setVisibility(View.VISIBLE);
-//        animacion.start();
-//        try {
-//            animacion.join();
-//            txtP1.setVisibility(View.GONE);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        iluminar("#4600FF0A");
 
         record++;
         basketballPlayer1 = basketballPlayer2;
@@ -269,10 +272,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         int team1 = (int) basketballPlayer1.getTeam().getId() - 1;
         int team2 = (int) basketballPlayer2.getTeam().getId() - 1;
-
-
-        txtP1.setText(fbPlayer1.getName() + " " + fbPlayer1.getLastName());
-        txtP2.setText(fbPlayer2.getName() + " " + fbPlayer2.getLastName());
 
         Picasso.with(this).load(fbPlayer1.getUrlImage()).into(ivP1);
         Picasso.with(this).load(fbTeamList.get(team1).getUrlImage()).into(ivT1);
@@ -342,7 +341,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         switch (v.getId()) {
             case R.id.linJ2:
-                if(valueP2 > valueP1) {
+                if(valueP2 >= valueP1) {
                     continueGame();
                 } else {
                     mode = Mode.PORCENTAJE_TRIPLE;
@@ -351,7 +350,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                 break;
 
             case R.id.linJ1:
-                if(valueP2 < valueP1) {
+                if(valueP2 <= valueP1) {
                     continueGame();
                 } else {
                     mode = Mode.TIROS_LIBRES_INTENTADOS;
