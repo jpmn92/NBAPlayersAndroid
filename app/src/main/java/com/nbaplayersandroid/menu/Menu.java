@@ -39,8 +39,6 @@ public class Menu extends Activity implements LstLeagueLeaderContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-
-
         mArrData = new ArrayList<>(Arrays.asList("111,222,333,444,555,666".split(",")));
         buttons = new ArrayList<>();
         lvMenu = findViewById(R.id.lvMenu);
@@ -63,6 +61,7 @@ public class Menu extends Activity implements LstLeagueLeaderContract.View {
 
                 lstLeagueLeaderPresenter.getLeagueLeaders("prueba");
 
+
             }
         });
 
@@ -74,8 +73,7 @@ public class Menu extends Activity implements LstLeagueLeaderContract.View {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 posicionLista = i;
                 modoSeleccionado = (Mode) lvMenu.getItemAtPosition(posicionLista);
-                System.out.println("PULSADO");
-                Toast.makeText(Menu.this,boton.getText(), Toast.LENGTH_SHORT);
+
 
             }
         });

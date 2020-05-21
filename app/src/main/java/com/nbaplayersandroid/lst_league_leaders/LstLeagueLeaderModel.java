@@ -3,8 +3,11 @@ package com.nbaplayersandroid.lst_league_leaders;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.nbaplayersandroid.beans.LeagueLeader;
+import com.nbaplayersandroid.beans.LeagueLeadersList;
 import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
 import com.nbaplayersandroid.tools.wsNBA;
 
@@ -23,6 +26,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
     private String id_api, season, leagueID, perMode, scope, seasonType, statCategory;
     private JsonObject jsonObject;
     private LeagueLeader leagueLeader;
+    private LeagueLeadersList leagueLeaderList;
 
     @Override
     public void getPlayerService(OnLstLeagueLeaderListener onLstLeagueLeaderListener, String id_api) {
@@ -79,14 +83,43 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                 statsJson = new Gson().toJson(response.execute().body());
 
-                jsonObject = new Gson().fromJson(statsJson, JsonObject.class);
+                jsonObject = new Gson().fromJson(statsJson, JsonObject.class).getAsJsonObject();
 
 //                playerSeasonStatsList = new Gson().fromJson(statsJson, PlayerSeasonStatsList.class);
 
+                JsonElement resultSet = jsonObject.get("resultSet");
+                JsonObject resultSetObject = resultSet.getAsJsonObject();
+                JsonElement headers = resultSetObject.get("headers");
+                JsonArray headersArray = headers.getAsJsonArray();
+                JsonElement rowSet = resultSetObject.get("rowSet");
+                JsonArray jsonArray = rowSet.getAsJsonArray();
+                String jsonRowSet = rowSet.toString();
+                //JsonObject rowSetObject = rowSet.getAsJsonObject();
+                //String jsonTexto = resultSetObject.getAsString();
+                for(JsonElement jsonElement: jsonArray){
 
 
-//                leagueLeader = new Gson().fromJson(statsJson, LeagueLeader.class);
-                leagueLeader = new Gson().fromJson(jsonObject, LeagueLeader.class);
+//                    Object object;
+//
+//                    object = new Gson().fromJson(jsonElement, Object.class);
+//                    String objeto = object.toString();
+                    //POR EJEMPLO PARA SACAR EL EQUIPO
+                    String equipo = jsonElement.getAsJsonArray().get(3).toString();
+                    System.out.println(equipo);
+//                    leagueLeader = new Gson().fromJson(object.toString(), LeagueLeader.class);
+//                    leagueLeader = (LeagueLeader) object;
+                }
+                System.out.println("");
+
+                //JsonObject rowSet = resultSet.getAsJsonObject("rowSet");
+
+
+                //leagueLeaderList = new Gson().fromJson(jsonRowSet, LeagueLeaders.class);
+                leagueLeader = new Gson().fromJson(jsonRowSet, LeagueLeader.class);
+
+                //leagueLeader = new Gson().fromJson(jsonObject, LeagueLeader.class);
+
+                System.out.println("");
 
 
             } catch (IOException e) {

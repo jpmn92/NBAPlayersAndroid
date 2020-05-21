@@ -1,11 +1,14 @@
 package com.nbaplayersandroid.beans;
 
-public class LeagueLeader {
+import java.io.Serializable;
 
-    String PLAYER_ID, RANK, PLAYER, TEAM, GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF;
+public class LeagueLeader implements Serializable {
 
+    Double PLAYER_ID, RANK;
+    String PLAYER, TEAM;
+    Double GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF;
 
-    public LeagueLeader(String PLAYER_ID, String RANK, String PLAYER, String TEAM, String GP, String MIN, String FGM, String FGA, String FG_PCT, String FG3M, String FG3A, String FG3_PCT, String FTM, String FTA, String FT_PCT, String OREB, String DREB, String REB, String AST, String STL, String BLK, String TOV, String PTS, String EFF) {
+    public LeagueLeader(Double PLAYER_ID, Double RANK, String PLAYER, String TEAM, Double GP, Double MIN, Double FGM, Double FGA, Double FG_PCT, Double FG3M, Double FG3A, Double FG3_PCT, Double FTM, Double FTA, Double FT_PCT, Double OREB, Double DREB, Double REB, Double AST, Double STL, Double BLK, Double TOV, Double PTS, Double EFF) {
         this.PLAYER_ID = PLAYER_ID;
         this.RANK = RANK;
         this.PLAYER = PLAYER;
@@ -35,19 +38,19 @@ public class LeagueLeader {
     public LeagueLeader() {
     }
 
-    public String getPLAYER_ID() {
+    public Double getPLAYER_ID() {
         return PLAYER_ID;
     }
 
-    public void setPLAYER_ID(String PLAYER_ID) {
+    public void setPLAYER_ID(Double PLAYER_ID) {
         this.PLAYER_ID = PLAYER_ID;
     }
 
-    public String getRANK() {
+    public Double getRANK() {
         return RANK;
     }
 
-    public void setRANK(String RANK) {
+    public void setRANK(Double RANK) {
         this.RANK = RANK;
     }
 
@@ -67,163 +70,163 @@ public class LeagueLeader {
         this.TEAM = TEAM;
     }
 
-    public String getGP() {
+    public Double getGP() {
         return GP;
     }
 
-    public void setGP(String GP) {
+    public void setGP(Double GP) {
         this.GP = GP;
     }
 
-    public String getMIN() {
+    public Double getMIN() {
         return MIN;
     }
 
-    public void setMIN(String MIN) {
+    public void setMIN(Double MIN) {
         this.MIN = MIN;
     }
 
-    public String getFGM() {
+    public Double getFGM() {
         return FGM;
     }
 
-    public void setFGM(String FGM) {
+    public void setFGM(Double FGM) {
         this.FGM = FGM;
     }
 
-    public String getFGA() {
+    public Double getFGA() {
         return FGA;
     }
 
-    public void setFGA(String FGA) {
+    public void setFGA(Double FGA) {
         this.FGA = FGA;
     }
 
-    public String getFG_PCT() {
+    public Double getFG_PCT() {
         return FG_PCT;
     }
 
-    public void setFG_PCT(String FG_PCT) {
+    public void setFG_PCT(Double FG_PCT) {
         this.FG_PCT = FG_PCT;
     }
 
-    public String getFG3M() {
+    public Double getFG3M() {
         return FG3M;
     }
 
-    public void setFG3M(String FG3M) {
+    public void setFG3M(Double FG3M) {
         this.FG3M = FG3M;
     }
 
-    public String getFG3A() {
+    public Double getFG3A() {
         return FG3A;
     }
 
-    public void setFG3A(String FG3A) {
+    public void setFG3A(Double FG3A) {
         this.FG3A = FG3A;
     }
 
-    public String getFG3_PCT() {
+    public Double getFG3_PCT() {
         return FG3_PCT;
     }
 
-    public void setFG3_PCT(String FG3_PCT) {
+    public void setFG3_PCT(Double FG3_PCT) {
         this.FG3_PCT = FG3_PCT;
     }
 
-    public String getFTM() {
+    public Double getFTM() {
         return FTM;
     }
 
-    public void setFTM(String FTM) {
+    public void setFTM(Double FTM) {
         this.FTM = FTM;
     }
 
-    public String getFTA() {
+    public Double getFTA() {
         return FTA;
     }
 
-    public void setFTA(String FTA) {
+    public void setFTA(Double FTA) {
         this.FTA = FTA;
     }
 
-    public String getFT_PCT() {
+    public Double getFT_PCT() {
         return FT_PCT;
     }
 
-    public void setFT_PCT(String FT_PCT) {
+    public void setFT_PCT(Double FT_PCT) {
         this.FT_PCT = FT_PCT;
     }
 
-    public String getOREB() {
+    public Double getOREB() {
         return OREB;
     }
 
-    public void setOREB(String OREB) {
+    public void setOREB(Double OREB) {
         this.OREB = OREB;
     }
 
-    public String getDREB() {
+    public Double getDREB() {
         return DREB;
     }
 
-    public void setDREB(String DREB) {
+    public void setDREB(Double DREB) {
         this.DREB = DREB;
     }
 
-    public String getREB() {
+    public Double getREB() {
         return REB;
     }
 
-    public void setREB(String REB) {
+    public void setREB(Double REB) {
         this.REB = REB;
     }
 
-    public String getAST() {
+    public Double getAST() {
         return AST;
     }
 
-    public void setAST(String AST) {
+    public void setAST(Double AST) {
         this.AST = AST;
     }
 
-    public String getSTL() {
+    public Double getSTL() {
         return STL;
     }
 
-    public void setSTL(String STL) {
+    public void setSTL(Double STL) {
         this.STL = STL;
     }
 
-    public String getBLK() {
+    public Double getBLK() {
         return BLK;
     }
 
-    public void setBLK(String BLK) {
+    public void setBLK(Double BLK) {
         this.BLK = BLK;
     }
 
-    public String getTOV() {
+    public Double getTOV() {
         return TOV;
     }
 
-    public void setTOV(String TOV) {
+    public void setTOV(Double TOV) {
         this.TOV = TOV;
     }
 
-    public String getPTS() {
+    public Double getPTS() {
         return PTS;
     }
 
-    public void setPTS(String PTS) {
+    public void setPTS(Double PTS) {
         this.PTS = PTS;
     }
 
-    public String getEFF() {
+    public Double getEFF() {
         return EFF;
     }
 
-    public void setEFF(String EFF) {
+    public void setEFF(Double EFF) {
         this.EFF = EFF;
     }
 }
