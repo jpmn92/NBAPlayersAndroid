@@ -3,7 +3,6 @@ package com.nbaplayersandroid.lst_league_leaders;
 import android.os.Bundle;
 
 import com.nbaplayersandroid.beans.LeagueLeader;
-import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
 
 import java.util.ArrayList;
 

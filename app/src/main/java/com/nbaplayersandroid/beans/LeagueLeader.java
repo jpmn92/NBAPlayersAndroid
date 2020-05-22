@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class LeagueLeader implements Serializable {
 
     Double PLAYER_ID, RANK;
-    String PLAYER, TEAM;
+    String PLAYER, TEAM, PLAYER_NAME;
     Double GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF;
 
-    public LeagueLeader(Double PLAYER_ID, Double RANK, String PLAYER, String TEAM, Double GP, Double MIN, Double FGM, Double FGA, Double FG_PCT, Double FG3M, Double FG3A, Double FG3_PCT, Double FTM, Double FTA, Double FT_PCT, Double OREB, Double DREB, Double REB, Double AST, Double STL, Double BLK, Double TOV, Double PTS, Double EFF) {
+    public LeagueLeader(Double PLAYER_ID, Double RANK, String PLAYER, String TEAM, Double GP, Double MIN, Double FGM, Double FGA, Double FG_PCT, Double FG3M, Double FG3A, Double FG3_PCT, Double FTM, Double FTA, Double FT_PCT, Double OREB, Double DREB, Double REB, Double AST, Double STL, Double BLK, Double TOV, Double PTS, Double EFF, String PLAYER_NAME) {
         this.PLAYER_ID = PLAYER_ID;
         this.RANK = RANK;
         this.PLAYER = PLAYER;
@@ -33,9 +33,18 @@ public class LeagueLeader implements Serializable {
         this.TOV = TOV;
         this.PTS = PTS;
         this.EFF = EFF;
+        this.PLAYER_NAME = PLAYER_NAME;
     }
 
     public LeagueLeader() {
+    }
+
+    public String getPLAYER_NAME() {
+        return PLAYER_NAME;
+    }
+
+    public void setPLAYER_NAME(String PLAYER_NAME) {
+        this.PLAYER_NAME = PLAYER_NAME;
     }
 
     public Double getPLAYER_ID() {

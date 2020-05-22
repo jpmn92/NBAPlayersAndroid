@@ -92,7 +92,7 @@ public class MenuAdapter extends BaseAdapter {
                             params.putInt("mode", position);
 
                             //parametros del modo de juego
-                            params.putString("Season", "2009-10");
+                            params.putString("Season", "2018-19");
                             params.putString("SeasonType", "Regular Season"); //Playoffs
                             params.putString("StatCategory", "FG3_PCT"); //PTS para puntos
                             params.putString("PerMode", "Totals"); //PerGame para por partido

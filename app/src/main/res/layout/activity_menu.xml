@@ -32,6 +32,13 @@
             android:entries="@array/TipoCategoria"
             android:spinnerMode="dialog" />
 
+        <Spinner
+            android:id="@+id/spinnerDataType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/TipoDatos"
+            android:spinnerMode="dialog" />
+
         <Button
             android:id="@+id/startButton"
             android:layout_width="match_parent"

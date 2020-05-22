@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class Menu extends Activity implements View.OnClickListener{
 
-    Spinner sSeason, sCategory, sSeasonType;
+    Spinner sSeason, sCategory, sSeasonType, sDataType;
     Button startButton;
 
 
@@ -32,6 +32,7 @@ public class Menu extends Activity implements View.OnClickListener{
         sSeason = findViewById(R.id.spinnerSeasons);
         sCategory = findViewById(R.id.spinnerCategory);
         sSeasonType = findViewById(R.id.spinnerSeasonType);
+        sDataType = findViewById(R.id.spinnerDataType);
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
 
@@ -48,7 +49,10 @@ public class Menu extends Activity implements View.OnClickListener{
                 params.putString("Season", sSeason.getSelectedItem().toString());
                 params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
                 params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
-                params.putString("PerMode", "PerGame"); //PerGame para por partido
+                params.putString("PerMode", sDataType.getSelectedItem().toString()); //PerGame para por partido
+//                params.putString("PerMode", "PerGame"); //PerGame para por partido
+
+                params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
 
                 juego.putExtras(params);

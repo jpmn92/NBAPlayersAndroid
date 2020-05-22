@@ -1,6 +1,5 @@
 package com.nbaplayersandroid.lst_league_leaders;
 
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -8,16 +7,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.nbaplayersandroid.R;
 import com.nbaplayersandroid.beans.LeagueLeader;
 import com.nbaplayersandroid.beans.LeagueLeadersList;
-import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
 import com.nbaplayersandroid.tools.wsNBA;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -27,13 +21,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
     private OnLstLeagueLeaderListener onLstLeagueLeaderListener;
-    private PlayerSeasonStatsList playerSeasonStatsList;
-    private String season, leagueID, perMode, scope, seasonType, statCategory;
+    private String season, leagueID, perMode, scope, seasonType, statCategory, activeFlag;
     private JsonObject jsonObject;
     private LeagueLeader leagueLeader;
     private LeagueLeadersList leagueLeaderList;
     private ArrayList<LeagueLeader> leagueLeaders;
-    private  Bundle bundle;
+    private Bundle bundle;
 
     @Override
     public void getPlayerService(OnLstLeagueLeaderListener onLstLeagueLeaderListener, Bundle params) {
@@ -45,6 +38,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
         this.scope = scope;
         this.seasonType = seasonType;
         this.statCategory = statCategory;
+        this.activeFlag = activeFlag;
         this.bundle = params;
 
         new PeticionGetLeagueLeaders().execute();
@@ -80,6 +74,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             statCategory = bundle.getString("StatCategory");
             season = bundle.getString("Season");
             seasonType = bundle.getString("SeasonType");
+            activeFlag = "YES";
 
 
             Retrofit retrofit = new Retrofit.Builder()
@@ -90,7 +85,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             wsNBA service = retrofit.create(wsNBA.class);
 
 
-            Call<JsonObject> response = service.getLeagueLeaders(leagueID, perMode, scope, season, seasonType, statCategory);
+            Call<JsonObject> response = service.getLeagueLeaders(leagueID, perMode, scope, season, seasonType, statCategory, activeFlag);
 
             try {
 
@@ -111,12 +106,11 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 leagueLeaders = new ArrayList<>();
                 JsonArray jsonArrayTop = new JsonArray();
 
-                if(jsonArray.size() < 100){
+                if (jsonArray.size() < 100) {
                     for (int i = 0; i < jsonArray.size(); i++) {
                         jsonArrayTop.add(jsonArray.get(i));
                     }
-                }
-                else{
+                } else {
                     //TODO: PONER BUCLE A 100
                     for (int i = 0; i < 100; i++) {
                         jsonArrayTop.add(jsonArray.get(i));
@@ -137,10 +131,21 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                         System.out.println(jsonPlayer);
                     }
                     LeagueLeader leagueLeader = new Gson().fromJson(jsonPlayer, LeagueLeader.class);
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")){
+
+                    //si no hay getPlayer, que lo meta con playerName, que es el atributo de ALL-TIME
+                    if (leagueLeader.getPLAYER() == null || leagueLeader.getPLAYER().equals("")) {
+                        leagueLeader.setPLAYER(leagueLeader.getPLAYER_NAME());
+
+                    }
+
+                    //si no tiene equipo es ALLTIME, que le asocie NBA
+                    if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+                        leagueLeader.setTEAM("NBA");
+                    }
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")) {
                         leagueLeader.setTEAM("NO");
                     }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")){
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
                         leagueLeader.setTEAM("UTAH");
                     }
                     leagueLeaders.add(leagueLeader);

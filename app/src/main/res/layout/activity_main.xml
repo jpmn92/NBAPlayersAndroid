@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/md_example"
+            android:background="@drawable/floor1"
             android:orientation="vertical">
 
             <LinearLayout
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:drawable/progress_indeterminate_horizontal"
+            android:background="@drawable/floor1"
             android:orientation="vertical">
 
             <LinearLayout
