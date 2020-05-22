@@ -173,6 +173,7 @@
         android:id="@+id/linFront"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#00FFFFFF"
         android:orientation="vertical">
 
         <TextView
@@ -246,6 +247,21 @@
             </RelativeLayout>
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linLoad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/load"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cargando"
+            android:textAlignment="center" />
     </LinearLayout>
 
 </RelativeLayout>

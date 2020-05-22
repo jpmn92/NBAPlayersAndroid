@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     TextView txtP1, txtP2, txtRecord, txtPregunta, txtNameP1, txtNameP2;
     ImageView ivP1, ivP2, ivT1, ivT2;
-    LinearLayout linJ1, linJ2, linFront;
+    LinearLayout linJ1, linJ2, linFront, linLoad;
     RelativeLayout relCircle;
 
     LstLeagueLeaderPresenter lstLeagueLeaderPresenter;
@@ -73,6 +73,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //txtP1.setVisibility(View.INVISIBLE);
+
+        linFront = findViewById(R.id.linFront);
         record = 0;
         params = this.getIntent().getExtras();
         season = params.getString("Season");
@@ -165,7 +167,14 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         linJ1.setOnClickListener(this);
         linJ2 = findViewById(R.id.linJ2);
         linJ2.setOnClickListener(this);
-        linFront = findViewById(R.id.linFront);
+        linFront.setOnClickListener(this);
+        linLoad = findViewById(R.id.linLoad);
+        linLoad.setOnClickListener(this);
+        linLoad.postDelayed(new Runnable() {
+            public void run() {
+                linLoad.setVisibility(View.GONE);
+            }
+        }, 1500);
         linFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircle);
 
