@@ -1,6 +1,7 @@
 package com.nbaplayersandroid;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -146,11 +147,20 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         linFront.setOnClickListener(this);
         linLoad = findViewById(R.id.linLoad);
         linLoad.setOnClickListener(this);
+
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.show();
+
         linLoad.postDelayed(new Runnable() {
             public void run() {
                 linLoad.setVisibility(View.GONE);
+                progressDialog.dismiss();
+
             }
         }, 1500);
+
         linFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircle);
 

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.nbaplayersandroid.MainActivity;
 import com.nbaplayersandroid.R;
 import com.nbaplayersandroid.tools.Mode;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +21,7 @@ import java.util.Arrays;
 public class Menu extends Activity implements View.OnClickListener{
 
     Spinner sSeason, sCategory, sSeasonType, sDataType;
-    Button startButton;
+        Button startButton;
 
 
 

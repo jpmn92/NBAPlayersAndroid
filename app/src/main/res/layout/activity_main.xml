@@ -251,9 +251,9 @@
 
     <LinearLayout
         android:id="@+id/linLoad"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/load"
+        android:background="@drawable/floor_load"
         android:orientation="vertical" >
 
         <TextView
