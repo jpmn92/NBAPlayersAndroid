@@ -1,5 +1,6 @@
 package com.nbaplayersandroid.lst_league_leaders;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -7,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.nbaplayersandroid.R;
 import com.nbaplayersandroid.beans.LeagueLeader;
 import com.nbaplayersandroid.beans.LeagueLeadersList;
 import com.nbaplayersandroid.beans.PlayerSeasonStatsList;
@@ -15,6 +17,7 @@ import com.nbaplayersandroid.tools.wsNBA;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -107,9 +110,17 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 String jsonRowSet = rowSet.toString();
                 leagueLeaders = new ArrayList<>();
                 JsonArray jsonArrayTop = new JsonArray();
-                //TODO: PONER BUCLE A 100
-                for (int i = 0; i < 100; i++) {
-                    jsonArrayTop.add(jsonArray.get(i));
+
+                if(jsonArray.size() < 100){
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        jsonArrayTop.add(jsonArray.get(i));
+                    }
+                }
+                else{
+                    //TODO: PONER BUCLE A 100
+                    for (int i = 0; i < 100; i++) {
+                        jsonArrayTop.add(jsonArray.get(i));
+                    }
                 }
                 for (JsonElement jsonElement : jsonArrayTop) {
                     jsonElement.toString();

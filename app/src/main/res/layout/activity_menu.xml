@@ -16,19 +16,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/Temporadas"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dialog" />
 
         <Spinner
             android:id="@+id/spinnerSeasonType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/TipoTemporada" />
+            android:entries="@array/TipoTemporada"
+            android:spinnerMode="dialog" />
 
         <Spinner
             android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/TipoCategoria" />
+            android:entries="@array/TipoCategoria"
+            android:spinnerMode="dialog" />
 
         <Button
             android:id="@+id/startButton"

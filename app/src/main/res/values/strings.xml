@@ -2,6 +2,7 @@
     <string name="app_name">NBAPlayersAndroid</string>
 
     <string-array name="Temporadas">
+        <item>MISC</item>
         <item>2019-20</item>
         <item>2018-19</item>
         <item>2017-18</item>
@@ -29,6 +30,7 @@
     <string-array name="TipoCategoria">
 
         <!--        PerGame-->
+        <item>MISC</item>
         <item>PTS</item>
         <item>REB</item>
         <item>AST</item>
@@ -42,7 +44,7 @@
         <!--        Totals-->
 
         <item>FG3_PCT</item>
-        <item>3PM</item>
+        <item>FG3M</item>
         <item>FT_PCT</item>
         <item>FTM</item>
 

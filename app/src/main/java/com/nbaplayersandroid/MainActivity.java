@@ -1,6 +1,7 @@
 package com.nbaplayersandroid;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -62,19 +63,31 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     String statCategory;
     String perMode;
 
+    boolean misc;
+    boolean miscStats;
+    boolean miscSeason;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //txtP1.setVisibility(View.INVISIBLE);
+        record = 0;
         params = this.getIntent().getExtras();
         season = params.getString("Season");
         seasonType = params.getString("SeasonType");
         statCategory = params.getString("StatCategory");
         perMode = params.getString("PerMode");
 
-        System.out.println("");
+        if(statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")){
+            params.putString("PerMode", "Totals");
+        }
+
+        miscStats = statCategory.equalsIgnoreCase("MISC");
+        miscSeason = season.equalsIgnoreCase("MISC");
+
+        misc = (miscStats || miscSeason);
 
         gameStarted = false;
 
@@ -85,9 +98,49 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
 
         leagueLeadersGlobal = new ArrayList<>();
+
+        if(misc){
+            mezclar();
+        }
+
+        else{
+            lstLeagueLeaderPresenter.getLeagueLeaders(params);
+        }
+        // startGame();
+
+    }
+
+    private void mezclar() {
+        if(miscStats){
+            Resources res = getResources();
+            String[] categories = res.getStringArray(R.array.TipoCategoria);
+
+            int random = (int) (Math.random() * (categories.length-1) + 1);
+
+            params.putString("StatCategory", categories[random]);
+            statCategory = params.getString("StatCategory");
+        }
+
+        if(statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")){
+            params.putString("PerMode", "Totals");
+        }
+        else{
+            params.putString("PerMode", "PerGame");
+        }
+
+        if(miscSeason){
+            Resources res = getResources();
+            String[] categories = res.getStringArray(R.array.Temporadas);
+
+            int random = (int) (Math.random() * (categories.length-1) + 1);
+
+            params.putString("Season", categories[random]);
+            season = params.getString("Season");
+        }
+
+        txtPregunta.setText(statCategory + " " + season);
+
         lstLeagueLeaderPresenter.getLeagueLeaders(params);
-
-
     }
 
     private void initComponents() {
@@ -95,10 +148,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
         txtP1.setTextColor(Color.RED);
-        txtP1.setTextSize(50);
+        //txtP1.setTextSize(50);
         //txtP1.setVisibility(View.GONE);
         txtP2 = findViewById(R.id.txtP2);
-        txtP2.setTextSize(50);
+        //txtP2.setTextSize(50);
         txtP2.setTextColor(Color.RED);
         txtNameP1 = findViewById(R.id.txtNameP1);
         txtNameP2 = findViewById(R.id.txtNameP2);
@@ -122,10 +175,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
 
-    private void startGame() {
-        record = 0;
-        int random = 0;
-        random = (int) (Math.random() * leagueLeadersGlobal.size());
+    private void selectPlayers() {
+        // record = 0;
+        int random = (int) (Math.random() * leagueLeadersGlobal.size());
         leagueLeader1 = leagueLeadersGlobal.get(random);
         selectPlayer2();
 
@@ -142,8 +194,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
         } while (leagueLeader1.getPLAYER_ID() == leagueLeader2.getPLAYER_ID());
 
-        random = (int) (Math.random() * leagueLeadersGlobal.size());
-        leagueLeader2 = leagueLeadersGlobal.get(random);
+//        random = (int) (Math.random() * leagueLeadersGlobal.size());
+//        leagueLeader2 = leagueLeadersGlobal.get(random);
     }
 
     private void iluminar(String color) {
@@ -170,13 +222,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
     private void continueGame() {
-        iluminar(ColorApp.GREEN);
 
-        record++;
-
-        leagueLeader1 = leagueLeader2;
-
-        selectPlayer2();
+        selectPlayers();
 
     }
 
@@ -327,7 +374,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                 valueP2 = leagueLeader2.getMIN().floatValue();
                 break;
 
-            case "3PM":
+            case "FG3M":
                 valueP1 = leagueLeader1.getFG3M().floatValue();
                 valueP2 = leagueLeader2.getFG3M().floatValue();
                 break;
@@ -335,6 +382,16 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
             case "FTM":
                 valueP1 = leagueLeader1.getFTM().floatValue();
                 valueP2 = leagueLeader2.getFTM().floatValue();
+                break;
+
+            case "FG3_PCT":
+                valueP1 = leagueLeader1.getFG3_PCT().floatValue();
+                valueP2 = leagueLeader2.getFG3_PCT().floatValue();
+                break;
+
+            case "FT_PCT":
+                valueP1 = leagueLeader1.getFT_PCT().floatValue();
+                valueP2 = leagueLeader2.getFT_PCT().floatValue();
                 break;
         }
     }
@@ -345,7 +402,14 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         switch (v.getId()) {
             case R.id.linJ2:
                 if (valueP2 >= valueP1) {
-                    continueGame();
+                    iluminar(ColorApp.GREEN);
+                    record++;
+                    if(misc){
+                        mezclar();
+                    }
+                    else{
+                        continueGame();
+                    }
                 } else {
                     finishGame();
                 }
@@ -353,7 +417,15 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
             case R.id.linJ1:
                 if (valueP2 <= valueP1) {
-                    continueGame();
+                    iluminar(ColorApp.GREEN);
+                    record++;
+                    if(misc){
+                        mezclar();
+                    }
+                    else{
+
+                        continueGame();
+                    }
                 } else {
                     finishGame();
                 }
@@ -409,7 +481,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         //pasamos a arraylist global el arraygenerado
         leagueLeadersGlobal = leagueLeaders;
         //iniciamos juego
-        startGame();
+        selectPlayers();
 
 
     }
