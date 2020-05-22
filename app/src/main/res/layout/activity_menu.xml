@@ -10,51 +10,73 @@
     <LinearLayout
 
 
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/doncic"
-            android:layout_marginBottom="50dp"/>
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
 
-        <Spinner
-            android:id="@+id/spinnerSeasons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/Temporadas"
-            android:spinnerMode="dialog" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
 
-        <Spinner
-            android:id="@+id/spinnerSeasonType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/TipoTemporada"
-            android:spinnerMode="dialog" />
+                android:src="@drawable/logo_ligero"
+                android:layout_marginBottom="20dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/TipoCategoria"
-            android:spinnerMode="dialog" />
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/spinnerDataType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/TipoDatos"
-            android:spinnerMode="dialog" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="vertical">
 
-        <Button
-            android:id="@+id/startButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#3477F6"
-            android:text="Comenzar" />
+    <Spinner
+        android:id="@+id/spinnerSeasons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/Temporadas"
+        android:spinnerMode="dialog" />
+
+    <Spinner
+        android:id="@+id/spinnerSeasonType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/TipoTemporada"
+        android:spinnerMode="dialog" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/TipoCategoria"
+        android:spinnerMode="dialog" />
+
+    <Spinner
+        android:id="@+id/spinnerDataType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/TipoDatos"
+        android:spinnerMode="dialog" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#E48C0E"
+        android:text="Comenzar" />
+
+
+</LinearLayout>
+
+
 
 
 
