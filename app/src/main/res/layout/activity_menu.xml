@@ -42,28 +42,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/Temporadas"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:layout_marginBottom="5dp"/>
 
     <Spinner
         android:id="@+id/spinnerSeasonType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/TipoTemporada"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:layout_marginBottom="5dp"/>
+
 
     <Spinner
         android:id="@+id/spinnerCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/TipoCategoria"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:layout_marginBottom="5dp"/>
+
 
     <Spinner
         android:id="@+id/spinnerDataType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/TipoDatos"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:layout_marginBottom="5dp"/>
+
 
     <Button
         android:id="@+id/startButton"
