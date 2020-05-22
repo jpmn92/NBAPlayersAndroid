@@ -1,3 +1,51 @@
 <resources>
     <string name="app_name">NBAPlayersAndroid</string>
+
+    <string-array name="Temporadas">
+        <item>2019-20</item>
+        <item>2018-19</item>
+        <item>2017-18</item>
+        <item>2016-17</item>
+        <item>2015-16</item>
+        <item>2014-15</item>
+        <item>2013-14</item>
+        <item>2012-13</item>
+        <item>2011-12</item>
+        <item>2010-11</item>
+        <item>2009-10</item>
+        <item>2008-09</item>
+        <item>2007-08</item>
+        <item>2006-07</item>
+        <item>2005-06</item>
+        <item>2004-05</item>
+
+    </string-array>
+
+    <string-array name="TipoTemporada">
+        <item>Regular Season</item>
+        <item>Playoffs</item>
+    </string-array>
+
+    <string-array name="TipoCategoria">
+
+        <!--        PerGame-->
+        <item>PTS</item>
+        <item>REB</item>
+        <item>AST</item>
+        <item>OREB</item>
+        <item>DREB</item>
+        <item>STL</item>
+        <item>BLK</item>
+        <item>TOV</item>
+        <item>MIN</item>
+
+        <!--        Totals-->
+
+        <item>FG3_PCT</item>
+        <item>3PM</item>
+        <item>FT_PCT</item>
+        <item>FTM</item>
+
+
+    </string-array>
 </resources>

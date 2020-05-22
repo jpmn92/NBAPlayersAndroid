@@ -10,18 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ListView
-            android:id="@+id/lvMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-        <Button
-            android:id="@+id/btnPruebaMiguel"
+
+        <Spinner
+            android:id="@+id/spinnerSeasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            android:text="PRUEBA SEASON LEADERS"/>
+            android:entries="@array/Temporadas"
+            android:spinnerMode="dropdown" />
 
+        <Spinner
+            android:id="@+id/spinnerSeasonType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/TipoTemporada" />
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/TipoCategoria" />
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comenzar" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

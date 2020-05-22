@@ -30,6 +30,7 @@ import com.nbaplayersandroid.lst_players_data.LstPlayerDataContract;
 import com.nbaplayersandroid.lst_players_data.LstPlayerDataPresenter;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsContract;
 import com.nbaplayersandroid.lst_players_season_stats.LstPlayerSeasonStatsPresenter;
+import com.nbaplayersandroid.tools.ColorApp;
 import com.nbaplayersandroid.tools.FirebaseReferences;
 import com.nbaplayersandroid.tools.Mode;
 import com.squareup.picasso.Picasso;
@@ -49,8 +50,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     ArrayList<LeagueLeader> leagueLeadersGlobal;
     LeagueLeader leagueLeader1, leagueLeader2;
 
-
-
     Bundle params;
 
     float valueP1;
@@ -58,7 +57,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     boolean gameStarted;
 
-    int mode;
+    String season;
+    String seasonType;
+    String statCategory;
+    String perMode;
 
 
     @Override
@@ -67,7 +69,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         setContentView(R.layout.activity_main);
         //txtP1.setVisibility(View.INVISIBLE);
         params = this.getIntent().getExtras();
-        mode = params.getInt("mode");
+        season = params.getString("Season");
+        seasonType = params.getString("SeasonType");
+        statCategory = params.getString("StatCategory");
+        perMode = params.getString("PerMode");
+
+        System.out.println("");
 
         gameStarted = false;
 
@@ -107,7 +114,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         linFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircle);
 
-        txtPregunta.setText(Mode.values()[mode].getNombre());
+        txtPregunta.setText(statCategory + " " + season);
 
 
     }
@@ -151,23 +158,21 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
     }
 
     private void finishGame() {
-        iluminar("#46FF0000");
+        iluminar(ColorApp.RED);
         record = 0;
         txtRecord.setText(String.valueOf(record));
         System.out.println("Perdiste");
-        Toast.makeText(this, "PERDISTE", Toast.LENGTH_SHORT).show();
         //continueGame();
 
 
     }
 
     private void continueGame() {
-        iluminar("#4600FF0A");
+        iluminar(ColorApp.GREEN);
 
         record++;
 
         leagueLeader1 = leagueLeader2;
-
 
         selectPlayer2();
 
@@ -266,15 +271,15 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
 
     private void calculateValues() {
-        switch (Mode.values()[mode].getNombre()) {
-            case "TRIPLES":
-                valueP1 = leagueLeader1.getFG3_PCT().floatValue();
-                valueP2 = leagueLeader2.getFG3_PCT().floatValue();
+        switch (statCategory) {
+            case "PTS":
+                valueP1 = leagueLeader1.getPTS().floatValue();
+                valueP2 = leagueLeader2.getPTS().floatValue();
                 break;
 
-            case "TIROS LIBRES INTENTADOS":
-                valueP1 = leagueLeader1.getFT_PCT().floatValue();
-                valueP2 = leagueLeader2.getFT_PCT().floatValue();
+            case "AST":
+                valueP1 = leagueLeader1.getAST().floatValue();
+                valueP2 = leagueLeader2.getAST().floatValue();
                 break;
         }
     }
@@ -287,7 +292,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                 if (valueP2 >= valueP1) {
                     continueGame();
                 } else {
-                    //mode = Mode.PORCENTAJE_TRIPLE;
                     finishGame();
                 }
                 break;
@@ -296,7 +300,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
                 if (valueP2 <= valueP1) {
                     continueGame();
                 } else {
-                    //mode = Mode.TIROS_LIBRES_INTENTADOS;
                     finishGame();
                 }
                 break;
