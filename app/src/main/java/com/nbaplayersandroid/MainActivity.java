@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
 
     int record;
 
-    TextView txtP1, txtP2, txtRecord, txtPregunta;
+    TextView txtP1, txtP2, txtRecord, txtPregunta, txtNameP1, txtNameP2;
     ImageView ivP1, ivP2, ivT1, ivT2;
     LinearLayout linJ1, linJ2, linFront;
     RelativeLayout relCircle;
@@ -100,6 +100,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
         txtP2 = findViewById(R.id.txtP2);
         txtP2.setTextSize(50);
         txtP2.setTextColor(Color.RED);
+        txtNameP1 = findViewById(R.id.txtNameP1);
+        txtNameP2 = findViewById(R.id.txtNameP2);
         //txtP2.setVisibility(View.GONE);
         txtRecord = findViewById(R.id.txtRecord);
         ivP1 = findViewById(R.id.ivP1);
@@ -195,11 +197,24 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
             url_imagen2 = "https://i.dlpng.com/static/png/219514_preview.png";
         }
 
+        /*if(leagueLeader1.getTEAM().equals("SEA")){
+            url_imagen1 = "https://www.pngfind.com/pngs/m/482-4820379_seattle-sonics-seattle-washington-usa-seattle-supersonics-logo.png";
+        }if(leagueLeader2.getTEAM().equals("SEA")){
+            url_imagen2 = "https://www.pngfind.com/pngs/m/482-4820379_seattle-sonics-seattle-washington-usa-seattle-supersonics-logo.png";
+        }
+
+        if(leagueLeader1.getTEAM().equals("NOH")){
+            url_imagen1 = "https://w7.pngwing.com/pngs/589/435/png-transparent-new-orleans-pelicans-charlotte-hornets-smoothie-king-center-nba-new-orleans-saints-nba-text-logo-fictional-character.png";
+        }if(leagueLeader2.getTEAM().equals("NOH")){
+            url_imagen2 = "https://w7.pngwing.com/pngs/589/435/png-transparent-new-orleans-pelicans-charlotte-hornets-smoothie-king-center-nba-new-orleans-saints-nba-text-logo-fictional-character.png";
+        }*/
+
         Picasso.with(this).load(url_imagen1).into(ivP1);
         Picasso.with(this).load(url_imageTeam + leagueLeader1.getTEAM() + ".png").into(ivT1);
 
-        txtP1.setText(leagueLeader1.getPLAYER());
-        txtP2.setText(leagueLeader2.getPLAYER());
+        txtNameP1.setText(leagueLeader1.getPLAYER());
+        txtNameP2.setText(leagueLeader2.getPLAYER());
+
 
         //Para cambiar el fondo, se podrá mejorar
 //        Picasso.with(this).load(fbTeamList.get(team1).getUrlBackground()).into(new Target() {
@@ -280,6 +295,46 @@ public class MainActivity extends Activity implements View.OnClickListener, LstP
             case "AST":
                 valueP1 = leagueLeader1.getAST().floatValue();
                 valueP2 = leagueLeader2.getAST().floatValue();
+                break;
+
+            case "OREB":
+                valueP1 = leagueLeader1.getOREB().floatValue();
+                valueP2 = leagueLeader2.getOREB().floatValue();
+                break;
+
+            case "DREB":
+                valueP1 = leagueLeader1.getDREB().floatValue();
+                valueP2 = leagueLeader2.getDREB().floatValue();
+                break;
+
+            case "STL":
+                valueP1 = leagueLeader1.getSTL().floatValue();
+                valueP2 = leagueLeader2.getSTL().floatValue();
+                break;
+
+            case "BLK":
+                valueP1 = leagueLeader1.getBLK().floatValue();
+                valueP2 = leagueLeader2.getBLK().floatValue();
+                break;
+
+            case "TOV":
+                valueP1 = leagueLeader1.getTOV().floatValue();
+                valueP2 = leagueLeader2.getTOV().floatValue();
+                break;
+
+            case "MIN":
+                valueP1 = leagueLeader1.getMIN().floatValue();
+                valueP2 = leagueLeader2.getMIN().floatValue();
+                break;
+
+            case "3PM":
+                valueP1 = leagueLeader1.getFG3M().floatValue();
+                valueP2 = leagueLeader2.getFG3M().floatValue();
+                break;
+
+            case "FTM":
+                valueP1 = leagueLeader1.getFTM().floatValue();
+                valueP2 = leagueLeader2.getFTM().floatValue();
                 break;
         }
     }

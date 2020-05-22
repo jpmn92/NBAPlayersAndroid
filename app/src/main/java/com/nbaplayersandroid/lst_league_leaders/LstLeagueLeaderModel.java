@@ -126,6 +126,12 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                         System.out.println(jsonPlayer);
                     }
                     LeagueLeader leagueLeader = new Gson().fromJson(jsonPlayer, LeagueLeader.class);
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")){
+                        leagueLeader.setTEAM("NO");
+                    }
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")){
+                        leagueLeader.setTEAM("UTAH");
+                    }
                     leagueLeaders.add(leagueLeader);
                 }
                 System.out.println("");
