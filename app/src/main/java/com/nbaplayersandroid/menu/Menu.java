@@ -15,19 +15,21 @@ import android.widget.Toast;
 
 import com.nbaplayersandroid.MainActivity;
 import com.nbaplayersandroid.R;
+import com.nbaplayersandroid.tools.FirebaseMethods;
 import com.nbaplayersandroid.tools.Mode;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+import com.nbaplayersandroid.tools.SessionManagement;
+
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Menu extends Activity implements View.OnClickListener{
+public class Menu extends Activity implements View.OnClickListener {
 
     Spinner sSeason, sCategory, sSeasonType, sDataType;
-        Button startButton;
+    Button startButton, btnRecords;
     Resources res;
-
+    FirebaseMethods firebaseMethods;
 
 
     @Override
@@ -41,13 +43,26 @@ public class Menu extends Activity implements View.OnClickListener{
         sDataType = findViewById(R.id.spinnerDataType);
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
+        btnRecords = findViewById(R.id.btnRecords);
         res = getResources();
+
+        firebaseMethods = new FirebaseMethods();
+
+        btnRecords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                firebaseMethods.createFbPuntuacion();
+                SessionManagement sm = new SessionManagement(getBaseContext());
+                sm.removeSession();
+
+            }
+        });
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.startButton:
                 Intent juego = new Intent(this, MainActivity.class);
                 Bundle params = new Bundle();
@@ -55,7 +70,7 @@ public class Menu extends Activity implements View.OnClickListener{
                 //parametros del modo de juego
                 String temporada = sSeason.getSelectedItem().toString();
 
-                if(sSeason.getSelectedItemPosition() == 0){
+                if (sSeason.getSelectedItemPosition() == 0) {
                     temporada = "MISC";
                 }
 
@@ -79,11 +94,13 @@ public class Menu extends Activity implements View.OnClickListener{
                 juego.putExtras(params);
                 this.startActivity(juego);
                 break;
+
+
         }
 
     }
 
-    public String getParam(int arrayId, Spinner spinner){
+    public String getParam(int arrayId, Spinner spinner) {
         TypedArray resourceIDS = res.obtainTypedArray(arrayId);
         int[] resIds = new int[resourceIDS.length()];
         for (int i = 0; i < resourceIDS.length(); i++) {

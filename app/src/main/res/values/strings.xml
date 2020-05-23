@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">NBAPlayersAndroid</string>
+    <string name="btnComenzar">START</string>
+    <string name="btnRecords">NBA STATS QUIZ HIGH SCORES</string>
 
     <string name="MISC">MIX</string>
 
     <string name="PerGame">Per game</string>
-    <string name="Totals"><Total></Total>s</string>
+    <string name="Totals">Totals</string>
 
     <string name="PTS">POINTS</string>
     <string name="REB">REBOUNDS</string>

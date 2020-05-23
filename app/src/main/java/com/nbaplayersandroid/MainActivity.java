@@ -2,22 +2,30 @@ package com.nbaplayersandroid;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nbaplayersandroid.beans.LeagueLeader;
 
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
 import com.nbaplayersandroid.tools.ColorApp;
+import com.nbaplayersandroid.tools.FirebaseMethods;
+import com.nbaplayersandroid.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,13 +45,47 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     LeagueLeader leagueLeader1, leagueLeader2;
 
     Bundle params;
+    FirebaseMethods firebaseMethods;
 
     Resources res;
 
     float valueP1, valueP2;
     boolean gameStarted, misc, miscStats, miscSeason;
-    String season, seasonType, statCategory, perMode, activeFlag, seasonText, statCategoryText;
+    String season, seasonType, statCategory, perMode, activeFlag, seasonText, statCategoryText, username;
+    SessionManagement sessionManagement;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkSession();
+    }
+
+    private void checkSession() {
+
+        sessionManagement = new SessionManagement(this);
+        int userID = sessionManagement.getSession();
+
+        if (userID != -1) {
+            //Logueado
+        } else {
+
+            //No logueados
+
+            //le pedimos username y despues guardamos la sesion
+
+            //METODO PARA DIALOGO
+//            new MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog)
+//                    .setTitle("Introduce nombre usuario")
+//                    .setMessage("Lorem ipsum dolor ....")
+//                    .setPositiveButton("Ok", /* listener = */ null)
+//                    .setNegativeButton("Cancel", /* listener = */ null)
+//                    .show();
+
+            username = "lukita"; //o el quue se meta por el dialog
+
+            sessionManagement.saveSession(username);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +118,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
 
         lstLeagueLeaderPresenter = new LstLeagueLeaderPresenter(this);
-
+        firebaseMethods = new FirebaseMethods();
 
         leagueLeadersGlobal = new ArrayList<>();
 
@@ -122,7 +164,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         lstLeagueLeaderPresenter.getLeagueLeaders(params);
     }
 
-    public String getParam(int arrayId, int pos){
+    public String getParam(int arrayId, int pos) {
         TypedArray resourceIDS = res.obtainTypedArray(arrayId);
         int[] resIds = new int[resourceIDS.length()];
         for (int i = 0; i < resourceIDS.length(); i++) {
@@ -223,6 +265,14 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         mediaPlayer = MediaPlayer.create(this, R.raw.error);
         mediaPlayer.start();
         iluminar(ColorApp.RED);
+
+        //si es mayor de 4 guarda en la bbdd
+        if (points > 4) {
+            params.putInt("puntos", points);
+            params.putString("username", sessionManagement.getSessionUserName());
+            firebaseMethods.createFbPuntuacion(params);
+        }
+
         points = 0;
         txtRecord.setText(String.valueOf(points));
         System.out.println("Perdiste");
@@ -641,7 +691,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             continueGame();
         }
     }
-
 
 
     @Override
