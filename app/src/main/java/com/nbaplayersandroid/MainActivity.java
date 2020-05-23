@@ -4,41 +4,33 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nbaplayersandroid.beans.LeagueLeader;
 
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
-import com.nbaplayersandroid.tools.BlurTransformation;
 import com.nbaplayersandroid.tools.ColorApp;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.HttpCookie;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-
-import okhttp3.OkHttpClient;
 
 public class MainActivity extends Activity implements View.OnClickListener, LstLeagueLeaderContract.View {
 
-    int record;
+    int points;
 
     TextView txtP1, txtP2, txtRecord, txtPregunta, txtNameP1, txtNameP2;
     ImageView ivP1, ivP2, ivT1, ivT2;
     LinearLayout linJ1, linJ2, linFront, linLoad;
     RelativeLayout relCircle;
+    MediaPlayer mediaPlayer;
 
     LstLeagueLeaderPresenter lstLeagueLeaderPresenter;
     ArrayList<LeagueLeader> leagueLeadersGlobal;
@@ -50,7 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     float valueP1, valueP2;
     boolean gameStarted, misc, miscStats, miscSeason;
-    String season, seasonType, statCategory, perMode, activeFlag;
+    String season, seasonType, statCategory, perMode, activeFlag, seasonText, statCategoryText;
 
 
     @Override
@@ -59,7 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         setContentView(R.layout.activity_main);
 
         linFront = findViewById(R.id.linFront);
-        record = 0;
+        points = 0;
         params = this.getIntent().getExtras();
         season = params.getString("Season");
         seasonType = params.getString("SeasonType");
@@ -113,7 +105,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         if (statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")) {
             params.putString("PerMode", "Totals");
         } else {
-            params.putString("PerMode", "PerGame");
+            params.putString("PerMode", perMode);
         }
 
         if (miscSeason) {
@@ -130,14 +122,14 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         lstLeagueLeaderPresenter.getLeagueLeaders(params);
     }
 
-    public String getParam(int arrayId, int random){
+    public String getParam(int arrayId, int pos){
         TypedArray resourceIDS = res.obtainTypedArray(arrayId);
         int[] resIds = new int[resourceIDS.length()];
         for (int i = 0; i < resourceIDS.length(); i++) {
             resIds[i] = resourceIDS.getResourceId(i, -1);
         }
         resourceIDS.recycle();
-        String getParam = res.getResourceEntryName(resIds[random]);
+        String getParam = res.getResourceEntryName(resIds[pos]);
 
         return getParam;
     }
@@ -227,10 +219,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     }
 
-    private void finishGame() {
+    private void fallo() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.error);
+        mediaPlayer.start();
         iluminar(ColorApp.RED);
-        record = 0;
-        txtRecord.setText(String.valueOf(record));
+        points = 0;
+        txtRecord.setText(String.valueOf(points));
         System.out.println("Perdiste");
         //continueGame();
 
@@ -337,7 +331,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         }
         Picasso.with(this).load(url_imageTeam2).into(ivT2);
 
-        txtRecord.setText(String.valueOf(record));
+        txtRecord.setText(String.valueOf(points));
         calculateValues();
     }
 
@@ -619,34 +613,35 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         switch (v.getId()) {
             case R.id.linJ2:
                 if (valueP2 >= valueP1) {
-                    iluminar(ColorApp.GREEN);
-                    record++;
-                    if (misc) {
-                        mezclar();
-                    } else {
-                        continueGame();
-                    }
+                    acierto();
                 } else {
-                    finishGame();
+                    fallo();
                 }
                 break;
 
             case R.id.linJ1:
                 if (valueP2 <= valueP1) {
-                    iluminar(ColorApp.GREEN);
-                    record++;
-                    if (misc) {
-                        mezclar();
-                    } else {
-
-                        continueGame();
-                    }
+                    acierto();
                 } else {
-                    finishGame();
+                    fallo();
                 }
                 break;
         }
     }
+
+    private void acierto() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.acierto);
+        mediaPlayer.start();
+        iluminar(ColorApp.GREEN);
+        points++;
+        if (misc) {
+            mezclar();
+        } else {
+
+            continueGame();
+        }
+    }
+
 
 
     @Override

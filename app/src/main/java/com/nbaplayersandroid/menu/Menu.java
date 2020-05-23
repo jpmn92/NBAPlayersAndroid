@@ -54,10 +54,11 @@ public class Menu extends Activity implements View.OnClickListener{
 
                 //parametros del modo de juego
                 String temporada = sSeason.getSelectedItem().toString();
-                if(temporada.equalsIgnoreCase("MEZCLA")){
-                    temporada = res.getResourceName(R.string.MISC);
-                    temporada = temporada.substring(temporada.indexOf('/')+1);
+
+                if(sSeason.getSelectedItemPosition() == 0){
+                    temporada = "MISC";
                 }
+
                 params.putString("Season", temporada);
                 params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
 
