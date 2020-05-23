@@ -3,18 +3,22 @@ package com.nbaplayersandroid;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nbaplayersandroid.beans.LeagueLeader;
 
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
+import com.nbaplayersandroid.tools.BlurTransformation;
 import com.nbaplayersandroid.tools.ColorApp;
 import com.squareup.picasso.Picasso;
 
@@ -42,6 +46,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     Bundle params;
 
+    Resources res;
+
     float valueP1, valueP2;
     boolean gameStarted, misc, miscStats, miscSeason;
     String season, seasonType, statCategory, perMode, activeFlag;
@@ -61,6 +67,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         perMode = params.getString("PerMode");
         activeFlag = params.getString("ActiveFlag");
 
+        res = getResources();
 
         if (statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")) {
             params.putString("PerMode", "Totals");
@@ -97,7 +104,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
             int random = (int) (Math.random() * (categories.length - 1) + 1);
 
-            params.putString("StatCategory", categories[random]);
+            String stat = getParam(R.array.TipoCategoria, random);
+
+            params.putString("StatCategory", stat);
             statCategory = params.getString("StatCategory");
         }
 
@@ -117,10 +126,22 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             season = params.getString("Season");
         }
 
-        txtPregunta.setText(statCategory + " " + season);
 
         lstLeagueLeaderPresenter.getLeagueLeaders(params);
     }
+
+    public String getParam(int arrayId, int random){
+        TypedArray resourceIDS = res.obtainTypedArray(arrayId);
+        int[] resIds = new int[resourceIDS.length()];
+        for (int i = 0; i < resourceIDS.length(); i++) {
+            resIds[i] = resourceIDS.getResourceId(i, -1);
+        }
+        resourceIDS.recycle();
+        String getParam = res.getResourceEntryName(resIds[random]);
+
+        return getParam;
+    }
+
 
     private void initComponents() {
 
@@ -249,6 +270,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
             default:
                 Picasso.with(this).load(url_imagen1).error(R.drawable.person).into(ivP1);
+                //Picasso.with(this).load(url_imagen1).transform(new BlurTransformation(this)).error(R.drawable.person).into(ivP1); para difuminar imagen
 
 
         }
@@ -633,6 +655,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         //pasamos a arraylist global el arraygenerado
         leagueLeadersGlobal = leagueLeaders;
         selectPlayers();
+        txtPregunta.setText(statCategory + " " + season);
 
 
     }

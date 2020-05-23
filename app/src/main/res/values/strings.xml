@@ -1,8 +1,29 @@
 <resources>
     <string name="app_name">NBAPlayersAndroid</string>
 
+    <string name="MISC">Mezcla</string>
+    <string name="PerGame">Por partido</string>
+    <string name="Totals">Totales</string>
+    <string name="PTS">PUNTOS</string>
+    <string name="REB">REBOTES</string>
+    <string name="AST">ASISTENCIAS</string>
+    <string name="OREB">REBOTES OFENSIVOS</string>
+    <string name="DREB">REBOTES DEFENSIVOS</string>
+    <string name="STL">ROBOS</string>
+    <string name="BLK">TAPONES</string>
+    <string name="TOV">PÉRDIDAS</string>
+    <string name="MIN">MINUTOS</string>
+
+    <!--        Totals-->
+
+    <string name="FG3_PCT">PORCENTAJE DE TRIPLES</string>
+    <string name="FG3M">TRIPLES ANOTADOS</string>
+    <string name="FT_PCT">PORCENTAJE DE TIROS LIBRES</string>
+    <string name="FTM">TIROS LIBRES ANOTADOS</string>
+
     <string-array name="Temporadas">
-        <item>MISC</item>
+
+        <item>@string/MISC</item>
         <item>All Time</item>
         <item>2019-20</item>
         <item>2018-19</item>
@@ -29,30 +50,30 @@
     </string-array>
 
     <string-array name="TipoDatos">
-        <item>PerGame</item>
-        <item>Totals</item>
+        <item>@string/PerGame</item>
+        <item>@string/Totals</item>
     </string-array>
 
     <string-array name="TipoCategoria">
 
         <!--        PerGame-->
-        <item>MISC</item>
-        <item>PTS</item>
-        <item>REB</item>
-        <item>AST</item>
-        <item>OREB</item>
-        <item>DREB</item>
-        <item>STL</item>
-        <item>BLK</item>
-        <item>TOV</item>
-        <item>MIN</item>
+        <item>@string/MISC</item>
+        <item>@string/PTS</item>
+        <item>@string/REB</item>
+        <item>@string/AST</item>
+        <item>@string/OREB</item>
+        <item>@string/DREB</item>
+        <item>@string/STL</item>
+        <item>@string/BLK</item>
+        <item>@string/TOV</item>
+        <item>@string/MIN</item>
 
         <!--        Totals-->
 
-        <item>FG3_PCT</item>
-        <item>FG3M</item>
-        <item>FT_PCT</item>
-        <item>FTM</item>
+        <item>@string/FG3_PCT</item>
+        <item>@string/FG3M</item>
+        <item>@string/FT_PCT</item>
+        <item>@string/FTM</item>
 
 
     </string-array>
