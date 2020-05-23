@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_stats_quiz"
+        android:icon="@drawable/icon_stats_quiz_languages"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/icon_stats_quiz"
+        android:roundIcon="@drawable/icon_stats_quiz_languages"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.NoActionBar"
         tools:targetApi="lollipop">

@@ -20,8 +20,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/floor1"
+            android:background="@drawable/floor_load_dark"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtPregunta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFE48C0E"
+                android:text="PREGUNTA"
+                android:textAlignment="center"
+                android:textSize="30dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/floor1"
+            android:background="@drawable/floor_load_dark"
             android:orientation="vertical">
 
             <LinearLayout
@@ -155,34 +163,36 @@
             android:textSize="36sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <TextView
-            android:id="@+id/txtPregunta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#D7D8DC"
-            android:text="PREGUNTA"
-            android:textAlignment="center"
-            android:textSize="30dp" />
-    </RelativeLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/txtPregunta"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#FFE48C0E"-->
+<!--            android:text="PREGUNTA"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="30dp" />-->
+<!--    </RelativeLayout>-->
 
     <LinearLayout
         android:id="@+id/linFront"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00FFFFFF"
+
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtPregunta2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00D7D8DC"
-            android:textAlignment="center"
-            android:textSize="30dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtPregunta2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="#655033"-->
+<!--            android:text="PREGUNTA2"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="30dp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -223,6 +233,7 @@
             android:gravity="right"
             android:orientation="vertical">
 
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -253,15 +264,15 @@
         android:id="@+id/linLoad"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/floor_load"
+        android:background="@drawable/floor_load_dark"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cargando"
-            android:textAlignment="center" />
+<!--        <TextView-->
+<!--            android:id="@+id/textView3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Cargando"-->
+<!--            android:textAlignment="center" />-->
     </LinearLayout>
 
 </RelativeLayout>
