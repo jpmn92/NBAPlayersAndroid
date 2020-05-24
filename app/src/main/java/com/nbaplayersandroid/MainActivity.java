@@ -314,6 +314,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         }
         vidas = 3;
         points = 0;
+        myCountDownTimer.cancel();
         //txtPoints.setText(String.valueOf(points));
 
     }
