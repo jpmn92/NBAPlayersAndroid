@@ -82,23 +82,11 @@
 
         </LinearLayout>
 
-<!--        <View-->
-<!--            android:id="@+id/divider"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="10dp"-->
-<!--            android:background="#fff" />-->
-        <ProgressBar
-            android:id="@+id/timeProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+        <View
+            android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:progress="0"
-            android:max="20"
-
-
-
-            />
+            android:layout_height="10dp"
+            android:background="#fff" />
 
         <LinearLayout
             android:id="@+id/linJ2"
@@ -159,7 +147,6 @@
 
     </LinearLayout>
 
-
     <RelativeLayout
         android:id="@+id/relCircle"
         android:layout_width="wrap_content"
@@ -180,7 +167,20 @@
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="36sp" />
+
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle_shape"
+        android:indeterminate="false"
+        android:max="9"
+        android:progress="0"
+        android:progressDrawable="@drawable/circular_progress_bar" />
 
     <!--    <RelativeLayout-->
     <!--        android:layout_width="match_parent"-->
@@ -334,7 +334,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
         </LinearLayout>
     </RelativeLayout>

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity implements View.OnClickListener, LstLeagueLeaderContract.View {
 
-    int points, record, vidas;
+    int points, record, vidas, contadorAciertos;
     boolean recordConseguido;
 
     MyCountDownTimer myCountDownTimer;
@@ -95,7 +95,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         setContentView(R.layout.activity_main);
 
 
-        vidas = 3;
+
         linFront = findViewById(R.id.linFront);
         points = 0;
         params = this.getIntent().getExtras();
@@ -124,9 +124,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
 
         lstLeagueLeaderPresenter = new LstLeagueLeaderPresenter(this);
-        firebaseMethods = new FirebaseMethods(paramsIniciales);
 
-        buscarRecord();
+
 
         leagueLeadersGlobal = new ArrayList<>();
 
@@ -140,8 +139,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void buscarRecord() {
-        record = firebaseMethods.getRecord(username);
+        firebaseMethods.getRecord();
 
+        // Toast.makeText(this, record, Toast.LENGTH_LONG).show();
     }
 
     private void mezclar() {
@@ -217,7 +217,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         linLoad = findViewById(R.id.linLoad);
         linLoad.setOnClickListener(this);
 
-        progressBar = findViewById(R.id.timeProgressBar);
+        vidas = 3;
+        contadorAciertos = 0;
+
+        progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(0);
 
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
@@ -238,7 +241,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
         txtPregunta.setText(statCategory + " " + season);
 
-
+        firebaseMethods = new FirebaseMethods(this, paramsIniciales);
+        buscarRecord();
     }
 
 
@@ -285,11 +289,13 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         mediaPlayer.start();
         iluminar(ColorApp.RED);
         vidas--;
-        System.out.println("");
+        comprobarVidas();
         if (vidas <= 0) {
             finishGame();
         }
-
+        else{
+            selectPlayers();
+        }
 
         //continueGame();
 
@@ -304,10 +310,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             firebaseMethods.createFbPuntuacion(paramsIniciales);
             Toast.makeText(this, "Nuevo record alcanzado", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Perdiste" + username, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Perdiste", Toast.LENGTH_SHORT).show();
         }
         vidas = 3;
         points = 0;
+        myCountDownTimer.cancel();
+        myCountDownTimer.cancel();
         //txtPoints.setText(String.valueOf(points));
 
     }
@@ -670,7 +678,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
         //si clicamos cualquiera se cancela el contador
         myCountDownTimer.cancel();
-
         switch (v.getId()) {
             case R.id.linJ2:
                 if (valueP2 >= valueP1) {
@@ -689,8 +696,14 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
                 }
                 break;
         }
+    }
+
+    private void comprobarVidas(){
+
 
         switch (vidas){
+            case 0:
+                ivVidas.setImageResource(R.drawable.vidas0);
             case 1:
                 ivVidas.setImageResource(R.drawable.vidas1);
                 // poner en el ivVidas la imagen vidas1
@@ -708,6 +721,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         mediaPlayer = MediaPlayer.create(this, R.raw.acierto);
         mediaPlayer.start();
         iluminar(ColorApp.GREEN);
+        contadorAciertos++;
+        if(contadorAciertos >= 10 && vidas < 3){
+            vidas++;
+            comprobarVidas();
+            contadorAciertos = 0;
+        }
         points++;
         if (misc) {
             mezclar();
@@ -756,5 +775,13 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     public void failureListLeagueLeaders(String message) {
 
 
+    }
+
+    public int getRecord() {
+        return record;
+    }
+
+    public void setRecord(int record) {
+        this.record = record;
     }
 }
