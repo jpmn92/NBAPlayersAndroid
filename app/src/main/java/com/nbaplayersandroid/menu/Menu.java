@@ -30,6 +30,7 @@ public class Menu extends Activity implements View.OnClickListener {
     Button startButton, btnRecords;
     Resources res;
     FirebaseMethods firebaseMethods;
+    String userName;
 
 
     @Override
@@ -90,7 +91,8 @@ public class Menu extends Activity implements View.OnClickListener {
 
                 params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
-
+                userName = "jp"; //Para pruebas de momento
+                params.putString("userName", userName);
                 juego.putExtras(params);
                 this.startActivity(juego);
                 break;

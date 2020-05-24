@@ -8,12 +8,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.nbaplayersandroid.beans.FirebasePuntuacion;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
@@ -23,10 +25,16 @@ public class FirebaseMethods
 
     DatabaseReference reference;
     FirebasePuntuacion fbPuntuacion;
+    Bundle bundlePartida;
 
+    public FirebaseMethods() {
+    }
 
+    public FirebaseMethods(Bundle bundlePartida) {
+        this.bundlePartida = bundlePartida;
+    }
 
-//    private void getFbPlayers() {
+    //    private void getFbPlayers() {
 //        reference = FirebaseDatabase.getInstance().getReference().child("Jugador");
 //        fbPlayerList = new ArrayList<FirebasePlayer>();
 //        reference.addValueEventListener(new ValueEventListener() {
@@ -78,6 +86,40 @@ public class FirebaseMethods
 
         reference.push().setValue(fbPuntuacion);
 
+    }
+
+    public int getRecord(String userName){
+        int puntuacion = 0;
+        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference();
+        Query query = reference.child("Puntuacion").orderByChild("username").equalTo(userName);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Object object = snapshot.getValue(Object.class);
+                    String json = new Gson().toJson(object);
+                    FirebasePuntuacion fbTeam = new Gson().fromJson(json, FirebasePuntuacion.class);
+                    fbPuntuacionList.add(fbTeam);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        for(FirebasePuntuacion firebasePuntuacion: fbPuntuacionList){
+            boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode")) && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
+                    && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory")) && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"));
+            if(datosIguales){
+                puntuacion = firebasePuntuacion.getPoints();
+            }
+        }
+        return puntuacion;
     }
 
 

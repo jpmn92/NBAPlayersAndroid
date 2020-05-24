@@ -2,23 +2,18 @@ package com.nbaplayersandroid;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nbaplayersandroid.beans.LeagueLeader;
 
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
@@ -32,10 +27,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity implements View.OnClickListener, LstLeagueLeaderContract.View {
 
-    int points;
+    int points, record, vidas;
+    boolean recordConseguido;
 
-    TextView txtP1, txtP2, txtRecord, txtPregunta, txtNameP1, txtNameP2;
-    ImageView ivP1, ivP2, ivT1, ivT2;
+    TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2;
+    ImageView ivP1, ivP2, ivT1, ivT2, ivVidas;
     LinearLayout linJ1, linJ2, linFront, linLoad;
     RelativeLayout relCircle;
     MediaPlayer mediaPlayer;
@@ -44,7 +40,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     ArrayList<LeagueLeader> leagueLeadersGlobal;
     LeagueLeader leagueLeader1, leagueLeader2;
 
-    Bundle params;
+    Bundle params, paramsIniciales;
     FirebaseMethods firebaseMethods;
 
     Resources res;
@@ -57,7 +53,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     @Override
     protected void onStart() {
         super.onStart();
-        checkSession();
+        // checkSession();
     }
 
     private void checkSession() {
@@ -81,7 +77,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 //                    .setNegativeButton("Cancel", /* listener = */ null)
 //                    .show();
 
-            username = "lukita"; //o el quue se meta por el dialog
+            username = "jp"; //o el quue se meta por el dialog
 
             sessionManagement.saveSession(username);
         }
@@ -92,9 +88,13 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        vidas = 3;
         linFront = findViewById(R.id.linFront);
         points = 0;
         params = this.getIntent().getExtras();
+        paramsIniciales = (Bundle) params.clone();
+        username = params.getString("userName");
         season = params.getString("Season");
         seasonType = params.getString("SeasonType");
         statCategory = params.getString("StatCategory");
@@ -118,7 +118,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
 
         lstLeagueLeaderPresenter = new LstLeagueLeaderPresenter(this);
-        firebaseMethods = new FirebaseMethods();
+        firebaseMethods = new FirebaseMethods(paramsIniciales);
+
+        buscarRecord();
 
         leagueLeadersGlobal = new ArrayList<>();
 
@@ -128,6 +130,11 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             lstLeagueLeaderPresenter.getLeagueLeaders(params);
         }
         // startGame();
+
+    }
+
+    private void buscarRecord() {
+        record =  firebaseMethods.getRecord(username);
 
     }
 
@@ -190,11 +197,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         txtNameP1 = findViewById(R.id.txtNameP1);
         txtNameP2 = findViewById(R.id.txtNameP2);
         //txtP2.setVisibility(View.GONE);
-        txtRecord = findViewById(R.id.txtRecord);
+        txtPoints = findViewById(R.id.txtPuntuacion);
         ivP1 = findViewById(R.id.ivP1);
         ivP2 = findViewById(R.id.ivP2);
         ivT1 = findViewById(R.id.ivTeam1);
         ivT2 = findViewById(R.id.ivTeam2);
+        ivVidas = findViewById(R.id.ivVidas);
         linJ1 = findViewById(R.id.linJ1);
         linJ1.setOnClickListener(this);
         linJ2 = findViewById(R.id.linJ2);
@@ -265,19 +273,45 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         mediaPlayer = MediaPlayer.create(this, R.raw.error);
         mediaPlayer.start();
         iluminar(ColorApp.RED);
+        vidas--;
+        switch (vidas){
+            case 1:
+                // ivVidas.setIma
+                // poner en el ivVidas la imagen vidas1
+                break;
+            case 2:
 
-        //si es mayor de 4 guarda en la bbdd
-        if (points > 4) {
-            params.putInt("puntos", points);
-            params.putString("username", sessionManagement.getSessionUserName());
-            firebaseMethods.createFbPuntuacion(params);
+                break;
+            case 3:
+
+                break;
+        }
+        System.out.println("");
+        if(vidas <= 0){
+            finishGame();
         }
 
-        points = 0;
-        txtRecord.setText(String.valueOf(points));
-        System.out.println("Perdiste");
+
+
         //continueGame();
 
+
+    }
+
+    private void finishGame() {
+        //si es mayor de 4 guarda en la bbdd
+        if (points > record) {
+            paramsIniciales.putInt("puntos", points);
+            paramsIniciales.putString("username", username);
+            firebaseMethods.createFbPuntuacion(paramsIniciales);
+            Toast.makeText(this, "Nuevo record alcanzado", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "Perdiste" + username, Toast.LENGTH_SHORT).show();
+        }
+        vidas = 3;
+        points = 0;
+        //txtPoints.setText(String.valueOf(points));
 
     }
 
@@ -381,7 +415,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         }
         Picasso.with(this).load(url_imageTeam2).into(ivT2);
 
-        txtRecord.setText(String.valueOf(points));
+        txtPoints.setText(String.valueOf(points));
         calculateValues();
     }
 
