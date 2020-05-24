@@ -7,9 +7,11 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     int points, record, vidas;
     boolean recordConseguido;
 
+    MyCountDownTimer myCountDownTimer;
+
+
     TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2;
     ImageView ivP1, ivP2, ivT1, ivT2, ivVidas;
     LinearLayout linJ1, linJ2, linFront, linLoad;
@@ -42,6 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     Bundle params, paramsIniciales;
     FirebaseMethods firebaseMethods;
+    ProgressBar progressBar;
 
     Resources res;
 
@@ -134,7 +140,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void buscarRecord() {
-        record =  firebaseMethods.getRecord(username);
+        record = firebaseMethods.getRecord(username);
 
     }
 
@@ -211,6 +217,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         linLoad = findViewById(R.id.linLoad);
         linLoad.setOnClickListener(this);
 
+        progressBar = findViewById(R.id.timeProgressBar);
+        progressBar.setProgress(0);
+
         final ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Cargando...");
@@ -254,6 +263,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
 //        random = (int) (Math.random() * leagueLeadersGlobal.size());
 //        leagueLeader2 = leagueLeadersGlobal.get(random);
+
+
     }
 
     private void iluminar(String color) {
@@ -274,7 +285,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         mediaPlayer.start();
         iluminar(ColorApp.RED);
         vidas--;
-        switch (vidas){
+        switch (vidas) {
             case 1:
                 // ivVidas.setIma
                 // poner en el ivVidas la imagen vidas1
@@ -287,10 +298,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
                 break;
         }
         System.out.println("");
-        if(vidas <= 0){
+        if (vidas <= 0) {
             finishGame();
         }
-
 
 
         //continueGame();
@@ -305,8 +315,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             paramsIniciales.putString("username", username);
             firebaseMethods.createFbPuntuacion(paramsIniciales);
             Toast.makeText(this, "Nuevo record alcanzado", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             Toast.makeText(this, "Perdiste" + username, Toast.LENGTH_SHORT).show();
         }
         vidas = 3;
@@ -359,40 +368,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         txtNameP2.setText(leagueLeader2.getPLAYER());
 
 
-        //Para cambiar el fondo, se podrá mejorar
-//        Picasso.with(this).load(fbTeamList.get(team1).getUrlBackground()).into(new Target() {
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                linJ1.setBackground(new BitmapDrawable(bitmap));
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(Drawable errorDrawable) {
-//
-//            }
-//
-//            @Override
-//            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//            }
-//        });
-//        Picasso.with(this).load(fbTeamList.get(team2).getUrlBackground()).into(new Target() {
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                linJ2.setBackground(new BitmapDrawable(bitmap));
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(Drawable errorDrawable) {
-//
-//            }
-//
-//            @Override
-//            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//            }
-//        });
-
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
         switch (leagueLeader2.getPLAYER_ID().intValue()) {
             case 1122:
@@ -416,7 +391,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         Picasso.with(this).load(url_imageTeam2).into(ivT2);
 
         txtPoints.setText(String.valueOf(points));
+
+
         calculateValues();
+
     }
 
     private String checkPlayerImage(int idJugador) {
@@ -427,6 +405,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         switch (idJugador) {
 
 
+            //david robinson
+            case 764:
+                urlImage = "https://webjolunba.com/caras/david_robinson.png";
+                break;
             //steve nash
             case 959:
                 urlImage = "https://i.dlpng.com/static/png/219514_preview.png";
@@ -689,10 +671,17 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
                 valueP2 = leagueLeader2.getFT_PCT().floatValue();
                 break;
         }
+
+
+        myCountDownTimer = new MyCountDownTimer(10000, 1000);
+        myCountDownTimer.start();
     }
 
     @Override
     public void onClick(View v) {
+
+        //si clicamos cualquiera se cancela el contador
+        myCountDownTimer.cancel();
 
         switch (v.getId()) {
             case R.id.linJ2:
@@ -701,6 +690,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
                 } else {
                     fallo();
                 }
+
                 break;
 
             case R.id.linJ1:
@@ -726,6 +716,29 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         }
     }
 
+    //CLASE DE CUENTA ATRÁS
+
+    public class MyCountDownTimer extends CountDownTimer {
+
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+            int progress = (int) (millisUntilFinished/1000);
+
+            progressBar.setProgress(progressBar.getMax()-progress);
+        }
+
+        @Override
+        public void onFinish() {
+//            finish();
+            fallo();
+            selectPlayers();
+        }
+    }
 
     @Override
     public void successListLeagueLeaders(ArrayList<LeagueLeader> leagueLeaders) {
