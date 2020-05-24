@@ -285,18 +285,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         mediaPlayer.start();
         iluminar(ColorApp.RED);
         vidas--;
-        switch (vidas) {
-            case 1:
-                // ivVidas.setIma
-                // poner en el ivVidas la imagen vidas1
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-        }
         System.out.println("");
         if (vidas <= 0) {
             finishGame();
@@ -699,6 +687,19 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
                 } else {
                     fallo();
                 }
+                break;
+        }
+
+        switch (vidas){
+            case 1:
+                ivVidas.setImageResource(R.drawable.vidas1);
+                // poner en el ivVidas la imagen vidas1
+                break;
+            case 2:
+                ivVidas.setImageResource(R.drawable.vidas2);
+                break;
+            case 3:
+                ivVidas.setImageResource(R.drawable.vidas3);
                 break;
         }
     }
