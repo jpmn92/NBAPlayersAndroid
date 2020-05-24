@@ -45,7 +45,18 @@
         <item>2006-07</item>
         <item>2005-06</item>
         <item>2004-05</item>
-
+        <item>2003-04</item>
+        <item>2002-03</item>
+        <item>2001-02</item>
+        <item>2000-01</item>
+        <item>1999-00</item>
+        <item>1998-99</item>
+        <item>1997-98</item>
+        <item>1996-97</item>
+        <item>1995-96</item>
+        <item>1994-95</item>
+        <item>1993-94</item>
+        <item>1992-93</item>
     </string-array>
 
     <string-array name="TipoTemporada">

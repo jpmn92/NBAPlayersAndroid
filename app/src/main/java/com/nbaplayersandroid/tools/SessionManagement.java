@@ -30,7 +30,7 @@ public class SessionManagement {
     }
 
     public String getSessionUserName() {
-        return sharedPreferences.getString(SESSION_USERNAME, "sin_nombre");
+        return sharedPreferences.getString(SESSION_USERNAME, "sin nombre");
     }
 
     public void removeSession() {

@@ -1,14 +1,19 @@
 package com.nbaplayersandroid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -16,10 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.nbaplayersandroid.beans.LeagueLeader;
 
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
+import com.nbaplayersandroid.menu.Menu;
 import com.nbaplayersandroid.tools.ColorApp;
 import com.nbaplayersandroid.tools.FirebaseMethods;
 import com.nbaplayersandroid.tools.GenerateImageUrl;
@@ -62,48 +69,24 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     @Override
     protected void onStart() {
         super.onStart();
-        // checkSession();
+//        checkSession();
     }
 
-    private void checkSession() {
 
-        sessionManagement = new SessionManagement(this);
-        int userID = sessionManagement.getSession();
-
-        if (userID != -1) {
-            //Logueado
-        } else {
-
-            //No logueados
-
-            //le pedimos username y despues guardamos la sesion
-
-            //METODO PARA DIALOGO
-//            new MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog)
-//                    .setTitle("Introduce nombre usuario")
-//                    .setMessage("Lorem ipsum dolor ....")
-//                    .setPositiveButton("Ok", /* listener = */ null)
-//                    .setNegativeButton("Cancel", /* listener = */ null)
-//                    .show();
-
-            username = "jp"; //o el quue se meta por el dialog
-
-            sessionManagement.saveSession(username);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        sessionManagement = new SessionManagement(this);
 
         linFront = findViewById(R.id.linFront);
         points = 0;
         params = this.getIntent().getExtras();
         paramsIniciales = (Bundle) params.clone();
-        username = params.getString("userName");
+//        username = params.getString("userName");
+        username = sessionManagement.getSessionUserName();
         season = params.getString("Season");
         seasonType = params.getString("SeasonType");
         statCategory = params.getString("StatCategory");
@@ -293,8 +276,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         comprobarVidas();
         if (vidas <= 0) {
             finishGame();
-        }
-        else{
+        } else {
             selectPlayers();
         }
 
@@ -316,7 +298,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         }
         vidas = 3;
         points = 0;
+        contadorAciertos = 0;
         myCountDownTimer.cancel();
+        showFinishedDialog(this, "La partida ha terminado", "");
         //txtPoints.setText(String.valueOf(points));
 
     }
@@ -395,9 +379,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     }
 
 
-
-
-
     private void calculateValues() {
         switch (statCategory) {
             case "PTS":
@@ -467,6 +448,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         }
 
 
+        //TODO: si es MISC dar mas segundos
         myCountDownTimer = new MyCountDownTimer(10000, 1000);
         myCountDownTimer.start();
     }
@@ -496,10 +478,10 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         }
     }
 
-    private void comprobarVidas(){
+    private void comprobarVidas() {
 
 
-        switch (vidas){
+        switch (vidas) {
             case 0:
                 ivVidas.setImageResource(R.drawable.vidas0);
             case 1:
@@ -519,7 +501,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         mediaPlayer.start();
         iluminar(ColorApp.GREEN);
         contadorAciertos++;
-        if(contadorAciertos >= 10 && vidas < 3){
+        if (contadorAciertos >= 10 && vidas < 3) {
             vidas++;
             comprobarVidas();
             contadorAciertos = 0;
@@ -545,9 +527,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         @Override
         public void onTick(long millisUntilFinished) {
 
-            int progress = (int) (millisUntilFinished/1000);
+            int progress = (int) (millisUntilFinished / 1000);
 
-            progressBar.setProgress(progressBar.getMax()-progress);
+            progressBar.setProgress(progressBar.getMax() - progress);
         }
 
         @Override
@@ -590,17 +572,48 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         myCountDownTimer.cancel();
         finish();
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         myCountDownTimer.cancel();
         finish();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         myCountDownTimer.cancel();
         finish();
     }
+
+
+    //dialog fin de partida
+    public void showFinishedDialog(Activity activity, String title, CharSequence message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
+
+        if (title != null) builder.setTitle(title);
+
+        builder.setMessage(message);
+        builder.setPositiveButton("Jugar de Nuevo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                comprobarVidas();
+                selectPlayers();
+            }
+        });
+        builder.setNegativeButton("Volver al menu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent menu = new Intent(MainActivity.this, Menu.class);
+//                menu.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MainActivity.this.startActivity(menu);
+
+            }
+        });
+        builder.show();
+    }
+
+
 
 }

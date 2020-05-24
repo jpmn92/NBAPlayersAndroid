@@ -1,14 +1,18 @@
 package com.nbaplayersandroid.menu;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,6 +35,10 @@ public class Menu extends Activity implements View.OnClickListener {
     Resources res;
     FirebaseMethods firebaseMethods;
     String userName;
+    SessionManagement sessionManagement;
+    Bundle params;
+    Intent juego;
+
 
 
     @Override
@@ -53,8 +61,8 @@ public class Menu extends Activity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 //                firebaseMethods.createFbPuntuacion();
-                SessionManagement sm = new SessionManagement(getBaseContext());
-                sm.removeSession();
+                sessionManagement = new SessionManagement(getBaseContext());
+                sessionManagement.removeSession();
 
             }
         });
@@ -65,8 +73,8 @@ public class Menu extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.startButton:
-                Intent juego = new Intent(this, MainActivity.class);
-                Bundle params = new Bundle();
+                juego = new Intent(this, MainActivity.class);
+                params = new Bundle();
 
                 //parametros del modo de juego
                 String temporada = sSeason.getSelectedItem().toString();
@@ -91,10 +99,11 @@ public class Menu extends Activity implements View.OnClickListener {
 
                 params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
-                userName = "jp"; //Para pruebas de momento
-                params.putString("userName", userName);
-                juego.putExtras(params);
-                this.startActivity(juego);
+                checkSession();
+//                userName = "jp"; //Para pruebas de momento
+//                params.putString("userName", userName);
+//                juego.putExtras(params);
+//                this.startActivity(juego);
                 break;
 
 
@@ -112,6 +121,60 @@ public class Menu extends Activity implements View.OnClickListener {
         String getParam = res.getResourceEntryName(resIds[(spinner.getSelectedItemPosition())]);
 
         return getParam;
+    }
+
+
+    private void checkSession() {
+
+        sessionManagement = new SessionManagement(this);
+        int userID = sessionManagement.getSession();
+
+        if (userID != -1) {
+            //Logueado
+        } else {
+
+            //No logueados
+
+            //le pedimos username y despues guardamos la sesion
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+            builder.setTitle("Introduce Nombre de Usuario");
+
+// Set up the input
+            final EditText input = new EditText(this);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            builder.setView(input);
+
+// Set up the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    userName = input.getText().toString();
+                    sessionManagement.saveSession(userName);
+                    juego.putExtras(params);
+                    Menu.this.startActivity(juego);
+
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    userName = "Usuario anonimo";
+                    sessionManagement.saveSession(userName);
+                    juego.putExtras(params);
+                    Menu.this.startActivity(juego);
+                }
+            });
+
+            builder.show();
+
+
+//            username = "jp"; //o el quue se meta por el dialog
+
+            sessionManagement.saveSession(userName);
+        }
     }
 
 }

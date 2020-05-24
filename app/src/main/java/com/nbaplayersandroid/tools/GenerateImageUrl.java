@@ -10,7 +10,47 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+            //muggsy bogues
+            case 177:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Muggsy-Bogues-2K.png";
+                break;
+            //isaiah thomas
+            case 78318:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Isiah-Thomas-2K.png";
+                break;
+            //scott skiles
+            case 101:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Scott-Skiles-2K.png";
+                break;
+            //tim hardaway sr
+            case 896:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Tim-Hardaway-2K.png";
+                break;
+            //larry johnson
+            case 913:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Larry-Johnson-2K.png";
+                break;
+            //petrovic
+            case 77845:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Drazen-Petrovic-2K.png";
+                break;
+            //mark jackson
+            case 349:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Mark-Jackson-2K-1.png";
+                break;
+            //sprewell
+            case 84:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Latrell-Sprewell-2K.png";
+                break;
+            //glen rice
+            case 779:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Glen-Rice-2K.png";
+                break;
 
+            //Schrempf
+            case 96:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Detlef-Schrempf-2K.png";
+                break;
             //david robinson
             case 764:
                 urlImage = "https://webjolunba.com/caras/david_robinson.png";
