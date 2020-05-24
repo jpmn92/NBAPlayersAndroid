@@ -22,6 +22,7 @@ import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
 import com.nbaplayersandroid.tools.ColorApp;
 import com.nbaplayersandroid.tools.FirebaseMethods;
+import com.nbaplayersandroid.tools.GenerateImageUrl;
 import com.nbaplayersandroid.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
@@ -55,6 +56,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     boolean gameStarted, misc, miscStats, miscSeason;
     String season, seasonType, statCategory, perMode, activeFlag, seasonText, statCategoryText, username;
     SessionManagement sessionManagement;
+
+    GenerateImageUrl generateImageUrl;
 
     @Override
     protected void onStart() {
@@ -124,9 +127,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
 
         lstLeagueLeaderPresenter = new LstLeagueLeaderPresenter(this);
-
-
-
+        generateImageUrl = new GenerateImageUrl();
         leagueLeadersGlobal = new ArrayList<>();
 
         if (misc) {
@@ -328,12 +329,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     private void recogerDatos() {
 
-        String url_imageTeam1 = checkTeamImage(leagueLeader1.getTEAM());
-        String url_imageTeam2 = checkTeamImage(leagueLeader2.getTEAM());
+        String url_imageTeam1 = generateImageUrl.checkTeamImage(leagueLeader1.getTEAM());
+        String url_imageTeam2 = generateImageUrl.checkTeamImage(leagueLeader2.getTEAM());
 
 
-        String url_imagen1 = checkPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
-        String url_imagen2 = checkPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
+        String url_imagen1 = generateImageUrl.checkPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
+        String url_imagen2 = generateImageUrl.checkPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
 
 
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
@@ -393,211 +394,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     }
 
-    private String checkPlayerImage(int idJugador) {
 
 
-        String urlImage = "";
-
-        switch (idJugador) {
-
-
-            //david robinson
-            case 764:
-                urlImage = "https://webjolunba.com/caras/david_robinson.png";
-                break;
-            //steve nash
-            case 959:
-                urlImage = "https://i.dlpng.com/static/png/219514_preview.png";
-                break;
-
-            //derek fisher
-            case 965:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/246.png";
-                break;
-
-            //shane battier
-            case 2203:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/976.png";
-                break;
-
-            //michael redd
-            case 2072:
-                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/692.png";
-                break;
-
-            //jason kidd
-            case 467:
-                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/429.png";
-                break;
-
-            //Ray allen
-            case 951:
-                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/9.png";
-                break;
-
-            //jamison
-            case 1712:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/385.png";
-                break;
-
-            //jason stackhouse
-            case 711:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/802.png";
-                break;
-
-            //jermaine
-            case 979:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/615.png";
-                break;
-
-            //rashard lewis
-            case 1740:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/469.png";
-                break;
-            //juwan howard
-            case 436:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/351.png";
-                break;
-
-            //jason richardson
-            case 2202:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1018.png";
-                break;
-
-            //tony parker
-            case 2225:
-                urlImage = "https://nba-players.herokuapp.com/players/Parker/Tony";
-                break;
-
-            //chauncey billups
-            case 1497:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/63.png";
-                break;
-
-            //boozer
-            case 2430:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1703.png";
-                break;
-
-            //al harrington
-            case 1733:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/308.png";
-                break;
-
-            //maggete
-            case 1894:
-                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/497.png";
-                break;
-            //odom
-            case 1885:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/617.png";
-                break;
-
-            //gerald wallace
-            case 2222:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1026.png";
-                break;
-
-            //brandon roy
-            case 200750:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3027.png";
-                break;
-
-            //nate robinson
-            case 101126:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2782.png";
-                break;
-            //chris duhon
-            case 2768:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2377.png";
-                break;
-
-            //rip hamilton
-            case 1888:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/294.png";
-                break;
-
-            //shawn marion
-            case 1890:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/510.png";
-                break;
-
-            //kirilenko
-            case 1905:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/434.png";
-                break;
-
-            //andrew bynum
-            case 101115:
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2748.png";
-                break;
-
-            //stephen jackson
-            case 1536:
-                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/378.png";
-                break;
-
-            //francisco garcia
-            case 101128:
-                urlImage = "https://3.bp.blogspot.com/-bopDVYYRH2A/Uz9ibGtm3xI/AAAAAAAAXs0/ZkXJA4oq0mE/s1600/i.png";
-                break;
-
-            //ridnour
-            case 2557:
-                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/1985.png";
-                break;
-
-
-            default:
-                urlImage = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" + idJugador + ".png";
-
-        }
-
-
-        return urlImage;
-    }
-
-    private String checkTeamImage(String equipo) {
-
-        String urlImage = "";
-
-        switch (equipo) {
-
-            case "NBA":
-                urlImage = "https://www.goodvinilos.com/6444/pegatina-logo-nba.jpg";
-                break;
-
-            case "NOH":
-                urlImage = "https://i.pinimg.com/originals/77/6a/3a/776a3a8005d7c176db429f7ce54367f9.png";
-                break;
-            case "NOK":
-                urlImage = "https://i.pinimg.com/originals/77/6a/3a/776a3a8005d7c176db429f7ce54367f9.png";
-                break;
-
-            case "SEA":
-                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Seattle_SuperSonics_logo.svg/1200px-Seattle_SuperSonics_logo.svg.png";
-                break;
-
-            case "VAN":
-                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Vancouver_Grizzlies_logo.svg/1200px-Vancouver_Grizzlies_logo.svg.png";
-                break;
-
-            case "CIN":
-                urlImage = "https://worldsportlogos.com/wp-content/uploads/2019/07/Cincinnati-Royals-emblem-1972.png";
-                break;
-
-            case "NJN":
-                urlImage = "https://vignette.wikia.nocookie.net/baloncesto/images/8/88/New_Jersey_Nets_logo.png";
-                break;
-
-            default:
-                urlImage = "https://a.espncdn.com/i/teamlogos/nba/500/" + equipo + ".png";
-
-        }
-
-
-        return urlImage;
-    }
 
 
     private void calculateValues() {

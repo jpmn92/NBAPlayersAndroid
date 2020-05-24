@@ -48,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
-                        android:src="@drawable/ejemplo_logo" />
+                        android:src="@drawable/nba" />
 
                 </LinearLayout>
 
@@ -63,14 +63,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/doncic" />
+                        android:src="@drawable/person" />
 
                     <TextView
                         android:id="@+id/txtNameP1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
-                        android:text="TextView"
+                        android:text="Player1"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -113,14 +113,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/doncic" />
+                        android:src="@drawable/person" />
 
                     <TextView
                         android:id="@+id/txtNameP2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
-                        android:text="TextView"
+                        android:text="Player2"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
-                    android:src="@drawable/ejemplo_logo" />
+                    android:src="@drawable/nba" />
 
 
 
