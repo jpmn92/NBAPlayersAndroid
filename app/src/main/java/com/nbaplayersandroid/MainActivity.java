@@ -305,6 +305,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     private void finishGame() {
         //si es mayor de 4 guarda en la bbdd
         if (points > record) {
+            record = points;
             paramsIniciales.putInt("puntos", points);
             paramsIniciales.putString("username", username);
             firebaseMethods.createFbPuntuacion(paramsIniciales);
@@ -705,7 +706,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
                 ivVidas.setImageResource(R.drawable.vidas0);
             case 1:
                 ivVidas.setImageResource(R.drawable.vidas1);
-                // poner en el ivVidas la imagen vidas1
                 break;
             case 2:
                 ivVidas.setImageResource(R.drawable.vidas2);
@@ -726,6 +726,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             comprobarVidas();
             contadorAciertos = 0;
         }
+        comprobarVidas();
         points++;
         if (misc) {
             mezclar();
@@ -754,8 +755,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         @Override
         public void onFinish() {
 //            finish();
+            myCountDownTimer.cancel();
             fallo();
-            selectPlayers();
+            //selectPlayers();
         }
     }
 
@@ -783,4 +785,24 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     public void setRecord(int record) {
         this.record = record;
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        myCountDownTimer.cancel();
+        finish();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        myCountDownTimer.cancel();
+        finish();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myCountDownTimer.cancel();
+        finish();
+    }
+
 }
