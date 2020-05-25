@@ -11,15 +11,12 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.InputType;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.nbaplayersandroid.beans.LeagueLeader;
@@ -33,38 +30,41 @@ import com.nbaplayersandroid.tools.GenerateImageUrl;
 import com.nbaplayersandroid.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity implements View.OnClickListener, LstLeagueLeaderContract.View {
 
-    int points, record, vidas, contadorAciertos;
-    boolean recordConseguido;
+    private int points, record, vidas, contadorAciertos;
+    private boolean recordConseguido;
 
-    MyCountDownTimer myCountDownTimer;
+    private MyCountDownTimer myCountDownTimer;
 
 
-    TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2;
-    ImageView ivP1, ivP2, ivT1, ivT2, ivVidas;
-    LinearLayout linJ1, linJ2, linFront, linLoad;
-    RelativeLayout relCircle;
-    MediaPlayer mediaPlayer;
+    private TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2;
+    private ImageView ivP1, ivP2, ivT1, ivT2, ivVidas;
+    private LinearLayout linJ1, linJ2, linFront, linLoad;
+    private RelativeLayout relCircle;
+    private MediaPlayer mediaPlayer;
 
-    LstLeagueLeaderPresenter lstLeagueLeaderPresenter;
-    ArrayList<LeagueLeader> leagueLeadersGlobal;
-    LeagueLeader leagueLeader1, leagueLeader2;
+    private LstLeagueLeaderPresenter lstLeagueLeaderPresenter;
+    private ArrayList<LeagueLeader> leagueLeadersGlobal;
+    private LeagueLeader leagueLeader1, leagueLeader2;
 
-    Bundle params, paramsIniciales;
-    FirebaseMethods firebaseMethods;
-    ProgressBar progressBar;
+    private Bundle params, paramsIniciales;
+    private FirebaseMethods firebaseMethods;
+    private ProgressBar progressBar;
 
-    Resources res;
+    private Resources res;
 
-    float valueP1, valueP2;
-    boolean gameStarted, misc, miscStats, miscSeason;
-    String season, seasonType, statCategory, perMode, activeFlag, seasonText, statCategoryText, username;
-    SessionManagement sessionManagement;
+    private DecimalFormat df;
 
-    GenerateImageUrl generateImageUrl;
+    private float valueP1, valueP2;
+    private boolean gameStarted, misc, miscStats, miscSeason;
+    private String season, seasonType, statCategory, perMode, activeFlag, username;
+    private SessionManagement sessionManagement;
+
+    private GenerateImageUrl generateImageUrl;
 
     @Override
     protected void onStart() {
@@ -81,6 +81,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
         sessionManagement = new SessionManagement(this);
 
+        df = new DecimalFormat("0.00");
         linFront = findViewById(R.id.linFront);
         points = 0;
         params = this.getIntent().getExtras();
@@ -256,8 +257,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void iluminar(String color) {
-        txtP1.setText(String.valueOf(valueP1));
-        txtP2.setText(String.valueOf(valueP2));
+        txtP1.setText(String.valueOf(df.format(valueP1)));
+        txtP2.setText(String.valueOf(df.format(valueP2)));
         linFront.setBackgroundColor(Color.parseColor(color));
         linFront.setVisibility(View.VISIBLE);
         linFront.postDelayed(new Runnable() {
@@ -287,20 +288,21 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     private void finishGame() {
         //si es mayor de 4 guarda en la bbdd
+        String message;
         if (points > record) {
             record = points;
             paramsIniciales.putInt("puntos", points);
             paramsIniciales.putString("username", username);
             firebaseMethods.createFbPuntuacion(paramsIniciales);
-            Toast.makeText(this, "Nuevo record alcanzado", Toast.LENGTH_SHORT).show();
+            message = getString(R.string.record);
         } else {
-            Toast.makeText(this, "Perdiste", Toast.LENGTH_SHORT).show();
+            message = "";
         }
         vidas = 3;
         points = 0;
         contadorAciertos = 0;
         myCountDownTimer.cancel();
-        showFinishedDialog(this, "La partida ha terminado", "");
+        showFinishedDialog(this, message);
         //txtPoints.setText(String.valueOf(points));
 
     }
@@ -437,13 +439,13 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
                 break;
 
             case "FG3_PCT":
-                valueP1 = leagueLeader1.getFG3_PCT().floatValue();
-                valueP2 = leagueLeader2.getFG3_PCT().floatValue();
+                valueP1 = leagueLeader1.getFG3_PCT().floatValue()*100;
+                valueP2 = leagueLeader2.getFG3_PCT().floatValue()*100;
                 break;
 
             case "FT_PCT":
-                valueP1 = leagueLeader1.getFT_PCT().floatValue();
-                valueP2 = leagueLeader2.getFT_PCT().floatValue();
+                valueP1 = leagueLeader1.getFT_PCT().floatValue()*100;
+                valueP2 = leagueLeader2.getFT_PCT().floatValue()*100;
                 break;
         }
 
@@ -589,20 +591,20 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
 
     //dialog fin de partida
-    public void showFinishedDialog(Activity activity, String title, CharSequence message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
+    public void showFinishedDialog(Activity activity, CharSequence message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        if (title != null) builder.setTitle(title);
+        builder.setTitle(R.string.game_finished);
 
         builder.setMessage(message);
-        builder.setPositiveButton("Jugar de Nuevo", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.play_again, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 comprobarVidas();
                 selectPlayers();
             }
         });
-        builder.setNegativeButton("Volver al menu", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.back_to_menu, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent menu = new Intent(MainActivity.this, Menu.class);

@@ -130,7 +130,9 @@ public class Menu extends Activity implements View.OnClickListener {
         int userID = sessionManagement.getSession();
 
         if (userID != -1) {
-            //Logueado
+            userName = sessionManagement.getSessionUserName();
+            juego.putExtras(params);
+            Menu.this.startActivity(juego);
         } else {
 
             //No logueados
@@ -138,7 +140,7 @@ public class Menu extends Activity implements View.OnClickListener {
             //le pedimos username y despues guardamos la sesion
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-            builder.setTitle("Introduce Nombre de Usuario");
+            builder.setTitle(R.string.introduce_user_name);
 
 // Set up the input
             final EditText input = new EditText(this);
@@ -147,7 +149,7 @@ public class Menu extends Activity implements View.OnClickListener {
             builder.setView(input);
 
 // Set up the buttons
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     userName = input.getText().toString();
@@ -157,14 +159,15 @@ public class Menu extends Activity implements View.OnClickListener {
 
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                    userName = "Usuario anonimo";
-                    sessionManagement.saveSession(userName);
-                    juego.putExtras(params);
-                    Menu.this.startActivity(juego);
+//                    dialog.cancel();
+//                    userName = "Usuario anonimo";
+//                    sessionManagement.saveSession(userName);
+//                    juego.putExtras(params);
+//                    Menu.this.startActivity(juego);
+                    dialog.dismiss();
                 }
             });
 
@@ -173,7 +176,6 @@ public class Menu extends Activity implements View.OnClickListener {
 
 //            username = "jp"; //o el quue se meta por el dialog
 
-            sessionManagement.saveSession(userName);
         }
     }
 

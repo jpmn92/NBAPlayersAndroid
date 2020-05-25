@@ -1,8 +1,19 @@
 <resources>
+    <!--Textos botones-->
     <string name="app_name">NBA STATS QUIZ</string>
-    <string name="btnComenzar">START</string>
-    <string name="btnRecords">NBA STATS QUIZ HIGH SCORES</string>
+    <string name="btnComenzar">COMENZAR</string>
+    <string name="btnRecords">VER MÁXIMAS PUNTUACIONES</string>
 
+    <!--Textos Dialogs-->
+    <string name="introduce_user_name">Introduce Nombre de Usuario</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="back_to_menu">BACK TO MENU</string>
+    <string name="play_again">PLAY AGAIN</string>
+    <string name="game_finished">Game finished</string>
+    <string name="record">New Record!</string>
+
+    <!--Textos spiners-->
     <string name="MISC">MIX</string>
 
     <string name="PerGame">Per game</string>
