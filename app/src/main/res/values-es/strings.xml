@@ -1,4 +1,5 @@
 <resources>
+    <string name="sound">Sonido</string>
     <!--Textos botones-->
     <string name="app_name">NBA STATS QUIZ</string>
     <string name="btnComenzar">COMENZAR</string>

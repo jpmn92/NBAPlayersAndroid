@@ -39,40 +39,10 @@ public class FirebaseMethods
         this.puntuacion = 0;
     }
 
-    //    private void getFbPlayers() {
-//        reference = FirebaseDatabase.getInstance().getReference().child("Jugador");
-//        fbPlayerList = new ArrayList<FirebasePlayer>();
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-//
-//                    Object object = snapshot.getValue(Object.class);
-//                    String json = new Gson().toJson(object);
-//                    FirebasePlayer fbPlayer = new Gson().fromJson(json, FirebasePlayer.class);
-//                    fbPlayerList.add(fbPlayer);
-//                }
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//
-//    }
-
     public void createFbPuntuacion(Bundle bundle) {
-
-
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
-
 
         fbPuntuacion = new FirebasePuntuacion();
         fbPuntuacion.setPoints(bundle.getInt("puntos"));
@@ -82,10 +52,6 @@ public class FirebaseMethods
         fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
         fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
 
-
-//        fbPuntuacion.setPerMode("Per Game");
-//        fbPuntuacion.setSeasonType("Regular Season");
-//        fbPuntuacion.setStatCategory("PTS");
         fbPuntuacion.setUsername(bundle.getString("username"));
 
 
@@ -96,7 +62,6 @@ public class FirebaseMethods
     public void getRecord(){
         ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
-        // Query query = reference.child("Puntuacion").orderByChild("username").equalTo(userName);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -115,7 +80,6 @@ public class FirebaseMethods
                             && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
                     if(datosIguales && firebasePuntuacion.getPoints() > puntuacion){
                         puntuacion  = firebasePuntuacion.getPoints();
-                        System.out.println("");
                     }
                 }
                 mainActivity.setRecord(puntuacion);

@@ -39,6 +39,13 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <CheckBox
+                android:id="@+id/checkSound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/sound" />
+
             <Spinner
                 android:id="@+id/spinnerSeasons"
                 android:layout_width="match_parent"

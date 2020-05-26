@@ -12,6 +12,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -31,6 +32,7 @@ import java.util.Arrays;
 public class Menu extends Activity implements View.OnClickListener {
 
     Spinner sSeason, sCategory, sSeasonType, sDataType;
+    CheckBox checkSound;
     Button startButton, btnRecords;
     Resources res;
     FirebaseMethods firebaseMethods;
@@ -41,11 +43,13 @@ public class Menu extends Activity implements View.OnClickListener {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        checkSound = findViewById(R.id.checkSound);
         sSeason = findViewById(R.id.spinnerSeasons);
         sCategory = findViewById(R.id.spinnerCategory);
         sSeasonType = findViewById(R.id.spinnerSeasonType);
@@ -99,6 +103,8 @@ public class Menu extends Activity implements View.OnClickListener {
 
                 params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
+                params.putBoolean("Sound", checkSound.isChecked());
+
                 checkSession();
 //                userName = "jp"; //Para pruebas de momento
 //                params.putString("userName", userName);
@@ -142,13 +148,13 @@ public class Menu extends Activity implements View.OnClickListener {
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
             builder.setTitle(R.string.introduce_user_name);
 
-// Set up the input
+            // Set up the input
             final EditText input = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             builder.setView(input);
 
-// Set up the buttons
+            // Set up the buttons
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

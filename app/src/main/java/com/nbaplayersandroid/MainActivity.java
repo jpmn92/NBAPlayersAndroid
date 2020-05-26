@@ -270,8 +270,12 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void fallo() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.error);
-        mediaPlayer.start();
+        if(params.getBoolean("Sound")){
+            mediaPlayer = MediaPlayer.create(this, R.raw.error);
+            mediaPlayer.start();
+
+        }
+        contadorAciertos = 0;
         iluminar(ColorApp.RED);
         vidas--;
         comprobarVidas();
@@ -499,8 +503,11 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void acierto() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.acierto);
-        mediaPlayer.start();
+        if(params.getBoolean("Sound")){
+            mediaPlayer = MediaPlayer.create(this, R.raw.acierto);
+            mediaPlayer.start();
+
+        }
         iluminar(ColorApp.GREEN);
         contadorAciertos++;
         if (contadorAciertos >= 10 && vidas < 3) {
