@@ -91,6 +91,10 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                 statsJson = new Gson().toJson(response.execute().body());
 
+                if(statsJson == null){
+                    return false;
+                }
+
                 jsonObject = new Gson().fromJson(statsJson, JsonObject.class).getAsJsonObject();
 
 //                playerSeasonStatsList = new Gson().fromJson(statsJson, PlayerSeasonStatsList.class);
@@ -105,6 +109,10 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 String jsonRowSet = rowSet.toString();
                 leagueLeaders = new ArrayList<>();
                 JsonArray jsonArrayTop = new JsonArray();
+
+                if(jsonArray.size() == 0){
+                    return false;
+                }
 
                 if (jsonArray.size() < 100) {
                     for (int i = 0; i < jsonArray.size(); i++) {
@@ -150,7 +158,6 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                     }
                     leagueLeaders.add(leagueLeader);
                 }
-                System.out.println("");
 
 
             } catch (IOException e) {
@@ -172,9 +179,11 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 if (resp) {
                     //al componente reactivo le devuelvo la lista de sesiones
                     onLstLeagueLeaderListener.onFinished(leagueLeaders);
-
-
                 }
+                else{
+                    onLstLeagueLeaderListener.onFailure("No hay jugadores para esa selección");
+                }
+
             } catch (Exception e) {
 
                 onLstLeagueLeaderListener.onFailure("Error: Listar Jugadores");

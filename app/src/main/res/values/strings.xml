@@ -1,10 +1,12 @@
 <resources>
     <string name="sound">Sound</string>
+    <!-- Errores -->
+    <string name="no_data_found">No players founds with this params</string>
 
     <!--Textos botones-->
     <string name="app_name">NBA STATS QUIZ</string>
-    <string name="btnComenzar">COMENZAR</string>
-    <string name="btnRecords">VER MÁXIMAS PUNTUACIONES</string>
+    <string name="btnComenzar">START GAME</string>
+    <string name="btnRecords">BEST SCORES</string>
 
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Introduce Nombre de Usuario</string>

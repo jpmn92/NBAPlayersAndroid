@@ -566,8 +566,18 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     @Override
     public void failureListLeagueLeaders(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-
+        builder.setTitle(R.string.no_data_found);
+        builder.setPositiveButton(R.string.back_to_menu, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent menu = new Intent(MainActivity.this, Menu.class);
+                menu.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MainActivity.this.startActivity(menu);
+            }
+        });
+        builder.show();
     }
 
     public int getRecord() {

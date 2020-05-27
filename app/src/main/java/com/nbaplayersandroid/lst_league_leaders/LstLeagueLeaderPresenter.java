@@ -27,8 +27,7 @@ public class LstLeagueLeaderPresenter implements LstLeagueLeaderContract.Present
 
             @Override
             public void onFailure(String error) {
-
-
+                vista.failureListLeagueLeaders(error);
             }
         }, params);
 
