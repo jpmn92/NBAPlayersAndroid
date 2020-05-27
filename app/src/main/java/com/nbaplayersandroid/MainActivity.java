@@ -36,7 +36,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity implements View.OnClickListener, LstLeagueLeaderContract.View {
 
-    private int points, record, vidas, contadorAciertos;
+    private int points, record, vidas, contadorAciertos, tiempo;
     private boolean recordConseguido;
 
     private MyCountDownTimer myCountDownTimer;
@@ -83,6 +83,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         sessionManagement = new SessionManagement(this);
 
         df = new DecimalFormat("0.00");
+        tiempo = 10000;
         linFront = findViewById(R.id.linFront);
         points = 0;
         params = this.getIntent().getExtras();
@@ -160,7 +161,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             season = params.getString("Season");
         }
 
-
+        tiempo = 15000;
+        progressBar.setMax(14);
         lstLeagueLeaderPresenter.getLeagueLeaders(params);
     }
 
@@ -457,7 +459,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
 
         //TODO: si es MISC dar mas segundos
-        myCountDownTimer = new MyCountDownTimer(10000, 1000);
+        myCountDownTimer = new MyCountDownTimer(tiempo, 1000);
         myCountDownTimer.start();
     }
 
