@@ -144,8 +144,8 @@ public class Menu extends Activity implements View.OnClickListener {
             //No logueados
 
             //le pedimos username y despues guardamos la sesion
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+            //AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_Design_BottomSheetDialog);
             builder.setTitle(R.string.introduce_user_name);
 
             // Set up the input

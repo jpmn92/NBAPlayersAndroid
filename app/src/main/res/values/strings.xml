@@ -15,7 +15,9 @@
     <string name="back_to_menu">BACK TO MENU</string>
     <string name="play_again">PLAY AGAIN</string>
     <string name="game_finished">Game finished</string>
-    <string name="record">New Record!</string>
+    <string name="new_record">New Record!</string>
+    <string name="record">Record: </string>
+    <string name="puntuacion">Points: </string>
 
     <!--Textos spiners-->
     <string name="MISC">MIX</string>

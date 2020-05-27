@@ -14,7 +14,9 @@
     <string name="back_to_menu">VOLVER AL MENÚ</string>
     <string name="play_again">JUGAR DE NUEVO</string>
     <string name="game_finished">La partida ha terminado</string>
-    <string name="record">¡Nuevo Récord Conseguido!</string>
+    <string name="new_record">¡Nuevo Récord Conseguido!</string>
+    <string name="record">Record: </string>
+    <string name="puntuacion">Puntuación: </string>
 
 
     <!--Textos spiners-->

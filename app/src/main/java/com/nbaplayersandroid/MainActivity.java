@@ -302,9 +302,9 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
             paramsIniciales.putInt("puntos", points);
             //paramsIniciales.putString("username", username);
             firebaseMethods.createFbPuntuacion(paramsIniciales);
-            message = getString(R.string.record);
+            message = getString(R.string.new_record);
         } else {
-            message = "";
+            message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
         }
         vidas = 3;
         points = 0;
