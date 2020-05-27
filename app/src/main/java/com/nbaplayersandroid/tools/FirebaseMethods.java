@@ -52,7 +52,7 @@ public class FirebaseMethods
         fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
         fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
 
-        fbPuntuacion.setUsername(bundle.getString("username"));
+        fbPuntuacion.setUsername(bundle.getString("userName"));
 
 
         reference.push().setValue(fbPuntuacion);

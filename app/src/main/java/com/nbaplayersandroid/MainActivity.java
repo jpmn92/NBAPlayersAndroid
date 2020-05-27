@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -88,7 +89,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         paramsIniciales = (Bundle) params.clone();
 //        username = params.getString("userName");
         username = sessionManagement.getSessionUserName();
-        paramsIniciales.putString("userName", username);
+        paramsIniciales.putString("userName", username + Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID));
         season = params.getString("Season");
         seasonType = params.getString("SeasonType");
         statCategory = params.getString("StatCategory");
@@ -297,7 +298,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         if (points > record) {
             record = points;
             paramsIniciales.putInt("puntos", points);
-            paramsIniciales.putString("username", username);
+            //paramsIniciales.putString("username", username);
             firebaseMethods.createFbPuntuacion(paramsIniciales);
             message = getString(R.string.record);
         } else {
