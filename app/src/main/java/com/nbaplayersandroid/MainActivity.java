@@ -88,6 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         paramsIniciales = (Bundle) params.clone();
 //        username = params.getString("userName");
         username = sessionManagement.getSessionUserName();
+        paramsIniciales.putString("userName", username);
         season = params.getString("Season");
         seasonType = params.getString("SeasonType");
         statCategory = params.getString("StatCategory");
@@ -520,7 +521,6 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         if (misc) {
             mezclar();
         } else {
-
             continueGame();
         }
     }
