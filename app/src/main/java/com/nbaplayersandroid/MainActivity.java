@@ -295,7 +295,8 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void finishGame() {
-        //si es mayor de 4 guarda en la bbdd
+
+        ivVidas.setImageResource(R.drawable.vidas0);
         String message;
         if (points > record) {
             record = points;
@@ -567,7 +568,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     @Override
     public void failureListLeagueLeaders(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
+        builder.setCancelable(false);
         builder.setTitle(R.string.no_data_found);
         builder.setPositiveButton(R.string.back_to_menu, new DialogInterface.OnClickListener() {
             @Override
@@ -613,7 +614,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
     //dialog fin de partida
     public void showFinishedDialog(Activity activity, CharSequence message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
+        builder.setCancelable(false);
         builder.setTitle(R.string.game_finished);
 
         builder.setMessage(message);
