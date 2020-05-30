@@ -1,5 +1,6 @@
 package com.nbaplayersandroid.tools;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.nbaplayersandroid.MainActivity;
+import com.nbaplayersandroid.PuntuacionesActivity;
 import com.nbaplayersandroid.beans.FirebasePuntuacion;
+import com.nbaplayersandroid.menu.Menu;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,23 +23,30 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
-public class FirebaseMethods
-
-{
+public class FirebaseMethods {
     MainActivity mainActivity;
+    Menu menu;
+
+    Boolean processDone;
     DatabaseReference reference;
     FirebasePuntuacion fbPuntuacion;
     Bundle bundlePartida;
     int puntuacion;
+    ArrayList<FirebasePuntuacion> listadoFinal;
 
     public FirebaseMethods() {
         this.puntuacion = 0;
     }
 
-    public FirebaseMethods(MainActivity mainActivity,Bundle bundlePartida) {
+    public FirebaseMethods(MainActivity mainActivity, Bundle bundlePartida) {
         this.mainActivity = mainActivity;
         this.bundlePartida = bundlePartida;
         this.puntuacion = 0;
+    }
+
+    public FirebaseMethods(Menu menu) {
+        this.menu = menu;
+
     }
 
     public void createFbPuntuacion(Bundle bundle) {
@@ -59,27 +69,28 @@ public class FirebaseMethods
 
     }
 
-    public void getRecord(){
+    public void getRecord() {
         ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Object object = snapshot.getValue(Object.class);
                     String json = new Gson().toJson(object);
-                    FirebasePuntuacion fbTeam = new Gson().fromJson(json, FirebasePuntuacion.class);
-                    fbPuntuacionList.add(fbTeam);
+                    FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+                    fbPuntuacionList.add(fbPuntuacion);
                 }
 
-                for(FirebasePuntuacion firebasePuntuacion: fbPuntuacionList){
+                for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
                     boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode")) && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
                             && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory")) && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
                             && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
-                    if(datosIguales && firebasePuntuacion.getPoints() > puntuacion){
-                        puntuacion  = firebasePuntuacion.getPoints();
+
+                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
+                        puntuacion = firebasePuntuacion.getPoints();
                     }
                 }
                 mainActivity.setRecord(puntuacion);
@@ -93,6 +104,73 @@ public class FirebaseMethods
         });
     }
 
+    //SI LO HACEMOS ARRAYLIST NO VA
+    public void getRecord2(Bundle paramsPartida) {
+
+        processDone = false;
+
+        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
+        listadoFinal = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                if (!processDone) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        Object object = snapshot.getValue(Object.class);
+                        String json = new Gson().toJson(object);
+                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+                        fbPuntuacionList.add(fbPuntuacion);
+                    }
+
+                    for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
+//                    boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode")) && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
+//                            && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory")) && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
+//                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
+
+                        if (
+                                firebasePuntuacion.getPerMode().equalsIgnoreCase(paramsPartida.getString("PerMode"))
+                                        && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))
+                                        && firebasePuntuacion.getStatCategory().equalsIgnoreCase(paramsPartida.getString("StatCategory"))
+                                        && firebasePuntuacion.getSeasonType().equalsIgnoreCase(paramsPartida.getString("SeasonType"))) {
+
+                            listadoFinal.add(firebasePuntuacion);
+
+
+                        }
+
+
+
+                    }
+                    processDone = true;
+                    menu.setPuntuaciones(listadoFinal);
+                    menu.goToPuntuaciones();
+
+
+                }
+
+
+
+
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+
+
+        });
+
+
+    }
 
 
 //    private void getFbTeams() {
@@ -119,8 +197,6 @@ public class FirebaseMethods
 //        });
 //
 //    }
-
-
 
 
 //    private void createFbTeam() {

@@ -2,7 +2,6 @@ package com.nbaplayersandroid.menu;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,24 +9,20 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.nbaplayersandroid.MainActivity;
+import com.nbaplayersandroid.PuntuacionesActivity;
 import com.nbaplayersandroid.R;
+import com.nbaplayersandroid.beans.FirebasePuntuacion;
 import com.nbaplayersandroid.tools.FirebaseMethods;
-import com.nbaplayersandroid.tools.Mode;
 import com.nbaplayersandroid.tools.SessionManagement;
 
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Menu extends Activity implements View.OnClickListener {
 
@@ -40,9 +35,15 @@ public class Menu extends Activity implements View.OnClickListener {
     SessionManagement sessionManagement;
     Bundle params;
     Intent juego;
+    ArrayList<FirebasePuntuacion> puntuaciones;
 
+    public ArrayList<FirebasePuntuacion> getPuntuaciones() {
+        return puntuaciones;
+    }
 
-
+    public void setPuntuaciones(ArrayList<FirebasePuntuacion> puntuaciones) {
+        this.puntuaciones = puntuaciones;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +60,66 @@ public class Menu extends Activity implements View.OnClickListener {
         btnRecords = findViewById(R.id.btnRecords);
         res = getResources();
 
-        firebaseMethods = new FirebaseMethods();
+        firebaseMethods = new FirebaseMethods(this);
 
         btnRecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                firebaseMethods.createFbPuntuacion();
-                sessionManagement = new SessionManagement(getBaseContext());
-                sessionManagement.removeSession();
+
+//                sessionManagement = new SessionManagement(getBaseContext());
+//                sessionManagement.removeSession();
+
+                //TODO: revisar los parametros a pasar
+                 firebaseMethods.getRecord2(getParams());
+
 
             }
         });
 
     }
+
+    public void goToPuntuaciones() {
+
+        Intent activityPuntuaciones = new Intent(getApplicationContext(), PuntuacionesActivity.class);
+        activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
+        startActivity(activityPuntuaciones);
+    }
+
+    public Bundle getParams(){
+
+        Bundle paramsPartida = new Bundle();
+
+        //parametros del modo de juego
+        String temporada = sSeason.getSelectedItem().toString();
+
+        if (sSeason.getSelectedItemPosition() == 0) {
+            temporada = "MISC";
+        }
+
+        paramsPartida.putString("Season", temporada);
+        paramsPartida.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
+
+        String stat = getParam(R.array.TipoCategoria, sCategory);
+
+        paramsPartida.putString("StatCategory", stat); //PTS para puntos
+        // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
+
+
+        // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
+        String statMode = getParam(R.array.TipoDatos, sDataType);
+        paramsPartida.putString("PerMode", statMode); //PerGame para por partido
+//                params.putString("PerMode", "PerGame"); //PerGame para por partido
+
+        paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
+
+        paramsPartida.putBoolean("Sound", checkSound.isChecked());
+
+        return  paramsPartida;
+
+
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -130,6 +178,8 @@ public class Menu extends Activity implements View.OnClickListener {
     }
 
 
+
+
     private void checkSession() {
 
         sessionManagement = new SessionManagement(this);
@@ -151,7 +201,7 @@ public class Menu extends Activity implements View.OnClickListener {
             // Set up the input
             final EditText input = new EditText(this);
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_DATETIME_VARIATION_NORMAL);
             builder.setView(input);
 
             // Set up the buttons

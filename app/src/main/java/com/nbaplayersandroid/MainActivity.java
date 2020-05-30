@@ -296,7 +296,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
 
     private void finishGame() {
 
-        ivVidas.setImageResource(R.drawable.vidas0);
+//        ivVidas.setImageResource(R.drawable.vidas0);
         String message;
         if (points > record) {
             record = points;
@@ -363,16 +363,16 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
         switch (leagueLeader2.getPLAYER_ID().intValue()) {
             case 1122:
-                Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
+                Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP2);
                 break;
             case 304:
-                Picasso.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP1);
+                Picasso.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP2);
                 break;
             case 600015:
-                Picasso.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP1);
+                Picasso.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP2);
                 break;
             case 714:
-                Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
+                Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP2);
                 break;
 
             default:
@@ -495,6 +495,7 @@ public class MainActivity extends Activity implements View.OnClickListener, LstL
         switch (vidas) {
             case 0:
                 ivVidas.setImageResource(R.drawable.vidas0);
+                break;
             case 1:
                 ivVidas.setImageResource(R.drawable.vidas1);
                 break;

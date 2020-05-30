@@ -10,6 +10,11 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+
+            //tom gugliotta
+            case 339:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Tom-Gugliotta-2K.png";
+                break;
             //muggsy bogues
             case 177:
                 urlImage = "https://www.2kratings.com/wp-content/uploads/Muggsy-Bogues-2K.png";

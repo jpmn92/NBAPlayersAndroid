@@ -156,6 +156,12 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                     if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
                         leagueLeader.setTEAM("UTAH");
                     }
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
+                        leagueLeader.setTEAM("SAS");
+                    }
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("GOS")) {
+                        leagueLeader.setTEAM("GSW");
+                    }
                     leagueLeaders.add(leagueLeader);
                 }
 

@@ -3,5 +3,22 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary_text">#212121</color>
+    <color name="colorSecondary_text">#757575</color>
+    <color name="colorIcons">#212121</color>
+    <color name="colorDivider">#BDBDBD</color>
 
+    <color name="btn_color">#69cac7</color>
+    <color name="text_color">#484b4d</color>
+
+
+    <color name="colorBlanco">#FFFFFF</color>
+    <color name="colorNegro">#000000</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="material_black">#212121</color>
+
+    <color name="window_background">#FFF5F5F5</color>
+
+    <color name="year">#999999</color>
+    <color name="title">#222222</color>
 </resources>
