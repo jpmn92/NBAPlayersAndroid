@@ -22,6 +22,8 @@ import com.nbaplayersandroid.tools.FirebaseMethods;
 import com.nbaplayersandroid.tools.SessionManagement;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class Menu extends Activity implements View.OnClickListener {
@@ -80,7 +82,9 @@ public class Menu extends Activity implements View.OnClickListener {
     }
 
     public void goToPuntuaciones() {
-
+        // puntuaciones.sort();
+        Collections.sort(puntuaciones, Collections.reverseOrder());
+        System.out.println("");
         Intent activityPuntuaciones = new Intent(getApplicationContext(), PuntuacionesActivity.class);
         activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
         startActivity(activityPuntuaciones);

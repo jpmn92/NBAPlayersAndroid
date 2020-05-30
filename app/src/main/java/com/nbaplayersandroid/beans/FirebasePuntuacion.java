@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class FirebasePuntuacion implements Parcelable, Serializable {
+public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<FirebasePuntuacion> {
 
     String username, season, seasonType, statCategory, perMode, date;
     int points;
@@ -119,5 +119,8 @@ public class FirebasePuntuacion implements Parcelable, Serializable {
         dest.writeInt(points);
     }
 
-
+    @Override
+    public int compareTo(FirebasePuntuacion o) {
+        return Integer.compare(this.points, o.points);
+    }
 }
