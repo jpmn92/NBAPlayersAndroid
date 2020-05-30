@@ -6,9 +6,10 @@
     <string name="app_name">NBA STATS QUIZ</string>
     <string name="btnComenzar">COMENZAR</string>
     <string name="btnRecords">VER MÁXIMAS PUNTUACIONES</string>
+    <string name="options">OPCIONES</string>
     
     <!--Textos Dialogs-->
-    <string name="introduce_user_name">Introduce Nombre de Usuario</string>
+    <string name="introduce_user_name">Introduce Nombre de Usuario:</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCELAR</string>
     <string name="back_to_menu">VOLVER AL MENÚ</string>

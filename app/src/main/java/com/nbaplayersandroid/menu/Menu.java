@@ -8,11 +8,13 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.nbaplayersandroid.MainActivity;
 import com.nbaplayersandroid.PuntuacionesActivity;
@@ -29,8 +31,7 @@ import java.util.Comparator;
 public class Menu extends Activity implements View.OnClickListener {
 
     Spinner sSeason, sCategory, sSeasonType, sDataType;
-    CheckBox checkSound;
-    Button startButton, btnRecords;
+    Button startButton, btnRecords, btnOptions;
     Resources res;
     FirebaseMethods firebaseMethods;
     String userName;
@@ -38,6 +39,7 @@ public class Menu extends Activity implements View.OnClickListener {
     Bundle params;
     Intent juego;
     ArrayList<FirebasePuntuacion> puntuaciones;
+    boolean sound;
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
         return puntuaciones;
@@ -51,8 +53,7 @@ public class Menu extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-        checkSound = findViewById(R.id.checkSound);
+        sound = true;
         sSeason = findViewById(R.id.spinnerSeasons);
         sCategory = findViewById(R.id.spinnerCategory);
         sSeasonType = findViewById(R.id.spinnerSeasonType);
@@ -60,6 +61,8 @@ public class Menu extends Activity implements View.OnClickListener {
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
         btnRecords = findViewById(R.id.btnRecords);
+        btnOptions = findViewById(R.id.btnOptions);
+        btnOptions.setOnClickListener(this);
         res = getResources();
 
         firebaseMethods = new FirebaseMethods(this);
@@ -84,7 +87,6 @@ public class Menu extends Activity implements View.OnClickListener {
     public void goToPuntuaciones() {
         // puntuaciones.sort();
         Collections.sort(puntuaciones, Collections.reverseOrder());
-        System.out.println("");
         Intent activityPuntuaciones = new Intent(getApplicationContext(), PuntuacionesActivity.class);
         activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
         startActivity(activityPuntuaciones);
@@ -117,7 +119,7 @@ public class Menu extends Activity implements View.OnClickListener {
 
         paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
-        paramsPartida.putBoolean("Sound", checkSound.isChecked());
+        paramsPartida.putBoolean("Sound", sound);
 
         return  paramsPartida;
 
@@ -155,18 +157,69 @@ public class Menu extends Activity implements View.OnClickListener {
 
                 params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
-                params.putBoolean("Sound", checkSound.isChecked());
+                params.putBoolean("Sound", sound);
 
                 checkSession();
-//                userName = "jp"; //Para pruebas de momento
-//                params.putString("userName", userName);
-//                juego.putExtras(params);
-//                this.startActivity(juego);
+                break;
+                
+            case R.id.btnOptions:
+                dialogOptions();
                 break;
 
 
         }
 
+    }
+
+    private void dialogOptions() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.options);
+        View optionsView = View.inflate(this, R.layout.options_layout, null);
+        getUserName();
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(optionsView);
+        TextView txtUserNameOptions = optionsView.findViewById(R.id.txtUserNameOptions);
+        txtUserNameOptions.setText(userName);
+        CheckBox checkBoxSound = optionsView.findViewById(R.id.checkboxSoundOptions);
+        checkBoxSound.setChecked(sound);
+
+
+        // Set up the buttons
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                userName = txtUserNameOptions.getText().toString();
+                sound = checkBoxSound.isChecked();
+                sessionManagement.saveSession(userName, sound);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void getUserName() {
+        sessionManagement = new SessionManagement(this);
+        int userID = sessionManagement.getSession();
+
+        if (userID != -1) {
+            userName = sessionManagement.getSessionUserName();
+            sound = sessionManagement.getSound();
+        }
+        else{
+            userName = "";
+            sound = true;
+        }
     }
 
     public String getParam(int arrayId, Spinner spinner) {
@@ -205,7 +258,7 @@ public class Menu extends Activity implements View.OnClickListener {
             // Set up the input
             final EditText input = new EditText(this);
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_DATETIME_VARIATION_NORMAL);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
             builder.setView(input);
 
             // Set up the buttons
@@ -222,11 +275,6 @@ public class Menu extends Activity implements View.OnClickListener {
             builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-//                    dialog.cancel();
-//                    userName = "Usuario anonimo";
-//                    sessionManagement.saveSession(userName);
-//                    juego.putExtras(params);
-//                    Menu.this.startActivity(juego);
                     dialog.dismiss();
                 }
             });

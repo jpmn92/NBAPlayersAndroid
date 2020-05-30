@@ -12,10 +12,19 @@
     <LinearLayout
 
 
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:gravity="right"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="10dp">
+
+        <Button
+            android:id="@+id/btnOptions"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ajustes" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,8 +37,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
 
-                android:src="@drawable/logo_ligero"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/logo_ligero" />
 
         </LinearLayout>
 
@@ -39,46 +48,39 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/checkSound"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/sound" />
-
             <Spinner
                 android:id="@+id/spinnerSeasons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:entries="@array/Temporadas"
-                android:spinnerMode="dialog"
-                android:layout_marginBottom="5dp"/>
+                android:spinnerMode="dialog" />
 
             <Spinner
                 android:id="@+id/spinnerSeasonType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:entries="@array/TipoTemporada"
-                android:spinnerMode="dialog"
-                android:layout_marginBottom="5dp"/>
+                android:spinnerMode="dialog" />
 
 
             <Spinner
                 android:id="@+id/spinnerCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:entries="@array/TipoCategoria"
-                android:spinnerMode="dialog"
-                android:layout_marginBottom="5dp"/>
+                android:spinnerMode="dialog" />
 
 
             <Spinner
                 android:id="@+id/spinnerDataType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:entries="@array/TipoDatos"
-                android:spinnerMode="dialog"
-                android:layout_marginBottom="5dp"/>
+                android:spinnerMode="dialog" />
 
 
             <Button
@@ -99,9 +101,6 @@
 
 
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>
