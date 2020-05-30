@@ -66,6 +66,8 @@ public class PuntuacionesActivity extends Activity {
         myrv.setLayoutManager(lManager);
         myrv.setAdapter(adapter);
         myrv.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
+
     }
 
     public PuntuacionesActivity(ArrayList<FirebasePuntuacion> listadoPuntuacionesParam) {
