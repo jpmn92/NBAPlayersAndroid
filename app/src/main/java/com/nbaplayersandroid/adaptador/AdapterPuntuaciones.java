@@ -1,15 +1,11 @@
 package com.nbaplayersandroid.adaptador;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nbaplayersandroid.R;
@@ -24,18 +20,19 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
 
     public class PuntuacionesViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView pelicula, cine, fecha, hora, sala;
+        public TextView pelicula, usuario, puntos, hora, sala, fecha;
 
 
         public PuntuacionesViewHolder(@NonNull View v) {
             super(v);
 
-            pelicula = (TextView) v.findViewById(R.id.title_session);
-            cine = (TextView) v.findViewById(R.id.cine_session);
-            fecha = (TextView) v.findViewById(R.id.fecha_session);
-            hora = (TextView) v.findViewById(R.id.hora_session);
-            sala = (TextView) v.findViewById(R.id.sala_sesion);
 
+            usuario = (TextView) v.findViewById(R.id.usuario_puntuacion);
+            puntos = (TextView) v.findViewById(R.id.puntos_puntuacion);
+            fecha = (TextView) v.findViewById(R.id.fecha_puntuacion);
+
+//            hora = (TextView) v.findViewById(R.id.hora_session);
+//            sala = (TextView) v.findViewById(R.id.sala_sesion);
         }
     }
 
@@ -48,9 +45,8 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
     @Override
     public PuntuacionesViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.sesion_list_row,
+                .inflate(R.layout.puntuacion_list_row,
                         viewGroup, false);
-
 
 
         return new PuntuacionesViewHolder(v);
@@ -60,32 +56,19 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
     @Override
     public void onBindViewHolder(PuntuacionesViewHolder viewHolder, final int i) {
 
-        for(int posicion = 0; posicion < listadoPuntuaciones.size(); posicion++){
 
-            final FirebasePuntuacion firebasePuntuacion = listadoPuntuaciones.get(posicion);
-            viewHolder.cine.setText(listadoPuntuaciones.get(posicion).getUsername());
-            viewHolder.fecha.setText(Integer.toString(listadoPuntuaciones.get(posicion).getPoints()));
-            viewHolder.pelicula.setText(listadoPuntuaciones.get(posicion).getSeason());
-            viewHolder.hora.setText(listadoPuntuaciones.get(posicion).getStatCategory());
-            viewHolder.sala.setText(listadoPuntuaciones.get(posicion).getPerMode());
-
-
-        }
-
-
-
-
+        FirebasePuntuacion firebasePuntuacion = listadoPuntuaciones.get(i);
+        viewHolder.usuario.setText(firebasePuntuacion.getUsername());
+        viewHolder.fecha.setText(firebasePuntuacion.getDate());
+        viewHolder.puntos.setText("Pts: "+Integer.toString(firebasePuntuacion.getPoints()));
+//        viewHolder.hora.setText(firebasePuntuacion.getStatCategory());
+//        viewHolder.sala.setText(firebasePuntuacion.getPerMode());
 
 
         //listener para el cardview
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                                    @Override
                                                    public void onClick(View v) {
-
-                                                       //PARA ABRIR FRAGMENTO CON DETALLE PELICULA DE SESION
-
-
-
 
 
                                                    }
@@ -105,7 +88,8 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
             return 0;
         } else {
             return listadoPuntuaciones.size();
-        }    }
+        }
+    }
 
 
 }

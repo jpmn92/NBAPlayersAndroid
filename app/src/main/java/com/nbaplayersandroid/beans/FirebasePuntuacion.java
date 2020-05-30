@@ -118,4 +118,6 @@ public class FirebasePuntuacion implements Parcelable, Serializable {
         dest.writeString(date);
         dest.writeInt(points);
     }
+
+
 }
