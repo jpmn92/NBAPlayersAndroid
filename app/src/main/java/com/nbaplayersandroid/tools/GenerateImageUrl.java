@@ -1,5 +1,8 @@
 package com.nbaplayersandroid.tools;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class GenerateImageUrl {
 
 
@@ -10,7 +13,18 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
-
+            //deshawn stevenson
+            case 2052:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/808.png";
+                break;
+            //ronnie brewer
+            case 200758:
+                urlImage = "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fheadshots%2Fnba%2Fplayers%2Ffull%2F2991.png";
+                break;
+            //sabonis
+            case 717:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Arvydas-Sabonis-2K.png";
+                break;
             //tom gugliotta
             case 339:
                 urlImage = "https://www.2kratings.com/wp-content/uploads/Tom-Gugliotta-2K.png";
@@ -253,5 +267,42 @@ public class GenerateImageUrl {
 
 
         return urlImage;
+    }
+
+    public String getRandomAvatar() {
+
+        ArrayList<String> images = new ArrayList<String>();
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612745/2019/260x190/201935.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612749/2019/260x190/203507.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612757/2019/260x190/203081.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2019/260x190/2544.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612744/2019/260x190/201939.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2019/260x190/1629029.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2019/260x190/203076.png");
+        images.add("https://i.dlpng.com/static/png/219514_preview.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612759/2015/260x190/1495.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/893.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2018/260x190/1717.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612751/2019/260x190/201142.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612751/2019/260x190/202681.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2015/260x190/977.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612755/2019/260x190/203954.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612746/2019/260x190/202695.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612746/2019/260x190/202331.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612743/2019/260x190/203999.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612748/2019/260x190/202710.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612750/2019/260x190/1626157.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612740/2019/260x190/1629627.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612760/2019/260x190/101108.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612748/2018/260x190/2548.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/406.png");
+
+
+        Random r = new Random();
+        int low = 0;
+        int high = 22;
+        int result = r.nextInt(high - low) + low;
+
+        return images.get(result).toString();
     }
 }

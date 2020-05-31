@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:checked="true"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:checked="false"
+            android:icon="@drawable/ic_code_black_24dp"
+            android:title="About Us" />
+
+
+
+        <!-- Sección de configuración -->
+        <item
+            android:id="@+id/configuration_section"
+            android:title="">
+<!--            android:title="Settings">-->
+
+            <menu>
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_settings_black_24dp"
+                    android:title="Settings" />
+
+<!--                <item-->
+<!--                    android:id="@+id/nav_log_out"-->
+<!--                    android:icon="@android:drawable/ic_lock_power_off"-->
+<!--                    android:title="Logout" />-->
+
+            </menu>
+        </item>
+    </group>
+
+</menu>

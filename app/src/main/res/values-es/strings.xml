@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="home_item">Inicio</string>
+
+
     <string name="sound">Sonido</string>
     <!-- Errores -->
     <string name="no_data_found">No se encontraron datos con estos parámetros</string>

@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.nbaplayersandroid.MainActivity;
+import com.nbaplayersandroid.GameActivity;
 import com.nbaplayersandroid.PuntuacionesActivity;
 import com.nbaplayersandroid.R;
 import com.nbaplayersandroid.beans.FirebasePuntuacion;
@@ -25,7 +24,6 @@ import com.nbaplayersandroid.tools.SessionManagement;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 
 public class Menu extends Activity implements View.OnClickListener {
@@ -53,6 +51,7 @@ public class Menu extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
         sound = true;
         sSeason = findViewById(R.id.spinnerSeasons);
         sCategory = findViewById(R.id.spinnerCategory);
@@ -131,7 +130,7 @@ public class Menu extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.startButton:
-                juego = new Intent(this, MainActivity.class);
+                juego = new Intent(this, GameActivity.class);
                 params = new Bundle();
 
                 //parametros del modo de juego

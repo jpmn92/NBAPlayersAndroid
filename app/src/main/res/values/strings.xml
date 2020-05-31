@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="home_item">Home</string>
+
+
     <string name="sound">Sound</string>
     <!-- Errores -->
     <string name="no_data_found">No players founds with this params</string>
@@ -110,4 +114,7 @@
 
 
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

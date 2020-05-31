@@ -1,6 +1,5 @@
 package com.nbaplayersandroid.tools;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,23 +8,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.nbaplayersandroid.MainActivity;
-import com.nbaplayersandroid.PuntuacionesActivity;
+import com.nbaplayersandroid.GameActivity;
 import com.nbaplayersandroid.beans.FirebasePuntuacion;
+import com.nbaplayersandroid.fragments.FragmentoMenu;
 import com.nbaplayersandroid.menu.Menu;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
 public class FirebaseMethods {
-    MainActivity mainActivity;
+    GameActivity gameActivity;
     Menu menu;
+    FragmentoMenu fragmentoMenu;
 
     Boolean processDone;
     DatabaseReference reference;
@@ -38,8 +36,8 @@ public class FirebaseMethods {
         this.puntuacion = 0;
     }
 
-    public FirebaseMethods(MainActivity mainActivity, Bundle bundlePartida) {
-        this.mainActivity = mainActivity;
+    public FirebaseMethods(GameActivity gameActivity, Bundle bundlePartida) {
+        this.gameActivity = gameActivity;
         this.bundlePartida = bundlePartida;
         this.puntuacion = 0;
     }
@@ -47,6 +45,10 @@ public class FirebaseMethods {
     public FirebaseMethods(Menu menu) {
         this.menu = menu;
 
+    }
+
+    public FirebaseMethods(FragmentoMenu menu){
+        this.fragmentoMenu = menu;
     }
 
     public void createFbPuntuacion(Bundle bundle) {
@@ -93,7 +95,7 @@ public class FirebaseMethods {
                         puntuacion = firebasePuntuacion.getPoints();
                     }
                 }
-                mainActivity.setRecord(puntuacion);
+                gameActivity.setRecord(puntuacion);
 
             }
 
@@ -148,8 +150,10 @@ public class FirebaseMethods {
 
                     }
                     processDone = true;
-                    menu.setPuntuaciones(listadoFinal);
-                    menu.goToPuntuaciones();
+//                    menu.setPuntuaciones(listadoFinal);
+//                    menu.goToPuntuaciones();
+                    fragmentoMenu.setPuntuaciones(listadoFinal);
+                    fragmentoMenu.goToPuntuaciones();
 
 
                 }

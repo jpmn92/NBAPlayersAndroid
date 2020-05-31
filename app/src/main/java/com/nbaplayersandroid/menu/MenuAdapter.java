@@ -3,25 +3,18 @@ package com.nbaplayersandroid.menu;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.nbaplayersandroid.MainActivity;
+import com.nbaplayersandroid.GameActivity;
 import com.nbaplayersandroid.R;
 import com.nbaplayersandroid.tools.Mode;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MenuAdapter extends BaseAdapter {
     //Activity que esta usando
@@ -87,7 +80,7 @@ public class MenuAdapter extends BaseAdapter {
                     switch (v.getId()){
                         case R.id.button:
                             System.out.println("PULSADO " + position);
-                            Intent juego = new Intent(context, MainActivity.class);
+                            Intent juego = new Intent(context, GameActivity.class);
                             Bundle params = new Bundle();
                             params.putInt("mode", position);
 

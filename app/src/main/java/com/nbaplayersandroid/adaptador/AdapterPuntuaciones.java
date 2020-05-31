@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nbaplayersandroid.R;
 import com.nbaplayersandroid.beans.FirebasePuntuacion;
+import com.nbaplayersandroid.tools.GenerateImageUrl;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -63,9 +64,10 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
     public void onBindViewHolder(PuntuacionesViewHolder viewHolder, final int i) {
 
 
+        GenerateImageUrl generateImageUrl = new GenerateImageUrl();
         FirebasePuntuacion firebasePuntuacion = listadoPuntuaciones.get(i);
 
-        Picasso.with(viewHolder.circleImageView.getContext()).load(getRandomAvatar()).into(viewHolder.circleImageView);
+        Picasso.with(viewHolder.circleImageView.getContext()).load(generateImageUrl.getRandomAvatar()).into(viewHolder.circleImageView);
         viewHolder.username.setText(firebasePuntuacion.getUsername());
 //        viewHolder.fecha.setText(firebasePuntuacion.getDate());
         viewHolder.puntos.setText("Pts: " + Integer.toString(firebasePuntuacion.getPoints()));
@@ -97,42 +99,7 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
         }
     }
 
-    public String getRandomAvatar() {
 
-        ArrayList<String> images = new ArrayList<String>();
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612745/2019/260x190/201935.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612749/2019/260x190/203507.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612757/2019/260x190/203081.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2019/260x190/2544.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612744/2019/260x190/201939.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2019/260x190/1629029.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2019/260x190/203076.png");
-        images.add("https://i.dlpng.com/static/png/219514_preview.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612759/2015/260x190/1495.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/893.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2018/260x190/1717.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612751/2019/260x190/201142.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612751/2019/260x190/202681.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2015/260x190/977.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612755/2019/260x190/203954.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612746/2019/260x190/202695.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612746/2019/260x190/202331.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612743/2019/260x190/203999.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612748/2019/260x190/202710.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612750/2019/260x190/1626157.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612740/2019/260x190/1629627.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612760/2019/260x190/101108.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612748/2018/260x190/2548.png");
-        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/406.png");
-
-
-        Random r = new Random();
-        int low = 0;
-        int high = 22;
-        int result = r.nextInt(high - low) + low;
-
-        return images.get(result).toString();
-    }
 
 
 }
