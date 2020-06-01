@@ -1,6 +1,7 @@
 <resources>
 
     <string name="home_item">Home</string>
+    <string name="about_us">Somos dos personas sin nada mejor que hacer. JP y Miguel</string>
 
 
     <string name="sound">Sound</string>

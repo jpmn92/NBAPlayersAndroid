@@ -14,7 +14,6 @@ import com.nbaplayersandroid.tools.GenerateImageUrl;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,7 +25,7 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
 
     public class PuntuacionesViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView pelicula, usuario, puntos, hora, sala, fecha, username;
+        public TextView puntos, fecha, username;
         public CircleImageView circleImageView;
 
 
@@ -35,7 +34,7 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
 
 
             circleImageView = (CircleImageView) v.findViewById(R.id.avatar);
-            fecha = (TextView) v.findViewById(R.id.fecha_puntuacion);
+            fecha = (TextView) v.findViewById(R.id.puntuaciones_fecha);
             puntos = (TextView) v.findViewById(R.id.puntuaciones_puntos);
             username = (TextView) v.findViewById(R.id.puntuaciones_username);
 
@@ -69,7 +68,7 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
 
         Picasso.with(viewHolder.circleImageView.getContext()).load(generateImageUrl.getRandomAvatar()).into(viewHolder.circleImageView);
         viewHolder.username.setText(firebasePuntuacion.getUsername());
-//        viewHolder.fecha.setText(firebasePuntuacion.getDate());
+        viewHolder.fecha.setText(firebasePuntuacion.getDate());
         viewHolder.puntos.setText("Pts: " + Integer.toString(firebasePuntuacion.getPoints()));
 
 

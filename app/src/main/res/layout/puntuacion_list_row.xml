@@ -20,22 +20,24 @@
         android:textSize="16dp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/fecha_puntuacion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/usuario_puntuacion"
-
-
-        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/puntos_puntuacion"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:textStyle="bold"
         android:textSize="18dp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/fecha_puntuacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/puntos_puntuacion"
+        android:textSize="15dp"
+
+
         android:textColor="#000000" />
 
 <!--    <TextView-->

@@ -13,6 +13,12 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+
+
+            //sean elliot
+            case 251:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Sean-Elliott-2K.png";
+                break;
             //deshawn stevenson
             case 2052:
                 urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/808.png";
@@ -296,11 +302,25 @@ public class GenerateImageUrl {
         images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612760/2019/260x190/101108.png");
         images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612748/2018/260x190/2548.png");
         images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/406.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612744/2019/260x190/202691.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612762/2019/260x190/1628378.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612758/2019/260x190/1627741.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612749/2018/260x190/2200.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1710.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/978.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2547.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2016/260x190/1897.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1449.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/23.png");
+        images.add("https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/252.png");
+
+
+
 
 
         Random r = new Random();
         int low = 0;
-        int high = 22;
+        int high = 33;
         int result = r.nextInt(high - low) + low;
 
         return images.get(result).toString();
