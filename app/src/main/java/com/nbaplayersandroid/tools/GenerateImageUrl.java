@@ -13,6 +13,12 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+
+
+            //sean elliot
+            case 251:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Sean-Elliott-2K.png";
+                break;
             //deshawn stevenson
             case 2052:
                 urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/808.png";

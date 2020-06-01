@@ -67,7 +67,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private DecimalFormat df;
 
     private float valueP1, valueP2;
-    private boolean gameStarted, misc, miscStats, miscSeason;
+    private boolean gameStarted, misc, miscStats, miscSeason, countdownIsRunning;
     private String season, seasonType, statCategory, perMode, activeFlag, username;
     private SessionManagement sessionManagement;
 
@@ -85,8 +85,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sessionManagement = new SessionManagement(this);
 
+        sessionManagement = new SessionManagement(this);
+        countdownIsRunning = false;
         df = new DecimalFormat("0.00");
         tiempo = 10000;
         linFront = findViewById(R.id.linFront);
@@ -295,8 +296,17 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 //        vidas = 3;
 //        points = 0;
 //        contadorAciertos = 0;
-        myCountDownTimer.cancel();
-        showFinishedDialog(this, message);
+
+        if(countdownIsRunning == true){
+            myCountDownTimer.cancel();
+            countdownIsRunning = false;
+        }
+
+
+        if(!((Activity) this).isFinishing()){
+            showFinishedDialog(this, message);
+        }
+//        showFinishedDialog(this, message);
         //txtPoints.setText(String.valueOf(points));
 
     }
@@ -446,14 +456,28 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         //TODO: si es MISC dar mas segundos
         myCountDownTimer = new MyCountDownTimer(tiempo, 1000);
-        myCountDownTimer.start();
+
+        if(countdownIsRunning == false){
+            myCountDownTimer.start();
+            countdownIsRunning = true;
+        }
+
+
+
     }
 
     @Override
     public void onClick(View v) {
 
         //si clicamos cualquiera se cancela el contador
-        myCountDownTimer.cancel();
+
+        if(countdownIsRunning == true){
+            myCountDownTimer.cancel();
+            countdownIsRunning = false;
+        }
+
+
+
         switch (v.getId()) {
             case R.id.linJ2:
                 if (valueP2 >= valueP1) {
@@ -559,8 +583,14 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         @Override
         public void onFinish() {
 //            finish();
-            myCountDownTimer.cancel();
-            fallo();
+            if(countdownIsRunning == true){
+                myCountDownTimer.cancel();
+                countdownIsRunning = false;
+                fallo();
+            }
+
+
+
             //selectPlayers();
         }
     }
@@ -603,22 +633,38 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     @Override
     protected void onPause() {
         super.onPause();
-        myCountDownTimer.cancel();
+
+        if(countdownIsRunning == true){
+            myCountDownTimer.cancel();
+            countdownIsRunning = false;
+        }
+
+
         finish();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        myCountDownTimer.cancel();
+        if(countdownIsRunning == true){
+            myCountDownTimer.cancel();
+            countdownIsRunning = false;
+        }
+
         finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myCountDownTimer.cancel();
-        finish();
+
+        if(countdownIsRunning == true){
+            myCountDownTimer.cancel();
+            countdownIsRunning = false;
+            finish();
+        }
+
+
     }
 
 
