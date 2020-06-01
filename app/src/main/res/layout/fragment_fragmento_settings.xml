@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.FragmentoSettings">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <CheckBox
+        android:id="@+id/checkboxSoundOptions"
+        style="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="fragmento settings" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/sound" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/introduce_user_name"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/txtUserNameOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+</LinearLayout>

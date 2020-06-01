@@ -113,6 +113,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         misc = (miscStats || miscSeason);
 
+        if(misc){
+            tiempo = 15000;
+        }
+
+        myCountDownTimer = new MyCountDownTimer(tiempo, 1000);
+
         gameStarted = false;
 
         initComponents();
@@ -445,7 +451,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
         //TODO: si es MISC dar mas segundos
-        myCountDownTimer = new MyCountDownTimer(tiempo, 1000);
+        if(myCountDownTimer != null){
+            myCountDownTimer.cancel();
+        }
         myCountDownTimer.start();
     }
 
