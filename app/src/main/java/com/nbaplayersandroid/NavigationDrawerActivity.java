@@ -40,7 +40,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     /**
      * Titulo inicial del drawer
      */
-    private String drawerTitle;
+    private String drawerTitle, urlImage;
     private NavigationView navigationView;
     private TextView emailHeader;
     private TextView nameHeader;
@@ -62,10 +62,13 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         if (userID != -1) {
             userName = sessionManagement.getSessionUserName();
+
             nameHeader.setText(userName);
             emailHeader.setText(userName);
+            Picasso.with(this).load(sessionManagement.getSesionImage()).into(imageHeader);
 
         } else {
+
 
             //No logueados
 
@@ -98,9 +101,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         nameHeader = (TextView) headerView.findViewById(R.id.usernameHeader);
         imageHeader = (ImageView) headerView.findViewById(R.id.circle_image);
 
-
-        GenerateImageUrl generateImageUrl = new GenerateImageUrl();
-        Picasso.with(this).load(generateImageUrl.getRandomAvatar()).into(imageHeader);
+//        OLD GENERAMOS AVATAR RANDOM
+//        GenerateImageUrl generateImageUrl = new GenerateImageUrl();
+//        Picasso.with(this).load(generateImageUrl.getRandomAvatar()).into(imageHeader);
 
         if (navigationView != null) {
             // Añadir caracteristicas

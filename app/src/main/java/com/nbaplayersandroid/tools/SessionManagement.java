@@ -11,6 +11,7 @@ public class SessionManagement {
     String SESSION_KEY = "session_user";
     String SESSION_USERNAME = "session_username";
     String SESSION_SOUND = "session_sound";
+    String SESSION_IMAGE = "session_image";
 
 
     public SessionManagement(Context context) {
@@ -30,6 +31,13 @@ public class SessionManagement {
         editor.putBoolean(SESSION_SOUND, sound).commit();
     }
 
+    public void saveSession(String userName, boolean sound, String url_image) {
+        editor.putInt(SESSION_KEY, 1);
+        editor.putString(SESSION_USERNAME, userName).commit();
+        editor.putBoolean(SESSION_SOUND, sound).commit();
+        editor.putString(SESSION_IMAGE, url_image).commit();
+    }
+
     public int getSession() {
 
         return sharedPreferences.getInt(SESSION_KEY, -1);
@@ -38,6 +46,10 @@ public class SessionManagement {
 
     public String getSessionUserName() {
         return sharedPreferences.getString(SESSION_USERNAME, "sin nombre");
+    }
+
+    public String getSesionImage(){
+        return sharedPreferences.getString(SESSION_IMAGE, "https://regionaldevelopment.org.au/wp-content/uploads/2019/01/person.png");
     }
 
     public boolean getSound(){

@@ -67,7 +67,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private DecimalFormat df;
 
     private float valueP1, valueP2;
-    private boolean gameStarted, misc, miscStats, miscSeason;
+    private boolean gameStarted, misc, miscStats, miscSeason, sound;
     private String season, seasonType, statCategory, perMode, activeFlag, username;
     private SessionManagement sessionManagement;
 
@@ -95,6 +95,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         paramsIniciales = (Bundle) params.clone();
 //        username = params.getString("userName");
         username = sessionManagement.getSessionUserName();
+        sound = sessionManagement.getSound();
         paramsIniciales.putString("userName", username + Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID));
         season = params.getString("Season");
         seasonType = params.getString("SeasonType");
@@ -502,7 +503,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void acierto() {
-        if (params.getBoolean("Sound")) {
+        if (sound == true) {
             mediaPlayer = MediaPlayer.create(this, R.raw.acierto);
             mediaPlayer.start();
 
@@ -524,7 +525,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void fallo() {
-        if (params.getBoolean("Sound")) {
+        if (sound) {
             mediaPlayer = MediaPlayer.create(this, R.raw.error);
             mediaPlayer.start();
 
@@ -655,7 +656,8 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 //                Intent menu = new Intent(GameActivity.this, NavigationDrawerActivity.class);
 //                GameActivity.this.startActivity(menu);
-                GameActivity.this.finish();
+//                GameActivity.this.finish();
+                onBackPressed();
 
             }
         });

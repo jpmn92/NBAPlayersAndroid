@@ -2,35 +2,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/floor_load_dark"
+    android:weightSum="100">
 
-    <CheckBox
-        android:id="@+id/checkboxSoundOptions"
-        style="?android:attr/textAppearanceMedium"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="@string/sound" />
+        android:layout_height="0dp"
+        android:layout_weight="35"
+        android:orientation="vertical"
+        >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/introduce_user_name"
-        android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/txtUserNameOptions"
+
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="65">
 
-    <Button
-        android:id="@+id/buttonOptionsOk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ok" />
+        <CheckBox
+            android:id="@+id/checkboxSoundOptions"
+            android:textColor="@color/material_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/sound" />
+
+        <TextView
+            android:paddingLeft="15dp"
+            android:id="@+id/textView"
+            android:textColor="@color/material_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/introduce_user_name"
+            android:textSize="18sp" />
+
+        <EditText
+            android:paddingLeft="15dp"
+
+            android:id="@+id/txtUserNameOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/material_black"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <Spinner
+            android:id="@+id/spinnerProfilePicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            />
+
+        <Button
+            android:id="@+id/btnSetOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF9800"
+            android:text="@string/ok" />
+
+
+
+    </LinearLayout>
+
+
+
+
 
 </LinearLayout>
