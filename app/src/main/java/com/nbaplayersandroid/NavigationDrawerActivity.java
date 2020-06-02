@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.nbaplayersandroid.fragments.FragmentoAboutUs;
+import com.nbaplayersandroid.fragments.FragmentoHelp;
 import com.nbaplayersandroid.fragments.FragmentoMenu;
 import com.nbaplayersandroid.fragments.FragmentoSettings;
 import com.nbaplayersandroid.menu.Menu;
@@ -148,7 +149,10 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 fragmentoGenerico = FragmentoSettings.newInstance(null);
                 break;
 
+            case R.id.nav_help:
 
+                fragmentoGenerico = FragmentoHelp.newInstance(null);
+                break;
             case R.id.nav_about_us:
 
                 fragmentoGenerico = FragmentoAboutUs.newInstance(null);

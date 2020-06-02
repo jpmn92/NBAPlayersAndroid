@@ -1,110 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/floor_load_dark">
+    android:background="@drawable/floor_load_dark"
+    android:orientation="vertical"
+    android:weightSum="100">
+
 
     <LinearLayout
-
-
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="right"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="35"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_ligero"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="65"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="10dp">
-
-        <!--        <Button-->
-        <!--            android:id="@+id/btnOptions"-->
-        <!--            android:layout_width="48dp"-->
-        <!--            android:layout_height="48dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:layout_marginRight="20dp"-->
-        <!--            android:background="@drawable/settings" />-->
+        android:weightSum="100">
 
         <LinearLayout
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1">
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="65">
 
-            <ImageView
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="20dp"
+                android:text="Temporada"
+                android:textColor="@color/material_black"
+                android:textSize="18dp"
+                android:textStyle="bold"
 
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/logo_ligero" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                />
 
             <Spinner
                 android:id="@+id/spinnerSeasons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:entries="@array/Temporadas"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dialog"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="20dp"
+                android:text="Tipo Temporada"
+                android:textColor="@color/material_black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+
+                />
 
             <Spinner
                 android:id="@+id/spinnerSeasonType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+
                 android:entries="@array/TipoTemporada"
                 android:spinnerMode="dialog" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:paddingLeft="5dp"
+                android:paddingRight="20dp"
+                android:text="Categoría estadística"
+                android:textColor="@color/material_black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+
+                />
 
             <Spinner
                 android:id="@+id/spinnerCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+
                 android:entries="@array/TipoCategoria"
                 android:spinnerMode="dialog" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:paddingLeft="5dp"
+                android:paddingRight="20dp"
+                android:text="Tipo estadística"
+                android:textColor="@color/material_black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+
+                />
 
             <Spinner
                 android:id="@+id/spinnerDataType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="0dp"
                 android:entries="@array/TipoDatos"
                 android:spinnerMode="dialog" />
 
-
-            <Button
-                android:id="@+id/btnStart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#E48C0E"
-                android:text="@string/btnComenzar" />
-
-            <Button
-                android:id="@+id/btnRecords"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#2196F3"
-                android:text="@string/btnRecords" />
 
 
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="32"
+            android:weightSum="100"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="#E48C0E"
+                android:text="@string/btnComenzar"
+                android:layout_weight="50"
+
+                />
+
+            <Button
+                android:id="@+id/btnRecords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="#2196F3"
+                android:text="@string/btnRecords"
+                android:layout_weight="50"
+                android:paddingBottom="5dp"
+                />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
+
+
 
 
 

@@ -91,7 +91,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                 statsJson = new Gson().toJson(response.execute().body());
 
-                if(statsJson == null){
+                if (statsJson == null) {
                     return false;
                 }
 
@@ -110,7 +110,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 leagueLeaders = new ArrayList<>();
                 JsonArray jsonArrayTop = new JsonArray();
 
-                if(jsonArray.size() == 0){
+                if (jsonArray.size() == 0) {
                     return false;
                 }
 
@@ -165,6 +165,9 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                     if (leagueLeader.getTEAM().equalsIgnoreCase("PHL")) {
                         leagueLeader.setTEAM("PHI");
                     }
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("CHH")) {
+                        leagueLeader.setTEAM("CHA");
+                    }
 
 
                     leagueLeaders.add(leagueLeader);
@@ -190,8 +193,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 if (resp) {
                     //al componente reactivo le devuelvo la lista de sesiones
                     onLstLeagueLeaderListener.onFinished(leagueLeaders);
-                }
-                else{
+                } else {
                     onLstLeagueLeaderListener.onFailure("No hay jugadores para esa selección");
                 }
 

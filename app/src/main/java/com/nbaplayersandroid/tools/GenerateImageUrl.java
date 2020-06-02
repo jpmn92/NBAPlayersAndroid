@@ -13,8 +13,54 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+            //landry fields
+            case 202361:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Landry-Fields-2K.png";
+                break;
 
+            //luke walton
+            case 2575:
+                urlImage = "https://s.yimg.com/it/api/res/1.2/OeJFDROgIZ6K2zhKZbL5Yw--~A/YXBwaWQ9eW5ld3M7dz0zMDA7aD0yMDA7cT0xMDA-/https://s.yimg.com/xe/i/us/sp/v/nba_cutout/players_l/20130626/3735.png";
+                break;
 
+            //eddie house
+            case 2067:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/348.png&w=350&h=254";
+                break;
+
+            //daequan cook
+            case 201161:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3196.png&w=350&h=254";
+                break;
+
+            //quentin richardson
+            case 2047:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/703.png";
+                break;
+
+            //malik rose
+            case 990:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Malik-Rose-2K-550x401.png";
+                break;
+
+            //mickael pietrus
+            case 2554:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2173.png";
+                break;
+
+            //kurt thomas
+            case 703:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/846.png";
+                break;
+
+            //spud webb
+            case 892:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Spud-Webb-2K.png";
+                break;
+            //glen davis
+            case 201175:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3200.png";
+                break;
             //sean elliot
             case 251:
                 urlImage = "https://www.2kratings.com/wp-content/uploads/Sean-Elliott-2K.png";
