@@ -192,7 +192,7 @@
     <!--    </RelativeLayout>-->
 
     <LinearLayout
-        android:id="@+id/linFront"
+        android:id="@+id/relFront"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00FFFFFF"

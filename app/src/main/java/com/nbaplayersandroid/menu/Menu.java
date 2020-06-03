@@ -29,7 +29,7 @@ import java.util.Collections;
 public class Menu extends Activity implements View.OnClickListener {
 
     Spinner sSeason, sCategory, sSeasonType, sDataType;
-    Button startButton, btnRecords, btnOptions;
+    Button startButton, btnRecords, btnOptions, btnOptionsOk;
     Resources res;
     FirebaseMethods firebaseMethods;
     String userName;
@@ -60,6 +60,8 @@ public class Menu extends Activity implements View.OnClickListener {
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
         btnRecords = findViewById(R.id.btnRecords);
+        //btnOptionsOk = findViewById(R.id.btnOptionsOk);
+        btnOptionsOk.setOnClickListener(this);
         btnOptions = findViewById(R.id.btnOptions);
         btnOptions.setOnClickListener(this);
         res = getResources();

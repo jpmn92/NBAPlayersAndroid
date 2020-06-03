@@ -2,8 +2,6 @@ package com.nbaplayersandroid;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,12 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-import androidx.fragment.app.Fragment;
-
 import com.nbaplayersandroid.beans.LeagueLeader;
 
-import com.nbaplayersandroid.fragments.FragmentoMenu;
-import com.nbaplayersandroid.fragments.FragmentoPuntuaciones;
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbaplayersandroid.lst_league_leaders.LstLeagueLeaderPresenter;
 import com.nbaplayersandroid.menu.Menu;
@@ -50,8 +44,8 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2;
     private ImageView ivP1, ivP2, ivT1, ivT2, ivVidas;
-    private LinearLayout linJ1, linJ2, linFront, linLoad;
-    private RelativeLayout relCircle;
+    private LinearLayout linJ1, linJ2, linLoad;
+    private RelativeLayout relCircle, relFront;
     private MediaPlayer mediaPlayer;
 
     private LstLeagueLeaderPresenter lstLeagueLeaderPresenter;
@@ -89,7 +83,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         df = new DecimalFormat("0.00");
         tiempo = 10000;
-        linFront = findViewById(R.id.linFront);
+        relFront = findViewById(R.id.relFront);
         points = 0;
         params = this.getIntent().getExtras();
         paramsIniciales = (Bundle) params.clone();
@@ -214,7 +208,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         linJ1.setOnClickListener(this);
         linJ2 = findViewById(R.id.linJ2);
         linJ2.setOnClickListener(this);
-        linFront.setOnClickListener(this);
+        relFront.setOnClickListener(this);
         linLoad = findViewById(R.id.linLoad);
         linLoad.setOnClickListener(this);
 
@@ -237,7 +231,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             }
         }, 1500);
 
-        linFront.setVisibility(View.GONE);
+        relFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircle);
 
         txtPregunta.setText(statCategory + " " + season);
@@ -275,11 +269,11 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void iluminar(String color) {
         txtP1.setText(String.valueOf(df.format(valueP1)));
         txtP2.setText(String.valueOf(df.format(valueP2)));
-        linFront.setBackgroundColor(Color.parseColor(color));
-        linFront.setVisibility(View.VISIBLE);
-        linFront.postDelayed(new Runnable() {
+        relFront.setBackgroundColor(Color.parseColor(color));
+        relFront.setVisibility(View.VISIBLE);
+        relFront.postDelayed(new Runnable() {
             public void run() {
-                linFront.setVisibility(View.GONE);
+                relFront.setVisibility(View.GONE);
             }
         }, 1000);
 
