@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,7 +23,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="20dp"
-            android:text="Instrucciones"
+            android:text="@string/nav_help"
             android:textColor="@color/material_black"
             android:textSize="26dp"
             android:textStyle="bold" />
@@ -35,35 +35,9 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="En el menú principal puedes escoger los parámetros juego que desees, entre los que se encuentran los 4 siguientes:"
+            android:text="@string/help_paragraph"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
-            android:textSize="18dp"
-
-
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:textAlignment="inherit"
-            android:textColor="@color/material_black"
-            android:text="1 - Temporada de juego"
-            android:textSize="18dp"
-
-
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:textAlignment="inherit"
-            android:textColor="@color/material_black"
-            android:text="2 - Tipo de temporada"
             android:textSize="18dp"
 
 
@@ -75,28 +49,84 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
+            android:text="@string/help_season"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
-            android:text="3 - Categoría estadística"
             android:textSize="18dp"
 
 
             />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
+            android:text="@string/help_season_type"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
-            android:text="4 - Tipo estadístico"
             android:textSize="18dp"
 
 
             />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/help_stat"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/help_stat_type"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/help_paragraph2"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+
+
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/help_paragraph3"
+            android:textAlignment="inherit"
+
+
+            android:textColor="@color/material_black"
+            android:textSize="18dp" />
 
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

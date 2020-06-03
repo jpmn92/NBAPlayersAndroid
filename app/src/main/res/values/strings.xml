@@ -10,8 +10,16 @@
 <!--    Textos Toasts-->
     <string name="config_updated">CONFIG UPDATED</string>
 
-    <string name="about_us">Somos dos personas sin nada mejor que hacer. JP y Miguel</string>
 
+    <string name="about_us">For any problem, doubt or sugestion you can contact us by this email:\nnbastatsquiz@gmail.com</string>
+    <!--    Textos help-->
+    <string name="help_paragraph">In the main menu you can choose the game parameters you want between:</string>
+    <string name="help_season">1 - Season</string>
+    <string name="help_season_type">2 - Regular Season / Playoffs</string>
+    <string name="help_stat">3 - Stat Category</string>
+    <string name="help_stat_type">4 - Per Game / Totals</string>
+    <string name="help_paragraph2">Once you start the game, you have to click on the player with better stat in the selected season. The stat and season are indicated at the top of the screen.</string>
+    <string name="help_paragraph3">You have three lives, if you click on the wrong player, you\'ll lose a live. If you be right ten times in a row, you can get a new live up yo three</string>
 
     <string name="sound">Sound</string>
     <!-- Errores -->
