@@ -27,6 +27,14 @@
     <!-- Errores -->
     <string name="no_data_found">No players founds with this params</string>
 
+<!--    Registro-->
+    <string name="user_registred">user registred</string>
+<!--    Errores al registrarse-->
+    <string name="already_registred">email already registred</string>
+    <string name="invalid_email">invalid email</string>
+    <string name="passwords_not_match">passwords not match</string>
+    <string name="password_characters">password must have six characters at least</string>
+    <string name="error_ocurred">error</string>
     <!--Textos botones-->
     <string name="app_name">NBA STATS QUIZ</string>
     <string name="btnComenzar">START GAME</string>

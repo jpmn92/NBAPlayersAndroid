@@ -29,6 +29,17 @@
     <string name="sound">Sonido</string>
     <!-- Errores -->
     <string name="no_data_found">No se encontraron datos con estos parámetros</string>
+
+
+    <!--    Registro-->
+    <string name="user_registred">usuario registrado correctamente</string>
+    <!--    Errores al registrarse-->
+    <string name="already_registred">dirección de correo ya registrada</string>
+    <string name="invalid_email">dirección de correo no válida</string>
+    <string name="passwords_not_match">las contraseñas no coinciden</string>
+    <string name="password_characters">la contraseña debe tener al menos seis carácteres</string>
+    <string name="error_ocurred">error</string>
+
     <!--Textos botones-->
     <string name="app_name">NBA STATS QUIZ</string>
     <string name="btnComenzar">COMENZAR</string>

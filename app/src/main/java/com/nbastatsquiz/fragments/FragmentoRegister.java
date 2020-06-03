@@ -72,16 +72,16 @@ public class FragmentoRegister extends Fragment {
                             //mostrarError(mensaje);
                         } else {
 //                        La contraseña minimo son 6 caracteres para firebase
-                            mostrarError("La contraseña debe tener al menos 6 carácteres");
+                            mostrarError(getString(R.string.password_characters));
                         }
 
                     } else {
 //                        La contraseñas no coinciden
-                        mostrarError("Las contraseñas no coinciden");
+                        mostrarError(getString(R.string.passwords_not_match));
                     }
                 }
                 else{
-                    mostrarError("El mail no es válido");
+                    mostrarError(getString(R.string.invalid_email));
                 }
 
             }

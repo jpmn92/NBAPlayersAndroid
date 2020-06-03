@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.nbastatsquiz.GameActivity;
+import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
 import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
@@ -212,13 +213,14 @@ public class FirebaseMethods {
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()) {
 
-                                fragmentoRegister.setMensaje("Usuario registrado correctamente");
+                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.user_registred));
+                                //Este mensaje no se muestra, ni se crea usuario en firebase
                                 //AQUI LO SUYO SERIA LLEVARLE AL MENU O ALGUNA COSA QUE DEMOSTRARA QUE SE HA REGISTRADO
 
 
                             } else {
                                 //no se ha creado correctamente
-                                fragmentoRegister.setMensaje("Ha habido un error");
+                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.error_ocurred));
                             }
 
                         }
@@ -226,7 +228,7 @@ public class FirebaseMethods {
 
                 } else {
 
-                    fragmentoRegister.mostrarError("Usuario ya registrado");
+                    fragmentoRegister.mostrarError(fragmentoRegister.getString(R.string.already_registred));
 //                    no se ha podido crear el usuario
 
                 }
