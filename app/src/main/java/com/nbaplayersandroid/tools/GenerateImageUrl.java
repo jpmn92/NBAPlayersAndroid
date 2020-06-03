@@ -14,7 +14,6 @@ public class GenerateImageUrl {
 
         nbaPlayers.add(new NBAPlayer(1, "James Harden", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612745/2019/260x190/201935.png"));
         nbaPlayers.add(new NBAPlayer(2, "Giannis Antetokoumpo", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612749/2019/260x190/203507.png"));
-        nbaPlayers.add(new NBAPlayer(3, "Damian Lillard", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612757/2019/260x190/203081.png"));
         nbaPlayers.add(new NBAPlayer(4, "Lebron James", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612747/2019/260x190/2544.png"));
         nbaPlayers.add(new NBAPlayer(5, "Stephen Curry", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612744/2019/260x190/201939.png"));
         nbaPlayers.add(new NBAPlayer(6, "Luka Doncic", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612742/2019/260x190/1629029.png"));
@@ -33,7 +32,7 @@ public class GenerateImageUrl {
         nbaPlayers.add(new NBAPlayer(19, "Jimmy Butler", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612748/2019/260x190/202710.png"));
         nbaPlayers.add(new NBAPlayer(20, "Nikola Jokic", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612743/2019/260x190/203999.png"));
         nbaPlayers.add(new NBAPlayer(21, "Paul George", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612746/2019/260x190/202331.png"));
-        nbaPlayers.add(new NBAPlayer(22, "Shaquille O´Neal", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612746/2019/260x190/202695.png"));
+        nbaPlayers.add(new NBAPlayer(22, "Shaquille O´Neal", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/406.png"));
         nbaPlayers.add(new NBAPlayer(23, "Kawhi Leonard", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612746/2019/260x190/202695.png"));
         nbaPlayers.add(new NBAPlayer(24, "Klay Thompson", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612744/2019/260x190/202691.png"));
         nbaPlayers.add(new NBAPlayer(25, "Donovan Mitchell", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612762/2019/260x190/1628378.png"));
@@ -49,7 +48,8 @@ public class GenerateImageUrl {
         nbaPlayers.add(new NBAPlayer(35, "Blake Griffin", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612765/2019/260x190/201933.png"));
         nbaPlayers.add(new NBAPlayer(36, "Tony Parker", "https://nba-players.herokuapp.com/players/Parker/Tony"));
         nbaPlayers.add(new NBAPlayer(37, "Manu Ginobili", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612759/2017/260x190/1938.png"));
-
+        nbaPlayers.add(new NBAPlayer(38, "Ben Simmons", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612755/2019/260x190/1627732.png"));
+        nbaPlayers.add(new NBAPlayer(39, "Trae Young", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612737/2019/260x190/1629027.png"));
 
 
         return nbaPlayers;

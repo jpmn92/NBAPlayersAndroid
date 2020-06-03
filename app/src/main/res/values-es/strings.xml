@@ -1,5 +1,13 @@
 <resources>
 
+
+    <!--    Textos Menu Lateral-->
+
+    <string name="nav_about_us">Acerca de</string>
+    <string name="nav_settings">Configuración</string>
+    <string name="nav_help">Ayuda</string>
+    <string name="nav_home">Inicio</string>
+
     <string name="home_item">Inicio</string>
     <string name="about_us">Somos dos personas sin nada mejor que hacer. JP y Miguel</string>
 
@@ -12,9 +20,10 @@
     <string name="btnComenzar">COMENZAR</string>
     <string name="btnRecords">VER MÁXIMAS PUNTUACIONES</string>
     <string name="options">OPCIONES</string>
-    
+
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Introduce Nombre de Usuario:</string>
+    <string name="seleccionar_avatar">Selecciona tu avatar</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCELAR</string>
     <string name="back_to_menu">VOLVER AL MENÚ</string>
@@ -23,6 +32,8 @@
     <string name="new_record">¡Nuevo Récord Conseguido!</string>
     <string name="record">Record: </string>
     <string name="puntuacion">Puntuación: </string>
+    <string name="actualizar">ACTUALIZAR</string>
+
 
 
     <!--Textos spiners-->

@@ -13,12 +13,15 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.nbaplayersandroid.NavigationDrawerActivity;
 import com.nbaplayersandroid.R;
 import com.nbaplayersandroid.beans.NBAPlayer;
 import com.nbaplayersandroid.tools.GenerateImageUrl;
 import com.nbaplayersandroid.tools.SessionManagement;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class FragmentoSettings extends Fragment {
@@ -30,6 +33,7 @@ public class FragmentoSettings extends Fragment {
     SessionManagement sm;
     Spinner spinnerProfile;
     GenerateImageUrl generateImageUrl;
+    NavigationDrawerActivity navigationDrawerActivity;
 
     private static FragmentoSettings fragmentoSettings;
 
@@ -63,21 +67,47 @@ public class FragmentoSettings extends Fragment {
 
         sm = new SessionManagement(getContext());
         generateImageUrl = new GenerateImageUrl();
-        btnSetOptions = view.findViewById(R.id.btnSetOptions);
-        cbSound = view.findViewById(R.id.checkboxSoundOptions);
-        txtUserName = view.findViewById(R.id.txtUserNameOptions);
-        spinnerProfile = view.findViewById(R.id.spinnerProfilePicture);
+
+        initComponents(view);
+
 
         txtUserName.setText(sm.getSessionUserName());
 
-        if(sm.getSound() == true){
+        if (sm.getSound() == true) {
             cbSound.setChecked(true);
         }
 
 
         ArrayList<NBAPlayer> nbaPlayers = generateImageUrl.getNBAPlayers();
+
+        //ordenamos array
+        if(nbaPlayers.size() > 0){
+            Collections.sort(nbaPlayers, new Comparator<NBAPlayer>() {
+                @Override
+                public int compare(NBAPlayer o1, NBAPlayer o2) {
+                    return o1.getName().compareTo(o2.getName());
+                }
+            });
+        }
+
         ArrayAdapter<NBAPlayer> adapter = new ArrayAdapter<NBAPlayer>(getContext(), R.layout.support_simple_spinner_dropdown_item, nbaPlayers);
         spinnerProfile.setAdapter(adapter);
+
+        //si el perfil tiene imagen, que busque de quien es esa imagen y la ponga como valor por defecto del spinner
+        if(sm.getSesionImage() != ""){
+
+            for(int i = 0; i<nbaPlayers.size(); i++){
+
+                if(nbaPlayers.get(i).getUrlImage().equalsIgnoreCase(sm.getSesionImage())){
+                    spinnerProfile.setSelection(i);
+                }
+
+            }
+
+
+        }
+
+
 
 
         btnSetOptions.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +124,10 @@ public class FragmentoSettings extends Fragment {
                 //cogemos jugador seleccionado y pasamos la url de su imagen
                 NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
 
+
                 sm.saveSession(txtUserName.getText().toString(), sound, nbaPlayer.getUrlImage());
+
+
 
 
 
@@ -104,5 +137,14 @@ public class FragmentoSettings extends Fragment {
 
 
         return view;
+    }
+
+    private void initComponents(View view) {
+
+        btnSetOptions = view.findViewById(R.id.btnSetOptions);
+        cbSound = view.findViewById(R.id.checkboxSoundOptions);
+        txtUserName = view.findViewById(R.id.txtUserNameOptions);
+        spinnerProfile = view.findViewById(R.id.spinnerProfilePicture);
+
     }
 }

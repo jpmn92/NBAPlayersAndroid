@@ -6,21 +6,20 @@
     android:background="@drawable/floor_load_dark"
     android:weightSum="100">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="35"
-        android:orientation="vertical"
-        >
 
-
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="65">
+        android:layout_weight="100">
+
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/settings"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"/>
 
         <CheckBox
             android:id="@+id/checkboxSoundOptions"
@@ -48,9 +47,20 @@
             android:ems="10"
             android:textColor="@color/material_black"
             android:inputType="textPersonName"
-            android:text="Name" />
+            android:text="Name"
+            android:layout_marginBottom="10dp"/>
 
+        <TextView
+            android:paddingLeft="15dp"
+            android:id="@+id/txtSeleccionaAvatar"
+            android:textColor="@color/material_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seleccionar_avatar"
+            android:textSize="18sp" />
         <Spinner
+            android:paddingLeft="15dp"
+
             android:id="@+id/spinnerProfilePicture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FF9800"
-            android:text="@string/ok" />
+            android:text="@string/actualizar" />
 
 
 

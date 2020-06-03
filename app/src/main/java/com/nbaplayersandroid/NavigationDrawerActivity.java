@@ -1,5 +1,7 @@
 package com.nbaplayersandroid;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,10 +12,13 @@ import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -25,7 +30,6 @@ import com.nbaplayersandroid.fragments.FragmentoAboutUs;
 import com.nbaplayersandroid.fragments.FragmentoHelp;
 import com.nbaplayersandroid.fragments.FragmentoMenu;
 import com.nbaplayersandroid.fragments.FragmentoSettings;
-import com.nbaplayersandroid.menu.Menu;
 import com.nbaplayersandroid.tools.GenerateImageUrl;
 import com.nbaplayersandroid.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
@@ -55,6 +59,12 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         checkSession();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        checkSession();
+    }
+
     private void checkSession() {
 
         sessionManagement = new SessionManagement(this);
@@ -79,9 +89,12 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        checkSession();
 
 
     }
+
+
 
 
     @Override
@@ -119,8 +132,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         }
 
 
-
     }
+
+
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
@@ -162,17 +176,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 break;
 
 
-
-
-
-            //fragmentoGenerico = FragmentoEntradas.newInstance(null);
-//                Intent intent = new Intent(this, PaypalPayment.class);
-////                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//
-//                startActivity(intent);
-//                fragmentoGenerico = new DonationFragment();
-
-
         }
         if (fragmentoGenerico != null) {
             fragmentManager
@@ -205,6 +208,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        checkSession();
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
@@ -223,4 +229,11 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 .replace(R.id.main_content, fragmentoGenerico)
                 .commit();
     }
+
+
+
+
+
+
+
 }
