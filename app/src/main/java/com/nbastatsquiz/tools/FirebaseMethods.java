@@ -1,6 +1,8 @@
 package com.nbastatsquiz.tools;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import com.google.gson.Gson;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
 import com.nbastatsquiz.fragments.FragmentoMenu;
+import com.nbastatsquiz.fragments.FragmentoRegister;
 import com.nbastatsquiz.menu.Menu;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +34,8 @@ public class FirebaseMethods {
     GameActivity gameActivity;
     Menu menu;
     FragmentoMenu fragmentoMenu;
-
+    FragmentoRegister fragmentoRegister;
+    Context context;
     Boolean processDone;
     DatabaseReference reference;
     FirebasePuntuacion fbPuntuacion;
@@ -51,7 +55,14 @@ public class FirebaseMethods {
 
     public FirebaseMethods(Menu menu) {
         this.menu = menu;
+    }
 
+    public FirebaseMethods(Context context){
+        this.context = context;
+    }
+
+    public FirebaseMethods(FragmentoRegister fragmentoRegister){
+        this.fragmentoRegister = fragmentoRegister;
     }
 
     public FirebaseMethods(FragmentoMenu menu) {
@@ -191,6 +202,8 @@ public class FirebaseMethods {
                     Map<String, Object> map = new HashMap<>();
                     map.put("email", email);
                     map.put("password", passwd);
+                    //map.put("name", name);
+                    //map.put("image", urlImage);
 
                     String id = mAuth.getCurrentUser().getUid();
 
@@ -199,12 +212,13 @@ public class FirebaseMethods {
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()) {
 
-                                String o = "esta registrado correctamente";
+                                fragmentoRegister.setMensaje("Usuario registrado correctamente");
                                 //AQUI LO SUYO SERIA LLEVARLE AL MENU O ALGUNA COSA QUE DEMOSTRARA QUE SE HA REGISTRADO
 
 
                             } else {
                                 //no se ha creado correctamente
+                                fragmentoRegister.setMensaje("Ha habido un error");
                             }
 
                         }
@@ -212,55 +226,17 @@ public class FirebaseMethods {
 
                 } else {
 
+                    fragmentoRegister.mostrarError("Usuario ya registrado");
 //                    no se ha podido crear el usuario
 
                 }
             }
         });
-
     }
 
-//    private void getFbTeams() {
-//        reference = FirebaseDatabase.getInstance().getReference().child("Equipo");
-//        fbTeamList = new ArrayList<FirebaseTeam>();
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-//
-//                    Object object = snapshot.getValue(Object.class);
-//                    String json = new Gson().toJson(object);
-//                    FirebaseTeam fbTeam = new Gson().fromJson(json, FirebaseTeam.class);
-//                    fbTeamList.add(fbTeam);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//
-//    }
-
-
-//    private void createFbTeam() {
-//
-//        reference = FirebaseDatabase.getInstance().getReference().child("Equipo");
-//
-//        fbTeam = new FirebaseTeam();
-//        fbTeam.setIdAPI(2);
-//        fbTeam.setIdTeam(2);
-//        fbTeam.setName("Boston Celtics");
-//        fbTeam.setUrlImage("https://stats.nba.com/media/img/teams/logos/BOS_logo.svg");
-//        fbTeam.setUrlBackground("-");
-//        reference.push().setValue(fbTeam);
-////        (2, 'Boston Celtics', 2, 'https://stats.nba.com/media/img/teams/logos/BOS_logo.svg','-'),
-//
-//    }
-
+    private void toastAutentificacion(String mensaje){
+        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
+    }
 
     public int getPuntuacion() {
         return puntuacion;

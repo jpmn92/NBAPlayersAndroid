@@ -61,6 +61,15 @@
             android:inputType="textPassword"
             android:hint="@string/introduce_passwd2"
             android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/txtErrorRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#9E0808"
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
