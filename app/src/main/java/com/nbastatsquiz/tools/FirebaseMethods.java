@@ -1,9 +1,14 @@
 package com.nbastatsquiz.tools;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +23,9 @@ import com.nbastatsquiz.menu.Menu;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class FirebaseMethods {
     GameActivity gameActivity;
@@ -47,7 +54,7 @@ public class FirebaseMethods {
 
     }
 
-    public FirebaseMethods(FragmentoMenu menu){
+    public FirebaseMethods(FragmentoMenu menu) {
         this.fragmentoMenu = menu;
     }
 
@@ -119,7 +126,6 @@ public class FirebaseMethods {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-
                 if (!processDone) {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -147,7 +153,6 @@ public class FirebaseMethods {
                         }
 
 
-
                     }
                     processDone = true;
 //                    menu.setPuntuaciones(listadoFinal);
@@ -157,10 +162,6 @@ public class FirebaseMethods {
 
 
                 }
-
-
-
-
 
 
             }
@@ -176,6 +177,48 @@ public class FirebaseMethods {
 
     }
 
+    public void registerUser(String email, String passwd) {
+
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference();
+        mAuth.createUserWithEmailAndPassword(email, passwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+
+                    //AQUI CREAMOS LOS PARAMETROS A NUESTRO ANTOJO, POR EJEMPLO URL DE IMAGEN DEL USUARIO O LO QUE SEA
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("email", email);
+                    map.put("password", passwd);
+
+                    String id = mAuth.getCurrentUser().getUid();
+
+                    reference.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task2) {
+                            if (task2.isSuccessful()) {
+
+                                String o = "esta registrado correctamente";
+                                //AQUI LO SUYO SERIA LLEVARLE AL MENU O ALGUNA COSA QUE DEMOSTRARA QUE SE HA REGISTRADO
+
+
+                            } else {
+                                //no se ha creado correctamente
+                            }
+
+                        }
+                    });
+
+                } else {
+
+//                    no se ha podido crear el usuario
+
+                }
+            }
+        });
+
+    }
 
 //    private void getFbTeams() {
 //        reference = FirebaseDatabase.getInstance().getReference().child("Equipo");
