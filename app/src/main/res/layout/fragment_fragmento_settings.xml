@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/floor_load_dark"
     android:weightSum="100">
@@ -13,14 +14,17 @@
         android:orientation="vertical"
         android:layout_weight="100">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivAvatar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/settings" />
+            android:src="@drawable/doncic"
+            app:civ_border_width="4dp"
+            app:civ_fill_color="@color/colorPrimary"
+            app:civ_border_color="@color/material_black"/>
 
         <CheckBox
             android:id="@+id/checkboxSoundOptions"
@@ -28,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:textSize="20dp"
             android:text="@string/sound" />
 
         <TextView
@@ -37,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/introduce_user_name"
+            android:textStyle="bold"
             android:textSize="18sp" />
 
         <EditText
@@ -58,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/seleccionar_avatar"
+            android:textStyle="bold"
             android:textSize="18sp" />
         <Spinner
             android:paddingLeft="15dp"

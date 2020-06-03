@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.nbaplayersandroid">
+    package="com.nbastatsquiz">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAQUIZ"
         tools:targetApi="lollipop">
-        <activity android:name=".menu.Menu"/>
-        <activity android:name=".PuntuacionesActivity" />
-        <activity android:name=".NavigationDrawerActivity">
+        <activity android:name="com.nbastatsquiz.menu.Menu"/>
+        <activity android:name="com.nbastatsquiz.PuntuacionesActivity" />
+        <activity android:name="com.nbastatsquiz.NavigationDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity" />
+        <activity android:name="com.nbastatsquiz.GameActivity" />
     </application>
 
 </manifest>

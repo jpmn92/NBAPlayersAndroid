@@ -10,7 +10,7 @@
 
     android:id="@+id/drawer_layout"
 
-    tools:context=".NavigationDrawerActivity">
+    tools:context="com.nbastatsquiz.NavigationDrawerActivity">
     <!-- Contenido Principal-->
     <!-- Contenido Principal -->
     <include layout="@layout/main_content" />
