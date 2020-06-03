@@ -71,7 +71,6 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
         viewHolder.fecha.setText(firebasePuntuacion.getDate());
         viewHolder.puntos.setText("Pts: " + Integer.toString(firebasePuntuacion.getPoints()));
 
-
         //listener para el cardview
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                                    @Override

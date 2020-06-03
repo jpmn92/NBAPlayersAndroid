@@ -7,8 +7,8 @@
     <string name="nav_help">Help</string>
     <string name="nav_home">Home</string>
 
-
-
+<!--    Textos Toasts-->
+    <string name="config_updated">CONFIG UPDATED</string>
 
     <string name="about_us">Somos dos personas sin nada mejor que hacer. JP y Miguel</string>
 

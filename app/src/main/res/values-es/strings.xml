@@ -11,6 +11,9 @@
     <string name="home_item">Inicio</string>
     <string name="about_us">Somos dos personas sin nada mejor que hacer. JP y Miguel</string>
 
+    <!--    Textos Toasts-->
+    <string name="config_updated">CONFIGURACIÓN ACTUALIZADA</string>
+
 
     <string name="sound">Sonido</string>
     <!-- Errores -->
