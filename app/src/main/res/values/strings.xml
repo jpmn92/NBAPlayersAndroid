@@ -1,13 +1,15 @@
 <resources>
 
-<!--    Textos Menu Lateral-->
+    <!--    Textos Menu Lateral-->
     <string name="home_item">Home</string>
     <string name="nav_about_us">About us</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_help">Help</string>
     <string name="nav_home">Home</string>
+    <string name="nav_login">Login</string>
+    <string name="nav_register">Sign in</string>
 
-<!--    Textos Toasts-->
+    <!--    Textos Toasts-->
     <string name="config_updated">CONFIG UPDATED</string>
 
 
@@ -33,6 +35,12 @@
 
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Enter your username</string>
+    <string name="introduce_email">Type your email here</string>
+    <string name="introduce_passwd">Type your password here</string>
+    <string name="introduce_passwd2">Confirm your password here</string>
+
+
+
     <string name="seleccionar_avatar">Choose your avatar</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>

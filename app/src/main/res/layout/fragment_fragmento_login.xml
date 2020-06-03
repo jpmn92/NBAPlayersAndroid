@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.FragmentoLogin"
+    android:background="@drawable/floor_load_dark">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@drawable/logo_ligero"
+            android:layout_gravity="center"/>
+
+<!--        <TextView-->
+<!--            android:paddingLeft="15dp"-->
+<!--            android:id="@+id/textView"-->
+<!--            android:textColor="@color/material_black"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/introduce_email"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="18sp" />-->
+
+        <EditText
+            android:paddingLeft="15dp"
+            android:id="@+id/txtLoginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/material_black"
+            android:inputType="textPersonName"
+            android:hint="@string/introduce_email"
+            android:layout_marginBottom="10dp"/>
+        <EditText
+            android:paddingLeft="15dp"
+
+            android:id="@+id/txtLoginPasswd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/material_black"
+            android:inputType="textPassword"
+            android:hint="@string/introduce_passwd"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nav_login"
+            android:background="@color/colorPrimary"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -24,17 +24,22 @@
             android:title="@string/nav_about_us" />
 
 
-
-
         <!-- Sección de configuración -->
         <item
             android:id="@+id/configuration_section"
-            android:title="">
+            android:title="Other">
 <!--            android:title="Settings">-->
 
             <menu>
 
-
+                <item
+                    android:id="@+id/nav_login"
+                    android:icon="@drawable/ic_account_circle_black_48dp"
+                    android:title="@string/nav_login" />
+                <item
+                    android:id="@+id/nav_register"
+                    android:icon="@drawable/ic_person_add_black_24dp"
+                    android:title="@string/nav_register" />
 
 
 <!--                <item-->

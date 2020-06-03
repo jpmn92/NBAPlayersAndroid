@@ -18,7 +18,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.fragments.FragmentoAboutUs;
 import com.nbastatsquiz.fragments.FragmentoHelp;
+import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
+import com.nbastatsquiz.fragments.FragmentoRegister;
 import com.nbastatsquiz.fragments.FragmentoSettings;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
@@ -162,6 +164,16 @@ public class NavigationDrawerActivity extends AppCompatActivity {
             case R.id.nav_about_us:
 
                 fragmentoGenerico = FragmentoAboutUs.newInstance(null);
+                break;
+
+            case R.id.nav_login:
+
+                fragmentoGenerico = FragmentoLogin.newInstance(null);
+                break;
+
+            case R.id.nav_register:
+
+                fragmentoGenerico = FragmentoRegister.newInstance(null);
                 break;
 
 
