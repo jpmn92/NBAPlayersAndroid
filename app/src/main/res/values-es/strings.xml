@@ -24,6 +24,8 @@
 
     <!--    Textos Toasts-->
     <string name="config_updated">CONFIGURACIÓN ACTUALIZADA</string>
+    <string name="press_back">Pulsa de nuevo para salir</string>
+
 
 
     <string name="sound">Sonido</string>

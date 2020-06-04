@@ -11,6 +11,8 @@
 
     <!--    Textos Toasts-->
     <string name="config_updated">CONFIG UPDATED</string>
+    <string name="press_back">Press back again to exit</string>
+
 
 
     <string name="about_us">For any problem, doubt or sugestion you can contact us by this email:\nnbastatsquiz@gmail.com</string>
@@ -20,8 +22,8 @@
     <string name="help_season_type">2 - Regular Season / Playoffs</string>
     <string name="help_stat">3 - Stat Category</string>
     <string name="help_stat_type">4 - Per Game / Totals</string>
-    <string name="help_paragraph2">Once you start the game, you have to click on the player with better stat in the selected season. The stat and season are indicated at the top of the screen.</string>
-    <string name="help_paragraph3">You have three lives, if you click on the wrong player, you\'ll lose a live. If you be right ten times in a row, you can get a new live up yo three</string>
+    <string name="help_paragraph2">Once the game is started, you have to click on the player who had a better stat in the selected season. The stat and season are indicated on the top of the screen.</string>
+    <string name="help_paragraph3">You have three lives, if you click on the wrong player, you\'ll lose a live. If you make ten hits in a row, you will get a new live up to three</string>
 
     <string name="sound">Sound</string>
     <!-- Errores -->

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.nbastatsquiz.R;
@@ -42,7 +43,30 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     private ImageView imageHeader;
     private SessionManagement sessionManagement;
     private String userName;
+    private long backPressedTime;
+    Toast backToast;
 
+
+    @Override
+    public void onBackPressed() {
+
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            super.onBackPressed();
+            loadFragment(FragmentoMenu.newInstance(null));
+
+            return;
+
+        } else {
+            loadFragment(FragmentoMenu.newInstance(null));
+            backToast = Toast.makeText(this, R.string.press_back, Toast.LENGTH_SHORT);
+            backToast.show();
+
+        }
+        backPressedTime = System.currentTimeMillis();
+
+
+    }
 
     @Override
     protected void onStart() {
@@ -86,8 +110,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +146,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
 
     }
-
 
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -230,11 +251,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 .replace(R.id.main_content, fragmentoGenerico)
                 .commit();
     }
-
-
-
-
-
 
 
 }
