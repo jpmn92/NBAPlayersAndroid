@@ -1,5 +1,7 @@
 package com.nbastatsquiz.fragments;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -90,7 +92,7 @@ public class FragmentoSettings extends Fragment {
         ArrayList<NBAPlayer> nbaPlayers = generateImageUrl.getNBAPlayers();
 
         //ordenamos array
-        if(nbaPlayers.size() > 0){
+        if (nbaPlayers.size() > 0) {
             Collections.sort(nbaPlayers, new Comparator<NBAPlayer>() {
                 @Override
                 public int compare(NBAPlayer o1, NBAPlayer o2) {
@@ -103,11 +105,11 @@ public class FragmentoSettings extends Fragment {
         spinnerProfile.setAdapter(adapter);
 
         //si el perfil tiene imagen, que busque de quien es esa imagen y la ponga como valor por defecto del spinner
-        if(sm.getSesionImage() != ""){
+        if (sm.getSesionImage() != "") {
 
-            for(int i = 0; i<nbaPlayers.size(); i++){
+            for (int i = 0; i < nbaPlayers.size(); i++) {
 
-                if(nbaPlayers.get(i).getUrlImage().equalsIgnoreCase(sm.getSesionImage())){
+                if (nbaPlayers.get(i).getUrlImage().equalsIgnoreCase(sm.getSesionImage())) {
                     spinnerProfile.setSelection(i);
                 }
 
@@ -121,16 +123,22 @@ public class FragmentoSettings extends Fragment {
             @Override
             public void onClick(View v) {
 
-                sound = cbSound.isChecked();
+                if (checkInternetConnection() == true) {
+                    sound = cbSound.isChecked();
 
-                //cogemos jugador seleccionado y pasamos la url de su imagen
-                NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
+                    //cogemos jugador seleccionado y pasamos la url de su imagen
+                    NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
 
-                String userName = txtUserName.getText().toString();
+                    String userName = txtUserName.getText().toString();
 
-                sm.saveSession(txtUserName.getText().toString(), sound, nbaPlayer.getUrlImage());
+                    sm.saveSession(txtUserName.getText().toString(), sound, nbaPlayer.getUrlImage());
 
-                Toast.makeText(getContext(), R.string.config_updated, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.config_updated, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "no hay conexion a internet", Toast.LENGTH_SHORT).show();
+
+                }
+
 
             }
         });
@@ -153,7 +161,6 @@ public class FragmentoSettings extends Fragment {
     }
 
 
-
     private void initComponents(View view) {
 
         btnSetOptions = view.findViewById(R.id.btnSetOptions);
@@ -163,6 +170,24 @@ public class FragmentoSettings extends Fragment {
 //        ivAvatar = view.findViewById(R.id.ivAvatar);
         circleImageView = view.findViewById(R.id.ivAvatar);
         Picasso.with(getContext()).load(sm.getSesionImage()).into(circleImageView);
+
+    }
+
+    private Boolean checkInternetConnection() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(getActivity().CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+
+
+        } else {
+            connected = false;
+//            Toast.makeText(getContext(), "no hay conexion a internet", Toast.LENGTH_SHORT).show();
+        }
+
+        return connected;
 
     }
 }

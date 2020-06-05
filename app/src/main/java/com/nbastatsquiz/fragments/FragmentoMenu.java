@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
@@ -106,8 +109,13 @@ public class FragmentoMenu extends Fragment {
 //                sessionManagement = new SessionManagement(getBaseContext());
 //                sessionManagement.removeSession();
 
-                //TODO: revisar los parametros a pasar
-                firebaseMethods.getRecord2(getParams());
+                if (checkInternetConnection() == true) {
+                    //TODO: revisar los parametros a pasar
+                    firebaseMethods.getRecord2(getParams());
+                } else {
+                    Toast.makeText(getContext(), "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+
+                }
 
 
             }
@@ -175,45 +183,53 @@ public class FragmentoMenu extends Fragment {
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnStart:
-                juego = new Intent(getActivity().getBaseContext(), GameActivity.class);
-                params = new Bundle();
 
-                //parametros del modo de juego
-                String temporada = sSeason.getSelectedItem().toString();
+        if (checkInternetConnection() == true) {
+            switch (v.getId()) {
+                case R.id.btnStart:
+                    juego = new Intent(getActivity().getBaseContext(), GameActivity.class);
+                    params = new Bundle();
 
-                if (sSeason.getSelectedItemPosition() == 0) {
-                    temporada = "MISC";
-                }
+                    //parametros del modo de juego
+                    String temporada = sSeason.getSelectedItem().toString();
 
-                params.putString("Season", temporada);
-                params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
+                    if (sSeason.getSelectedItemPosition() == 0) {
+                        temporada = "MISC";
+                    }
 
-                String stat = getParam(R.array.TipoCategoria, sCategory);
+                    params.putString("Season", temporada);
+                    params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
 
-                params.putString("StatCategory", stat); //PTS para puntos
-                // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
+                    String stat = getParam(R.array.TipoCategoria, sCategory);
+
+                    params.putString("StatCategory", stat); //PTS para puntos
+                    // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
 
 
-                // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
-                String statMode = getParam(R.array.TipoDatos, sDataType);
-                params.putString("PerMode", statMode); //PerGame para por partido
+                    // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
+                    String statMode = getParam(R.array.TipoDatos, sDataType);
+                    params.putString("PerMode", statMode); //PerGame para por partido
 //                params.putString("PerMode", "PerGame"); //PerGame para por partido
 
-                params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
+                    params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
 //                params.putBoolean("Sound", sound);
 
-                checkSession();
-                break;
+                    checkSession();
+                    break;
 
-            case R.id.btnOptions:
+                case R.id.btnOptions:
 //                dialogOptions();
-                break;
+                    break;
 
+
+            }
+
+        } else {
+            Toast.makeText(getContext(), "No hay conexion a internet", Toast.LENGTH_SHORT).show();
 
         }
+
 
     }
 
@@ -291,5 +307,23 @@ public class FragmentoMenu extends Fragment {
 //            username = "jp"; //o el quue se meta por el dialog
 
         }
+    }
+
+    private Boolean checkInternetConnection() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(getActivity().CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+
+
+        } else {
+            connected = false;
+//            Toast.makeText(getContext(), "no hay conexion a internet", Toast.LENGTH_SHORT).show();
+        }
+
+        return connected;
+
     }
 }

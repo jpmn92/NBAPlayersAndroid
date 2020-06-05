@@ -8,6 +8,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,7 +73,27 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        checkInternetConnection();
         checkSession();
+    }
+
+    private Boolean checkInternetConnection() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+
+
+        }
+        else{
+            connected = false;
+            Toast.makeText(this, "no hay conexion a internet", Toast.LENGTH_SHORT).show();
+        }
+
+        return connected;
+
     }
 
     @Override
