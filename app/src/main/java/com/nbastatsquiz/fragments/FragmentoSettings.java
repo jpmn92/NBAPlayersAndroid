@@ -135,7 +135,7 @@ public class FragmentoSettings extends Fragment {
 
                     Toast.makeText(getContext(), R.string.config_updated, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "no hay conexion a internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.sin_conexion, Toast.LENGTH_SHORT).show();
 
                 }
 

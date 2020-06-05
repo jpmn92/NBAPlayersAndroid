@@ -89,7 +89,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         }
         else{
             connected = false;
-            Toast.makeText(this, "no hay conexion a internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
         }
 
         return connected;

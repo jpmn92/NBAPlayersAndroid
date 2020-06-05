@@ -113,7 +113,7 @@ public class FragmentoMenu extends Fragment {
                     //TODO: revisar los parametros a pasar
                     firebaseMethods.getRecord2(getParams());
                 } else {
-                    Toast.makeText(getContext(), "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.sin_conexion, Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -226,7 +226,7 @@ public class FragmentoMenu extends Fragment {
             }
 
         } else {
-            Toast.makeText(getContext(), "No hay conexion a internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.sin_conexion, Toast.LENGTH_SHORT).show();
 
         }
 
