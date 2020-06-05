@@ -91,7 +91,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 //        username = params.getString("userName");
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
-        paramsIniciales.putString("userName", username + Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+        paramsIniciales.putString("userName", username);
         // Si queremos que se guarde el id del telefono para no registrar usuarios de momento
         // paramsIniciales.putString("userName", username + Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID));
         season = params.getString("Season");
