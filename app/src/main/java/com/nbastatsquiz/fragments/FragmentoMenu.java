@@ -120,6 +120,8 @@ public class FragmentoMenu extends Fragment {
 
         params = getParams();
 
+        params.putString("userName", getUserName());
+
         Collections.sort(puntuaciones, Collections.reverseOrder());
 
         params.putParcelableArrayList("puntuaciones", puntuaciones);
@@ -215,7 +217,7 @@ public class FragmentoMenu extends Fragment {
 
     }
 
-    private void getUserName() {
+    private String getUserName() {
         sessionManagement = new SessionManagement(getContext());
         int userID = sessionManagement.getSession();
 
@@ -226,6 +228,7 @@ public class FragmentoMenu extends Fragment {
             userName = "";
 
         }
+        return userName;
     }
 
     public String getParam(int arrayId, Spinner spinner) {

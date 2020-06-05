@@ -1,8 +1,10 @@
 package com.nbastatsquiz.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,8 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.nbastatsquiz.GameActivity;
+import com.nbastatsquiz.NavigationDrawerActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
+import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
 import com.nbastatsquiz.menu.Menu;
@@ -30,12 +35,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.Executor;
 
-public class FirebaseMethods {
+public class FirebaseMethods extends Activity {
     GameActivity gameActivity;
     Menu menu;
     FragmentoMenu fragmentoMenu;
     FragmentoRegister fragmentoRegister;
+    FragmentoLogin fragmentoLogin;
     Context context;
     Boolean processDone;
     DatabaseReference reference;
@@ -64,6 +71,9 @@ public class FirebaseMethods {
 
     public FirebaseMethods(FragmentoRegister fragmentoRegister){
         this.fragmentoRegister = fragmentoRegister;
+    }
+    public FirebaseMethods(FragmentoLogin fragmentoLogin){
+        this.fragmentoLogin = fragmentoLogin;
     }
 
     public FirebaseMethods(FragmentoMenu menu) {
@@ -234,6 +244,31 @@ public class FirebaseMethods {
                 }
             }
         });
+    }
+
+    public void logIn(String email, String password) {
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference();
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //TODO: Inicias sesión correctamete
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(fragmentoLogin.getContext(), "Authentication ok.", Toast.LENGTH_SHORT).show();
+                            // updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //TODO: Error en inicio de sesión
+                            Toast.makeText(fragmentoLogin.getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     private void toastAutentificacion(String mensaje){

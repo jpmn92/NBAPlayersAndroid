@@ -121,15 +121,12 @@ public class FragmentoSettings extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (cbSound.isChecked()) {
-                    sound = true;
-
-                } else {
-                    sound = false;
-                }
+                sound = cbSound.isChecked();
 
                 //cogemos jugador seleccionado y pasamos la url de su imagen
                 NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
+
+                String userName = txtUserName.getText().toString();
 
                 sm.saveSession(txtUserName.getText().toString(), sound, nbaPlayer.getUrlImage());
 

@@ -24,7 +24,16 @@
             android:layout_marginBottom="5dp"/>
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_puntuacion_personal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#FFE48C0E" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_puntuaciones"
