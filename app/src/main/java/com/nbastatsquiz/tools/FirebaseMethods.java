@@ -250,25 +250,30 @@ public class FirebaseMethods extends Activity {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //TODO: Inicias sesión correctamete
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(fragmentoLogin.getContext(), "Authentication ok.", Toast.LENGTH_SHORT).show();
-                            // updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //TODO: Error en inicio de sesión
-                            Toast.makeText(fragmentoLogin.getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
-                        }
-
-                        // ...
+        try{
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        //TODO: Inicias sesión correctamete
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(fragmentoLogin.getContext(), "Authentication ok.", Toast.LENGTH_SHORT).show();
+                        // updateUI(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        //TODO: Error en inicio de sesión
+                        Toast.makeText(fragmentoLogin.getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        //updateUI(null);
                     }
-                });
+
+                    // ...
+                }
+            });
+        } catch (IllegalArgumentException e){
+            Toast.makeText(fragmentoLogin.getContext(), "Campos de texto vacios", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void toastAutentificacion(String mensaje){
