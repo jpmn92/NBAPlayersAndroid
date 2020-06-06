@@ -26,6 +26,11 @@ public class SessionManagement {
         editor.putString(SESSION_USERNAME, userName).commit();
     }
 
+    public void saveSession(boolean sound) {
+        editor.putInt(SESSION_KEY, 1);
+        editor.putBoolean(SESSION_SOUND, sound).commit();
+    }
+
     public void saveSession(String userName, boolean sound) {
         editor.putInt(SESSION_KEY, 1);
         editor.putString(SESSION_USERNAME, userName).commit();

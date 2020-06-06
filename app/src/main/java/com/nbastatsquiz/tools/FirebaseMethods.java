@@ -214,15 +214,16 @@ public class FirebaseMethods extends Activity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-
+                    String id = mAuth.getCurrentUser().getUid();
                     //AQUI CREAMOS LOS PARAMETROS A NUESTRO ANTOJO, POR EJEMPLO URL DE IMAGEN DEL USUARIO O LO QUE SEA
                     Map<String, Object> map = new HashMap<>();
+                    map.put("uid", id);
                     map.put("email", email);
                     map.put("password", passwd);
-                    //map.put("name", name);
-                    //map.put("image", urlImage);
+                    map.put("name", username);
+                    map.put("image", urlImage);
 
-                    String id = mAuth.getCurrentUser().getUid();
+
 
 
                     reference.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {

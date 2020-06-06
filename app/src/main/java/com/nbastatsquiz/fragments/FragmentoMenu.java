@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class FragmentoMenu extends Fragment {
     Bundle params;
     Intent juego;
     ArrayList<FirebasePuntuacion> puntuaciones;
+    ImageView ivSound;
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
         return puntuaciones;
@@ -90,7 +92,22 @@ public class FragmentoMenu extends Fragment {
 
     private void initComponents(View view) {
 
+        sessionManagement = new SessionManagement(getContext());
+        ivSound = view.findViewById(R.id.ivSound);
+        checkSound();
+        ivSound.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                if(sessionManagement.getSound()){
+                    sessionManagement.saveSession(false);
+                }
+                else{
+                    sessionManagement.saveSession(true);
+                }
+                checkSound();
+            }
+        });
         sSeason = view.findViewById(R.id.spinnerSeasons);
         sCategory = view.findViewById(R.id.spinnerCategory);
         sSeasonType = view.findViewById(R.id.spinnerSeasonType);
@@ -121,6 +138,16 @@ public class FragmentoMenu extends Fragment {
             }
         });
 
+    }
+
+    private void checkSound() {
+
+        if(sessionManagement.getSound()){
+            ivSound.setImageResource(R.drawable.soundon);
+        }
+        else{
+            ivSound.setImageResource(R.drawable.soundoff);
+        }
     }
 
     public void goToPuntuaciones() {
@@ -234,7 +261,6 @@ public class FragmentoMenu extends Fragment {
     }
 
     private String getUserName() {
-        sessionManagement = new SessionManagement(getContext());
         int userID = sessionManagement.getSession();
 
         if (userID != -1) {
@@ -261,7 +287,6 @@ public class FragmentoMenu extends Fragment {
 
     private void checkSession() {
 
-        sessionManagement = new SessionManagement(getContext());
         int userID = sessionManagement.getSession();
 
         if (userID != -1) {
