@@ -9,6 +9,8 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
@@ -18,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.nbastatsquiz.R;
@@ -460,24 +463,32 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         //si clicamos cualquiera se cancela el contador
         myCountDownTimer.cancel();
-        switch (v.getId()) {
-            case R.id.linJ2:
-                if (valueP2 >= valueP1) {
-                    acierto();
-                } else {
-                    fallo();
-                }
 
-                break;
+        if (checkInternetConnection() == true) {
+            switch (v.getId()) {
+                case R.id.linJ2:
+                    if (valueP2 >= valueP1) {
+                        acierto();
+                    } else {
+                        fallo();
+                    }
 
-            case R.id.linJ1:
-                if (valueP2 <= valueP1) {
-                    acierto();
-                } else {
-                    fallo();
-                }
-                break;
+                    break;
+
+                case R.id.linJ1:
+                    if (valueP2 <= valueP1) {
+                        acierto();
+                    } else {
+                        fallo();
+                    }
+                    break;
+            }
+        } else {
+            Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
+
         }
+
+
     }
 
     private void comprobarVidas() {
@@ -659,6 +670,24 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             }
         });
         builder.show();
+    }
+
+    private Boolean checkInternetConnection() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+
+
+        } else {
+            connected = false;
+//            Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
+        }
+
+        return connected;
+
     }
 
 

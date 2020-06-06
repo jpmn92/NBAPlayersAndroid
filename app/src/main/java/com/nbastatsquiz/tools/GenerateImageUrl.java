@@ -63,6 +63,62 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+
+            //delonte west
+            case 2753:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2422.png";
+                break;
+
+            //ronny turiaf
+            case 101142:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/2789.png";
+                break;
+
+            //carlos delfino
+            case 2568:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/1999.png";
+                break;
+
+            //rashad mccants
+            case 101119:
+                urlImage = "https://dev.big3.com/wp-content/uploads/2018/05/TRILOGY_MCCANTS_RASHAD.png";
+                break;
+
+            //tyrus thomas
+            case 200748:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3032.png";
+                break;
+
+            //josh boone
+            case 200767:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2990.png";
+                break;
+
+            //kenny smith
+            case 181:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Kenny-Smith-2K.png";
+                break;
+
+            //nate mcmillan
+            case 203:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Nate-McMillian-2K.png";
+                break;
+
+            //mehmet okur
+            case 2246:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1014.png";
+                break;
+
+            //donyell marshall
+            case 923:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Donyell-Marshall-2K.png";
+                break;
+
+            //byron scott
+            case 2:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Byron-Scott-2K.png";
+                break;
+
             //landry fields
             case 202361:
                 urlImage = "https://www.2kratings.com/wp-content/uploads/Landry-Fields-2K.png";

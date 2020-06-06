@@ -8,9 +8,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,7 +46,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     private TextView nameHeader;
     private ImageView imageHeader;
     private SessionManagement sessionManagement;
-    private String userName;
+    private String userName, email;
     private long backPressedTime;
     Toast backToast;
 
@@ -109,14 +111,17 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         if (userID != -1) {
             userName = sessionManagement.getSessionUserName();
+            email = sessionManagement.getSessionEmail();
 
             nameHeader.setText(userName);
-            emailHeader.setText(userName);
+            emailHeader.setText(email);
             Picasso.with(this).load(sessionManagement.getSesionImage()).into(imageHeader);
+
+            showLoggedMenu();
 
         } else {
 
-
+            showAnonymusMenu();
             //No logueados
 
 
@@ -219,6 +224,11 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 fragmentoGenerico = FragmentoRegister.newInstance(null);
                 break;
 
+            case R.id.nav_logout:
+
+                logout();
+                break;
+
 
         }
         if (fragmentoGenerico != null) {
@@ -272,6 +282,47 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.main_content, fragmentoGenerico)
                 .commit();
+    }
+
+    public void logout() {
+
+        SessionManagement sessionManagement = new SessionManagement(this);
+        sessionManagement.removeSession();
+
+        Intent intent = new Intent(this, NavigationDrawerActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        startActivity(intent);
+        finish();
+
+    }
+
+    public void showAnonymusMenu() {
+
+        //TODO: REVISAR ACCESOS, AHORA NO SE PUEDE TOCAR LA CONFIG SI NO ESTAS LOGUEADO
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_login).setVisible(true);
+        nav_Menu.findItem(R.id.nav_register).setVisible(true);
+        nav_Menu.findItem(R.id.nav_help).setVisible(true);
+        nav_Menu.findItem(R.id.nav_about_us).setVisible(true);
+        nav_Menu.findItem(R.id.nav_home).setVisible(true);
+        nav_Menu.findItem(R.id.nav_settings).setVisible(false);
+        nav_Menu.findItem(R.id.nav_logout).setVisible(false);
+
+
+
+    }
+
+    public void showLoggedMenu() {
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_login).setVisible(false);
+        nav_Menu.findItem(R.id.nav_register).setVisible(false);
+        nav_Menu.findItem(R.id.nav_help).setVisible(true);
+        nav_Menu.findItem(R.id.nav_about_us).setVisible(true);
+        nav_Menu.findItem(R.id.nav_home).setVisible(true);
+        nav_Menu.findItem(R.id.nav_settings).setVisible(true);
+        nav_Menu.findItem(R.id.nav_logout).setVisible(true);
+
     }
 
 

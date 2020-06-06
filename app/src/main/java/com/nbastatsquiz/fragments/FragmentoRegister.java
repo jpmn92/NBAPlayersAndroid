@@ -7,26 +7,41 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nbastatsquiz.R;
+import com.nbastatsquiz.beans.NBAPlayer;
 import com.nbastatsquiz.tools.FirebaseMethods;
+import com.nbastatsquiz.tools.GenerateImageUrl;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class FragmentoRegister extends Fragment {
 
 
-    private EditText email, passwd, passwd2;
+    private EditText email, passwd, passwd2, username;
     private TextView txtError;
     private Button btnRegister;
     private FirebaseMethods firebaseMethods;
     private String mensaje;
     private static FragmentoRegister fragmentoRegister;
+    private CircleImageView circleImageView;
+    private GenerateImageUrl generateImageUrl;
+    private Spinner spinner;
+
 
     public FragmentoRegister() {
         // Required empty public constructor
@@ -58,17 +73,25 @@ public class FragmentoRegister extends Fragment {
 
         firebaseMethods = new FirebaseMethods(this);
         initComponents(view);
+
+        populateSpinner();
+
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //cogemos jugador seleccionado y pasamos la url de su imagen
+                NBAPlayer nbaPlayer = (NBAPlayer) spinner.getSelectedItem();
+
                 txtError.setVisibility(View.GONE);
-                if(isEmailValid(email.getText().toString())){
+                if (isEmailValid(email.getText().toString())) {
                     if (passwd.getText().toString().equals(passwd2.getText().toString())) {
 
                         //6 es el minimo de seguridad de firebase
                         if (passwd.getText().toString().length() >= 6) {
                             //registrar
-                            firebaseMethods.registerUser(email.getText().toString(), passwd.getText().toString());
+                            firebaseMethods.registerUser(email.getText().toString(), passwd.getText().toString(), username.getText().toString(), nbaPlayer.getUrlImage(), getContext());
                             //mostrarError(mensaje);
                         } else {
 //                        La contraseña minimo son 6 caracteres para firebase
@@ -79,15 +102,48 @@ public class FragmentoRegister extends Fragment {
 //                        La contraseñas no coinciden
                         mostrarError(getString(R.string.passwords_not_match));
                     }
-                }
-                else{
+                } else {
                     mostrarError(getString(R.string.invalid_email));
                 }
 
             }
         });
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                NBAPlayer nbaPlayer = (NBAPlayer) spinner.getSelectedItem();
+                Picasso.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return view;
+    }
+
+    private void populateSpinner() {
+        generateImageUrl = new GenerateImageUrl();
+
+        ArrayList<NBAPlayer> nbaPlayers = generateImageUrl.getNBAPlayers();
+
+        //ordenamos array
+        if (nbaPlayers.size() > 0) {
+            Collections.sort(nbaPlayers, new Comparator<NBAPlayer>() {
+                @Override
+                public int compare(NBAPlayer o1, NBAPlayer o2) {
+                    return o1.getName().compareTo(o2.getName());
+                }
+            });
+        }
+
+        ArrayAdapter<NBAPlayer> adapter = new ArrayAdapter<NBAPlayer>(getContext(), R.layout.support_simple_spinner_dropdown_item, nbaPlayers);
+        spinner.setAdapter(adapter);
+
+
     }
 
     public void mostrarError(String mensaje) {
@@ -101,6 +157,7 @@ public class FragmentoRegister extends Fragment {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
     private void initComponents(View view) {
 
         email = view.findViewById(R.id.txtRegisterEmail);
@@ -108,6 +165,9 @@ public class FragmentoRegister extends Fragment {
         passwd2 = view.findViewById(R.id.txtRegisterConfirmPasswd);
         btnRegister = view.findViewById(R.id.btnRegister);
         txtError = view.findViewById(R.id.txtErrorRegister);
+        username = view.findViewById(R.id.txtRegisterUserName);
+        circleImageView = view.findViewById(R.id.ivAvatarRegister);
+        spinner = view.findViewById(R.id.spinnerRegisterAvatar);
 
 
     }

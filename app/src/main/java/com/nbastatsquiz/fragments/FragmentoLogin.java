@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.tools.FirebaseMethods;
 
+import java.util.Collections;
+
 
 public class FragmentoLogin extends Fragment {
 
@@ -51,11 +53,11 @@ public class FragmentoLogin extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragmento_login, container, false);
         initComponents(view);
-        btLogIn.setOnClickListener(new View.OnClickListener(){
+        btLogIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                firebaseMethods.logIn(txtLogIn.getText().toString(), txtPass.getText().toString());
+                firebaseMethods.logIn(txtLogIn.getText().toString(), txtPass.getText().toString(), getContext());
             }
         });
         return view;
@@ -66,5 +68,21 @@ public class FragmentoLogin extends Fragment {
         firebaseMethods = new FirebaseMethods(this);
         txtLogIn = view.findViewById(R.id.txtLoginEmail);
         txtPass = view.findViewById(R.id.txtLoginPasswd);
+    }
+
+    public void successfullLogin() {
+
+        FragmentoMenu fragmentoMenu = FragmentoMenu.newInstance(null);
+
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content, fragmentoMenu, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
+
+
+//        Intent activityPuntuaciones = new Intent(getContext(), PuntuacionesActivity.class);
+//        activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
+//        startActivity(activityPuntuaciones);
     }
 }

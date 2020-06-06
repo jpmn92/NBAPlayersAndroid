@@ -2,7 +2,9 @@ package com.nbastatsquiz.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +53,7 @@ public class FirebaseMethods extends Activity {
     Bundle bundlePartida;
     int puntuacion;
     ArrayList<FirebasePuntuacion> listadoFinal;
+    SessionManagement sessionManagement;
 
     public FirebaseMethods() {
         this.puntuacion = 0;
@@ -65,14 +69,16 @@ public class FirebaseMethods extends Activity {
         this.menu = menu;
     }
 
-    public FirebaseMethods(Context context){
+    public FirebaseMethods(Context context) {
         this.context = context;
     }
 
-    public FirebaseMethods(FragmentoRegister fragmentoRegister){
+    public FirebaseMethods(FragmentoRegister fragmentoRegister) {
         this.fragmentoRegister = fragmentoRegister;
     }
-    public FirebaseMethods(FragmentoLogin fragmentoLogin){
+
+
+    public FirebaseMethods(FragmentoLogin fragmentoLogin) {
         this.fragmentoLogin = fragmentoLogin;
     }
 
@@ -199,7 +205,7 @@ public class FirebaseMethods extends Activity {
 
     }
 
-    public void registerUser(String email, String passwd) {
+    public void registerUser(String email, String passwd, String username, String urlImage, Context RegisterContext) {
 
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
@@ -218,13 +224,41 @@ public class FirebaseMethods extends Activity {
 
                     String id = mAuth.getCurrentUser().getUid();
 
+
                     reference.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()) {
 
+
+                                //Una vez creado el usuario, le ponemos displayName
+                                FirebaseUser myUser = mAuth.getCurrentUser();
+
+//                                myUser.sendEmailVerification();
+
+
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(username).setPhotoUri(Uri.parse(urlImage)).build();
+
+                                myUser.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task3) {
+                                                if (task3.isSuccessful()) {
+                                                    //USERNAME ACTUALIZADO
+                                                    String OK = "OK";
+                                                    //TODO: loguear de otra manera mas limpia
+                                                    logIn(myUser.getEmail(), passwd, RegisterContext);
+
+
+                                                } else {
+                                                    //no se le ha asignado el username
+                                                    String NOOK = "NOOK";
+                                                }
+                                            }
+                                        });
+
                                 fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.user_registred));
-                                //Este mensaje no se muestra, ni se crea usuario en firebase
                                 //AQUI LO SUYO SERIA LLEVARLE AL MENU O ALGUNA COSA QUE DEMOSTRARA QUE SE HA REGISTRADO
 
 
@@ -246,37 +280,50 @@ public class FirebaseMethods extends Activity {
         });
     }
 
-    public void logIn(String email, String password) {
+    public void logIn(String email, String password, Context loginContext) {
         FirebaseAuth mAuth;
+
+        sessionManagement = new SessionManagement(loginContext);
         mAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
-        try{
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        try {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         //TODO: Inicias sesión correctamete
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(fragmentoLogin.getContext(), "Authentication ok.", Toast.LENGTH_SHORT).show();
+
+
+                        String email = user.getEmail();
+                        String username = user.getDisplayName();
+                        String urlAvatar = user.getPhotoUrl().toString();
+
+                        sessionManagement.saveSession(user.getDisplayName(), user.getEmail(), urlAvatar);
+                        Toast.makeText(loginContext, "Authentication ok.", Toast.LENGTH_SHORT).show();
+
+                        //TODO: MANDAR AL USUARIO A OTRA PANTALLA
+
+
                         // updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
                         //TODO: Error en inicio de sesión
-                        Toast.makeText(fragmentoLogin.getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(loginContext, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         //updateUI(null);
                     }
 
                     // ...
                 }
             });
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             Toast.makeText(fragmentoLogin.getContext(), "Campos de texto vacios", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void toastAutentificacion(String mensaje){
+    private void toastAutentificacion(String mensaje) {
         Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
     }
 
