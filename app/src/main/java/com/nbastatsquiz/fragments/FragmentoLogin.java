@@ -70,19 +70,5 @@ public class FragmentoLogin extends Fragment {
         txtPass = view.findViewById(R.id.txtLoginPasswd);
     }
 
-    public void successfullLogin() {
 
-        FragmentoMenu fragmentoMenu = FragmentoMenu.newInstance(null);
-
-
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_content, fragmentoMenu, "findThisFragment")
-                .addToBackStack(null)
-                .commit();
-
-
-//        Intent activityPuntuaciones = new Intent(getContext(), PuntuacionesActivity.class);
-//        activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
-//        startActivity(activityPuntuaciones);
-    }
 }

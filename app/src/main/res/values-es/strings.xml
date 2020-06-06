@@ -28,6 +28,9 @@
     <string name="config_updated">CONFIGURACIÓN ACTUALIZADA</string>
     <string name="press_back">Pulsa de nuevo para salir</string>
     <string name="sin_conexion">Comprueba tu conexión a internet y vuelva a intentarlo</string>
+    <string name="login_correcto">Bienvenido de nuevo </string>
+    <string name="registro_correcto">Registro exitoso  </string>
+
 
 
 

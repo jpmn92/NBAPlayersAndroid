@@ -60,10 +60,6 @@ public class FirebaseMethods extends Activity {
         this.puntuacion = 0;
     }
 
-    public FirebaseMethods(Menu menu) {
-        this.menu = menu;
-    }
-
     public FirebaseMethods(Context context) {
         this.context = context;
     }
@@ -72,7 +68,6 @@ public class FirebaseMethods extends Activity {
         this.fragmentoRegister = fragmentoRegister;
     }
 
-
     public FirebaseMethods(FragmentoLogin fragmentoLogin) {
         this.fragmentoLogin = fragmentoLogin;
     }
@@ -80,6 +75,7 @@ public class FirebaseMethods extends Activity {
     public FirebaseMethods(FragmentoMenu menu) {
         this.fragmentoMenu = menu;
     }
+
 
     public void createFbPuntuacion(Bundle bundle) {
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -250,9 +246,6 @@ public class FirebaseMethods extends Activity {
                                             }
                                         });
 
-//                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.user_registred));
-                                //AQUI LO SUYO SERIA LLEVARLE AL MENU O ALGUNA COSA QUE DEMOSTRARA QUE SE HA REGISTRADO
-
 
                             } else {
                                 //no se ha creado correctamente
@@ -287,13 +280,12 @@ public class FirebaseMethods extends Activity {
                         //TODO: Inicias sesión correctamete
                         FirebaseUser user = mAuth.getCurrentUser();
 
-
-                        String email = user.getEmail();
-                        String username = user.getDisplayName();
                         String urlAvatar = user.getPhotoUrl().toString();
 
                         sessionManagement.saveSession(user.getDisplayName(), user.getEmail(), urlAvatar);
-                        Toast.makeText(loginContext, "Authentication ok.", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(loginContext, R.string.login_correcto + " " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                        goToMenu(user.getDisplayName());
+
 
                         //TODO: MANDAR AL USUARIO A OTRA PANTALLA
 
@@ -302,6 +294,7 @@ public class FirebaseMethods extends Activity {
                         // If sign in fails, display a message to the user.
                         //TODO: Error en inicio de sesión
                         Toast.makeText(loginContext, "Authentication failed.", Toast.LENGTH_SHORT).show();
+
                         //updateUI(null);
                     }
 
@@ -320,10 +313,40 @@ public class FirebaseMethods extends Activity {
         sessionManagement.saveSession(myUser.getDisplayName(), myUser.getEmail(), myUser.getPhotoUrl().toString());
 
 
+        //TODO: CAMBIAR DE PANTALLA
+
+        goToMenu(myUser.getDisplayName());
 
 
+    }
+
+    public void goToMenu(String userName) {
+        FragmentoMenu goToMenu = FragmentoMenu.newInstance(null);
+
+        //si viene de login...
+
+        if (fragmentoLogin != null) {
 
 
+            fragmentoLogin.getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_content, goToMenu, "findThisFragment")
+                    .addToBackStack(null)
+                    .commit();
+            //TODO: REVISAR TEXTO
+            Toast.makeText(fragmentoLogin.getContext(),  String.valueOf(R.string.login_correcto)+"," + userName, Toast.LENGTH_SHORT).show();
+
+
+        } else {
+            //si viene de register...
+            if (fragmentoRegister != null) {
+                fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, goToMenu, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+                Toast.makeText(fragmentoRegister.getContext(), R.string.registro_correcto+"," + userName, Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
 
     public void updateAvatar(String urlImage, Context avatarContext) {
@@ -352,6 +375,14 @@ public class FirebaseMethods extends Activity {
                         }
                     }
                 });
+    }
+
+
+    //METODO PARA RECOGER LAS IMAGENES DE LOS USUARIOS
+    public void getUser(String email) {
+
+
+
     }
 
     private void toastAutentificacion(String mensaje) {

@@ -93,10 +93,10 @@ public class FragmentoRegister extends Fragment {
                             //registrar
                             firebaseMethods.registerUser(email.getText().toString(), passwd.getText().toString(), username.getText().toString(), nbaPlayer.getUrlImage(), getContext());
                             //mostrarError(mensaje);
-                            getActivity().getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.main_content, FragmentoMenu.newInstance(null))
-                                    .commit();
+//                            getActivity().getSupportFragmentManager()
+//                                    .beginTransaction()
+//                                    .replace(R.id.main_content, FragmentoMenu.newInstance(null))
+//                                    .commit();
                         } else {
 //                        La contraseña minimo son 6 caracteres para firebase
                             mostrarError(getString(R.string.password_characters));
