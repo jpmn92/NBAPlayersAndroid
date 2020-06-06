@@ -259,7 +259,7 @@ public class FirebaseMethods extends Activity {
                                             }
                                         });
 
-                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.user_registred));
+//                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.user_registred));
                                 //AQUI LO SUYO SERIA LLEVARLE AL MENU O ALGUNA COSA QUE DEMOSTRARA QUE SE HA REGISTRADO
 
 
@@ -327,6 +327,7 @@ public class FirebaseMethods extends Activity {
         sessionManagement = new SessionManagement(loginContext);
         reference = FirebaseDatabase.getInstance().getReference();
         sessionManagement.saveSession(myUser.getDisplayName(), myUser.getEmail(), myUser.getPhotoUrl().toString());
+
     }
 
     private void toastAutentificacion(String mensaje) {
