@@ -2,6 +2,7 @@ package com.nbastatsquiz.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -219,7 +220,6 @@ public class FirebaseMethods extends Activity {
                     Map<String, Object> map = new HashMap<>();
                     map.put("uid", id);
                     map.put("email", email);
-                    map.put("password", passwd);
                     map.put("name", username);
                     map.put("image", urlImage);
 
@@ -249,7 +249,7 @@ public class FirebaseMethods extends Activity {
                                                     //USERNAME ACTUALIZADO
                                                     String OK = "OK";
                                                     //TODO: loguear de otra manera mas limpia
-                                                    logIn(myUser.getEmail(), passwd, RegisterContext);
+                                                    logIn(myUser, RegisterContext);
 
 
                                                 } else {
@@ -306,7 +306,6 @@ public class FirebaseMethods extends Activity {
 
                         //TODO: MANDAR AL USUARIO A OTRA PANTALLA
 
-
                         // updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
@@ -322,6 +321,12 @@ public class FirebaseMethods extends Activity {
             Toast.makeText(fragmentoLogin.getContext(), "Campos de texto vacios", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void logIn(FirebaseUser myUser, Context loginContext) {
+        sessionManagement = new SessionManagement(loginContext);
+        reference = FirebaseDatabase.getInstance().getReference();
+        sessionManagement.saveSession(myUser.getDisplayName(), myUser.getEmail(), myUser.getPhotoUrl().toString());
     }
 
     private void toastAutentificacion(String mensaje) {
