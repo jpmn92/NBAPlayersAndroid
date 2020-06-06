@@ -128,7 +128,7 @@ public class FragmentoMenu extends Fragment {
 
                 if (checkInternetConnection() == true) {
                     //TODO: revisar los parametros a pasar
-                    firebaseMethods.getRecord2(getParams());
+                    firebaseMethods.getTopPuntuaciones(getParams());
                 } else {
                     Toast.makeText(getContext(), R.string.sin_conexion, Toast.LENGTH_SHORT).show();
 

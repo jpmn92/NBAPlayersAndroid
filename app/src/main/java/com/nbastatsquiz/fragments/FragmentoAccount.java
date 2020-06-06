@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.nbastatsquiz.NavigationDrawerActivity;
 import com.nbastatsquiz.R;
-import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.NBAPlayer;
+import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.GenerateImageUrl;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
@@ -33,7 +33,7 @@ import java.util.Comparator;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class FragmentoSettings extends Fragment {
+public class FragmentoAccount extends Fragment {
 
     Button btnSetOptions;
     CheckBox cbSound;
@@ -45,23 +45,24 @@ public class FragmentoSettings extends Fragment {
     ImageView ivAvatar;
     CircleImageView circleImageView;
     NavigationDrawerActivity navigationDrawerActivity;
+    FirebaseMethods firebaseMethods;
 
-    private static FragmentoSettings fragmentoSettings;
+    private static FragmentoAccount fragmentoAccount;
 
-    public FragmentoSettings() {
+    public FragmentoAccount() {
         // Required empty public constructor
     }
 
-    public static FragmentoSettings newInstance(Bundle datos) {
-        if (fragmentoSettings == null) {
-            fragmentoSettings =
-                    new FragmentoSettings();
+    public static FragmentoAccount newInstance(Bundle datos) {
+        if (fragmentoAccount == null) {
+            fragmentoAccount =
+                    new FragmentoAccount();
         }
 
         if (datos != null) {
-            fragmentoSettings.setArguments(datos);
+            fragmentoAccount.setArguments(datos);
         }
-        return fragmentoSettings;
+        return fragmentoAccount;
     }
 
     @Override
@@ -74,15 +75,18 @@ public class FragmentoSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fragmento_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragmento_account, container, false);
 
         sm = new SessionManagement(getContext());
         generateImageUrl = new GenerateImageUrl();
 
         initComponents(view);
 
+        firebaseMethods = new FirebaseMethods(getContext());
 
         txtUserName.setText(sm.getSessionUserName());
+//TODO: no permitimos cambiar el username de momento
+        txtUserName.setEnabled(false);
 
         if (sm.getSound() == true) {
             cbSound.setChecked(true);
@@ -133,7 +137,11 @@ public class FragmentoSettings extends Fragment {
 
                     sm.saveSession(txtUserName.getText().toString(), sound, nbaPlayer.getUrlImage());
 
-                    Toast.makeText(getContext(), R.string.config_updated, Toast.LENGTH_SHORT).show();
+                    firebaseMethods.updateAvatar(nbaPlayer.getUrlImage(),getContext());
+
+
+
+//                    Toast.makeText(getContext(), R.string.config_updated, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), R.string.sin_conexion, Toast.LENGTH_SHORT).show();
 

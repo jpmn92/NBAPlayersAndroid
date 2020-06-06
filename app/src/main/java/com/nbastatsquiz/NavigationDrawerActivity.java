@@ -20,13 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.nbastatsquiz.R;
 import com.nbastatsquiz.fragments.FragmentoAboutUs;
 import com.nbastatsquiz.fragments.FragmentoHelp;
 import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
-import com.nbastatsquiz.fragments.FragmentoSettings;
+import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
@@ -200,9 +199,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 fragmentoGenerico = FragmentoMenu.newInstance(null);
                 break;
 
-            case R.id.nav_settings:
+            case R.id.nav_myAccount:
 
-                fragmentoGenerico = FragmentoSettings.newInstance(null);
+                fragmentoGenerico = FragmentoAccount.newInstance(null);
                 break;
 
             case R.id.nav_help:
@@ -306,7 +305,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.nav_help).setVisible(true);
         nav_Menu.findItem(R.id.nav_about_us).setVisible(true);
         nav_Menu.findItem(R.id.nav_home).setVisible(true);
-        nav_Menu.findItem(R.id.nav_settings).setVisible(false);
+        nav_Menu.findItem(R.id.nav_myAccount).setVisible(false);
         nav_Menu.findItem(R.id.nav_logout).setVisible(false);
 
 
@@ -320,7 +319,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.nav_help).setVisible(true);
         nav_Menu.findItem(R.id.nav_about_us).setVisible(true);
         nav_Menu.findItem(R.id.nav_home).setVisible(true);
-        nav_Menu.findItem(R.id.nav_settings).setVisible(true);
+        nav_Menu.findItem(R.id.nav_myAccount).setVisible(true);
         nav_Menu.findItem(R.id.nav_logout).setVisible(true);
 
     }

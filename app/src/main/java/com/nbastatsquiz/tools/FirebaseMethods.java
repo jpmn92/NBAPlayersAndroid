@@ -2,12 +2,8 @@ package com.nbastatsquiz.tools;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.nbastatsquiz.GameActivity;
-import com.nbastatsquiz.NavigationDrawerActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
 import com.nbastatsquiz.fragments.FragmentoLogin;
@@ -39,7 +34,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 public class FirebaseMethods extends Activity {
     GameActivity gameActivity;
@@ -143,7 +137,7 @@ public class FirebaseMethods extends Activity {
     }
 
     //SI LO HACEMOS ARRAYLIST NO VA
-    public void getRecord2(Bundle paramsPartida) {
+    public void getTopPuntuaciones(Bundle paramsPartida) {
 
         processDone = false;
 
@@ -221,9 +215,6 @@ public class FirebaseMethods extends Activity {
                     map.put("uid", id);
                     map.put("email", email);
                     map.put("name", username);
-                    map.put("image", urlImage);
-
-
 
 
                     reference.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -328,6 +319,39 @@ public class FirebaseMethods extends Activity {
         reference = FirebaseDatabase.getInstance().getReference();
         sessionManagement.saveSession(myUser.getDisplayName(), myUser.getEmail(), myUser.getPhotoUrl().toString());
 
+
+
+
+
+
+    }
+
+    public void updateAvatar(String urlImage, Context avatarContext) {
+        FirebaseAuth mAuth;
+        sessionManagement = new SessionManagement(avatarContext);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser avatarUser = mAuth.getCurrentUser();
+
+
+        UserProfileChangeRequest avatarUpdates = new UserProfileChangeRequest.Builder().
+                setPhotoUri(Uri.parse(urlImage)).build();
+
+        avatarUser.updateProfile(avatarUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task3) {
+                        if (task3.isSuccessful()) {
+                            //AVATAR ACTUALIZADO
+//                            String OK = "OK";
+                            Toast.makeText(context, R.string.config_updated, Toast.LENGTH_SHORT).show();
+
+
+                        } else {
+                            //no se le ha asignado el avatar
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void toastAutentificacion(String mensaje) {

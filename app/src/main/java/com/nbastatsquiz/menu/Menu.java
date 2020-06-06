@@ -77,7 +77,7 @@ public class Menu extends Activity implements View.OnClickListener {
 //                sessionManagement.removeSession();
 
                 //TODO: revisar los parametros a pasar
-                 firebaseMethods.getRecord2(getParams());
+                 firebaseMethods.getTopPuntuaciones(getParams());
 
 
             }
