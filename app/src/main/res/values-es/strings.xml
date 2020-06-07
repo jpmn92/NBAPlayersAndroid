@@ -54,6 +54,10 @@
     <string name="btnComenzar">COMENZAR</string>
     <string name="btnRecords">VER MÁXIMAS PUNTUACIONES</string>
     <string name="options">OPCIONES</string>
+    <string name="goToRegister">Aún no estoy registrado</string>
+    <string name="goToLogin">Ya tengo una cuenta</string>
+
+
 
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Introduce Nombre de Usuario:</string>

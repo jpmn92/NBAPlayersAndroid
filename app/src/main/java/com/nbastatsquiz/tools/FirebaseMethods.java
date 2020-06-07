@@ -89,6 +89,7 @@ public class FirebaseMethods extends Activity {
         fbPuntuacion.setSeason(bundle.getString("Season"));
         fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
         fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
+        fbPuntuacion.setImage(bundle.getString("image"));
 
         fbPuntuacion.setUsername(bundle.getString("userName"));
 
@@ -323,6 +324,7 @@ public class FirebaseMethods extends Activity {
     public void goToMenu(String userName) {
         FragmentoMenu goToMenu = FragmentoMenu.newInstance(null);
 
+        String message = "";
         //si viene de login...
 
         if (fragmentoLogin != null) {
@@ -333,7 +335,8 @@ public class FirebaseMethods extends Activity {
                     .addToBackStack(null)
                     .commit();
             //TODO: REVISAR TEXTO
-            Toast.makeText(fragmentoLogin.getContext(),  String.valueOf(R.string.login_correcto)+"," + userName, Toast.LENGTH_SHORT).show();
+            message = fragmentoLogin.getString(R.string.login_correcto);
+            Toast.makeText(fragmentoLogin.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
 
 
         } else {
@@ -343,7 +346,9 @@ public class FirebaseMethods extends Activity {
                         .replace(R.id.main_content, goToMenu, "findThisFragment")
                         .addToBackStack(null)
                         .commit();
-                Toast.makeText(fragmentoRegister.getContext(), R.string.registro_correcto+"," + userName, Toast.LENGTH_SHORT).show();
+                message = fragmentoRegister.getString(R.string.registro_correcto);
+
+                Toast.makeText(fragmentoRegister.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -380,7 +385,6 @@ public class FirebaseMethods extends Activity {
 
     //METODO PARA RECOGER LAS IMAGENES DE LOS USUARIOS
     public void getUser(String email) {
-
 
 
     }

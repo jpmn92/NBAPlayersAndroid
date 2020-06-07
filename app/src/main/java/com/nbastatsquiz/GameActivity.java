@@ -288,23 +288,31 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private void finishGame() {
 
-//        ivVidas.setImageResource(R.drawable.vidas0);
-        String message;
-        if (points > record) {
-            record = points;
-            paramsIniciales.putInt("puntos", points);
-            //paramsIniciales.putString("username", username);
-            firebaseMethods.createFbPuntuacion(paramsIniciales);
-            message = getString(R.string.new_record);
-        } else {
-            message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
-        }
+        if (checkInternetConnection() == true) {
+            //        ivVidas.setImageResource(R.drawable.vidas0);
+            String message;
+            if (points > record) {
+                record = points;
+                paramsIniciales.putInt("puntos", points);
+                paramsIniciales.putString("image", sessionManagement.getSesionImage());
+                //paramsIniciales.putString("username", username);
+                firebaseMethods.createFbPuntuacion(paramsIniciales);
+                message = getString(R.string.new_record);
+            } else {
+                message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
+            }
 //        vidas = 3;
 //        points = 0;
 //        contadorAciertos = 0;
-        myCountDownTimer.cancel();
-        showFinishedDialog(this, message);
-        //txtPoints.setText(String.valueOf(points));
+            myCountDownTimer.cancel();
+            showFinishedDialog(this, message);
+            //txtPoints.setText(String.valueOf(points));
+        }else{
+            myCountDownTimer.cancel();;
+            showFinishedDialog(this, "Internet connection lost");
+        }
+
+
 
     }
 
@@ -485,6 +493,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             }
         } else {
             Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
+            finishGame();
 
         }
 

@@ -1,5 +1,6 @@
 package com.nbastatsquiz.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -41,6 +42,7 @@ public class FragmentoRegister extends Fragment {
     private CircleImageView circleImageView;
     private GenerateImageUrl generateImageUrl;
     private Spinner spinner;
+    private TextView goToLogin;
 
 
     public FragmentoRegister() {
@@ -76,6 +78,12 @@ public class FragmentoRegister extends Fragment {
 
         populateSpinner();
 
+        goToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToLogin();
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +99,21 @@ public class FragmentoRegister extends Fragment {
                         //6 es el minimo de seguridad de firebase
                         if (passwd.getText().toString().length() >= 6) {
                             //registrar
-                            firebaseMethods.registerUser(email.getText().toString(), passwd.getText().toString(), username.getText().toString(), nbaPlayer.getUrlImage(), getContext());
+
+                            final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
+                            progressDialog.setIndeterminate(true);
+                            progressDialog.setMessage("Iniciando...");
+                            progressDialog.show();
+
+
+                            new android.os.Handler().postDelayed(
+                                    new Runnable() {
+                                        public void run() {
+                                            firebaseMethods.registerUser(email.getText().toString(), passwd.getText().toString(), username.getText().toString(), nbaPlayer.getUrlImage(), getContext());
+                                            progressDialog.dismiss();
+                                        }
+                                    }, 1000);
+
                             //mostrarError(mensaje);
 //                            getActivity().getSupportFragmentManager()
 //                                    .beginTransaction()
@@ -172,6 +194,7 @@ public class FragmentoRegister extends Fragment {
         username = view.findViewById(R.id.txtRegisterUserName);
         circleImageView = view.findViewById(R.id.ivAvatarRegister);
         spinner = view.findViewById(R.id.spinnerRegisterAvatar);
+        goToLogin = view.findViewById(R.id.txtGoToLogin);
 
 
     }
@@ -190,5 +213,15 @@ public class FragmentoRegister extends Fragment {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    private void goToLogin() {
+        FragmentoLogin fragmentoLogin = FragmentoLogin.newInstance(null);
+
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content, fragmentoLogin, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
     }
 }

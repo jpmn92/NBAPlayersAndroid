@@ -64,6 +64,99 @@ public class GenerateImageUrl {
         switch (idJugador) {
 
 
+            //raja bell
+            case 1952:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/49.png";
+                break;
+            //hakim warrick
+            case 101124:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2794.png&w=350&h=254";
+                break;
+
+            //kwame brown
+            case 2198:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/981.png";
+                break;
+
+            //matt carroll
+            case 2679:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2211.png";
+                break;
+            //morris peterson
+            case 2050:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Morris-Peterson-2K.png";
+                break;
+
+            //jamaal magloire
+            case 2048:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/498.png";
+                break;
+
+            //tony battie
+            case 1499:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/45.png&w=350&h=254";
+                break;
+
+            //larry hughes
+            case 1716:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/356.png";
+                break;
+
+            //johan petro
+            case 101130:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2780.png";
+                break;
+
+            //travis outlaw
+            case 2566:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2015.png";
+                break;
+
+            //jannero pargo
+            case 2457:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1821.png";
+                break;
+
+            //aaron mckie
+            case 243:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Aaron-McKie-2K.png";
+                break;
+
+            //brendan haywood
+            case 2217:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1000.png&w=350&h=254";
+                break;
+
+            //ricky davis
+            case 1729:
+                urlImage = "https://big3.com/wp-content/uploads/2018/05/GHOST-BALLERS__RICKY-DAVIS.png";
+                break;
+
+            //chucky atkins
+            case 1088:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/26.png";
+                break;
+
+            //earl watson
+            case 2248:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1027.png";
+                break;
+
+            //horace grant
+            case 270:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Horace-Grant-Chicago-Bulls-2K.png";
+                break;
+
+            //keith bogans
+            case 2586:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1995.png";
+                break;
+
+            //rick fox
+            case 296:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Rick-Fox-2K.png";
+                break;
+
             //delonte west
             case 2753:
                 urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2422.png";

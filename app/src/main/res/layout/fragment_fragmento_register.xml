@@ -22,8 +22,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivAvatarRegister"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
@@ -107,7 +107,16 @@
             android:layout_height="wrap_content"
             android:text="@string/nav_register"
             android:background="@color/colorPrimary"/>
+            <TextView
+                android:layout_marginTop="5dp"
 
+                android:id="@+id/txtGoToLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/material_black"
+                android:textStyle="bold"
+                android:text="@string/goToLogin" />
 
     </LinearLayout>
 

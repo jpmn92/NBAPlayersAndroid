@@ -37,6 +37,8 @@
 
 <!--    Registro-->
     <string name="user_registred">user registred</string>
+
+
 <!--    Errores al registrarse-->
     <string name="already_registred">email already registred</string>
     <string name="invalid_email">invalid email</string>
@@ -48,6 +50,9 @@
     <string name="btnComenzar">START GAME</string>
     <string name="btnRecords">BEST SCORES</string>
     <string name="options">OPTIONS</string>
+    <string name="goToRegister">Not a member yet? Sign Up Now!</string>
+    <string name="goToLogin">Already a member? Log In Now!</string>
+
 
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Type your username here</string>

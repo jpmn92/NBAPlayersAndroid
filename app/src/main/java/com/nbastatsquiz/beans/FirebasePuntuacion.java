@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<FirebasePuntuacion> {
 
-    String username, season, seasonType, statCategory, perMode, date;
+    String username, season, seasonType, statCategory, perMode, date, image;
     int points;
 
-    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, int points) {
+    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, int points) {
         this.username = username;
         this.season = season;
         this.seasonType = seasonType;
@@ -18,6 +18,7 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         this.perMode = perMode;
         this.date = date;
         this.points = points;
+        this.image = image;
     }
 
     public FirebasePuntuacion() {
@@ -31,6 +32,7 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         perMode = in.readString();
         date = in.readString();
         points = in.readInt();
+        image = in.readString();
     }
 
     public static final Creator<FirebasePuntuacion> CREATOR = new Creator<FirebasePuntuacion>() {
@@ -44,6 +46,14 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
             return new FirebasePuntuacion[size];
         }
     };
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getUsername() {
         return username;
@@ -115,6 +125,7 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         dest.writeString(perMode);
         dest.writeString(date);
         dest.writeInt(points);
+        dest.writeString(image);
     }
 
     @Override

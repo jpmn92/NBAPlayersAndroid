@@ -24,6 +24,7 @@ public class FragmentoLogin extends Fragment {
     private Button btLogIn;
     private EditText txtLogIn, txtPass;
     private FirebaseMethods firebaseMethods;
+    private TextView goToRegister;
 
     public FragmentoLogin() {
         // Required empty public constructor
@@ -60,6 +61,17 @@ public class FragmentoLogin extends Fragment {
                 firebaseMethods.logIn(txtLogIn.getText().toString(), txtPass.getText().toString(), getContext());
             }
         });
+
+
+        goToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                goToRegister();
+
+            }
+        });
+
         return view;
     }
 
@@ -68,6 +80,17 @@ public class FragmentoLogin extends Fragment {
         firebaseMethods = new FirebaseMethods(this);
         txtLogIn = view.findViewById(R.id.txtLoginEmail);
         txtPass = view.findViewById(R.id.txtLoginPasswd);
+        goToRegister = view.findViewById(R.id.txtGoToRegister);
+    }
+
+    private void goToRegister(){
+        FragmentoRegister fragmentoRegister = FragmentoRegister.newInstance(null);
+
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content, fragmentoRegister, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
     }
 
 

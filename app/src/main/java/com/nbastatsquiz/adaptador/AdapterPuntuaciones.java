@@ -66,7 +66,14 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
         GenerateImageUrl generateImageUrl = new GenerateImageUrl();
         FirebasePuntuacion firebasePuntuacion = listadoPuntuaciones.get(i);
 
-        Picasso.with(viewHolder.circleImageView.getContext()).load(generateImageUrl.getRandomAvatar()).into(viewHolder.circleImageView);
+        if (firebasePuntuacion.getImage() == null || firebasePuntuacion.getImage().equalsIgnoreCase("")) {
+            Picasso.with(viewHolder.circleImageView.getContext()).load(generateImageUrl.getRandomAvatar()).into(viewHolder.circleImageView);
+
+        } else {
+            Picasso.with(viewHolder.circleImageView.getContext()).load(firebasePuntuacion.getImage()).into(viewHolder.circleImageView);
+
+        }
+
         viewHolder.username.setText(firebasePuntuacion.getUsername());
         viewHolder.fecha.setText(firebasePuntuacion.getDate());
         viewHolder.puntos.setText("Pts: " + Integer.toString(firebasePuntuacion.getPoints()));
@@ -96,8 +103,6 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
             return listadoPuntuaciones.size();
         }
     }
-
-
 
 
 }

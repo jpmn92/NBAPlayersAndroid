@@ -57,6 +57,16 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:text="@string/nav_login" />
+        <TextView
+            android:layout_marginTop="20dp"
+
+            android:id="@+id/txtGoToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/material_black"
+            android:textStyle="bold"
+            android:text="@string/goToRegister" />
 
 
     </LinearLayout>
