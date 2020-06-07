@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.nbastatsquiz.fragments.FragmentoAboutUs;
 import com.nbastatsquiz.fragments.FragmentoHelp;
 import com.nbastatsquiz.fragments.FragmentoLogin;
@@ -286,6 +287,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         SessionManagement sessionManagement = new SessionManagement(this);
         sessionManagement.removeSession();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
 
         Intent intent = new Intent(this, NavigationDrawerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

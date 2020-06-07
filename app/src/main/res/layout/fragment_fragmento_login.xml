@@ -14,8 +14,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:src="@drawable/logo_ligero"
             android:layout_gravity="center"/>
 
@@ -57,6 +57,16 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:text="@string/nav_login" />
+
+        <Button
+            android:id="@+id/btnLogInGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F4F4F4"
+            android:paddingLeft="20dp"
+
+            android:drawableStart="@drawable/googleg_standard_color_18"
+            android:text="Log in with Google" />
         <TextView
             android:layout_marginTop="20dp"
 

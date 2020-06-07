@@ -25,7 +25,7 @@
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/logo_ligero"
             app:civ_border_width="4dp"
@@ -107,6 +107,15 @@
             android:layout_height="wrap_content"
             android:text="@string/nav_register"
             android:background="@color/colorPrimary"/>
+        <Button
+            android:id="@+id/btnLogInGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F4F4F4"
+            android:paddingLeft="20dp"
+
+            android:drawableStart="@drawable/googleg_standard_color_18"
+            android:text="Sign up with Google" />
             <TextView
                 android:layout_marginTop="5dp"
 

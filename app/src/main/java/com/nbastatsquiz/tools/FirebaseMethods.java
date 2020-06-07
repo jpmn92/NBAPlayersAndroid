@@ -389,4 +389,6 @@ public class FirebaseMethods extends Activity {
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
     }
+
+
 }
