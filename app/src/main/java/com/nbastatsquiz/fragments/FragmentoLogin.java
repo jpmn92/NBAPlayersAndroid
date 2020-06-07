@@ -48,8 +48,6 @@ public class FragmentoLogin extends Fragment {
     private int RC_SIGN_IN = 1;
 
 
-
-
     public FragmentoLogin() {
         // Required empty public constructor
     }
@@ -96,9 +94,6 @@ public class FragmentoLogin extends Fragment {
         });
 
 
-
-
-
         btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,13 +101,8 @@ public class FragmentoLogin extends Fragment {
                 signInGoogle();
 
 
-
             }
         });
-
-
-
-
 
 
         goToRegister.setOnClickListener(new View.OnClickListener() {
@@ -124,13 +114,12 @@ public class FragmentoLogin extends Fragment {
             }
 
 
-
         });
 
         return view;
     }
 
-    private void signInGoogle(){
+    private void signInGoogle() {
 
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -140,13 +129,16 @@ public class FragmentoLogin extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+        }else{
+            Toast.makeText(getContext(), "se ha producido un error", Toast.LENGTH_SHORT).show();
+
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask){
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
 
         try {
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
@@ -154,7 +146,7 @@ public class FragmentoLogin extends Fragment {
             FirebaseGoogleAuth(acc);
 
 
-        }catch (ApiException e){
+        } catch (ApiException e) {
             Toast.makeText(getContext(), "Error, Signed in unsucessfully", Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(null);
 
@@ -162,27 +154,34 @@ public class FragmentoLogin extends Fragment {
 
     }
 
-    private void FirebaseGoogleAuth(GoogleSignInAccount acct){
+    private void FirebaseGoogleAuth(GoogleSignInAccount acct) {
 
 
-        AuthCredential authCredential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+        try{
+            AuthCredential authCredential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+            firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
 
-                    Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    firebaseMethods.logIn(user, getContext());
+                        Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        firebaseMethods.logIn(user, getContext());
 
 
+                    } else {
+                        Toast.makeText(getContext(), "Unsuccessful login", Toast.LENGTH_SHORT).show();
 
-                }else{
-                    Toast.makeText(getContext(), "UNsuccessful", Toast.LENGTH_SHORT).show();
-
+                    }
                 }
-            }
-        });
+            });
+        }catch (Exception e){
+            Toast.makeText(getContext(), "Se ha producido un error", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+
 
     }
 
@@ -195,7 +194,7 @@ public class FragmentoLogin extends Fragment {
         btnGoogle = view.findViewById(R.id.btnLogInGoogle);
     }
 
-    private void goToRegister(){
+    private void goToRegister() {
         FragmentoRegister fragmentoRegister = FragmentoRegister.newInstance(null);
 
 
