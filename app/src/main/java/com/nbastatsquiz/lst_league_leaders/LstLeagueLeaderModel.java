@@ -64,11 +64,6 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
             // recogemos del bundle los parametros para el WS
             leagueID = "00";
-
-//            perMode = "Totals";
-//            statCategory = "FG3_PCT";
-//            season = "2018-19";
-//            seasonType = "Regular Season";
             scope = "S";
             perMode = bundle.getString("PerMode");
             statCategory = bundle.getString("StatCategory");
@@ -97,7 +92,6 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                 jsonObject = new Gson().fromJson(statsJson, JsonObject.class).getAsJsonObject();
 
-//                playerSeasonStatsList = new Gson().fromJson(statsJson, PlayerSeasonStatsList.class);
 
                 JsonElement resultSet = jsonObject.get("resultSet");
                 JsonObject resultSetObject = resultSet.getAsJsonObject();

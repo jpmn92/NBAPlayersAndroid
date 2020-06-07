@@ -127,7 +127,7 @@ public class FragmentoMenu extends Fragment {
 //                sessionManagement.removeSession();
 
                 if (checkInternetConnection() == true) {
-                    //TODO: revisar los parametros a pasar
+
                     firebaseMethods.getTopPuntuaciones(getParams());
 
 
@@ -249,9 +249,7 @@ public class FragmentoMenu extends Fragment {
                     checkSession();
                     break;
 
-                case R.id.btnOptions:
-//                dialogOptions();
-                    break;
+
 
 
             }

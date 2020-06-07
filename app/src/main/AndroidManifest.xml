@@ -13,8 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAQUIZ"
         tools:targetApi="lollipop">
-        <activity android:name="com.nbastatsquiz.menu.Menu"/>
-        <activity android:name="com.nbastatsquiz.PuntuacionesActivity" />
         <activity android:name="com.nbastatsquiz.NavigationDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

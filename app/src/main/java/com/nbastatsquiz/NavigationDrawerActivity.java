@@ -80,15 +80,14 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
     private Boolean checkInternetConnection() {
         boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             //we are connected to a network
             connected = true;
 
 
-        }
-        else{
+        } else {
             connected = false;
             Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
         }
@@ -290,7 +289,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, NavigationDrawerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        //showAnonymusMenu();
         startActivity(intent);
         finish();
 
@@ -307,7 +305,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.nav_home).setVisible(true);
         nav_Menu.findItem(R.id.nav_myAccount).setVisible(false);
         nav_Menu.findItem(R.id.nav_logout).setVisible(false);
-
 
 
     }

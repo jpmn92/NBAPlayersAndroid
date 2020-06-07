@@ -26,7 +26,6 @@ import com.nbastatsquiz.beans.FirebasePuntuacion;
 import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
-import com.nbastatsquiz.menu.Menu;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ import java.util.Map;
 
 public class FirebaseMethods extends Activity {
     GameActivity gameActivity;
-    Menu menu;
     FragmentoMenu fragmentoMenu;
     FragmentoRegister fragmentoRegister;
     FragmentoLogin fragmentoLogin;
@@ -288,18 +286,13 @@ public class FirebaseMethods extends Activity {
                         goToMenu(user.getDisplayName());
 
 
-                        //TODO: MANDAR AL USUARIO A OTRA PANTALLA
-
-                        // updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
                         //TODO: Error en inicio de sesión
                         Toast.makeText(loginContext, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
-                        //updateUI(null);
                     }
 
-                    // ...
                 }
             });
         } catch (IllegalArgumentException e) {
@@ -314,8 +307,6 @@ public class FirebaseMethods extends Activity {
         sessionManagement.saveSession(myUser.getDisplayName(), myUser.getEmail(), myUser.getPhotoUrl().toString());
 
 
-        //TODO: CAMBIAR DE PANTALLA
-
         goToMenu(myUser.getDisplayName());
 
 
@@ -325,7 +316,7 @@ public class FirebaseMethods extends Activity {
         FragmentoMenu goToMenu = FragmentoMenu.newInstance(null);
 
         String message = "";
-        //si viene de login...
+        //si viene de login que utilice su contexto
 
         if (fragmentoLogin != null) {
 
@@ -334,13 +325,12 @@ public class FirebaseMethods extends Activity {
                     .replace(R.id.main_content, goToMenu, "findThisFragment")
                     .addToBackStack(null)
                     .commit();
-            //TODO: REVISAR TEXTO
             message = fragmentoLogin.getString(R.string.login_correcto);
             Toast.makeText(fragmentoLogin.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
 
 
         } else {
-            //si viene de register...
+            //si viene de register que utilice su contexto
             if (fragmentoRegister != null) {
                 fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, goToMenu, "findThisFragment")
@@ -370,7 +360,6 @@ public class FirebaseMethods extends Activity {
                     public void onComplete(@NonNull Task<Void> task3) {
                         if (task3.isSuccessful()) {
                             //AVATAR ACTUALIZADO
-//                            String OK = "OK";
                             Toast.makeText(context, R.string.config_updated, Toast.LENGTH_SHORT).show();
 
 

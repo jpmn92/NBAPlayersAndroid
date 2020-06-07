@@ -20,7 +20,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuaciones.PuntuacionesViewHolder> {
 
     private ArrayList<FirebasePuntuacion> listadoPuntuaciones;
-    ArrayList<String> images;
 
 
     public class PuntuacionesViewHolder extends RecyclerView.ViewHolder {
@@ -77,18 +76,6 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
         viewHolder.username.setText(firebasePuntuacion.getUsername());
         viewHolder.fecha.setText(firebasePuntuacion.getDate());
         viewHolder.puntos.setText("Pts: " + Integer.toString(firebasePuntuacion.getPoints()));
-
-        //listener para el cardview
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View v) {
-
-
-                                                   }
-
-
-                                               }
-        );
 
 
     }

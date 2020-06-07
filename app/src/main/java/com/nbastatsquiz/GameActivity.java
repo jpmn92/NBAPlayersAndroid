@@ -28,7 +28,6 @@ import com.nbastatsquiz.beans.LeagueLeader;
 
 import com.nbastatsquiz.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbastatsquiz.lst_league_leaders.LstLeagueLeaderPresenter;
-import com.nbastatsquiz.menu.Menu;
 import com.nbastatsquiz.tools.ColorApp;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.GenerateImageUrl;
@@ -74,7 +73,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     @Override
     protected void onStart() {
         super.onStart();
-//        checkSession();
     }
 
 
@@ -91,7 +89,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         points = 0;
         params = this.getIntent().getExtras();
         paramsIniciales = (Bundle) params.clone();
-//        username = params.getString("userName");
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
         paramsIniciales.putString("userName", username);
@@ -134,14 +131,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         } else {
             lstLeagueLeaderPresenter.getLeagueLeaders(params);
         }
-        // startGame();
 
     }
 
     private void buscarRecord() {
         firebaseMethods.getRecord();
 
-        // Toast.makeText(this, record, Toast.LENGTH_LONG).show();
     }
 
     private void mezclar() {
@@ -196,14 +191,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
         txtP1.setTextColor(Color.RED);
-        //txtP1.setTextSize(50);
-        //txtP1.setVisibility(View.GONE);
         txtP2 = findViewById(R.id.txtP2);
-        //txtP2.setTextSize(50);
         txtP2.setTextColor(Color.RED);
         txtNameP1 = findViewById(R.id.txtNameP1);
         txtNameP2 = findViewById(R.id.txtNameP2);
-        //txtP2.setVisibility(View.GONE);
         txtPoints = findViewById(R.id.txtPuntuacion);
         ivP1 = findViewById(R.id.ivP1);
         ivP2 = findViewById(R.id.ivP2);
@@ -248,7 +239,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
     private void selectPlayers() {
-        // record = 0;
+
         int random = (int) (Math.random() * leagueLeadersGlobal.size());
         leagueLeader1 = leagueLeadersGlobal.get(random);
         selectPlayer2();
@@ -266,8 +257,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         } while (leagueLeader1.getPLAYER_ID() == leagueLeader2.getPLAYER_ID());
 
-//        random = (int) (Math.random() * leagueLeadersGlobal.size());
-//        leagueLeader2 = leagueLeadersGlobal.get(random);
+
 
 
     }
@@ -289,29 +279,25 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void finishGame() {
 
         if (checkInternetConnection() == true) {
-            //        ivVidas.setImageResource(R.drawable.vidas0);
             String message;
             if (points > record) {
                 record = points;
                 paramsIniciales.putInt("puntos", points);
                 paramsIniciales.putString("image", sessionManagement.getSesionImage());
-                //paramsIniciales.putString("username", username);
                 firebaseMethods.createFbPuntuacion(paramsIniciales);
+
                 message = getString(R.string.new_record);
             } else {
                 message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
             }
-//        vidas = 3;
-//        points = 0;
-//        contadorAciertos = 0;
+
             myCountDownTimer.cancel();
             showFinishedDialog(this, message);
-            //txtPoints.setText(String.valueOf(points));
-        }else{
-            myCountDownTimer.cancel();;
+        } else {
+            myCountDownTimer.cancel();
+
             showFinishedDialog(this, "Internet connection lost");
         }
-
 
 
     }
@@ -349,7 +335,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
             default:
                 Picasso.with(this).load(url_imagen1).error(R.drawable.person).into(ivP1);
-                //Picasso.with(this).load(url_imagen1).transform(new BlurTransformation(this)).error(R.drawable.person).into(ivP1); para difuminar imagen
 
 
         }
@@ -610,9 +595,11 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         builder.setPositiveButton(R.string.back_to_menu, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent menu = new Intent(GameActivity.this, Menu.class);
-                menu.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                GameActivity.this.startActivity(menu);
+
+                onBackPressed();
+//                Intent menu = new Intent(GameActivity.this, Menu.class);
+//                menu.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                GameActivity.this.startActivity(menu);
             }
         });
         builder.show();
@@ -692,7 +679,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         } else {
             connected = false;
-//            Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
         }
 
         return connected;
