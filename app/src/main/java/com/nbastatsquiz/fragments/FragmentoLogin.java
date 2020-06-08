@@ -35,7 +35,7 @@ import com.nbastatsquiz.tools.FirebaseMethods;
 import java.util.Collections;
 
 
-public class FragmentoLogin extends Fragment {
+public class FragmentoLogin extends FragmentoAutentificacion {
 
 
     public static FragmentoLogin fragmentoLogin;
@@ -43,9 +43,7 @@ public class FragmentoLogin extends Fragment {
     private EditText txtLogIn, txtPass;
     private FirebaseMethods firebaseMethods;
     private TextView goToRegister;
-    private GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;
-    private int RC_SIGN_IN = 1;
 
 
     public FragmentoLogin() {
@@ -78,12 +76,6 @@ public class FragmentoLogin extends Fragment {
         initComponents(view);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
         btLogIn.setOnClickListener(new View.OnClickListener() {
 
@@ -98,7 +90,7 @@ public class FragmentoLogin extends Fragment {
             @Override
             public void onClick(View v) {
 
-                signInGoogle();
+                signInGoogle(getContext());
 
 
             }
@@ -117,73 +109,6 @@ public class FragmentoLogin extends Fragment {
         });
 
         return view;
-    }
-
-    private void signInGoogle() {
-
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }else{
-            Toast.makeText(getContext(), "se ha producido un error", Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-
-        try {
-            GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(getContext(), "Signed in sucessfully", Toast.LENGTH_SHORT).show();
-            FirebaseGoogleAuth(acc);
-
-
-        } catch (ApiException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Error, Signed in unsucessfully", Toast.LENGTH_SHORT).show();
-            FirebaseGoogleAuth(null);
-
-        }
-
-    }
-
-    private void FirebaseGoogleAuth(GoogleSignInAccount acct) {
-
-
-        try{
-            AuthCredential authCredential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-            firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-
-                        Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        firebaseMethods.logIn(user, getContext());
-
-
-                    } else {
-                        Toast.makeText(getContext(), "Unsuccessful login", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(getContext(), "Se ha producido un error", Toast.LENGTH_SHORT).show();
-
-        }
-
-
-
-
     }
 
     private void initComponents(View view) {

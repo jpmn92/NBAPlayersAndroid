@@ -30,12 +30,12 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class FragmentoRegister extends Fragment {
+public class FragmentoRegister extends FragmentoAutentificacion {
 
 
     private EditText email, passwd, passwd2, username;
     private TextView txtError;
-    private Button btnRegister;
+    private Button btnRegister, btnGoogle;
     private FirebaseMethods firebaseMethods;
     private String mensaje;
     private static FragmentoRegister fragmentoRegister;
@@ -135,6 +135,16 @@ public class FragmentoRegister extends Fragment {
             }
         });
 
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                signInGoogle(getContext());
+
+
+            }
+        });
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -195,6 +205,7 @@ public class FragmentoRegister extends Fragment {
         circleImageView = view.findViewById(R.id.ivAvatarRegister);
         spinner = view.findViewById(R.id.spinnerRegisterAvatar);
         goToLogin = view.findViewById(R.id.txtGoToLogin);
+        btnGoogle = view.findViewById(R.id.btnLogInGoogle);
 
 
     }

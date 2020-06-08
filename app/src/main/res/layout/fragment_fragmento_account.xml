@@ -26,15 +26,6 @@
             app:civ_fill_color="@color/colorPrimary"
             app:civ_border_color="@color/material_black"/>
 
-        <CheckBox
-            android:id="@+id/checkboxSoundOptions"
-            android:textColor="@color/material_black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textSize="20dp"
-            android:text="@string/sound" />
-
         <TextView
             android:paddingLeft="15dp"
             android:id="@+id/textView"

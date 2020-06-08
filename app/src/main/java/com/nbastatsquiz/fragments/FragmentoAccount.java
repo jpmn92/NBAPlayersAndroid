@@ -36,9 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FragmentoAccount extends Fragment {
 
     Button btnSetOptions;
-    CheckBox cbSound;
     TextView txtUserName;
-    Boolean sound;
     SessionManagement sm;
     Spinner spinnerProfile;
     GenerateImageUrl generateImageUrl;
@@ -88,10 +86,6 @@ public class FragmentoAccount extends Fragment {
 //TODO: no permitimos cambiar el username de momento
         txtUserName.setEnabled(false);
 
-        if (sm.getSound() == true) {
-            cbSound.setChecked(true);
-        }
-
 
         ArrayList<NBAPlayer> nbaPlayers = generateImageUrl.getNBAPlayers();
 
@@ -128,14 +122,13 @@ public class FragmentoAccount extends Fragment {
             public void onClick(View v) {
 
                 if (checkInternetConnection() == true) {
-                    sound = cbSound.isChecked();
 
                     //cogemos jugador seleccionado y pasamos la url de su imagen
                     NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
 
                     String userName = txtUserName.getText().toString();
 
-                    sm.saveSession(txtUserName.getText().toString(), sound, nbaPlayer.getUrlImage());
+                    sm.saveSession(txtUserName.getText().toString(), nbaPlayer.getUrlImage());
 
                     firebaseMethods.updateAvatar(nbaPlayer.getUrlImage(),getContext());
 
@@ -172,7 +165,6 @@ public class FragmentoAccount extends Fragment {
     private void initComponents(View view) {
 
         btnSetOptions = view.findViewById(R.id.btnSetOptions);
-        cbSound = view.findViewById(R.id.checkboxSoundOptions);
         txtUserName = view.findViewById(R.id.txtUserNameOptions);
         spinnerProfile = view.findViewById(R.id.spinnerProfilePicture);
 //        ivAvatar = view.findViewById(R.id.ivAvatar);
