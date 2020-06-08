@@ -286,7 +286,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 paramsIniciales.putString("image", sessionManagement.getSesionImage());
                 firebaseMethods.createFbPuntuacion(paramsIniciales);
 
-                message = getString(R.string.new_record);
+                message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;
             } else {
                 message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
             }
