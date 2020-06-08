@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
+import com.nbastatsquiz.fragments.FragmentoAutentificacion;
 import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
@@ -39,6 +40,7 @@ public class FirebaseMethods extends Activity {
     FragmentoMenu fragmentoMenu;
     FragmentoRegister fragmentoRegister;
     FragmentoLogin fragmentoLogin;
+    FragmentoAutentificacion fragmentoAutentificacion;
     Context context;
     Boolean processDone;
     DatabaseReference reference;
@@ -64,6 +66,10 @@ public class FirebaseMethods extends Activity {
 
     public FirebaseMethods(FragmentoRegister fragmentoRegister) {
         this.fragmentoRegister = fragmentoRegister;
+    }
+
+    public FirebaseMethods(FragmentoAutentificacion fragmentoAutentificacion) {
+        this.fragmentoAutentificacion = fragmentoAutentificacion;
     }
 
     public FirebaseMethods(FragmentoLogin fragmentoLogin) {
@@ -323,30 +329,31 @@ public class FirebaseMethods extends Activity {
         String message = "";
         //si viene de login que utilice su contexto
 
-        if (fragmentoLogin != null) {
+        if (fragmentoAutentificacion != null) {
 
 
-            fragmentoLogin.getActivity().getSupportFragmentManager().beginTransaction()
+            fragmentoAutentificacion.getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_content, goToMenu, "findThisFragment")
                     .addToBackStack(null)
                     .commit();
-            message = fragmentoLogin.getString(R.string.login_correcto);
-            Toast.makeText(fragmentoLogin.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
+            message = fragmentoAutentificacion.getString(R.string.login_correcto);
+            Toast.makeText(fragmentoAutentificacion.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
 
 
-        } else {
-            //si viene de register que utilice su contexto
-            if (fragmentoRegister != null) {
-                fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_content, goToMenu, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();
-                message = fragmentoRegister.getString(R.string.registro_correcto);
-
-                Toast.makeText(fragmentoRegister.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
-
-            }
         }
+//        else {
+//            //si viene de register que utilice su contexto
+//            if (fragmentoRegister != null) {
+//                fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.main_content, goToMenu, "findThisFragment")
+//                        .addToBackStack(null)
+//                        .commit();
+//                message = fragmentoRegister.getString(R.string.registro_correcto);
+//
+//                Toast.makeText(fragmentoRegister.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }
     }
 
     public void updateAvatar(String urlImage, Context avatarContext) {

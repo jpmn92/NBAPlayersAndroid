@@ -50,7 +50,7 @@ public class FragmentoAutentificacion extends Fragment {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
-        firebaseMethods = new FirebaseMethods(context);
+        firebaseMethods = new FirebaseMethods(this);
         firebaseAuth = FirebaseAuth.getInstance();
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
