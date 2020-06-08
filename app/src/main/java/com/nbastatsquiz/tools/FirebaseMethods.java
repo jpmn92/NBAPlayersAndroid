@@ -373,6 +373,7 @@ public class FirebaseMethods extends Activity {
                         if (task3.isSuccessful()) {
                             //AVATAR ACTUALIZADO
                             Toast.makeText(context, R.string.config_updated, Toast.LENGTH_SHORT).show();
+                            changeImageRecord(avatarUser);
 
 
                         } else {
@@ -380,10 +381,63 @@ public class FirebaseMethods extends Activity {
                             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
+
+
                 });
     }
 
+    private void changeImageRecord(FirebaseUser user) {
+        processDone = false;
+        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
+        listadoFinal = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+                if (!processDone) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        Object object = snapshot.getValue(Object.class);
+                        String json = new Gson().toJson(object);
+                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+                        fbPuntuacionList.add(fbPuntuacion);
+
+                        for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
+                            if(user.getUid().equals(firebasePuntuacion.getUid())){
+                                DatabaseReference recordRef = reference.child(snapshot.getKey());
+                                //firebasePuntuacion.setImage(String.valueOf(user.getPhotoUrl()));
+                                Map<String, Object> photoUpdates = new HashMap<>();
+                                photoUpdates.put("/image", String.valueOf(user.getPhotoUrl()));
+                                recordRef.updateChildren(photoUpdates);
+                            }
+
+                        }
+                    }
+
+
+                    processDone = true;
+//                    menu.setPuntuaciones(listadoFinal);
+//                    menu.goToPuntuaciones();
+//                    fragmentoMenu.setPuntuaciones(listadoFinal);
+//                    fragmentoMenu.goToPuntuaciones();
+
+
+                }
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+
+
+        });
+    }
     //METODO PARA RECOGER LAS IMAGENES DE LOS USUARIOS
     public void getUser(String email) {
 
