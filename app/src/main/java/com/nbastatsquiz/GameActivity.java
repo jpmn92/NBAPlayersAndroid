@@ -280,12 +280,13 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         if (checkInternetConnection() == true) {
             String message;
+
+            paramsIniciales.putInt("puntos", points);
+            paramsIniciales.putString("image", sessionManagement.getSesionImage());
+            firebaseMethods.createFbPuntuacion(paramsIniciales);
+
             if (points > record) {
                 record = points;
-                paramsIniciales.putInt("puntos", points);
-                paramsIniciales.putString("image", sessionManagement.getSesionImage());
-                firebaseMethods.createFbPuntuacion(paramsIniciales);
-
                 message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;
             } else {
                 message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;

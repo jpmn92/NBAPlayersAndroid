@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.adaptador.AdapterPuntuaciones;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
@@ -24,7 +25,7 @@ public class FragmentoPuntuaciones extends Fragment {
     private RecyclerView myrv, rvPuntuacionPersonal;
     private RecyclerView.Adapter adapter, adapterPersonal;
     private RecyclerView.LayoutManager lManager, lManagerPersonal;
-    private ArrayList<FirebasePuntuacion> listadoPuntuaciones, listadoRecordPersonal; // listadoRecordPersonal es de un único elemento
+    private ArrayList<FirebasePuntuacion> listadoPuntuaciones, listadoPuntuacionesTop50, listadoRecordPersonal; // listadoRecordPersonal es de un único elemento
     TextView txtPuntuacion;
     String tipoTemporada;
     private static FragmentoPuntuaciones fragmentoPuntuaciones;
@@ -83,8 +84,9 @@ public class FragmentoPuntuaciones extends Fragment {
             txtPuntuacion.setText("No hay puntuaciones");
         }
 
+        getTop50();
         //ordenamos listado puntuaciones
-        adapter = new AdapterPuntuaciones(listadoPuntuaciones);
+        adapter = new AdapterPuntuaciones(listadoPuntuacionesTop50);
         lManager = new LinearLayoutManager(getContext());
         lManagerPersonal = new LinearLayoutManager(getContext());
 
@@ -102,10 +104,28 @@ public class FragmentoPuntuaciones extends Fragment {
         return view;
     }
 
+    private void getTop50() {
+        listadoPuntuacionesTop50  = new ArrayList<FirebasePuntuacion>();
+        if(listadoPuntuaciones.size() < 50){
+            for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
+                listadoPuntuacionesTop50.add(firebasePuntuacion);
+            }
+        }
+        else{
+            for(int i = 0; i <= 50; i++){
+                listadoPuntuacionesTop50.add(listadoPuntuaciones.get(i));
+            }
+        }
+
+    }
+
     private void buscarRecordPersonal() {
         listadoRecordPersonal = new ArrayList<FirebasePuntuacion>();
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        String uid = mAuth.getUid();
         for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
-            if(firebasePuntuacion.getUsername().equals(bundle.getString("userName"))){
+            if(firebasePuntuacion.getUid().equals(uid)){
                 listadoRecordPersonal.add(firebasePuntuacion);
             }
         }

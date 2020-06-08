@@ -80,6 +80,10 @@ public class FirebaseMethods extends Activity {
 
         reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
 
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        String uid = mAuth.getUid();
+
         fbPuntuacion = new FirebasePuntuacion();
         fbPuntuacion.setPoints(bundle.getInt("puntos"));
         fbPuntuacion.setDate(currentDate);
@@ -88,6 +92,7 @@ public class FirebaseMethods extends Activity {
         fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
         fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
         fbPuntuacion.setImage(bundle.getString("image"));
+        fbPuntuacion.setUid(uid);
 
         fbPuntuacion.setUsername(bundle.getString("userName"));
 
