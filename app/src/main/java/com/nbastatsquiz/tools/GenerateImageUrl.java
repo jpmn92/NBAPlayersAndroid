@@ -63,6 +63,31 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+            //vin baker
+            case 452:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Vin-Baker-2K.png";
+                break;
+            //jonny flynn
+            case 201938:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3985.png";
+                break;
+
+            //jerry west
+            case 78497:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Jerry-West-2K.png";
+                break;
+            //vladimir radmanovic
+            case 2209:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1016.png";
+                break;
+            //john starks
+            case 317:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/John-Starks-2K.png";
+                break;
+            //ron harper
+            case 166:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Ron-Harper-2K.png";
+                break;
             //brian cardinal
             case 2073:
                 urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/130.png";

@@ -127,8 +127,9 @@ public class FragmentoAccount extends Fragment {
                     NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
 
                     String userName = txtUserName.getText().toString();
+                    String email = sm.getSessionEmail();
 
-                    sm.saveSession(txtUserName.getText().toString(), nbaPlayer.getUrlImage());
+                    sm.saveSession(txtUserName.getText().toString(), email, nbaPlayer.getUrlImage());
 
                     firebaseMethods.updateAvatar(nbaPlayer.getUrlImage(),getContext());
 
