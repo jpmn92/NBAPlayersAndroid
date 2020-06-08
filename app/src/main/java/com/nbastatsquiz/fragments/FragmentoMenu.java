@@ -147,10 +147,10 @@ public class FragmentoMenu extends Fragment {
     private void checkSound() {
 
         if(sessionManagement.getSound()){
-            ivSound.setImageResource(R.drawable.soundon);
+            ivSound.setImageResource(R.drawable.volume_on);
         }
         else{
-            ivSound.setImageResource(R.drawable.soundoff);
+            ivSound.setImageResource(R.drawable.volume_off);
         }
     }
 
