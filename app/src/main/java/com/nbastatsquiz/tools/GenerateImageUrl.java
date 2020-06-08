@@ -8,7 +8,7 @@ import java.util.Random;
 public class GenerateImageUrl {
 
 
-    public ArrayList<NBAPlayer> getNBAPlayers(){
+    public ArrayList<NBAPlayer> getNBAPlayers() {
 
         ArrayList<NBAPlayer> nbaPlayers = new ArrayList<>();
 
@@ -63,6 +63,67 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+            //brian cardinal
+            case 2073:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/130.png";
+                break;
+            //linas kleiza
+            case 101132:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2770.png";
+                break;
+
+            //ryan gomes
+            case 101155:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2757.png";
+                break;
+
+            //jason maxiell
+            case 101131:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2775.png&w=350&h=254";
+                break;
+
+            //andray blatche
+            case 101154:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/2746.png";
+                break;
+
+            //joel przybilla
+            case 2038:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/682.png";
+                break;
+
+            //reggie evans
+            case 2501:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/1828.png";
+                break;
+
+            //andris biedrins
+            case 2740:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2427.png";
+                break;
+
+            //darko milicic
+            case 2545:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2171.png";
+                break;
+            //sebastian telfair
+            case 2742:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2417.png&w=350&h=254";
+                break;
+
+            //flip murray
+            case 2436:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1777.png";
+                break;
+            //anthony carter
+            case 1853:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/137.png";
+                break;
+
+            //daniel gibson
+            case 200789:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3006.png&w=350&h=254";
+                break;
 
             //raja bell
             case 1952:

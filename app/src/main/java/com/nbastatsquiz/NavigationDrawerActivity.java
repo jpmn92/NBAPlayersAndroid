@@ -27,6 +27,7 @@ import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
 import com.nbastatsquiz.fragments.FragmentoAccount;
+import com.nbastatsquiz.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +50,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     private String userName, email;
     private long backPressedTime;
     Toast backToast;
+    private Boolean logueado;
 
 
     @Override
@@ -75,6 +77,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         checkInternetConnection();
         checkSession();
     }
@@ -109,6 +112,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         int userID = sessionManagement.getSession();
 
         if (userID != -1) {
+            logueado = true;
             userName = sessionManagement.getSessionUserName();
             email = sessionManagement.getSessionEmail();
 
@@ -121,6 +125,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         } else {
 
             showAnonymusMenu();
+            logueado = false;
+
             //No logueados
 
 
@@ -169,6 +175,33 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
 
         }
+
+
+            //si esta logueado lo manda al perfil, sino al login
+
+       View.OnClickListener drawerListener = new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(logueado == true){
+
+                    FragmentoAccount fragmentoAccount = FragmentoAccount.newInstance(null);
+                    loadFragment(fragmentoAccount);
+
+                }else{
+                    FragmentoLogin fragmentoLogin = FragmentoLogin.newInstance(null);
+                    loadFragment(fragmentoLogin);
+                }
+            }
+        };
+
+        emailHeader.setOnClickListener(drawerListener);
+        nameHeader.setOnClickListener(drawerListener);
+        imageHeader.setOnClickListener(drawerListener);
+
+
+
+
 
 
     }
