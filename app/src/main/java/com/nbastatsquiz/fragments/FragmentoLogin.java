@@ -147,6 +147,7 @@ public class FragmentoLogin extends Fragment {
 
 
         } catch (ApiException e) {
+            e.printStackTrace();
             Toast.makeText(getContext(), "Error, Signed in unsucessfully", Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(null);
 
