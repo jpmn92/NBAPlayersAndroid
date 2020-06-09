@@ -389,6 +389,8 @@ public class FirebaseMethods extends Activity {
     private void changeImageRecord(FirebaseUser user) {
         processDone = false;
         ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
+        ArrayList<DataSnapshot> dataSnapshotArrayList = new ArrayList<>();
+        FirebasePuntuacion miPuntacion;
         listadoFinal = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
         reference.addValueEventListener(new ValueEventListener() {
@@ -404,18 +406,47 @@ public class FirebaseMethods extends Activity {
                         String json = new Gson().toJson(object);
                         FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
                         fbPuntuacionList.add(fbPuntuacion);
+                        dataSnapshotArrayList.add(dataSnapshot.child(snapshot.getKey()));
 
-                        for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-                            if(user.getUid().equals(firebasePuntuacion.getUid())){
-                                DatabaseReference recordRef = reference.child(snapshot.getKey());
-                                //firebasePuntuacion.setImage(String.valueOf(user.getPhotoUrl()));
-                                Map<String, Object> photoUpdates = new HashMap<>();
-                                photoUpdates.put("/image", String.valueOf(user.getPhotoUrl()));
-                                recordRef.updateChildren(photoUpdates);
-                            }
 
-                        }
                     }
+
+                    for (int i = 0; i < fbPuntuacionList.size(); i++) {
+
+                        fbPuntuacionList.get(i);
+
+                        String uidActual = user.getUid();
+                        String uidPuntuacion = fbPuntuacionList.get(i).getUid();
+//                        String namePuntuacion = fbPuntuacionList.get(i).getUsername();
+
+                        if (uidActual.equals(uidPuntuacion)) {
+
+                            DatabaseReference recordRef = reference.child(dataSnapshotArrayList.get(i).getKey());
+                            Map<String, Object> photoUpdates = new HashMap<>();
+                            photoUpdates.put("/image", String.valueOf(user.getPhotoUrl()));
+                            recordRef.updateChildren(photoUpdates);
+                        }
+
+
+                    }
+
+//                    for (FirebasePuntuacion firebasePuntuacionImage : fbPuntuacionList) {
+//
+//                        String uidActual = user.getUid();
+//                        String uidPuntuacion = firebasePuntuacionImage.getUid();
+//                        String namePuntuacion = firebasePuntuacionImage.getUsername();
+//                        int pointPuntuacion = firebasePuntuacionImage.getPoints();
+//
+//
+//                        if (uidActual.equals(uidPuntuacion)) {
+//                            String h = "";
+////                            DatabaseReference recordRef = reference.child(snapshot.getKey());
+////                            Map<String, Object> photoUpdates = new HashMap<>();
+////                            photoUpdates.put("/image", String.valueOf(user.getPhotoUrl()));
+////                            recordRef.updateChildren(photoUpdates);
+//                        }
+//
+//                    }
 
 
                     processDone = true;
@@ -438,6 +469,7 @@ public class FirebaseMethods extends Activity {
 
         });
     }
+
     //METODO PARA RECOGER LAS IMAGENES DE LOS USUARIOS
     public void getUser(String email) {
 

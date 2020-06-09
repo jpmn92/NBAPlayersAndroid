@@ -74,8 +74,8 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
             Picasso.with(viewHolder.circleImageView.getContext())
 
                     .load(firebasePuntuacion.getImage())
-                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//                    .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                     .into(viewHolder.circleImageView);
 
         }
