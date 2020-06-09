@@ -58,12 +58,23 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             backToast.cancel();
-            super.onBackPressed();
-            loadFragment(FragmentoMenu.newInstance(null));
+//            getSupportFragmentManager().executePendingTransactions();
+//            loadFragment(FragmentoMenu.newInstance(null));
+
+            this.finish();
+
+//            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+//                getSupportFragmentManager().popBackStackImmediate();
+//            } else {
+//                super.onBackPressed();
+//
+//            }
 
             return;
 
         } else {
+
+
             loadFragment(FragmentoMenu.newInstance(null));
             backToast = Toast.makeText(this, R.string.press_back, Toast.LENGTH_SHORT);
             backToast.show();
@@ -177,18 +188,18 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         }
 
 
-            //si esta logueado lo manda al perfil, sino al login
+        //si esta logueado lo manda al perfil, sino al login
 
-       View.OnClickListener drawerListener = new View.OnClickListener(){
+        View.OnClickListener drawerListener = new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if(logueado == true){
+                if (logueado == true) {
 
                     FragmentoAccount fragmentoAccount = FragmentoAccount.newInstance(null);
                     loadFragment(fragmentoAccount);
 
-                }else{
+                } else {
                     FragmentoLogin fragmentoLogin = FragmentoLogin.newInstance(null);
                     loadFragment(fragmentoLogin);
                 }
@@ -198,10 +209,6 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         emailHeader.setOnClickListener(drawerListener);
         nameHeader.setOnClickListener(drawerListener);
         imageHeader.setOnClickListener(drawerListener);
-
-
-
-
 
 
     }
@@ -313,6 +320,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.main_content, fragmentoGenerico)
+                .addToBackStack(null)
                 .commit();
     }
 

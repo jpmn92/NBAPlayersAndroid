@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
 import com.nbastatsquiz.tools.GenerateImageUrl;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -69,7 +71,12 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
             Picasso.with(viewHolder.circleImageView.getContext()).load(generateImageUrl.getRandomAvatar()).into(viewHolder.circleImageView);
 
         } else {
-            Picasso.with(viewHolder.circleImageView.getContext()).load(firebasePuntuacion.getImage()).into(viewHolder.circleImageView);
+            Picasso.with(viewHolder.circleImageView.getContext())
+
+                    .load(firebasePuntuacion.getImage())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                    .into(viewHolder.circleImageView);
 
         }
 

@@ -32,6 +32,8 @@ import com.nbastatsquiz.tools.ColorApp;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.GenerateImageUrl;
 import com.nbastatsquiz.tools.SessionManagement;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -258,8 +260,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         } while (leagueLeader1.getPLAYER_ID() == leagueLeader2.getPLAYER_ID());
 
 
-
-
     }
 
     private void iluminar(String color) {
@@ -335,12 +335,18 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 break;
 
             default:
-                Picasso.with(this).load(url_imagen1).error(R.drawable.person).into(ivP1);
+                Picasso.with(this).load(url_imagen1).error(R.drawable.person)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                        .into(ivP1);
 
 
         }
 
-        Picasso.with(this).load(url_imageTeam1).into(ivT1);
+        Picasso.with(this).load(url_imageTeam1)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                .into(ivT1);
 
         txtNameP1.setText(leagueLeader1.getPLAYER());
         txtNameP2.setText(leagueLeader2.getPLAYER());
@@ -362,11 +368,17 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 break;
 
             default:
-                Picasso.with(this).load(url_imagen2).error(R.drawable.person).into(ivP2);
+                Picasso.with(this).load(url_imagen2).error(R.drawable.person)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                        .into(ivP2);
 
 
         }
-        Picasso.with(this).load(url_imageTeam2).into(ivT2);
+        Picasso.with(this).load(url_imageTeam2)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                .into(ivT2);
 
         txtPoints.setText(String.valueOf(points));
 
