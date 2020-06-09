@@ -166,4 +166,13 @@
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name</string>
+    <string name="logInGoogle">Log in with Google</string>
+    <string name="season">Season</string>
+    <string name="season_type">Season Type</string>
+    <string name="stat_category">Stat Category</string>
+    <string name="stat_type">Stat Type</string>
+    <string name="sign_up_google">Sign up with Google</string>
+    <string name="login">Log In</string>
+    <string name="no_puntuaciones">No records yet</string>
 </resources>

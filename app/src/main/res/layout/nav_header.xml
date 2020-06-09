@@ -24,7 +24,7 @@
         android:id="@+id/usernameHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inicia Sesión"
+        android:text="@string/login"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold" />
 

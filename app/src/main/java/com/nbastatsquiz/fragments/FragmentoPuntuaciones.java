@@ -81,7 +81,7 @@ public class FragmentoPuntuaciones extends Fragment {
             txtPuntuacion.setText(listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason()+" | "+tipoTemporada +" | "+listadoPuntuaciones.get(0).getPerMode());
         }
         else {
-            txtPuntuacion.setText("No hay puntuaciones");
+            txtPuntuacion.setText(R.string.no_puntuaciones);
         }
 
         getTop50();
@@ -123,16 +123,22 @@ public class FragmentoPuntuaciones extends Fragment {
         listadoRecordPersonal = new ArrayList<FirebasePuntuacion>();
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
-        String uid = mAuth.getUid();
-        for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
-            if(firebasePuntuacion.getUid().equals(uid)){
-                listadoRecordPersonal.add(firebasePuntuacion);
+        if(mAuth.getUid() != null){
+            String uid = mAuth.getUid();
+            if(listadoPuntuaciones.size() > 0){
+                for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
+                    if(firebasePuntuacion.getUid().equals(uid)){
+                        listadoRecordPersonal.add(firebasePuntuacion);
+                    }
+                }
+                if(listadoRecordPersonal.size() > 0){
+                    FirebasePuntuacion record = listadoRecordPersonal.get(0);
+                    listadoRecordPersonal = new ArrayList<FirebasePuntuacion>();
+                    listadoRecordPersonal.add(record);
+                }
             }
         }
-        if(listadoRecordPersonal.size() > 0){
-            FirebasePuntuacion record = listadoRecordPersonal.get(0);
-            listadoRecordPersonal = new ArrayList<FirebasePuntuacion>();
-            listadoRecordPersonal.add(record);
-        }
+
+
     }
 }

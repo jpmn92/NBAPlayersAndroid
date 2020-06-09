@@ -63,10 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F4F4F4"
-            android:paddingLeft="20dp"
-
             android:drawableStart="@drawable/googleg_standard_color_18"
-            android:text="Log in with Google" />
+
+            android:paddingLeft="20dp"
+            android:text="@string/logInGoogle" />
         <TextView
             android:layout_marginTop="20dp"
 

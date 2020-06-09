@@ -293,6 +293,7 @@ public class FragmentoMenu extends Fragment {
 
         if (userID != -1) {
             userName = sessionManagement.getSessionUserName();
+            params.putBoolean("loged", true);
             juego.putExtras(params);
             getActivity().startActivity(juego);
         } else {
@@ -302,26 +303,27 @@ public class FragmentoMenu extends Fragment {
             //le pedimos username y despues guardamos la sesion
             //AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_Design_BottomSheetDialog);
-            builder.setTitle(R.string.introduce_user_name);
+            builder.setTitle("Registrarse");
+            builder.setMessage("Si no te registras no se guardarán tus puntuaciones");
 
             // Set up the input
-            final EditText input = new EditText(getContext());
+            //final EditText input = new EditText(getContext());
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            builder.setView(input);
+//            input.setInputType(InputType.TYPE_CLASS_TEXT);
+//            builder.setView(input);
 
             // Set up the buttons
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Empezar juego", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    userName = input.getText().toString();
+                    //userName = input.getText().toString();
                     sessionManagement.saveSession(userName);
                     juego.putExtras(params);
                     getActivity().startActivity(juego);
 
                 }
             });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("Registrarse", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

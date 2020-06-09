@@ -137,7 +137,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void buscarRecord() {
-        firebaseMethods.getRecord();
+        if(params.getBoolean("loged")){
+            firebaseMethods.getRecord();
+        }
 
     }
 
@@ -284,13 +286,19 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             paramsIniciales.putInt("puntos", points);
             paramsIniciales.putString("image", sessionManagement.getSesionImage());
             firebaseMethods.createFbPuntuacion(paramsIniciales);
-
-            if (points > record) {
-                record = points;
-                message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;
-            } else {
-                message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
+            if(params.getBoolean("loged")){
+                if (points > record) {
+                    record = points;
+                    message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;
+                } else {
+                    message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
+                }
             }
+
+            else{
+                message = getString(R.string.puntuacion) + points;
+            }
+
 
             myCountDownTimer.cancel();
             showFinishedDialog(this, message);
