@@ -24,6 +24,12 @@
 
     <string name="help_paragraph3">Tienes tres vidas, si eliges al jugador incorrecto, perderás una vida. Si eliges correctamente diez veces seguidas, puedes obtener una nueva vida, con un máximo de tres</string>
 
+
+    <!--    Textos glosario-->
+
+    <string name="glossary_paragraph">En la parte superior de la pantalla de partida podrás encontrar la pregunta indicada por la abreviatura de la categoría estadística en cuestión</string>
+
+
     <!--    Textos Toasts-->
     <string name="config_updated">CONFIGURACIÓN ACTUALIZADA</string>
     <string name="press_back">Pulsa de nuevo para salir</string>
@@ -57,13 +63,20 @@
     <string name="goToRegister">Aún no estoy registrado</string>
     <string name="goToLogin">Ya tengo una cuenta</string>
 
+    <!--    Textos tabs-->
 
+    <string name="tab_reglas">REGLAS</string>
+    <string name="tab_glosario">GLOSARIO</string>
 
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Introduce Nombre de Usuario:</string>
     <string name="introduce_email">Introduce tu email</string>
     <string name="introduce_passwd">Introduce tu contraseña</string>
     <string name="introduce_passwd2">Confirma tu contraseña</string>
+
+    <string name="empezar_partida">Jugar</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="sugerencia_registro">Si no te registras no se guardarán tus puntuaciones ☹️</string>
 
 
     <string name="seleccionar_avatar">Selecciona tu avatar</string>

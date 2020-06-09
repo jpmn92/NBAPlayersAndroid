@@ -3,10 +3,7 @@ package com.nbastatsquiz.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.provider.SyncStateContract;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,25 +11,25 @@ import android.view.ViewGroup;
 import com.nbastatsquiz.R;
 
 
-public class FragmentoHelp extends Fragment {
+public class FragmentoHelpReglas extends Fragment {
 
 
-    private static FragmentoHelp fragmentoHelp;
+    private static FragmentoHelpReglas fragmentoHelpReglas;
 
-    public FragmentoHelp() {
+    public FragmentoHelpReglas() {
         // Required empty public constructor
     }
 
-    public static FragmentoHelp newInstance(Bundle datos) {
-        if (fragmentoHelp == null) {
-            fragmentoHelp =
-                    new FragmentoHelp();
+    public static FragmentoHelpReglas newInstance(Bundle datos) {
+        if (fragmentoHelpReglas == null) {
+            fragmentoHelpReglas =
+                    new FragmentoHelpReglas();
         }
 
         if (datos != null) {
-            fragmentoHelp.setArguments(datos);
+            fragmentoHelpReglas.setArguments(datos);
         }
-        return fragmentoHelp;
+        return fragmentoHelpReglas;
     }
 
     @Override

@@ -20,10 +20,9 @@
     <string name="registro_correcto">Sign Up Succesful</string>
 
 
-
     <string name="about_us">If you have any questions, suggestions, or would like to report an error, do not hesitate to email us on:\nnbastatsquiz@gmail.com</string>
     <!--    Textos help-->
-    <string name="help_paragraph">In the main menu you can choose the game parameters you want between:</string>
+    <string name="help_paragraph">In the main menu you can choose the game parameters you want among:</string>
     <string name="help_season">1 - Season</string>
     <string name="help_season_type">2 - Regular Season / Playoffs</string>
     <string name="help_stat">3 - Stat Category</string>
@@ -31,15 +30,22 @@
     <string name="help_paragraph2">Once the game is started, you have to click on the player who had a better stat in the selected season. The stat and season are indicated on the top of the screen.</string>
     <string name="help_paragraph3">You have three lives, if you click on the wrong player, you\'ll lose a live. If you make ten hits in a row, you will get a new live up to three</string>
 
+<!--    Textos glosario-->
+
+    <string name="glossary_paragraph">On the top of the game screen you will find the abbreviated stat category asked. \nThe abbreviations are the following:</string>
+
+
+
+
     <string name="sound">Sound</string>
     <!-- Errores -->
     <string name="no_data_found">No players founds with this params</string>
 
-<!--    Registro-->
+    <!--    Registro-->
     <string name="user_registred">user registred</string>
 
 
-<!--    Errores al registrarse-->
+    <!--    Errores al registrarse-->
     <string name="already_registred">email already registred</string>
     <string name="invalid_email">invalid email</string>
     <string name="passwords_not_match">passwords not match</string>
@@ -54,12 +60,21 @@
     <string name="goToLogin">Already a member? Log In Now!</string>
 
 
+    <!--    Textos tabs-->
+
+    <string name="tab_reglas">GAME RULES</string>
+    <string name="tab_glosario">GLOSSARY</string>
+
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Type your username here</string>
     <string name="introduce_email">Type your email here</string>
     <string name="introduce_passwd">Type your password here</string>
     <string name="introduce_passwd2">Confirm your password here</string>
 
+
+    <string name="empezar_partida">Start Game</string>
+    <string name="registrarse">Sign Up</string>
+    <string name="sugerencia_registro">You need to be signed in to save your game records ☹️</string>
 
 
     <string name="seleccionar_avatar">Choose your avatar</string>

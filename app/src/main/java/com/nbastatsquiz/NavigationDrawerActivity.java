@@ -22,12 +22,11 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.nbastatsquiz.fragments.FragmentoAboutUs;
-import com.nbastatsquiz.fragments.FragmentoHelp;
 import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
 import com.nbastatsquiz.fragments.FragmentoAccount;
-import com.nbastatsquiz.lst_league_leaders.LstLeagueLeaderContract;
+import com.nbastatsquiz.fragments.FragmentoTabsAyuda;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
@@ -246,7 +245,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
             case R.id.nav_help:
 
-                fragmentoGenerico = FragmentoHelp.newInstance(null);
+//                fragmentoGenerico = FragmentoHelp.newInstance(null);
+                fragmentoGenerico = FragmentoTabsAyuda.newInstance(null);
+
                 break;
             case R.id.nav_about_us:
 

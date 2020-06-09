@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nbastatsquiz.fragments.FragmentoHelpReglas">
+    tools:context="com.nbastatsquiz.fragments.FragmentoHelpGlosario">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/floor_load_dark"
         android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +24,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="20dp"
-                android:text="@string/tab_reglas"
+                android:text="@string/tab_glosario"
                 android:textColor="@color/material_black"
                 android:textSize="26dp"
                 android:textStyle="bold" />
@@ -56,7 +55,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="40dp"
 
-            android:text="@string/help_paragraph"
+            android:text="@string/glossary_paragraph"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
             android:textSize="18dp"
@@ -65,12 +64,13 @@
             />
 
         <TextView
+            android:id="@+id/glossary_PTS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/help_season"
+            android:text="PTS"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
             android:textSize="18dp"
@@ -79,12 +79,13 @@
             />
 
         <TextView
+            android:id="@+id/glossary_REB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/help_season_type"
+            android:text="REB"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
             android:textSize="18dp"
@@ -93,12 +94,31 @@
             />
 
         <TextView
+            android:id="@+id/glossary_DREB"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/help_stat"
+            android:text="DREB"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+
+        <TextView
+            android:id="@+id/glossary_OREB"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="OREB"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
             android:textSize="18dp"
@@ -107,12 +127,14 @@
             />
 
         <TextView
+            android:id="@+id/glossary_AST"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/help_stat_type"
+            android:text="AST"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
             android:textSize="18dp"
@@ -121,31 +143,132 @@
             />
 
         <TextView
+            android:id="@+id/glossary_STL"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/help_paragraph2"
+            android:text="STL"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
+            android:textSize="18dp"
 
 
-            android:textSize="18dp" />
+            />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/glossary_BLK"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/help_paragraph3"
+            android:text="BLK"
             android:textAlignment="inherit"
-
-
             android:textColor="@color/material_black"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/glossary_TOV"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="TOV"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/glossary_MIN"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="MIN"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/glossary_FG3_PCT"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="FG3_PCT"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/glossary_FG3M"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="FG3M"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/glossary_FT_PCT"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="FT_PCT"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/glossary_FTM"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="FTM"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
 
     </LinearLayout>
 
