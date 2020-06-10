@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.fragments.FragmentoAboutUs;
 import com.nbastatsquiz.fragments.FragmentoHelp;
 import com.nbastatsquiz.fragments.FragmentoLogin;
@@ -118,18 +119,18 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     }
 
     private void checkSession() {
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        sessionManagement = new SessionManagement(this);
-        int userID = sessionManagement.getSession();
-
-        if (userID != -1) {
+        if (firebaseUser != null) {
             logueado = true;
-            userName = sessionManagement.getSessionUserName();
-            email = sessionManagement.getSessionEmail();
+            userName = firebaseUser.getDisplayName();
+            email = firebaseUser.getEmail();
 
             nameHeader.setText(userName);
             emailHeader.setText(email);
-            Picasso.with(this).load(sessionManagement.getSesionImage()).into(imageHeader);
+            Picasso.with(this).load(firebaseUser.getPhotoUrl()).into(imageHeader);
 
             showLoggedMenu();
 

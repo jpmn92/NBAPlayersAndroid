@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
@@ -289,10 +291,12 @@ public class FragmentoMenu extends Fragment {
 
     private void checkSession() {
 
-        int userID = sessionManagement.getSession();
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        if (userID != -1) {
-            userName = sessionManagement.getSessionUserName();
+        if (firebaseUser != null) {
+            userName = firebaseUser.getDisplayName();
             params.putBoolean("loged", true);
             juego.putExtras(params);
             getActivity().startActivity(juego);
@@ -301,22 +305,14 @@ public class FragmentoMenu extends Fragment {
             //No logueados
 
             //le pedimos username y despues guardamos la sesion
-            //AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_Design_BottomSheetDialog);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Registrarse");
             builder.setMessage("Si no te registras no se guardarán tus puntuaciones");
-
-            // Set up the input
-            //final EditText input = new EditText(getContext());
-            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//            input.setInputType(InputType.TYPE_CLASS_TEXT);
-//            builder.setView(input);
-
-            // Set up the buttons
             builder.setPositiveButton("Empezar juego", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //userName = input.getText().toString();
+                    params.putBoolean("loged", false);
                     sessionManagement.saveSession(userName);
                     juego.putExtras(params);
                     getActivity().startActivity(juego);
@@ -331,9 +327,6 @@ public class FragmentoMenu extends Fragment {
             });
 
             builder.show();
-
-
-//            username = "jp"; //o el quue se meta por el dialog
 
         }
     }
