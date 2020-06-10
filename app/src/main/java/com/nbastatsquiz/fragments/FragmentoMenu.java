@@ -156,6 +156,24 @@ public class FragmentoMenu extends Fragment {
         }
     }
 
+    public void goToRegister() {
+        // puntuaciones.sort();
+
+
+        FragmentoRegister fragmentoRegister = FragmentoRegister.newInstance(null);
+
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content, fragmentoRegister, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
+
+
+//        Intent activityPuntuaciones = new Intent(getContext(), PuntuacionesActivity.class);
+//        activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
+//        startActivity(activityPuntuaciones);
+
+    }
     public void goToPuntuaciones() {
         // puntuaciones.sort();
 
@@ -306,9 +324,9 @@ public class FragmentoMenu extends Fragment {
 
             //le pedimos username y despues guardamos la sesion
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Registrarse");
-            builder.setMessage("Si no te registras no se guardarán tus puntuaciones");
-            builder.setPositiveButton("Empezar juego", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.registrarse);
+            builder.setMessage(R.string.sugerencia_registro);
+            builder.setPositiveButton(R.string.empezar_partida, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //userName = input.getText().toString();
@@ -319,10 +337,12 @@ public class FragmentoMenu extends Fragment {
 
                 }
             });
-            builder.setNegativeButton("Registrarse", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.registrarse, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    goToRegister();
+
                 }
             });
 

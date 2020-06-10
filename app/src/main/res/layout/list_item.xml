@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,14 +15,25 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:paddingTop="8dp"
-    android:paddingBottom="8dp"
-    android:gravity="center_vertical">
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/posicionPuntuacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        android:text="1"
+        android:textColor="#000000"
+        android:textSize="21dp"
+        android:textStyle="bold" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatar"
@@ -31,46 +41,48 @@
         android:layout_height="60dp"
         android:layout_marginRight="16dp"
         android:transitionName="avatar"
+        app:civ_border_color="@color/material_black"
         app:civ_border_width="2dp"
-        app:civ_fill_color="@color/colorPrimary"
-        app:civ_border_color="@color/material_black"/>
+        app:civ_fill_color="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
+
         <TextView
             android:id="@+id/puntuaciones_puntos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textStyle="bold"
+            android:textColor="#000000"
             android:textSize="18dp"
-            android:textColor="#000000" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/puntuaciones_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/puntos_puntuacion"
             android:layout_alignParentTop="true"
             android:textColor="#000000"
             android:textSize="16dp"
             android:textStyle="bold"
-            android:layout_below="@id/puntos_puntuacion"
 
             />
+
         <TextView
             android:id="@+id/puntuaciones_fecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/puntuaciones_username"
             android:layout_alignParentTop="true"
             android:textColor="#000000"
             android:textSize="15dp"
-            android:layout_below="@id/puntuaciones_username"
 
             />
     </LinearLayout>
-
 
 
     <!--    android:layout_width="@dimen/list_item_avatar_size"-->

@@ -106,14 +106,30 @@ public class FragmentoPuntuaciones extends Fragment {
 
     private void getTop50() {
         listadoPuntuacionesTop50  = new ArrayList<FirebasePuntuacion>();
-        if(listadoPuntuaciones.size() < 50){
-            for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
-                listadoPuntuacionesTop50.add(firebasePuntuacion);
+        FirebasePuntuacion puntuacionActualTop;
+        if(listadoPuntuaciones.size() < 49){
+
+
+//            for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
+//                listadoPuntuacionesTop50.add(firebasePuntuacion);
+//            }
+
+            for(int i = 0; i < listadoPuntuaciones.size(); i++){
+
+                puntuacionActualTop = listadoPuntuaciones.get(i);
+                puntuacionActualTop.setRanking(i+1);
+                listadoPuntuacionesTop50.add(puntuacionActualTop);
+
             }
+
+
+
         }
         else{
-            for(int i = 0; i <= 50; i++){
-                listadoPuntuacionesTop50.add(listadoPuntuaciones.get(i));
+            for(int i = 0; i <= 49; i++){
+                puntuacionActualTop = listadoPuntuaciones.get(i);
+                puntuacionActualTop.setRanking(i+1);
+                listadoPuntuacionesTop50.add(puntuacionActualTop);
             }
         }
 
@@ -122,19 +138,37 @@ public class FragmentoPuntuaciones extends Fragment {
     private void buscarRecordPersonal() {
         listadoRecordPersonal = new ArrayList<FirebasePuntuacion>();
         FirebaseAuth mAuth;
+        FirebasePuntuacion puntuacionActual;
         mAuth = FirebaseAuth.getInstance();
+        String myUid = mAuth.getUid();
         if(mAuth.getUid() != null){
             String uid = mAuth.getUid();
             if(listadoPuntuaciones.size() > 0){
-                for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
-                    if(firebasePuntuacion.getUid().equals(uid)){
-                        listadoRecordPersonal.add(firebasePuntuacion);
+
+
+                for(int i = 0; i < listadoPuntuaciones.size(); i++){
+
+                    puntuacionActual = listadoPuntuaciones.get(i);
+                    puntuacionActual.setRanking(i+1);
+
+                    if(puntuacionActual.getUid().equals(uid)){
+                        listadoRecordPersonal.add(puntuacionActual);
                     }
+
                 }
+
+//                for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
+//                    if(firebasePuntuacion.getUid().equals(uid)){
+//                        listadoRecordPersonal.add(firebasePuntuacion);
+//                    }
+//                }
+
                 if(listadoRecordPersonal.size() > 0){
                     FirebasePuntuacion record = listadoRecordPersonal.get(0);
                     listadoRecordPersonal = new ArrayList<FirebasePuntuacion>();
                     listadoRecordPersonal.add(record);
+                }else{
+                    String h = "No hay puntuaciones";
                 }
             }
         }
