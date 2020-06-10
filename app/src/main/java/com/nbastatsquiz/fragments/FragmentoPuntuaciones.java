@@ -72,15 +72,14 @@ public class FragmentoPuntuaciones extends Fragment {
         myrv = view.findViewById(R.id.recycler_view_puntuaciones);
         txtPuntuacion = view.findViewById(R.id.txtPuntuaciones);
 
-        if(listadoPuntuaciones.size() > 0 ){
-            if(listadoPuntuaciones.get(0).getSeasonType().equalsIgnoreCase("Playoffs")){
+        if (listadoPuntuaciones.size() > 0) {
+            if (listadoPuntuaciones.get(0).getSeasonType().equalsIgnoreCase("Playoffs")) {
                 tipoTemporada = "PO";
-            }else{
+            } else {
                 tipoTemporada = "RS";
             }
-            txtPuntuacion.setText(listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason()+" | "+tipoTemporada +" | "+listadoPuntuaciones.get(0).getPerMode());
-        }
-        else {
+            txtPuntuacion.setText(listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason() + " | " + tipoTemporada + " | " + listadoPuntuaciones.get(0).getPerMode());
+        } else {
             txtPuntuacion.setText(R.string.no_puntuaciones);
         }
 
@@ -105,30 +104,28 @@ public class FragmentoPuntuaciones extends Fragment {
     }
 
     private void getTop50() {
-        listadoPuntuacionesTop50  = new ArrayList<FirebasePuntuacion>();
+        listadoPuntuacionesTop50 = new ArrayList<FirebasePuntuacion>();
         FirebasePuntuacion puntuacionActualTop;
-        if(listadoPuntuaciones.size() < 49){
+        if (listadoPuntuaciones.size() < 49) {
 
 
 //            for(FirebasePuntuacion firebasePuntuacion: listadoPuntuaciones){
 //                listadoPuntuacionesTop50.add(firebasePuntuacion);
 //            }
 
-            for(int i = 0; i < listadoPuntuaciones.size(); i++){
+            for (int i = 0; i < listadoPuntuaciones.size(); i++) {
 
                 puntuacionActualTop = listadoPuntuaciones.get(i);
-                puntuacionActualTop.setRanking(i+1);
+                puntuacionActualTop.setRanking(i + 1);
                 listadoPuntuacionesTop50.add(puntuacionActualTop);
 
             }
 
 
-
-        }
-        else{
-            for(int i = 0; i <= 49; i++){
+        } else {
+            for (int i = 0; i <= 49; i++) {
                 puntuacionActualTop = listadoPuntuaciones.get(i);
-                puntuacionActualTop.setRanking(i+1);
+                puntuacionActualTop.setRanking(i + 1);
                 listadoPuntuacionesTop50.add(puntuacionActualTop);
             }
         }
@@ -141,17 +138,17 @@ public class FragmentoPuntuaciones extends Fragment {
         FirebasePuntuacion puntuacionActual;
         mAuth = FirebaseAuth.getInstance();
         String myUid = mAuth.getUid();
-        if(mAuth.getUid() != null){
+        if (mAuth.getUid() != null) {
             String uid = mAuth.getUid();
-            if(listadoPuntuaciones.size() > 0){
+            if (listadoPuntuaciones.size() > 0) {
 
 
-                for(int i = 0; i < listadoPuntuaciones.size(); i++){
+                for (int i = 0; i < listadoPuntuaciones.size(); i++) {
 
                     puntuacionActual = listadoPuntuaciones.get(i);
-                    puntuacionActual.setRanking(i+1);
+                    puntuacionActual.setRanking(i + 1);
 
-                    if(puntuacionActual.getUid().equals(uid)){
+                    if (puntuacionActual.getUid().equals(uid)) {
                         listadoRecordPersonal.add(puntuacionActual);
                     }
 
@@ -163,11 +160,11 @@ public class FragmentoPuntuaciones extends Fragment {
 //                    }
 //                }
 
-                if(listadoRecordPersonal.size() > 0){
+                if (listadoRecordPersonal.size() > 0) {
                     FirebasePuntuacion record = listadoRecordPersonal.get(0);
                     listadoRecordPersonal = new ArrayList<FirebasePuntuacion>();
                     listadoRecordPersonal.add(record);
-                }else{
+                } else {
                     String h = "No hay puntuaciones";
                 }
             }
