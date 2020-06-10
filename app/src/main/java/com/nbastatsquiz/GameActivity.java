@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.LeagueLeader;
 
@@ -282,11 +284,15 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         if (checkInternetConnection() == true) {
             String message;
-
-            paramsIniciales.putInt("puntos", points);
-            paramsIniciales.putString("image", sessionManagement.getSesionImage());
-            firebaseMethods.createFbPuntuacion(paramsIniciales);
+            boolean logeado = params.getBoolean("loged");
             if(params.getBoolean("loged")){
+                FirebaseAuth mAuth;
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                paramsIniciales.putString("userName", firebaseUser.getDisplayName());
+                paramsIniciales.putInt("puntos", points);
+                paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
+                firebaseMethods.createFbPuntuacion(paramsIniciales);
                 if (points > record) {
                     record = points;
                     message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;
@@ -344,16 +350,16 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
             default:
                 Picasso.with(this).load(url_imagen1).error(R.drawable.person)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                        .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                        //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                         .into(ivP1);
 
 
         }
 
         Picasso.with(this).load(url_imageTeam1)
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                 .into(ivT1);
 
         txtNameP1.setText(leagueLeader1.getPLAYER());
@@ -377,15 +383,15 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
             default:
                 Picasso.with(this).load(url_imagen2).error(R.drawable.person)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                        .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                        //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                         .into(ivP2);
 
 
         }
         Picasso.with(this).load(url_imageTeam2)
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                 .into(ivT2);
 
         txtPoints.setText(String.valueOf(points));
@@ -478,7 +484,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         //si clicamos cualquiera se cancela el contador
         myCountDownTimer.cancel();
 
-        if (checkInternetConnection() == true) {
+        //if (checkInternetConnection() == true) {
             switch (v.getId()) {
                 case R.id.linJ2:
                     if (valueP2 >= valueP1) {
@@ -497,11 +503,11 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                     }
                     break;
             }
-        } else {
-            Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
-            finishGame();
-
-        }
+//        } else {
+//            Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
+//            finishGame();
+//
+//        }
 
 
     }

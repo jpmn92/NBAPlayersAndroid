@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
@@ -95,13 +97,14 @@ public class FragmentoMenu extends Fragment {
         sessionManagement = new SessionManagement(getContext());
         ivSound = view.findViewById(R.id.ivSound);
         checkSound();
-        ivSound.setOnClickListener(new View.OnClickListener() {
+        ivSound.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                if (sessionManagement.getSound()) {
+                if(sessionManagement.getSound()){
                     sessionManagement.saveSession(false);
-                } else {
+                }
+                else{
                     sessionManagement.saveSession(true);
                 }
                 checkSound();
@@ -142,33 +145,15 @@ public class FragmentoMenu extends Fragment {
     }
 
 
+
     private void checkSound() {
 
-        if (sessionManagement.getSound()) {
+        if(sessionManagement.getSound()){
             ivSound.setImageResource(R.drawable.volume_on);
-        } else {
+        }
+        else{
             ivSound.setImageResource(R.drawable.volume_off);
         }
-    }
-
-
-    public void goToRegister() {
-        // puntuaciones.sort();
-
-
-        FragmentoRegister fragmentoRegister = FragmentoRegister.newInstance(null);
-
-
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_content, fragmentoRegister, "findThisFragment")
-                .addToBackStack(null)
-                .commit();
-
-
-//        Intent activityPuntuaciones = new Intent(getContext(), PuntuacionesActivity.class);
-//        activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
-//        startActivity(activityPuntuaciones);
-
     }
 
     public void goToPuntuaciones() {
@@ -267,6 +252,8 @@ public class FragmentoMenu extends Fragment {
                     break;
 
 
+
+
             }
 
         } else {
@@ -304,10 +291,12 @@ public class FragmentoMenu extends Fragment {
 
     private void checkSession() {
 
-        int userID = sessionManagement.getSession();
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        if (userID != -1) {
-            userName = sessionManagement.getSessionUserName();
+        if (firebaseUser != null) {
+            userName = firebaseUser.getDisplayName();
             params.putBoolean("loged", true);
             juego.putExtras(params);
             getActivity().startActivity(juego);
@@ -316,42 +305,28 @@ public class FragmentoMenu extends Fragment {
             //No logueados
 
             //le pedimos username y despues guardamos la sesion
-            //AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-            builder.setTitle(R.string.registrarse);
-            builder.setMessage(R.string.sugerencia_registro);
-
-            // Set up the input
-            //final EditText input = new EditText(getContext());
-            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//            input.setInputType(InputType.TYPE_CLASS_TEXT);
-//            builder.setView(input);
-
-            // Set up the buttons
-            builder.setPositiveButton(R.string.empezar_partida, new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Registrarse");
+            builder.setMessage("Si no te registras no se guardarán tus puntuaciones");
+            builder.setPositiveButton("Empezar juego", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //userName = input.getText().toString();
-                    sessionManagement.saveSession(userName);
                     params.putBoolean("loged", false);
+                    sessionManagement.saveSession(userName);
                     juego.putExtras(params);
                     getActivity().startActivity(juego);
 
                 }
             });
-            builder.setNegativeButton(R.string.registrarse, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("Registrarse", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-                    goToRegister();
-
+                    dialog.dismiss();
                 }
             });
 
             builder.show();
-
-
-//            username = "jp"; //o el quue se meta por el dialog
 
         }
     }
