@@ -96,7 +96,7 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
             viewHolder.circleImageView.setFillColor(Color.parseColor("#FF9800"));
         }
 
-        viewHolder.posicion.setText(Integer.toString(firebasePuntuacion.getRanking())+" -");
+        viewHolder.posicion.setText(Integer.toString(firebasePuntuacion.getRanking()));
         viewHolder.username.setText(firebasePuntuacion.getUsername());
         viewHolder.fecha.setText(firebasePuntuacion.getDate());
         viewHolder.puntos.setText("Pts: " + Integer.toString(firebasePuntuacion.getPoints()));
