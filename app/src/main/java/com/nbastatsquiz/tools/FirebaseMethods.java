@@ -300,7 +300,7 @@ public class FirebaseMethods extends Activity {
                     } else {
                         // If sign in fails, display a message to the user.
                         //TODO: Error en inicio de sesión
-                        Toast.makeText(loginContext, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(loginContext, getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -341,7 +341,7 @@ public class FirebaseMethods extends Activity {
 
 
         }
-//        else {
+        else {
 //            //si viene de register que utilice su contexto
 //            if (fragmentoRegister != null) {
 //                fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
@@ -351,8 +351,9 @@ public class FirebaseMethods extends Activity {
 //                message = fragmentoRegister.getString(R.string.registro_correcto);
 //
 //                Toast.makeText(fragmentoRegister.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(fragmentoRegister.getContext(), getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
 //
-//            }
+           }
 //        }
     }
 

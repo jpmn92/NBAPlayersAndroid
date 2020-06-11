@@ -4,6 +4,7 @@
     <!--    Textos Menu Lateral-->
 
     <string name="nav_about_us">Acerca de</string>
+    <string name="nav_contact_with_us">Contacta con nosotros</string>
     <string name="nav_settings">Configuración</string>
     <string name="nav_help">Ayuda</string>
     <string name="nav_home">Inicio</string>
@@ -35,6 +36,7 @@
     <string name="press_back">Pulsa de nuevo para salir</string>
     <string name="sin_conexion">Comprueba tu conexión a internet y vuelva a intentarlo</string>
     <string name="login_correcto">Bienvenido de nuevo </string>
+    <string name="login_incorrecto">Error en el inicio de sesión</string>
     <string name="registro_correcto">Registro exitoso  </string>
 
 
@@ -193,5 +195,6 @@
     <string name="sign_up_google">Registrarse con Google</string>
     <string name="login">Inicia Sesión</string>
     <string name="no_puntuaciones">No hay puntuaciones</string>
+    <string name="enviar_mail">Enviar correo</string>
 
 </resources>

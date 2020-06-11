@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -251,8 +252,10 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
                 break;
             case R.id.nav_about_us:
-
-                fragmentoGenerico = FragmentoAboutUs.newInstance(null);
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","nbastatsandroid@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Android APP - ");
+                startActivity(Intent.createChooser(emailIntent,  getString(R.string.enviar_mail)));
+                fragmentoGenerico = FragmentoMenu.newInstance(null);
                 break;
 
             case R.id.nav_login:

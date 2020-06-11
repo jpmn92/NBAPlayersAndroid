@@ -64,7 +64,7 @@ public class FragmentoAutentificacion extends Fragment {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }else{
-            Toast.makeText(getContext(), "se ha producido un error", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "se ha producido un error", Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -73,13 +73,13 @@ public class FragmentoAutentificacion extends Fragment {
 
         try {
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(getContext(), "Signed in sucessfully", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Signed in sucessfully", Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(acc);
 
 
         } catch (ApiException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "Error, Signed in unsucessfully", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error, Signed in unsucessfully", Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(null);
 
         }
@@ -96,19 +96,19 @@ public class FragmentoAutentificacion extends Fragment {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
 
-                        Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "successful", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         firebaseMethods.logIn(user, getContext());
 
 
                     } else {
-                        Toast.makeText(getContext(), "Unsuccessful login", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "Unsuccessful login", Toast.LENGTH_SHORT).show();
 
                     }
                 }
             });
         }catch (Exception e){
-            Toast.makeText(getContext(), "Se ha producido un error", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Se ha producido un error", Toast.LENGTH_SHORT).show();
 
         }
 
