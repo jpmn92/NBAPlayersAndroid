@@ -46,7 +46,7 @@ public class FirebaseMethods extends Activity {
     DatabaseReference reference;
     FirebasePuntuacion fbPuntuacion;
     Bundle bundlePartida;
-    int puntuacion;
+    int puntuacion, puntosTotales;
     ArrayList<FirebasePuntuacion> listadoFinal;
     SessionManagement sessionManagement;
 
@@ -340,8 +340,7 @@ public class FirebaseMethods extends Activity {
             Toast.makeText(fragmentoAutentificacion.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
 
 
-        }
-        else {
+        } else {
 //            //si viene de register que utilice su contexto
 //            if (fragmentoRegister != null) {
 //                fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
@@ -351,9 +350,9 @@ public class FirebaseMethods extends Activity {
 //                message = fragmentoRegister.getString(R.string.registro_correcto);
 //
 //                Toast.makeText(fragmentoRegister.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
-           // Toast.makeText(fragmentoRegister.getContext(), getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(fragmentoRegister.getContext(), getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
 //
-           }
+        }
 //        }
     }
 
@@ -489,5 +488,72 @@ public class FirebaseMethods extends Activity {
         this.puntuacion = puntuacion;
     }
 
+
+    public void getUserAverage(FirebaseUser user) {
+        processDone = false;
+        puntosTotales = 0;
+        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
+        ArrayList<FirebasePuntuacion> fbMisPuntuaciones = new ArrayList<>();
+
+        ArrayList<DataSnapshot> dataSnapshotArrayList = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                if (!processDone) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        Object object = snapshot.getValue(Object.class);
+                        String json = new Gson().toJson(object);
+                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+                        fbPuntuacionList.add(fbPuntuacion);
+                        dataSnapshotArrayList.add(dataSnapshot.child(snapshot.getKey()));
+
+
+                    }
+
+                    for (int i = 0; i < fbPuntuacionList.size(); i++) {
+
+                        fbPuntuacionList.get(i);
+
+                        String uidActual = user.getUid();
+                        String uidPuntuacion = fbPuntuacionList.get(i).getUid();
+
+                        if (uidActual.equals(uidPuntuacion)) {
+
+                            fbMisPuntuaciones.add(fbPuntuacionList.get(i));
+                            puntosTotales = puntosTotales + fbPuntuacionList.get(i).getPoints();
+
+
+                        }
+
+
+                    }
+
+                    double media = (puntosTotales/fbMisPuntuaciones.size());
+
+
+
+
+
+                    processDone = true;
+
+
+                }
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+
+
+        });
+    }
 
 }

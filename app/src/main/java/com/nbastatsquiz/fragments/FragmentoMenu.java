@@ -194,9 +194,7 @@ public class FragmentoMenu extends Fragment {
                 .commit();
 
 
-//        Intent activityPuntuaciones = new Intent(getContext(), PuntuacionesActivity.class);
-//        activityPuntuaciones.putExtra("puntuaciones", puntuaciones);
-//        startActivity(activityPuntuaciones);
+
     }
 
     public Bundle getParams() {
