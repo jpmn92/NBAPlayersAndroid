@@ -4,7 +4,7 @@
     <!--    Textos Menu Lateral-->
 
     <string name="nav_about_us">Acerca de</string>
-    <string name="nav_contact_with_us">Contacta con nosotros</string>
+    <string name="nav_contact_with_us">Contacto</string>
     <string name="nav_settings">Configuración</string>
     <string name="nav_help">Ayuda</string>
     <string name="nav_home">Inicio</string>
