@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -31,6 +32,8 @@ import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.fragments.FragmentoTabsAyuda;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
@@ -252,9 +255,14 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
                 break;
             case R.id.nav_about_us:
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","nbastatsandroid@gmail.com", null));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Android APP - ");
-                startActivity(Intent.createChooser(emailIntent,  getString(R.string.enviar_mail)));
+                try{
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","nbastatsandroid@gmail.com", null));
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "NBA Stats Season - ");
+                    startActivity(Intent.createChooser(emailIntent,  getString(R.string.enviar_mail)));
+                } catch (ActivityNotFoundException e){
+                    Toast.makeText(this, getText(R.string.contact_mail), Toast.LENGTH_LONG);
+                }
+
                 fragmentoGenerico = FragmentoMenu.newInstance(null);
                 break;
 
