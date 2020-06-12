@@ -164,6 +164,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                     }
 
 
+
                     leagueLeaders.add(leagueLeader);
                 }
 

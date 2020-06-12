@@ -139,7 +139,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void buscarRecord() {
-        if(params.getBoolean("loged")){
+        if (params.getBoolean("loged")) {
             firebaseMethods.getRecord();
         }
 
@@ -285,7 +285,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         if (checkInternetConnection() == true) {
             String message;
             boolean logeado = params.getBoolean("loged");
-            if(params.getBoolean("loged")){
+            if (params.getBoolean("loged")) {
                 FirebaseAuth mAuth;
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -299,9 +299,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 } else {
                     message = getString(R.string.puntuacion) + points + "\n" + getString(R.string.record) + record;
                 }
-            }
-
-            else{
+            } else {
                 message = getString(R.string.puntuacion) + points;
             }
 
@@ -347,6 +345,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             case 714:
                 Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
                 break;
+            case 1763:
+                Picasso.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP1);
+                break;
+            case 764:
+                Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
+                break;
 
             default:
                 Picasso.with(this).load(url_imagen1).error(R.drawable.person)
@@ -379,6 +383,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 break;
             case 714:
                 Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP2);
+                break;
+            case 1763:
+                Picasso.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP2);
+                break;
+            case 764:
+                Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP2);
                 break;
 
             default:
@@ -485,24 +495,24 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         myCountDownTimer.cancel();
 
         //if (checkInternetConnection() == true) {
-            switch (v.getId()) {
-                case R.id.linJ2:
-                    if (valueP2 >= valueP1) {
-                        acierto();
-                    } else {
-                        fallo();
-                    }
+        switch (v.getId()) {
+            case R.id.linJ2:
+                if (valueP2 >= valueP1) {
+                    acierto();
+                } else {
+                    fallo();
+                }
 
-                    break;
+                break;
 
-                case R.id.linJ1:
-                    if (valueP2 <= valueP1) {
-                        acierto();
-                    } else {
-                        fallo();
-                    }
-                    break;
-            }
+            case R.id.linJ1:
+                if (valueP2 <= valueP1) {
+                    acierto();
+                } else {
+                    fallo();
+                }
+                break;
+        }
 //        } else {
 //            Toast.makeText(this, R.string.sin_conexion, Toast.LENGTH_SHORT).show();
 //            finishGame();

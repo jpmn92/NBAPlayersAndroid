@@ -63,6 +63,365 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+
+
+            //pete myers
+            case 939:
+            urlImage = "https://history.bulls.com/wp-content/uploads/2016/04/pete-myers.png";
+            break;
+
+            //reggie williams 1990
+            case 199:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Reggie-Williams-2K.png";
+                break;
+
+            //robert horry
+            case 109:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Robert-Horry-2K.png";
+                break;
+
+            //eddie johnson
+            case 77144:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Eddie-Johnson-2K.png";
+                break;
+
+            //dee brown
+            case 244:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Dee-Brown-2K.png";
+                break;
+
+            //jeff malone
+            case 117:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Jeff-Malone-2K.png";
+                break;
+            //james worthy
+            case 1460:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/James-Worthy-2K.png";
+                break;
+            //chuck person
+            case 456:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Chuck-Person-2K.png";
+                break;
+
+            //micheal williams
+            case 52:
+                urlImage = "https://www.mundodeportivo.com/r/GODO/MD/p3/Baloncesto/Imagenes/2015/12/02/Recortada/img_jihuguet_20151202-131117_imagenes_md_terceros_michael_williams-ky0H--652x492@MundoDeportivo-Web.jpg";
+                break;
+            //derek harper
+            case 157:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Derek-Harper-2K.png";
+                break;
+
+            //tom chambers
+            case 1472:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Tom-Chambers-2K.png";
+                break;
+
+            //bj armstrong
+            case 769:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/B.J.-Armstrong-2K.png";
+                break;
+
+            //hot rod williams
+            case 73:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Hot-Rod-Williams-2K.png";
+                break;
+
+            //doc rivers
+            case 470:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Doc-Rivers-2K.png";
+                break;
+
+            //charles smith
+            case 293:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Charles-Smith-2K.png";
+                break;
+
+            //david wingate
+            case 766:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/David-Wingate-2K.png";
+                break;
+
+            //rony seikaly
+            case 938:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Rony-Seikaly-2K-550x402.png";
+                break;
+
+            //sam perkins
+            case 64:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Sam-Perkins-2K.png";
+                break;
+
+            //vernon maxwell
+            case 137:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Vernon-Maxwell-2K.png";
+                break;
+
+            //kevin willis
+            case 788:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Kevin-Willis-2K.png";
+                break;
+
+            //abdul rauf
+            case 51:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Mahmoud-Abdul-Rauf-2K.png";
+                break;
+
+            //mark price
+            case 899:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Mark-Price-2K.png";
+                break;
+
+            //devean george
+            case 1904:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Devean-George-2K.png";
+                break;
+
+            //mike james
+            case 2229:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1051.png&w=350&h=254";
+                break;
+
+            //keyon dooling
+            case 2039:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/209.png";
+                break;
+
+            //terry porter
+            case 345:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Terry-Porter-2K.png";
+                break;
+
+            //robert pack
+            case 123:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Robert-Pack-2K.png";
+                break;
+
+            //bobby jackson
+            case 1517:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Bobby-Jackson-2K.png";
+                break;
+
+            //will perdue
+            case 781:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Will-Perdue-2K.png";
+                break;
+
+            //howard eisley
+            case 458:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Howard-Eisley-2K.png";
+                break;
+
+            //dennis scott
+            case 192:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Dennis-Scott-2K.png";
+                break;
+
+            //walter mccarty
+            case 962:
+                urlImage = "https://www.screensandrhymes.com/wp-content/uploads/2015/04/WALTER-McCARTY-Graphic.png";
+                break;
+
+            //isaiah rider
+            case 375:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Isaiah-Rider-2K.png";
+                break;
+
+            //laphonso ellis
+            case 111:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Laphonso-Ellis-2K.png";
+                break;
+
+            //lindsey hunter
+            case 283:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Lindsey-Hunter-2K.png";
+                break;
+
+            //gary trent sr
+            case 718:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Gary-Trent-2K.png";
+                break;
+
+            //matt geiger
+            case 761:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Matt-Geiger-2K.png";
+                break;
+
+            //stacey augmon
+            case 278:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Stacey-Augmon-2K.png";
+                break;
+
+            //sam mitchell
+            case 417:
+                urlImage = "https://usathoopshype.files.wordpress.com/2018/05/i_8d_f3_06_sam-mitchell.png?w=190";
+                break;
+
+            //kenny anderson
+            case 72:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Kenny-Anderson-2K.png";
+                break;
+
+            //rik smits
+            case 22:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Rik-Smits-2K.png";
+                break;
+
+            //bryon rusell
+            case 935:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Bryon-Russell-2K.png";
+                break;
+
+            //brian shaw
+            case 216:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Brian-Shaw-2K.png";
+                break;
+
+            //jumaine jones
+            case 1908:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Jumaine-Jones-2K.png";
+                break;
+
+            //popeye jones
+            case 461:
+                urlImage = "https://cdn140.picsart.com/236809178088212.png?type=webp&to=min&r=1024";
+                break;
+
+            //marko jaric
+            case 2060:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/387.png";
+                break;
+
+            //darvin ham
+            case 1032:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Darvin-Ham-2K.png";
+                break;
+
+            //corie blount
+            case 916:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Corie-Blount-2K.png";
+                break;
+
+            //damon jones
+            case 1800:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Damon-Jones-2K.png";
+                break;
+
+            //doug west
+            case 28:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Doug-West-2K.png";
+                break;
+
+            //alvin williams
+            case 1541:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Alvin-Williams-2K.png";
+                break;
+
+            //jeff foster
+            case 1902:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/250.png";
+                break;
+
+            //jason collins
+            case 2215:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/987.png";
+                break;
+
+            //clifford robinson
+            case 361:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Clifford-Robinson-2K.png";
+                break;
+
+            //antonio davis
+            case 213:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Antonio-Davis-2K.png";
+                break;
+
+            //etan thomas
+            case 2041:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/851.png";
+                break;
+
+            //carlos arroyo
+            case 2306:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/1055.png";
+                break;
+
+            //charlie ward
+            case 369:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Charlie-Ward-2K.png";
+                break;
+
+            //ervin johnson
+            case 911:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Ervin-Johnson-2K.png";
+                break;
+
+            //michael olowakandi
+            case 1709:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Michael-Olowokandi-2K.png";
+                break;
+
+            //jaque vaugh
+            case 1521:
+                urlImage = "https://usathoopshype.files.wordpress.com/2018/03/i_c3_7e_87_jacque-vaughn.png?w=190&h=190&crop=1";
+                break;
+
+            //bryant reeves
+            case 735:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Bryant-Reeves-2K-550x402.png";
+                break;
+
+            //shandon anderson
+            case 1000:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Shandon-Anderson-2K.png";
+                break;
+
+            //christian laettner
+            case 363:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Christian-Laettner-2K.png";
+                break;
+
+            //hakeem
+            case 165:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Hakeem-Olajuwon-2K.png";
+                break;
+
+            //johny newman
+            case 271:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Johnny-Newman-2K.png";
+                break;
+
+            //aaron williams
+            case 1425:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Aaron-Williams-2K.png";
+                break;
+
+            //jared jefries
+            case 2407:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1717.png";
+                break;
+
+            //greg anthony
+            case 21:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Greg-Anthony-2K.png";
+                break;
+
+            //jamal mashburn
+            case 469:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Jamal-Mashburn-2K-1.png";
+                break;
+
+            //eric snow
+            case 727:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Eric-Snow-2K.png";
+                break;
+
+            //adam morrison
+            case 200747:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/3016.png";
+                break;
+
             //vin baker
             case 452:
                 urlImage = "https://www.2kratings.com/wp-content/uploads/Vin-Baker-2K.png";
@@ -408,9 +767,9 @@ public class GenerateImageUrl {
                 urlImage = "https://www.2kratings.com/wp-content/uploads/Detlef-Schrempf-2K.png";
                 break;
             //david robinson
-            case 764:
-                urlImage = "https://webjolunba.com/caras/david_robinson.png";
-                break;
+//            case 764:
+//                urlImage = "https://webjolunba.com/caras/david_robinson.png";
+//                break;
             //steve nash
             case 959:
                 urlImage = "https://i.dlpng.com/static/png/219514_preview.png";
