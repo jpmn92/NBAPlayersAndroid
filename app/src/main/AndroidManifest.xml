@@ -6,23 +6,25 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/icon_stats_quiz"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/icon_stats_quiz"
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAQUIZ"
         tools:targetApi="lollipop">
-        <activity android:name="com.nbastatsquiz.NavigationDrawerActivity">
+        <activity android:name=".pruebas.Main4Activity_pruebaCH"></activity>
+        <activity android:name=".pruebas.Main3Activity_pruebaDraft" />
+        <activity android:name=".NavigationDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.nbastatsquiz.GameActivity" />
+        <activity android:name=".GameActivity" />
     </application>
 
 </manifest>

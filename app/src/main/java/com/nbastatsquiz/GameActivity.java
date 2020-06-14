@@ -351,6 +351,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             case 764:
                 Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
                 break;
+            case 2221:
+                Picasso.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP1);
+                break;
+
 
             default:
                 Picasso.with(this).load(url_imagen1).error(R.drawable.person)
@@ -390,6 +394,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             case 764:
                 Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP2);
                 break;
+            case 2221:
+                Picasso.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP2);
+                break;
+
 
             default:
                 Picasso.with(this).load(url_imagen2).error(R.drawable.person)

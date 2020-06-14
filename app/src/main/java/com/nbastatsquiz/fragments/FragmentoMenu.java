@@ -11,12 +11,10 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,8 +22,10 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.GameActivity;
+import com.nbastatsquiz.pruebas.Main3Activity_pruebaDraft;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
+import com.nbastatsquiz.pruebas.Main4Activity_pruebaCH;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.SessionManagement;
 
@@ -44,9 +44,9 @@ public class FragmentoMenu extends Fragment {
     String userName;
     SessionManagement sessionManagement;
     Bundle params;
-    Intent juego;
+    Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones;
-    ImageView ivSound;
+    ImageView ivSound, imagenPrincipal;
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
         return puntuaciones;
@@ -110,6 +110,8 @@ public class FragmentoMenu extends Fragment {
                 checkSound();
             }
         });
+
+        imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
         sSeason = view.findViewById(R.id.spinnerSeasons);
         sCategory = view.findViewById(R.id.spinnerCategory);
         sSeasonType = view.findViewById(R.id.spinnerSeasonType);
@@ -137,6 +139,18 @@ public class FragmentoMenu extends Fragment {
                     Toast.makeText(getContext(), R.string.sin_conexion, Toast.LENGTH_SHORT).show();
 
                 }
+
+
+            }
+        });
+
+        imagenPrincipal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                draft = new Intent(getActivity().getBaseContext(), Main3Activity_pruebaDraft.class);
+                ch = new Intent(getActivity().getBaseContext(), Main4Activity_pruebaCH.class);
+
+                getActivity().startActivity(ch);
 
 
             }

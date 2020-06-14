@@ -32,11 +32,9 @@
     <string name="help_paragraph2">Once the game is started, you have to click on the player who had a better stat in the selected season. The stat and season are indicated on the top of the screen.</string>
     <string name="help_paragraph3">You have three lives, if you click on the wrong player, you\'ll lose a live. If you make ten hits in a row, you will get a new live up to three</string>
 
-<!--    Textos glosario-->
+    <!--    Textos glosario-->
 
     <string name="glossary_paragraph">On the top of the game screen you will find the abbreviated stat category asked. \nThe abbreviations are the following:</string>
-
-
 
 
     <string name="sound">Sound</string>

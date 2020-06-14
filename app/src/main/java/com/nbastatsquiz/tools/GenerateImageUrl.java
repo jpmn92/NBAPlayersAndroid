@@ -63,7 +63,40 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+            //ike diogu
+            case 101113:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2750.png";
+                break;
 
+            //eduardo najera
+            case 2059:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/591.png";
+                break;
+
+            //jarvis hayes
+            case 2553:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1980.png";
+                break;
+
+            //torkine shengeila
+            case 203129:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6623.png";
+                break;
+
+            //jasekevicius
+            case 101180:
+                urlImage = "hhttps://usathoopshype.files.wordpress.com/2018/06/i_6d_f6_40_sarunas-jasikevicius.png?w=190";
+                break;
+
+            //demarr johnson
+            case 2035:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/398.png";
+                break;
+
+            //michael doleac
+            case 1720:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Michael-Doleac-2K-550x402.png";
+                break;
 
             //pete myers
             case 939:
