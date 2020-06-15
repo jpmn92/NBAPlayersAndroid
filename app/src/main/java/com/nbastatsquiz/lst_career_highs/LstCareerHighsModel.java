@@ -136,67 +136,61 @@ public class LstCareerHighsModel implements LstCareerHighsContract.Model {
 
 
                 JsonElement resultSet = jsonObject.get("resultSets");
+                JsonArray jsonArray2 = resultSet.getAsJsonArray();
 
-//OPCION CON RECORTE
-                String resultSetStr = resultSet.toString();
-                String recortada = resultSetStr.substring(1, resultSetStr.length()-1);
-                JsonParser parser = new JsonParser();
-                JsonObject resultSetObject = (JsonObject) parser.parse(recortada); //TODO: PETA AQUI
+                for(JsonElement resultSetElement: jsonArray2){
+                    JsonObject resultSetObject = resultSetElement.getAsJsonObject();
+                    String name = resultSetObject.get("name").toString().substring(1, resultSetObject.get("name").toString().length()-1);
+                    if(name.equals("CareerHighs")){
+                        JsonElement headers = resultSetObject.get("headers");
+                        JsonArray headersArray = headers.getAsJsonArray();
+                        String jsonHeaders = headersArray.toString();
 
-//                JsonObject resultSetObject = resultSet.getAsJsonObject();
+                        JsonElement rowSet = resultSetObject.get("rowSet");
+                        JsonArray jsonArray = rowSet.getAsJsonArray();
+                        String jsonRowSet = rowSet.toString();
+                        careerHighs = new ArrayList<>();
+                        JsonArray jsonArrayTop = new JsonArray();
 
+                        if (jsonArray.size() == 0) {
+                            return false;
+                        }
 
-                JsonElement headers = resultSetObject.get("headers");
-                JsonArray headersArray = headers.getAsJsonArray();
-                String jsonHeaders = headersArray.toString();
+                        if (jsonArray.size() < 10000) {
+                            for (int i = 0; i < jsonArray.size(); i++) {
+                                jsonArrayTop.add(jsonArray.get(i));
+                            }
+                        } else {
+                            //TODO: PONER BUCLE A 100
+                            for (int i = 0; i < jsonArrayTop.size(); i++) {
+                                jsonArrayTop.add(jsonArray.get(i));
+                            }
+                        }
+                        for (JsonElement jsonElement : jsonArrayTop) {
+                            jsonElement.toString();
+                            String jsonPlayer = "";
+                            jsonPlayer = intoString(jsonElement.toString(), headersArray.get(0) + ":", 1);
+                            jsonPlayer = jsonPlayer.substring(1, jsonPlayer.length() - 1);
 
-                JsonElement rowSet = resultSetObject.get("rowSet");
-                JsonArray jsonArray = rowSet.getAsJsonArray();
-                String jsonRowSet = rowSet.toString();
-                careerHighs = new ArrayList<>();
-                JsonArray jsonArrayTop = new JsonArray();
+                            jsonPlayer = intoString(jsonPlayer, "{", 0);
+                            jsonPlayer = intoString(jsonPlayer, "}", jsonPlayer.length());
+                            int posicion = jsonPlayer.indexOf(',') + 1;
+                            for (int i = 1; i < headersArray.size(); i++) {
+                                jsonPlayer = intoString(jsonPlayer, headersArray.get(i) + ":", posicion);
+                                posicion = jsonPlayer.indexOf(',', posicion + 1) + 1;
+                                System.out.println(jsonPlayer);
+                            }
+                            if (jsonPlayer.contains("McClain") || jsonPlayer.contains("Hoffman")) {
+                                String h = jsonPlayer;
 
-                if (jsonArray.size() == 0) {
-                    return false;
-                }
+                            } else {
+                                careerHigh = new Gson().fromJson(jsonPlayer, CareerHigh.class);
 
-                if (jsonArray.size() < 10000) {
-                    for (int i = 0; i < jsonArray.size(); i++) {
-                        jsonArrayTop.add(jsonArray.get(i));
-                    }
-                } else {
-                    //TODO: PONER BUCLE A 100
-                    for (int i = 0; i < jsonArrayTop.size(); i++) {
-                        jsonArrayTop.add(jsonArray.get(i));
-                    }
-                }
-                for (JsonElement jsonElement : jsonArrayTop) {
-                    jsonElement.toString();
-                    String jsonPlayer = "";
-                    jsonPlayer = intoString(jsonElement.toString(), headersArray.get(0) + ":", 1);
-                    jsonPlayer = jsonPlayer.substring(1, jsonPlayer.length() - 1);
-
-                    jsonPlayer = intoString(jsonPlayer, "{", 0);
-                    jsonPlayer = intoString(jsonPlayer, "}", jsonPlayer.length());
-                    int posicion = jsonPlayer.indexOf(',') + 1;
-                    for (int i = 1; i < headersArray.size(); i++) {
-                        jsonPlayer = intoString(jsonPlayer, headersArray.get(i) + ":", posicion);
-                        posicion = jsonPlayer.indexOf(',', posicion + 1) + 1;
-                        System.out.println(jsonPlayer);
-
-
-                    }
-
-                    if (jsonPlayer.contains("McClain") || jsonPlayer.contains("Hoffman")) {
-                        String h = jsonPlayer;
-
-                    } else {
-                        CareerHigh careerHigh = new Gson().fromJson(jsonPlayer, CareerHigh.class);
-
+                            }
+                            careerHighs.add(careerHigh);
+                        }
                     }
 
-
-                    careerHighs.add(careerHigh);
                 }
 
 
