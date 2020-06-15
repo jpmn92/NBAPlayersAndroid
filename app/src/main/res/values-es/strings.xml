@@ -198,4 +198,7 @@
     <string name="enviar_mail">Enviar correo</string>
     <string name="contact_mail">Puedes contactar con nosotros enviando un mail a nbastatsquiz@gmail.com</string>
 
+    <string name="team">Equipo NBA</string>
+    <string name="college">Universidad</string>
+
 </resources>

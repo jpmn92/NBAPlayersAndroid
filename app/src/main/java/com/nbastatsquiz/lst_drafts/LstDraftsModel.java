@@ -82,7 +82,7 @@ public class LstDraftsModel implements LstDraftsContract.Model {
             overallPick = "";
             roundNum = "";
             roundPick = "";
-            season = "2019";
+            season = "2010";
             teamID = "0";
             topX = "";
 
@@ -190,7 +190,7 @@ public class LstDraftsModel implements LstDraftsContract.Model {
                         String h = jsonPlayer;
 
                     }else{
-                        DraftPick draftPick = new Gson().fromJson(jsonPlayer, DraftPick.class);
+                         draftPick = new Gson().fromJson(jsonPlayer, DraftPick.class);
 
                     }
 

@@ -100,8 +100,8 @@ public class GenerateImageUrl {
 
             //pete myers
             case 939:
-            urlImage = "https://history.bulls.com/wp-content/uploads/2016/04/pete-myers.png";
-            break;
+                urlImage = "https://history.bulls.com/wp-content/uploads/2016/04/pete-myers.png";
+                break;
 
             //reggie williams 1990
             case 199:
@@ -998,6 +998,94 @@ public class GenerateImageUrl {
         return urlImage;
     }
 
+    public String checkCollegeImage(String college) {
+
+        String urlImage = "";
+
+        switch (college) {
+
+            //EUROPA
+
+            case "FC Barcelona Basquet (Spain)":
+                urlImage = "https://i.pinimg.com/originals/4e/87/0c/4e870c6d61be9306bd9681554b0df83d.png";
+                break;
+
+            case "Real Madrid Baloncesto (Spain)":
+                urlImage = "https://upload.wikimedia.org/wikipedia/an/thumb/c/c7/Logo_Real_Madrid.svg/500px-Logo_Real_Madrid.svg.png";
+                break;
+
+            //NCAA
+
+            case "Arizona":
+                urlImage = "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F12.png";
+                break;
+
+            case "Duke":
+                urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Duke_Blue_Devils_logo.svg/1200px-Duke_Blue_Devils_logo.svg.png";
+                break;
+
+            case "Michigan State":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/127.png";
+                break;
+
+            case "Oklahoma":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/201.png";
+                break;
+
+            case "Texas":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/251.png";
+                break;
+
+            case "West Virginia":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png";
+                break;
+
+            case "Alabama":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png";
+                break;
+
+            case "Kentucky":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/96.png";
+                break;
+
+            case "Villanova":
+                urlImage = "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F222.png";
+                break;
+
+            case "Boston College":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/103.png";
+                break;
+            case "Missouri":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/142.png";
+                break;
+            case "Oregon":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/2483.png";
+                break;
+            case "Texas Tech":
+                urlImage = "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2641.png";
+                break;
+            case "Miami (FL)":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/2390.png";
+                break;
+            case "Maryland":
+                urlImage = "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F120.png";
+                break;
+            case "Georgia Tech":
+                urlImage = "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F120.png";
+                break;
+
+
+
+            default:
+                urlImage = "https://a.espncdn.com/i/teamlogos/nba/500/" + college + ".png";
+
+        }
+
+
+        return urlImage;
+    }
+
+
     public String getRandomAvatar() {
 
         ArrayList<String> images = new ArrayList<String>();
@@ -1087,6 +1175,7 @@ public class GenerateImageUrl {
 
         return nbaPlayers.get(result).getUrlImage();
     }
+
 
 
 }

@@ -248,7 +248,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
             case R.id.nav_draft:
 
 
-                Intent draft = new Intent(this, Main3Activity_pruebaDraft.class);
+                Intent draft = new Intent(this, DraftActivity.class);
                 startActivity(draft);
 
                 break;
