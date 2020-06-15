@@ -30,6 +30,8 @@ import com.nbastatsquiz.fragments.FragmentoMenu;
 import com.nbastatsquiz.fragments.FragmentoRegister;
 import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.fragments.FragmentoTabsAyuda;
+import com.nbastatsquiz.pruebas.Main3Activity_pruebaDraft;
+import com.nbastatsquiz.pruebas.Main4Activity_pruebaCH;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
@@ -243,6 +245,22 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 fragmentoGenerico = FragmentoMenu.newInstance(null);
                 break;
 
+            case R.id.nav_draft:
+
+
+                Intent draft = new Intent(this, Main3Activity_pruebaDraft.class);
+                startActivity(draft);
+
+                break;
+
+            case R.id.nav_highs:
+
+                Intent ch = new Intent(this, Main4Activity_pruebaCH.class);
+                startActivity(ch);
+
+                break;
+
+
             case R.id.nav_myAccount:
 
                 fragmentoGenerico = FragmentoAccount.newInstance(null);
@@ -255,11 +273,11 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
                 break;
             case R.id.nav_about_us:
-                try{
-                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","nbastatsandroid@gmail.com", null));
+                try {
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "nbastatsandroid@gmail.com", null));
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "NBA Stats Season - ");
-                    startActivity(Intent.createChooser(emailIntent,  getString(R.string.enviar_mail)));
-                } catch (ActivityNotFoundException e){
+                    startActivity(Intent.createChooser(emailIntent, getString(R.string.enviar_mail)));
+                } catch (ActivityNotFoundException e) {
                     Toast.makeText(this, getText(R.string.contact_mail), Toast.LENGTH_LONG);
                 }
 

@@ -82,7 +82,7 @@ public class LstDraftsModel implements LstDraftsContract.Model {
             overallPick = "";
             roundNum = "";
             roundPick = "";
-            season = "";
+            season = "2019";
             teamID = "0";
             topX = "";
 

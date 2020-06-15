@@ -8,6 +8,18 @@
             android:icon="@drawable/ic_home"
             android:title="@string/nav_home" />
 
+        <item
+            android:id="@+id/nav_draft"
+            android:checked="true"
+            android:icon="@drawable/lottery2"
+            android:title="Draft Picks" />
+
+        <item
+            android:id="@+id/nav_highs"
+            android:checked="true"
+            android:icon="@drawable/graphic"
+            android:title="Career Highs" />
+
 
         <item
             android:id="@+id/nav_help"

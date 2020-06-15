@@ -147,10 +147,10 @@ public class FragmentoMenu extends Fragment {
         imagenPrincipal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                draft = new Intent(getActivity().getBaseContext(), Main3Activity_pruebaDraft.class);
-                ch = new Intent(getActivity().getBaseContext(), Main4Activity_pruebaCH.class);
-
-                getActivity().startActivity(ch);
+//                draft = new Intent(getActivity().getBaseContext(), Main3Activity_pruebaDraft.class);
+//                ch = new Intent(getActivity().getBaseContext(), Main4Activity_pruebaCH.class);
+//
+//                getActivity().startActivity(ch);
 
 
             }
