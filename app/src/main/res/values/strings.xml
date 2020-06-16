@@ -115,36 +115,61 @@
     <string-array name="NBA_Teams">
 
         <item>@string/MISC</item>
-        <item>All Time</item>
-        <item>2019-20</item>
-        <item>2018-19</item>
-        <item>2017-18</item>
-        <item>2016-17</item>
-        <item>2015-16</item>
-        <item>2014-15</item>
-        <item>2013-14</item>
-        <item>2012-13</item>
-        <item>2011-12</item>
-        <item>2010-11</item>
-        <item>2009-10</item>
-        <item>2008-09</item>
-        <item>2007-08</item>
-        <item>2006-07</item>
-        <item>2005-06</item>
-        <item>2004-05</item>
-        <item>2003-04</item>
-        <item>2002-03</item>
-        <item>2001-02</item>
-        <item>2000-01</item>
-        <item>1999-00</item>
-        <item>1998-99</item>
-        <item>1997-98</item>
-        <item>1996-97</item>
-        <item>1995-96</item>
-        <item>1994-95</item>
-        <item>1993-94</item>
-        <item>1992-93</item>
+        <item>Atlanta Hawks</item>
+        <item>Boston Celtics</item>
+        <item>Brooklyn Nets</item>
+        <item>Charlotte Hornets</item>
+        <item>Chicago Bulls</item>
+        <item>Cleveland Cavaliers</item>
+        <item>Dallas Mavericks</item>
+        <item>Denver Nuggets</item>
+        <item>Detroit Pistons</item>
+        <item>Golden State Warriors</item>
+        <item>Houston Rockets</item>
+        <item>Indiana Pacers</item>
+        <item>LA Clippers</item>
+        <item>Los Angeles Lakers</item>
+        <item>Memphis Grizzlies</item>
+        <item>Miami Heat</item>
+        <item>Milwaukee Bucks</item>
+        <item>Minnesota Timberwolves</item>
+        <item>New Orleans Pelicans</item>
+        <item>New York Knicks</item>
+        <item>Oklahoma City Thunder</item>
+        <item>Orlando Magic</item>
+        <item>Philadelphia 76ers</item>
+        <item>Phoenix Suns</item>
+        <item>Portland Trail Blazers</item>
+        <item>Sacramento Kings</item>
+        <item>San Antonio Spurs</item>
+        <item>Utah Jazz</item>
+        <item>Washington Wizards</item>
     </string-array>
+
+    <string-array name="Colleges">
+
+        <item>@string/MISC</item>
+        <item>FC Barcelona Basquet (Spain)</item>
+        <item>Real Madrid Baloncesto (Spain)</item>
+        <item>Arizona</item>
+        <item>Duke</item>
+        <item>Michigan State</item>
+        <item>Oklahoma</item>
+        <item>Texas</item>
+        <item>West Virginia</item>
+        <item>Alabama</item>
+        <item>Kentucky</item>
+        <item>Villanova</item>
+        <item>Boston College</item>
+        <item>Missouri</item>
+        <item>Oregon</item>
+        <item>Texas Tech</item>
+        <item>Miami (FL)</item>
+        <item>Maryland</item>
+        <item>Georgia Tech</item>
+
+    </string-array>
+
 
     <string-array name="Temporadas">
 
@@ -227,8 +252,10 @@
     <string name="enviar_mail">Send mail</string>
     <string name="contact_mail">Can contact with us sending a mail to nbastatsquiz@gmail.com</string>
 
+    <!--    DRAFT MODE-->
     <string name="team">NBA Team</string>
     <string name="college">College</string>
+    <string name="draft_question">Which pick was higher?</string>
 
 
 </resources>

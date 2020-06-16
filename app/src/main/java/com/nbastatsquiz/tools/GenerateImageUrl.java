@@ -1077,7 +1077,7 @@ public class GenerateImageUrl {
 
 
             default:
-                urlImage = "https://a.espncdn.com/i/teamlogos/nba/500/" + college + ".png";
+                urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/NCAA_logo.svg/1200px-NCAA_logo.svg.png";
 
         }
 

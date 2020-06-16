@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/floor_load_dark"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">
+
+        <ImageView
+            android:id="@+id/ivSoundDraft"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+
+            app:srcCompat="@drawable/volume_on" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDraft"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="35"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/imageViewPrincipalDraft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/draft2"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="65"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="65"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/season"
+                    android:textColor="@color/material_black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <Spinner
+                    android:id="@+id/spinnerSeasonsDraft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Temporadas"
+                    android:spinnerMode="dialog" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/college"
+                    android:textColor="@color/material_black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <Spinner
+                    android:id="@+id/spinnerCollegeDraft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:entries="@array/Colleges"
+                    android:spinnerMode="dialog" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:paddingLeft="5dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/team"
+                    android:textColor="@color/material_black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <Spinner
+                    android:id="@+id/spinnerTeamDraft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:entries="@array/NBA_Teams"
+                    android:spinnerMode="dialog" />
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+
+<!--                    android:paddingLeft="5dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:text="@string/stat_type"-->
+<!--                    android:textColor="@color/material_black"-->
+<!--                    android:textSize="18dp"-->
+<!--                    android:textStyle="bold"-->
+
+<!--                    />-->
+
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinnerDataTypeDraft"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="0dp"-->
+<!--                    android:entries="@array/TipoDatos"-->
+<!--                    android:spinnerMode="dialog" />-->
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="32"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+                <Button
+                    android:id="@+id/btnStartDraft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="50"
+                    android:background="#E48C0E"
+                    android:text="@string/btnComenzar"
+
+                    />
+
+                <Button
+                    android:id="@+id/btnRecordsDraft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="50"
+                    android:background="#2196F3"
+                    android:paddingBottom="5dp"
+                    android:text="@string/btnRecords" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+
+
+
+

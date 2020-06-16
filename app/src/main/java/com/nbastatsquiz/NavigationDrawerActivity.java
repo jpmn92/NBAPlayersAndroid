@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.fragments.FragmentoAboutUs;
 import com.nbastatsquiz.fragments.FragmentoLogin;
 import com.nbastatsquiz.fragments.FragmentoMenu;
+import com.nbastatsquiz.fragments.FragmentoMenuDraft;
 import com.nbastatsquiz.fragments.FragmentoRegister;
 import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.fragments.FragmentoTabsAyuda;
@@ -248,8 +249,9 @@ public class NavigationDrawerActivity extends AppCompatActivity {
             case R.id.nav_draft:
 
 
-                Intent draft = new Intent(this, DraftActivity.class);
-                startActivity(draft);
+                fragmentoGenerico = FragmentoMenuDraft.newInstance(null);
+//                Intent draft = new Intent(this, DraftActivity.class);
+//                startActivity(draft);
 
                 break;
 

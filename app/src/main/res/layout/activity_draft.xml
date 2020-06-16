@@ -26,7 +26,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="#FFE48C0E"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="PREGUNTA"
+                android:text="@string/draft_question"
 
                 android:textSize="30dp" />
 

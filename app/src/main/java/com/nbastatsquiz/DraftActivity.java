@@ -43,7 +43,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private NavigationDrawerActivity navigationDrawerActivity;
 
     private TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2;
-    private ImageView ivP1, ivP2, ivT1, ivT2, ivVidas;
+    private ImageView ivP1, ivP2, ivT1, ivT2, ivVidas, ivC1, ivC2;
     private LinearLayout linJ1, linJ2, linLoad;
     private RelativeLayout relCircle, relFront;
     private MediaPlayer mediaPlayer;
@@ -58,9 +58,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
     private Resources res;
 
-    private DecimalFormat df;
-
-    private float valueP1, valueP2;
+    private int valueP1, valueP2;
     private boolean gameStarted, misc, miscStats, miscSeason, sound;
     private String season, seasonType, statCategory, perMode, activeFlag, username;
     private SessionManagement sessionManagement;
@@ -80,7 +78,6 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
         sessionManagement = new SessionManagement(this);
 
-        df = new DecimalFormat("0.00");
         tiempo = 10000;
         relFront = findViewById(R.id.relFrontDraft);
         points = 0;
@@ -202,6 +199,9 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         ivP2 = findViewById(R.id.ivP2Draft);
         ivT1 = findViewById(R.id.ivTeam1Draft);
         ivT2 = findViewById(R.id.ivTeam2Draft);
+        ivC1 = findViewById(R.id.ivCollege1Draft);
+        ivC2 = findViewById(R.id.ivCollege2Draft);
+
         ivVidas = findViewById(R.id.ivVidasDraft);
         linJ1 = findViewById(R.id.linJ1Draft);
         linJ1.setOnClickListener(this);
@@ -233,7 +233,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         relFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircleDraft);
 
-        txtPregunta.setText(statCategory + " " + season);
+//        txtPregunta.setText(statCategory + " " + season);
 
 //        firebaseMethods = new FirebaseMethods(this, paramsIniciales); //TODO: CREAR CONSTRUCTOR
 //        buscarRecord(); //TODO: AUN NO HAY RECORDS
@@ -263,8 +263,8 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     }
 
     private void iluminar(String color) {
-        txtP1.setText(String.valueOf(df.format(valueP1)));
-        txtP2.setText(String.valueOf(df.format(valueP2)));
+        txtP1.setText(String.valueOf(valueP1));
+        txtP2.setText(String.valueOf(valueP2));
         relFront.setBackgroundColor(Color.parseColor(color));
         relFront.setVisibility(View.VISIBLE);
         relFront.postDelayed(new Runnable() {
@@ -322,13 +322,16 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         String url_imageTeam1 = generateImageUrl.checkTeamImage(draftPick1.getTEAM_ABBREVIATION());
         String url_imageTeam2 = generateImageUrl.checkTeamImage(draftPick2.getTEAM_ABBREVIATION());
 
+        String url_imageCollege1 = generateImageUrl.checkCollegeImage(draftPick1.getORGANIZATION());
+        String url_imageCollege2 = generateImageUrl.checkCollegeImage(draftPick2.getORGANIZATION());
 
-        String url_imagen1 = generateImageUrl.checkPlayerImage(draftPick1.getPERSON_ID().intValue());
-        String url_imagen2 = generateImageUrl.checkPlayerImage(draftPick2.getPERSON_ID().intValue());
+
+        String url_imagen1 = generateImageUrl.checkPlayerImage(draftPick1.getPERSON_ID());
+        String url_imagen2 = generateImageUrl.checkPlayerImage(draftPick2.getPERSON_ID());
 
 
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
-        switch (draftPick1.getPERSON_ID().intValue()) {
+        switch (draftPick1.getPERSON_ID()) {
             case 1122:
                 Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
                 break;
@@ -366,12 +369,15 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                 .into(ivT1);
 
+        Picasso.with(this).load(url_imageCollege1)
+                .into(ivC1);
+
         txtNameP1.setText(draftPick1.getPLAYER_NAME());
         txtNameP2.setText(draftPick2.getPLAYER_NAME());
 
 
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
-        switch (draftPick2.getPERSON_ID().intValue()) {
+        switch (draftPick2.getPERSON_ID()) {
             case 1122:
                 Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP2);
                 break;
@@ -407,6 +413,9 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                 .into(ivT2);
+
+        Picasso.with(this).load(url_imageCollege2)
+                .into(ivC2);
 
         txtPoints.setText(String.valueOf(points));
 
@@ -487,8 +496,8 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
         //TODO: si es MISC dar mas segundos
 
-       valueP1 = draftPick1.getOVERALL_PICK().intValue();
-       valueP2 = draftPick2.getOVERALL_PICK().intValue();
+        valueP1 = draftPick1.getOVERALL_PICK();
+        valueP2 = draftPick2.getOVERALL_PICK();
 
         if (myCountDownTimer != null) {
             myCountDownTimer.cancel();
@@ -622,9 +631,6 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
             //selectPlayers();
         }
     }
-
-
-
 
 
     @Override
