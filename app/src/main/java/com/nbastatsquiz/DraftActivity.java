@@ -81,8 +81,8 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         tiempo = 10000;
         relFront = findViewById(R.id.relFrontDraft);
         points = 0;
-//        params = this.getIntent().getExtras();
-//        paramsIniciales = (Bundle) params.clone();
+        params = this.getIntent().getExtras();
+        paramsIniciales = (Bundle) params.clone();
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
 //        paramsIniciales.putString("userName", username);
@@ -217,7 +217,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         progressBar = findViewById(R.id.progressBarDraft);
         progressBar.setProgress(0);
 
-        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(DraftActivity.this, R.style.Theme_AppCompat_DayNight_Dialog); //TODO: RECIEN CAMBIADO 16/06
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Cargando...");
         progressDialog.show();
@@ -426,73 +426,6 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
 
     private void calculateValues() {
-//        switch (statCategory) {
-//            case "PTS":
-//                valueP1 = leagueLeader1.getPTS().floatValue();
-//                valueP2 = leagueLeader2.getPTS().floatValue();
-//                break;
-//
-//            case "AST":
-//                valueP1 = leagueLeader1.getAST().floatValue();
-//                valueP2 = leagueLeader2.getAST().floatValue();
-//                break;
-//
-//            case "REB":
-//                valueP1 = leagueLeader1.getREB().floatValue();
-//                valueP2 = leagueLeader2.getREB().floatValue();
-//                break;
-//
-//            case "OREB":
-//                valueP1 = leagueLeader1.getOREB().floatValue();
-//                valueP2 = leagueLeader2.getOREB().floatValue();
-//                break;
-//
-//            case "DREB":
-//                valueP1 = leagueLeader1.getDREB().floatValue();
-//                valueP2 = leagueLeader2.getDREB().floatValue();
-//                break;
-//
-//            case "STL":
-//                valueP1 = leagueLeader1.getSTL().floatValue();
-//                valueP2 = leagueLeader2.getSTL().floatValue();
-//                break;
-//
-//            case "BLK":
-//                valueP1 = leagueLeader1.getBLK().floatValue();
-//                valueP2 = leagueLeader2.getBLK().floatValue();
-//                break;
-//
-//            case "TOV":
-//                valueP1 = leagueLeader1.getTOV().floatValue();
-//                valueP2 = leagueLeader2.getTOV().floatValue();
-//                break;
-//
-//            case "MIN":
-//                valueP1 = leagueLeader1.getMIN().floatValue();
-//                valueP2 = leagueLeader2.getMIN().floatValue();
-//                break;
-//
-//            case "FG3M":
-//                valueP1 = leagueLeader1.getFG3M().floatValue();
-//                valueP2 = leagueLeader2.getFG3M().floatValue();
-//                break;
-//
-//            case "FTM":
-//                valueP1 = leagueLeader1.getFTM().floatValue();
-//                valueP2 = leagueLeader2.getFTM().floatValue();
-//                break;
-//
-//            case "FG3_PCT":
-//                valueP1 = leagueLeader1.getFG3_PCT().floatValue() * 100;
-//                valueP2 = leagueLeader2.getFG3_PCT().floatValue() * 100;
-//                break;
-//
-//            case "FT_PCT":
-//                valueP1 = leagueLeader1.getFT_PCT().floatValue() * 100;
-//                valueP2 = leagueLeader2.getFT_PCT().floatValue() * 100;
-//                break;
-//        }
-
 
         //TODO: si es MISC dar mas segundos
 

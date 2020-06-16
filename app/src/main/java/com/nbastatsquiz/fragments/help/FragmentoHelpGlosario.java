@@ -1,4 +1,4 @@
-package com.nbastatsquiz.fragments;
+package com.nbastatsquiz.fragments.help;
 
 import android.os.Bundle;
 

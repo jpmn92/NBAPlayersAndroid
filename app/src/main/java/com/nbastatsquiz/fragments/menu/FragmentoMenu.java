@@ -1,4 +1,4 @@
-package com.nbastatsquiz.fragments;
+package com.nbastatsquiz.fragments.menu;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,12 +21,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.nbastatsquiz.DraftActivity;
 import com.nbastatsquiz.GameActivity;
-import com.nbastatsquiz.pruebas.Main3Activity_pruebaDraft;
+import com.nbastatsquiz.fragments.FragmentoPuntuaciones;
+import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
-import com.nbastatsquiz.pruebas.Main4Activity_pruebaCH;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.SessionManagement;
 
@@ -34,11 +33,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class FragmentoMenuDraft extends Fragment {
+public class FragmentoMenu extends Fragment {
 
-    private static FragmentoMenuDraft fragmentoMenuDraft;
+    private static FragmentoMenu fragmentoMenu;
 
-    Spinner sSeason, sTeam, sCollege;
+    Spinner sSeason, sCategory, sSeasonType, sDataType;
     Button btnStart, btnRecords;
     Resources res;
     FirebaseMethods firebaseMethods;
@@ -57,21 +56,21 @@ public class FragmentoMenuDraft extends Fragment {
         this.puntuaciones = puntuaciones;
     }
 
-    public FragmentoMenuDraft() {
+    public FragmentoMenu() {
         // Required empty public constructor
     }
 
 
-    public static FragmentoMenuDraft newInstance(Bundle datos) {
-        if (fragmentoMenuDraft == null) {
-            fragmentoMenuDraft =
-                    new FragmentoMenuDraft();
+    public static FragmentoMenu newInstance(Bundle datos) {
+        if (fragmentoMenu == null) {
+            fragmentoMenu =
+                    new FragmentoMenu();
         }
 
         if (datos != null) {
-            fragmentoMenuDraft.setArguments(datos);
+            fragmentoMenu.setArguments(datos);
         }
-        return fragmentoMenuDraft;
+        return fragmentoMenu;
     }
 
     @Override
@@ -84,39 +83,41 @@ public class FragmentoMenuDraft extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fragmento_menu_draft, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragmento_menu, container, false);
 
 
         initComponents(view);
         res = getResources();
-//        firebaseMethods = new FirebaseMethods(this);
+        firebaseMethods = new FirebaseMethods(this);
         return view;
     }
 
     private void initComponents(View view) {
 
         sessionManagement = new SessionManagement(getContext());
-        ivSound = view.findViewById(R.id.ivSoundDraft);
+        ivSound = view.findViewById(R.id.ivSound);
         checkSound();
-        ivSound.setOnClickListener(new View.OnClickListener() {
+        ivSound.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                if (sessionManagement.getSound()) {
+                if(sessionManagement.getSound()){
                     sessionManagement.saveSession(false);
-                } else {
+                }
+                else{
                     sessionManagement.saveSession(true);
                 }
                 checkSound();
             }
         });
 
-        imagenPrincipal = view.findViewById(R.id.imageViewPrincipalDraft);
-        sSeason = view.findViewById(R.id.spinnerSeasonsDraft);
-        sTeam = view.findViewById(R.id.spinnerTeamDraft);
-        sCollege = view.findViewById(R.id.spinnerCollegeDraft);
-        btnStart = view.findViewById(R.id.btnStartDraft);
-        btnRecords = view.findViewById(R.id.btnRecordsDraft);
+        imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
+        sSeason = view.findViewById(R.id.spinnerSeasons);
+        sCategory = view.findViewById(R.id.spinnerCategory);
+        sSeasonType = view.findViewById(R.id.spinnerSeasonType);
+        sDataType = view.findViewById(R.id.spinnerDataType);
+        btnStart = view.findViewById(R.id.btnStart);
+        btnRecords = view.findViewById(R.id.btnRecords);
 
         btnStart.setOnClickListener(this::onClick);
 
@@ -158,11 +159,13 @@ public class FragmentoMenuDraft extends Fragment {
     }
 
 
+
     private void checkSound() {
 
-        if (sessionManagement.getSound()) {
+        if(sessionManagement.getSound()){
             ivSound.setImageResource(R.drawable.volume_on);
-        } else {
+        }
+        else{
             ivSound.setImageResource(R.drawable.volume_off);
         }
     }
@@ -185,7 +188,6 @@ public class FragmentoMenuDraft extends Fragment {
 //        startActivity(activityPuntuaciones);
 
     }
-
     public void goToPuntuaciones() {
         // puntuaciones.sort();
 
@@ -206,6 +208,7 @@ public class FragmentoMenuDraft extends Fragment {
                 .commit();
 
 
+
     }
 
     public Bundle getParams() {
@@ -220,12 +223,22 @@ public class FragmentoMenuDraft extends Fragment {
         }
 
         paramsPartida.putString("Season", temporada);
-        String team = getParam(R.array.NBA_Teams, sTeam);
-        paramsPartida.putString("Team", team); //PerGame para por partido
+        paramsPartida.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
 
-        String college = getParam(R.array.Colleges, sCollege);
-        paramsPartida.putString("College", college);
+        String stat = getParam(R.array.TipoCategoria, sCategory);
 
+        paramsPartida.putString("StatCategory", stat); //PTS para puntos
+        // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
+
+
+        // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
+        String statMode = getParam(R.array.TipoDatos, sDataType);
+        paramsPartida.putString("PerMode", statMode); //PerGame para por partido
+//                params.putString("PerMode", "PerGame"); //PerGame para por partido
+
+        paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
+
+//        paramsPartida.putBoolean("Sound", sound);
 
         return paramsPartida;
 
@@ -236,8 +249,8 @@ public class FragmentoMenuDraft extends Fragment {
 
         if (checkInternetConnection() == true) {
             switch (v.getId()) {
-                case R.id.btnStartDraft:
-                    juego = new Intent(getActivity().getBaseContext(), DraftActivity.class);
+                case R.id.btnStart:
+                    juego = new Intent(getActivity().getBaseContext(), GameActivity.class);
                     params = new Bundle();
 
                     //parametros del modo de juego
@@ -248,21 +261,27 @@ public class FragmentoMenuDraft extends Fragment {
                     }
 
                     params.putString("Season", temporada);
+                    params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
 
-                    String team = getParam(R.array.NBA_Teams, sTeam);
+                    String stat = getParam(R.array.TipoCategoria, sCategory);
 
-                    params.putString("Team", team);
+                    params.putString("StatCategory", stat); //PTS para puntos
+                    // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
 
 
-                    String college = getParam(R.array.NBA_Teams, sCollege);
-                    params.putString("College", college);
+                    // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
+                    String statMode = getParam(R.array.TipoDatos, sDataType);
+                    params.putString("PerMode", statMode); //PerGame para por partido
+//                params.putString("PerMode", "PerGame"); //PerGame para por partido
 
-//                    params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
+                    params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
 //                params.putBoolean("Sound", sound);
 
                     checkSession();
                     break;
+
+
 
 
             }

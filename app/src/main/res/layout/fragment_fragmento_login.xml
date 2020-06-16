@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FragmentoLogin"
+    tools:context=".fragments.auth.FragmentoLogin"
     android:background="@drawable/floor_load_dark">
 
 

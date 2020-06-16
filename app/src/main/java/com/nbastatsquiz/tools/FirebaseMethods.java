@@ -23,10 +23,10 @@ import com.google.gson.Gson;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
-import com.nbastatsquiz.fragments.FragmentoAutentificacion;
-import com.nbastatsquiz.fragments.FragmentoLogin;
-import com.nbastatsquiz.fragments.FragmentoMenu;
-import com.nbastatsquiz.fragments.FragmentoRegister;
+import com.nbastatsquiz.fragments.auth.FragmentoAutentificacion;
+import com.nbastatsquiz.fragments.auth.FragmentoLogin;
+import com.nbastatsquiz.fragments.menu.FragmentoMenu;
+import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

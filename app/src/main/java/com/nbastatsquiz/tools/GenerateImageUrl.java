@@ -63,6 +63,27 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+
+            //jan vesely
+            case 202686:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4165.png";
+                break;
+
+            //aaron gray
+            case 201189:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3207.png";
+                break;
+
+            //acie law
+            case 201151:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3219.png";
+                break;
+
+            //sean may
+            case 101118:
+                urlImage = "https://s.lnb.fr/img/player/photo/32388/32388_37.png";
+                break;
+
             //ike diogu
             case 101113:
                 urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2750.png";
@@ -1072,6 +1093,9 @@ public class GenerateImageUrl {
                 break;
             case "Georgia Tech":
                 urlImage = "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F120.png";
+                break;
+            case "Vanderbilt":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/238.png";
                 break;
 
 

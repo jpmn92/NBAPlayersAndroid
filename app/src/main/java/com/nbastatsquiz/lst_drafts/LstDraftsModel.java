@@ -77,13 +77,17 @@ public class LstDraftsModel implements LstDraftsContract.Model {
 //            seasonType = bundle.getString("SeasonType");
 //            activeFlag = "YES";
 
-            college = "";
+
+            college = bundle.getString("College");
+            teamID = bundle.getString("Team");
+            season = bundle.getString("Season");
+//            college = "";
             leagueID = "00";
             overallPick = "";
             roundNum = "";
             roundPick = "";
-            season = "2018";
-            teamID = "0";
+//            season = "2018";
+//            teamID = "0";
             topX = "";
 
             //Creando el okhttpclient pasamos los headers necesarios y funciona la peticion
@@ -192,6 +196,29 @@ public class LstDraftsModel implements LstDraftsContract.Model {
                     }else{
                          draftPick = new Gson().fromJson(jsonPlayer, DraftPick.class);
 
+                    }
+
+                    //si no tiene equipo es ALLTIME, que le asocie NBA
+                    if (draftPick.getTEAM_ABBREVIATION() == null || draftPick.getTEAM_ABBREVIATION().equals("")) {
+                        draftPick.setTEAM_ABBREVIATION("NBA");
+                    }
+                    if (draftPick.getTEAM_ABBREVIATION().equalsIgnoreCase("NOP")) {
+                        draftPick.setTEAM_ABBREVIATION("NO");
+                    }
+                    if (draftPick.getTEAM_ABBREVIATION().equalsIgnoreCase("UTA")) {
+                        draftPick.setTEAM_ABBREVIATION("UTAH");
+                    }
+                    if (draftPick.getTEAM_ABBREVIATION().equalsIgnoreCase("SAN")) {
+                        draftPick.setTEAM_ABBREVIATION("SAS");
+                    }
+                    if (draftPick.getTEAM_ABBREVIATION().equalsIgnoreCase("GOS")) {
+                        draftPick.setTEAM_ABBREVIATION("GSW");
+                    }
+                    if (draftPick.getTEAM_ABBREVIATION().equalsIgnoreCase("PHL")) {
+                        draftPick.setTEAM_ABBREVIATION("PHI");
+                    }
+                    if (draftPick.getTEAM_ABBREVIATION().equalsIgnoreCase("CHH")) {
+                        draftPick.setTEAM_ABBREVIATION("CHA");
                     }
 
 

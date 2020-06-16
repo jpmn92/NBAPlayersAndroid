@@ -1,4 +1,4 @@
-package com.nbastatsquiz.fragments;
+package com.nbastatsquiz.fragments.auth;
 
 import android.content.Context;
 import android.content.Intent;

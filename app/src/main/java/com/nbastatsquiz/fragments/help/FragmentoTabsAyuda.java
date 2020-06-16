@@ -1,4 +1,4 @@
-package com.nbastatsquiz.fragments;
+package com.nbastatsquiz.fragments.help;
 
 import android.graphics.Color;
 import android.os.Bundle;

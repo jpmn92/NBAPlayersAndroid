@@ -24,19 +24,15 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.nbastatsquiz.fragments.FragmentoAboutUs;
-import com.nbastatsquiz.fragments.FragmentoLogin;
-import com.nbastatsquiz.fragments.FragmentoMenu;
-import com.nbastatsquiz.fragments.FragmentoMenuDraft;
-import com.nbastatsquiz.fragments.FragmentoRegister;
+import com.nbastatsquiz.fragments.auth.FragmentoLogin;
+import com.nbastatsquiz.fragments.menu.FragmentoMenu;
+import com.nbastatsquiz.fragments.menu.FragmentoMenuDraft;
+import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 import com.nbastatsquiz.fragments.FragmentoAccount;
-import com.nbastatsquiz.fragments.FragmentoTabsAyuda;
-import com.nbastatsquiz.pruebas.Main3Activity_pruebaDraft;
+import com.nbastatsquiz.fragments.help.FragmentoTabsAyuda;
 import com.nbastatsquiz.pruebas.Main4Activity_pruebaCH;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 

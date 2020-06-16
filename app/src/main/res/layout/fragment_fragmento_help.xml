@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nbastatsquiz.fragments.FragmentoHelpReglas">
+    tools:context="com.nbastatsquiz.fragments.help.FragmentoHelpReglas">
 
     <LinearLayout
         android:layout_width="match_parent"
