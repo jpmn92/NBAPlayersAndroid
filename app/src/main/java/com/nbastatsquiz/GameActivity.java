@@ -718,7 +718,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private Boolean checkInternetConnection() {
         boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(GameActivity.this.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             //we are connected to a network

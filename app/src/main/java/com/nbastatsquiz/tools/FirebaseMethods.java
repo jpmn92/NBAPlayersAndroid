@@ -106,8 +106,6 @@ public class FirebaseMethods extends Activity {
         String uid = mAuth.getUid();
 
 
-
-
         fbPuntuacion = new FirebasePuntuacion();
 
         if (bundle.getString("modoJuego").equalsIgnoreCase("Stats")) {
@@ -190,6 +188,9 @@ public class FirebaseMethods extends Activity {
     }
 
     public void getRecord() {
+
+        String modoJuego = bundlePartida.getString("modoJuego");
+
         ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
         reference.addValueEventListener(new ValueEventListener() {
@@ -210,18 +211,70 @@ public class FirebaseMethods extends Activity {
                     } else {
 
                         for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-                            boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode")) && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
-                                    && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory")) && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
-                                    && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
 
-                            if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
-                                puntuacion = firebasePuntuacion.getPoints();
+                            if (firebasePuntuacion.getModoJuego().equalsIgnoreCase(modoJuego)) {
+
+                                if (modoJuego.equalsIgnoreCase("Stats")) {
+
+                                    boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode"))
+                                            && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
+                                            && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory"))
+                                            && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
+                                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
+
+                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
+                                        puntuacion = firebasePuntuacion.getPoints();
+                                    }
+                                }
+
+                                if (modoJuego.equalsIgnoreCase("Draft")) {
+
+
+                                        String draftUser = firebasePuntuacion.getUsername();
+                                        String draftUserParam = bundlePartida.getString("userName");
+
+                                        String draftCollege = firebasePuntuacion.getDraftCollege();
+                                        String draftCollegeParam = bundlePartida.getString("College");
+
+
+                                        String season = firebasePuntuacion.getSeason();
+                                        String seasonParam = bundlePartida.getString("Season");
+
+                                        //como temporada necesita estar en blanco para el WS, lo pasamos a 0 que es el valor equivalente
+                                        if (seasonParam.equalsIgnoreCase("")) {
+                                            seasonParam = "0";
+                                        }
+
+                                        String draftTeam = firebasePuntuacion.getDraftTeam();
+                                        String draftTeamParam = bundlePartida.getString("Team");
+
+                                    boolean datosIguales = draftCollege.equalsIgnoreCase(draftCollegeParam)
+                                            && draftTeam.equalsIgnoreCase(draftTeamParam)
+                                            && season.equalsIgnoreCase(seasonParam)
+                                            && draftUser.equalsIgnoreCase(draftUserParam);
+
+                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
+                                        puntuacion = firebasePuntuacion.getPoints();
+                                    }
+
+                                }
+
+
                             }
+
+
                         }
 
                     }
                 }
-                gameActivity.setRecord(puntuacion);
+
+                if(modoJuego.equalsIgnoreCase("Draft")){
+                    draftActivity.setRecord(puntuacion);
+                }
+                if(modoJuego.equalsIgnoreCase("Stats")){
+                    gameActivity.setRecord(puntuacion);
+                }
+
 
             }
 
@@ -285,7 +338,7 @@ public class FirebaseMethods extends Activity {
                                 String seasonParam = paramsPartida.getString("Season");
 
                                 //como temporada necesita estar en blanco para el WS, lo pasamos a 0 que es el valor equivalente
-                                if(seasonParam.equalsIgnoreCase("")){
+                                if (seasonParam.equalsIgnoreCase("")) {
                                     seasonParam = "0";
                                 }
 
@@ -295,8 +348,8 @@ public class FirebaseMethods extends Activity {
 
                                 if (
                                         draftCollege.equalsIgnoreCase(draftCollegeParam)
-                                        && draftTeam.equalsIgnoreCase(draftTeamParam)
-                                        && season.equalsIgnoreCase(seasonParam)
+                                                && draftTeam.equalsIgnoreCase(draftTeamParam)
+                                                && season.equalsIgnoreCase(seasonParam)
 
 //                                        firebasePuntuacion.getDraftCollege().equalsIgnoreCase(paramsPartida.getString("draftCollege"))
 //                                                && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))

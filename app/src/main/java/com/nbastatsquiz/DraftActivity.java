@@ -102,7 +102,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         draftPicksGlobal = new ArrayList<>();
 
         if (misc) {
-            mezclar();
+//            mezclar();
         } else {
             lstDraftsPresenter.getDrafts(params);
         }
@@ -116,39 +116,39 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
     }
 
-    private void mezclar() {
-        if (miscStats) {
-            Resources res = getResources();
-            String[] categories = res.getStringArray(R.array.TipoCategoria);
-
-            int random = (int) (Math.random() * (categories.length - 1) + 1);
-
-            String stat = getParam(R.array.TipoCategoria, random);
-
-            params.putString("StatCategory", stat);
-            statCategory = params.getString("StatCategory");
-        }
-
-        if (statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")) {
-            params.putString("PerMode", "Totals");
-        } else {
-            params.putString("PerMode", perMode);
-        }
-
-        if (miscSeason) {
-            Resources res = getResources();
-            String[] categories = res.getStringArray(R.array.Temporadas);
-
-            int random = (int) (Math.random() * (categories.length - 1) + 1);
-
-            params.putString("Season", categories[random]);
-            season = params.getString("Season");
-        }
-
-        tiempo = 15000;
-        progressBar.setMax(14);
-        lstDraftsPresenter.getDrafts(params);
-    }
+//    private void mezclar() {
+//        if (miscStats) {
+//            Resources res = getResources();
+//            String[] categories = res.getStringArray(R.array.TipoCategoria);
+//
+//            int random = (int) (Math.random() * (categories.length - 1) + 1);
+//
+//            String stat = getParam(R.array.TipoCategoria, random);
+//
+//            params.putString("StatCategory", stat);
+//            statCategory = params.getString("StatCategory");
+//        }
+//
+//        if (statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")) {
+//            params.putString("PerMode", "Totals");
+//        } else {
+//            params.putString("PerMode", perMode);
+//        }
+//
+//        if (miscSeason) {
+//            Resources res = getResources();
+//            String[] categories = res.getStringArray(R.array.Temporadas);
+//
+//            int random = (int) (Math.random() * (categories.length - 1) + 1);
+//
+//            params.putString("Season", categories[random]);
+//            season = params.getString("Season");
+//        }
+//
+//        tiempo = 15000;
+//        progressBar.setMax(14);
+//        lstDraftsPresenter.getDrafts(params);
+//    }
 
     public String getParam(int arrayId, int pos) {
         TypedArray resourceIDS = res.obtainTypedArray(arrayId);
@@ -214,7 +214,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 //        txtPregunta.setText(statCategory + " " + season);
 
         firebaseMethods = new FirebaseMethods(DraftActivity.this, paramsIniciales); //TODO: CREAR CONSTRUCTOR
-//        buscarRecord(); //TODO: AUN NO HAY RECORDS
+        buscarRecord(); //TODO: AUN NO HAY RECORDS
     }
 
 
@@ -267,6 +267,8 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 paramsIniciales.putInt("puntos", points);
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
                 paramsIniciales.putString("modoJuego", "Draft");
+
+
                 firebaseMethods.createFbPuntuacion(paramsIniciales);
                 if (points > record) {
                     record = points;
@@ -486,7 +488,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         comprobarVidas();
         points++;
         if (misc) {
-            mezclar();
+//            mezclar();
         } else {
             continueGame();
         }
@@ -506,7 +508,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
             finishGame();
         } else {
             if (misc) {
-                mezclar();
+//                mezclar();
             } else {
                 continueGame();
             }

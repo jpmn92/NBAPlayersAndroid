@@ -668,6 +668,7 @@ public class FragmentoMenuDraft extends Fragment {
 
             paramsDraft = getParams();
             paramsDraft.putBoolean("loged", true);
+            paramsDraft.putString("userName", userName);
 
             juego.putExtra("miBundle", paramsDraft);
             getActivity().startActivity(juego);
