@@ -194,6 +194,7 @@ public class FragmentoMenu extends Fragment {
         params = getParams();
 
         params.putString("userName", getUserName());
+        params.putString("modoJuego", "Stats");
 
         Collections.sort(puntuaciones, Collections.reverseOrder());
 
@@ -221,6 +222,7 @@ public class FragmentoMenu extends Fragment {
         if (sSeason.getSelectedItemPosition() == 0) {
             temporada = "MISC";
         }
+        paramsPartida.putString("modoJuego", "Stats");
 
         paramsPartida.putString("Season", temporada);
         paramsPartida.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs

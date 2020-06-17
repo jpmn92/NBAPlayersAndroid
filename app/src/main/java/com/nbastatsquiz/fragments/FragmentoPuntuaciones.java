@@ -28,6 +28,8 @@ public class FragmentoPuntuaciones extends Fragment {
     private ArrayList<FirebasePuntuacion> listadoPuntuaciones, listadoPuntuacionesTop50, listadoRecordPersonal; // listadoRecordPersonal es de un único elemento
     TextView txtPuntuacion;
     String tipoTemporada;
+    String draftTeam, draftCollege, draftSeason;
+
     private static FragmentoPuntuaciones fragmentoPuntuaciones;
     Bundle bundle;
 
@@ -72,13 +74,56 @@ public class FragmentoPuntuaciones extends Fragment {
         myrv = view.findViewById(R.id.recycler_view_puntuaciones);
         txtPuntuacion = view.findViewById(R.id.txtPuntuaciones);
 
+
         if (listadoPuntuaciones.size() > 0) {
-            if (listadoPuntuaciones.get(0).getSeasonType().equalsIgnoreCase("Playoffs")) {
-                tipoTemporada = "PO";
+
+            if (bundle.getString("modoJuego").equalsIgnoreCase("Stats")) {
+
+                if (listadoPuntuaciones.get(0).getSeasonType().equalsIgnoreCase("Playoffs")) {
+                    tipoTemporada = "PO";
+                } else {
+                    tipoTemporada = "RS";
+                }
+                txtPuntuacion.setText(listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason() + " | " + tipoTemporada + " | " + listadoPuntuaciones.get(0).getPerMode());
+
             } else {
-                tipoTemporada = "RS";
+
+                if(listadoPuntuaciones.get(0).getDraftTeam().equalsIgnoreCase("")
+                        || listadoPuntuaciones.get(0).getDraftTeam().equalsIgnoreCase("0")
+                        || listadoPuntuaciones.get(0).getDraftTeam() == null
+                ){
+
+                    draftTeam = "MIX";
+                }else{
+                    draftTeam = listadoPuntuaciones.get(0).getDraftTeam();
+                }
+
+                if(listadoPuntuaciones.get(0).getDraftCollege().equalsIgnoreCase("")
+                        || listadoPuntuaciones.get(0).getDraftCollege().equalsIgnoreCase("0")
+                        || listadoPuntuaciones.get(0).getDraftCollege() == null
+                ){
+
+                    draftCollege = "MIX";
+                }else{
+                    draftCollege = listadoPuntuaciones.get(0).getDraftCollege();
+
+                }
+
+                if(listadoPuntuaciones.get(0).getSeason().equalsIgnoreCase("")
+                        || listadoPuntuaciones.get(0).getSeason().equalsIgnoreCase("0")
+                        || listadoPuntuaciones.get(0).getSeason() == null
+                ){
+
+                     draftSeason = "MIX";
+                }else{
+                    draftSeason = listadoPuntuaciones.get(0).getSeason();
+
+                }
+
+                txtPuntuacion.setText("Draft: "+draftSeason +" | "+draftCollege+" | "+ draftTeam);
+
             }
-            txtPuntuacion.setText(listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason() + " | " + tipoTemporada + " | " + listadoPuntuaciones.get(0).getPerMode());
+
         } else {
             txtPuntuacion.setText(R.string.no_puntuaciones);
         }

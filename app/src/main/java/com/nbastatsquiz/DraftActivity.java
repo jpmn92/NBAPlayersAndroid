@@ -235,7 +235,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
 //        txtPregunta.setText(statCategory + " " + season);
 
-//        firebaseMethods = new FirebaseMethods(this, paramsIniciales); //TODO: CREAR CONSTRUCTOR
+        firebaseMethods = new FirebaseMethods(DraftActivity.this, paramsIniciales); //TODO: CREAR CONSTRUCTOR
 //        buscarRecord(); //TODO: AUN NO HAY RECORDS
     }
 
@@ -288,6 +288,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 paramsIniciales.putString("userName", firebaseUser.getDisplayName());
                 paramsIniciales.putInt("puntos", points);
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
+                paramsIniciales.putString("modoJuego", "Draft");
                 firebaseMethods.createFbPuntuacion(paramsIniciales);
                 if (points > record) {
                     record = points;

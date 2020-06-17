@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<FirebasePuntuacion> {
 
-    String username, season, seasonType, statCategory, perMode, date, image, uid;
+    String username, season, seasonType, statCategory, perMode, date, image, uid, modoJuego, draftTeam, draftCollege;
     int points, ranking;
 
-    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, int points, String uid, int ranking) {
+    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String modoJuego, int points, String uid, int ranking, String draftTeam, String draftCollege) {
         this.username = username;
         this.season = season;
         this.seasonType = seasonType;
@@ -21,6 +21,21 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         this.image = image;
         this.uid = uid;
         this.ranking = ranking;
+        this.modoJuego = modoJuego;
+        this.draftTeam = draftTeam;
+        this.draftCollege = draftCollege;
+    }
+
+    //constructor para draft
+    public FirebasePuntuacion(String username, String season, String date, String image, String uid, String modoJuego, int points, String draftTeam) {
+        this.username = username;
+        this.season = season;
+        this.date = date;
+        this.image = image;
+        this.uid = uid;
+        this.modoJuego = modoJuego;
+        this.points = points;
+        this.draftTeam = draftTeam;
     }
 
     public FirebasePuntuacion() {
@@ -37,6 +52,9 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         image = in.readString();
         uid = in.readString();
         ranking = in.readInt();
+        modoJuego = in.readString();
+        draftTeam = in.readString();
+        draftCollege = in.readString();
     }
 
     public static final Creator<FirebasePuntuacion> CREATOR = new Creator<FirebasePuntuacion>() {
@@ -50,6 +68,30 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
             return new FirebasePuntuacion[size];
         }
     };
+
+    public String getDraftCollege() {
+        return draftCollege;
+    }
+
+    public void setDraftCollege(String draftCollege) {
+        this.draftCollege = draftCollege;
+    }
+
+    public String getDraftTeam() {
+        return draftTeam;
+    }
+
+    public void setDraftTeam(String draftTeam) {
+        this.draftTeam = draftTeam;
+    }
+
+    public String getModoJuego() {
+        return modoJuego;
+    }
+
+    public void setModoJuego(String modoJuego) {
+        this.modoJuego = modoJuego;
+    }
 
     public int getRanking() {
         return ranking;
@@ -148,6 +190,9 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         dest.writeString(image);
         dest.writeString(uid);
         dest.writeInt(ranking);
+        dest.writeString(modoJuego);
+        dest.writeString(draftTeam);
+        dest.writeString(draftCollege);
     }
 
     @Override

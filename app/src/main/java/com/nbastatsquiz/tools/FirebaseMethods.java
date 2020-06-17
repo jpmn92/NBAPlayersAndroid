@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.nbastatsquiz.DraftActivity;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
@@ -27,6 +28,7 @@ import com.nbastatsquiz.fragments.auth.FragmentoAutentificacion;
 import com.nbastatsquiz.fragments.auth.FragmentoLogin;
 import com.nbastatsquiz.fragments.menu.FragmentoMenu;
 import com.nbastatsquiz.fragments.auth.FragmentoRegister;
+import com.nbastatsquiz.fragments.menu.FragmentoMenuDraft;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +39,10 @@ import java.util.Map;
 
 public class FirebaseMethods extends Activity {
     GameActivity gameActivity;
+    DraftActivity draftActivity;
     FragmentoMenu fragmentoMenu;
+    FragmentoMenuDraft fragmentoMenuDraft;
+
     FragmentoRegister fragmentoRegister;
     FragmentoLogin fragmentoLogin;
     FragmentoAutentificacion fragmentoAutentificacion;
@@ -56,6 +61,12 @@ public class FirebaseMethods extends Activity {
 
     public FirebaseMethods(GameActivity gameActivity, Bundle bundlePartida) {
         this.gameActivity = gameActivity;
+        this.bundlePartida = bundlePartida;
+        this.puntuacion = 0;
+    }
+
+    public FirebaseMethods(DraftActivity draftActivity, Bundle bundlePartida) {
+        this.draftActivity = draftActivity;
         this.bundlePartida = bundlePartida;
         this.puntuacion = 0;
     }
@@ -80,6 +91,10 @@ public class FirebaseMethods extends Activity {
         this.fragmentoMenu = menu;
     }
 
+    public FirebaseMethods(FragmentoMenuDraft menuDraft) {
+        this.fragmentoMenuDraft = menuDraft;
+    }
+
 
     public void createFbPuntuacion(Bundle bundle) {
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -91,16 +106,80 @@ public class FirebaseMethods extends Activity {
         String uid = mAuth.getUid();
 
         fbPuntuacion = new FirebasePuntuacion();
-        fbPuntuacion.setPoints(bundle.getInt("puntos"));
-        fbPuntuacion.setDate(currentDate);
-        fbPuntuacion.setPerMode(bundle.getString("PerMode"));
-        fbPuntuacion.setSeason(bundle.getString("Season"));
-        fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
-        fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
-        fbPuntuacion.setImage(bundle.getString("image"));
-        fbPuntuacion.setUid(uid);
 
-        fbPuntuacion.setUsername(bundle.getString("userName"));
+        if (bundle.getString("modoJuego").equalsIgnoreCase("Stats")) {
+            fbPuntuacion.setPoints(bundle.getInt("puntos"));
+            fbPuntuacion.setDate(currentDate);
+            fbPuntuacion.setPerMode(bundle.getString("PerMode"));
+            fbPuntuacion.setSeason(bundle.getString("Season"));
+            fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
+            fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
+            fbPuntuacion.setImage(bundle.getString("image"));
+            fbPuntuacion.setUid(uid);
+            fbPuntuacion.setUsername(bundle.getString("userName"));
+            fbPuntuacion.setModoJuego(bundle.getString("modoJuego"));
+
+        }
+
+        if (bundle.getString("modoJuego").equalsIgnoreCase("Draft")) {
+            fbPuntuacion.setPoints(bundle.getInt("puntos"));
+            fbPuntuacion.setDate(currentDate);
+            fbPuntuacion.setImage(bundle.getString("image"));
+            fbPuntuacion.setUid(uid);
+            fbPuntuacion.setUsername(bundle.getString("userName"));
+
+            if (bundle.getString("draftTeam").equals("") || bundle.getString("draftTeam") == null) {
+                String draftTeam = "0";
+                fbPuntuacion.setDraftTeam(draftTeam);
+            } else {
+                fbPuntuacion.setDraftTeam(bundle.getString("draftTeam"));
+            }
+
+            if (bundle.getString("draftCollege").equals("") || bundle.getString("draftCollege") == null) {
+                String draftCollege = "0";
+                fbPuntuacion.setDraftCollege(draftCollege);
+            } else {
+                fbPuntuacion.setDraftCollege(bundle.getString("draftCollege"));
+            }
+
+            if (bundle.getString("Season").equals("") || bundle.getString("Season") == null) {
+                String season = "0";
+                fbPuntuacion.setSeason(season);
+            } else {
+                fbPuntuacion.setSeason(bundle.getString("Season"));
+            }
+
+
+            fbPuntuacion.setModoJuego(bundle.getString("modoJuego"));
+
+        }
+
+
+        //draft
+
+//        if(bundle.getString("draftTeam").equals("") || bundle.getString("draftTeam") == null){
+//            String draftTeam = "0";
+//            fbPuntuacion.setDraftTeam(draftTeam);
+//        }else{
+//            fbPuntuacion.setDraftTeam(bundle.getString("draftTeam"));
+//        }
+//
+//        if(bundle.getString("draftCollege").equals("") || bundle.getString("draftCollege") == null){
+//            String draftCollege = "0";
+//            fbPuntuacion.setDraftCollege(draftCollege);
+//        }else{
+//            fbPuntuacion.setDraftCollege(bundle.getString("draftCollege"));
+//        }
+//
+//        if(bundle.getString("Season").equals("") || bundle.getString("Season") == null){
+//            String season = "0";
+//            fbPuntuacion.setSeason(season);
+//        }else{
+//            fbPuntuacion.setSeason(bundle.getString("Season"));
+//        }
+//
+//
+//        fbPuntuacion.setModoJuego(bundle.getString("modoJuego"));
 
 
         reference.push().setValue(fbPuntuacion);
@@ -120,15 +199,23 @@ public class FirebaseMethods extends Activity {
                     String json = new Gson().toJson(object);
                     FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
                     fbPuntuacionList.add(fbPuntuacion);
-                }
 
-                for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-                    boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode")) && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
-                            && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory")) && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
-                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
+                    if (fbPuntuacionList.size() == 0 || fbPuntuacionList == null) {
 
-                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
-                        puntuacion = firebasePuntuacion.getPoints();
+                        puntuacion = 0;
+
+                    } else {
+
+                        for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
+                            boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode")) && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
+                                    && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory")) && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
+                                    && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
+
+                            if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
+                                puntuacion = firebasePuntuacion.getPoints();
+                            }
+                        }
+
                     }
                 }
                 gameActivity.setRecord(puntuacion);
@@ -146,6 +233,8 @@ public class FirebaseMethods extends Activity {
     public void getTopPuntuaciones(Bundle paramsPartida) {
 
         processDone = false;
+
+        String modoJuego = paramsPartida.getString("modoJuego");
 
         ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
         listadoFinal = new ArrayList<>();
@@ -166,19 +255,50 @@ public class FirebaseMethods extends Activity {
                     }
 
                     for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-//                    boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode")) && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
-//                            && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory")) && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
-//                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
 
-                        if (
-                                firebasePuntuacion.getPerMode().equalsIgnoreCase(paramsPartida.getString("PerMode"))
-                                        && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))
-                                        && firebasePuntuacion.getStatCategory().equalsIgnoreCase(paramsPartida.getString("StatCategory"))
-                                        && firebasePuntuacion.getSeasonType().equalsIgnoreCase(paramsPartida.getString("SeasonType"))) {
+                        if (firebasePuntuacion.getModoJuego().equalsIgnoreCase(modoJuego)) {
 
-                            listadoFinal.add(firebasePuntuacion);
+                            if (modoJuego.equalsIgnoreCase("Stats")) {
+
+                                if (
+                                        firebasePuntuacion.getPerMode().equalsIgnoreCase(paramsPartida.getString("PerMode"))
+                                                && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))
+                                                && firebasePuntuacion.getStatCategory().equalsIgnoreCase(paramsPartida.getString("StatCategory"))
+                                                && firebasePuntuacion.getSeasonType().equalsIgnoreCase(paramsPartida.getString("SeasonType"))) {
+
+                                    listadoFinal.add(firebasePuntuacion);
 
 
+                                }
+                            }
+
+                            if (modoJuego.equalsIgnoreCase("Draft")) {
+
+                                String draftCollege = firebasePuntuacion.getDraftCollege();
+                                String draftCollegeParam = paramsPartida.getString("College");
+
+                                String season = firebasePuntuacion.getSeason();
+                                String seasonParam = paramsPartida.getString("Season");
+
+                                String draftTeam = firebasePuntuacion.getDraftTeam();
+                                String draftTeamParam = paramsPartida.getString("Team");
+
+
+                                if (
+                                        draftCollege.equalsIgnoreCase(draftCollegeParam)
+                                        && draftTeam.equalsIgnoreCase(draftTeamParam)
+                                        && season.equalsIgnoreCase(seasonParam)
+
+//                                        firebasePuntuacion.getDraftCollege().equalsIgnoreCase(paramsPartida.getString("draftCollege"))
+//                                                && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))
+//                                                && firebasePuntuacion.getDraftTeam().equalsIgnoreCase(paramsPartida.getString("draftTeam"))
+                                ) {
+
+                                    listadoFinal.add(firebasePuntuacion);
+
+
+                                }
+                            }
                         }
 
 
@@ -186,8 +306,16 @@ public class FirebaseMethods extends Activity {
                     processDone = true;
 //                    menu.setPuntuaciones(listadoFinal);
 //                    menu.goToPuntuaciones();
-                    fragmentoMenu.setPuntuaciones(listadoFinal);
-                    fragmentoMenu.goToPuntuaciones();
+
+                    if (modoJuego.equalsIgnoreCase("Draft")) {
+                        fragmentoMenuDraft.setPuntuaciones(listadoFinal);
+                        fragmentoMenuDraft.goToPuntuaciones();
+                    }
+
+                    if (modoJuego.equalsIgnoreCase("Stats")) {
+                        fragmentoMenu.setPuntuaciones(listadoFinal);
+                        fragmentoMenu.goToPuntuaciones();
+                    }
 
 
                 }
@@ -533,10 +661,7 @@ public class FirebaseMethods extends Activity {
 
                     }
 
-                    double media = (puntosTotales/fbMisPuntuaciones.size());
-
-
-
+                    double media = (puntosTotales / fbMisPuntuaciones.size());
 
 
                     processDone = true;
