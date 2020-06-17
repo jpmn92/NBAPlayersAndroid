@@ -379,6 +379,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.nav_home).setVisible(true);
         nav_Menu.findItem(R.id.nav_myAccount).setVisible(false);
         nav_Menu.findItem(R.id.nav_logout).setVisible(false);
+        nav_Menu.findItem(R.id.nav_highs).setVisible(false);
+
 
 
     }
@@ -392,6 +394,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         nav_Menu.findItem(R.id.nav_home).setVisible(true);
         nav_Menu.findItem(R.id.nav_myAccount).setVisible(true);
         nav_Menu.findItem(R.id.nav_logout).setVisible(true);
+        nav_Menu.findItem(R.id.nav_highs).setVisible(false);
 
     }
 

@@ -81,36 +81,14 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         tiempo = 10000;
         relFront = findViewById(R.id.relFrontDraft);
         points = 0;
-        params = this.getIntent().getExtras();
+        params = this.getIntent().getBundleExtra("miBundle");
         paramsIniciales = (Bundle) params.clone();
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
-//        paramsIniciales.putString("userName", username);
 
-        // Si queremos que se guarde el id del telefono para no registrar usuarios de momento
-        // paramsIniciales.putString("userName", username + Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID));
-
-
-//        season = params.getString("Season");
-//        seasonType = params.getString("SeasonType");
-//        statCategory = params.getString("StatCategory");
-//        perMode = params.getString("PerMode");
-//        activeFlag = params.getString("ActiveFlag");
 
         res = getResources();
 
-//        if (statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")) {
-//            params.putString("PerMode", "Totals");
-//        }
-//
-//        miscStats = statCategory.equalsIgnoreCase("MISC");
-//        miscSeason = season.equalsIgnoreCase("MISC");
-//
-//        misc = (miscStats || miscSeason);
-//
-//        if (misc) {
-//            tiempo = 15000;
-//        }
 
         myCountDownTimer = new MyCountDownTimer(tiempo, 1000);
 

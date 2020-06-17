@@ -79,6 +79,11 @@ public class LstDraftsModel implements LstDraftsContract.Model {
 
 
             college = bundle.getString("College");
+
+            if(college.equalsIgnoreCase("0")){
+                college = "";
+            }
+
             teamID = bundle.getString("Team");
             season = bundle.getString("Season");
 //            college = "";

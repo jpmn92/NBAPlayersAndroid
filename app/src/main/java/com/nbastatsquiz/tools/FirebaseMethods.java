@@ -105,6 +105,9 @@ public class FirebaseMethods extends Activity {
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getUid();
 
+
+
+
         fbPuntuacion = new FirebasePuntuacion();
 
         if (bundle.getString("modoJuego").equalsIgnoreCase("Stats")) {
@@ -128,18 +131,18 @@ public class FirebaseMethods extends Activity {
             fbPuntuacion.setUid(uid);
             fbPuntuacion.setUsername(bundle.getString("userName"));
 
-            if (bundle.getString("draftTeam").equals("") || bundle.getString("draftTeam") == null) {
+            if (bundle.getString("Team").equals("") || bundle.getString("Team") == null) {
                 String draftTeam = "0";
                 fbPuntuacion.setDraftTeam(draftTeam);
             } else {
-                fbPuntuacion.setDraftTeam(bundle.getString("draftTeam"));
+                fbPuntuacion.setDraftTeam(bundle.getString("Team"));
             }
 
-            if (bundle.getString("draftCollege").equals("") || bundle.getString("draftCollege") == null) {
+            if (bundle.getString("College").equals("") || bundle.getString("College") == null) {
                 String draftCollege = "0";
                 fbPuntuacion.setDraftCollege(draftCollege);
             } else {
-                fbPuntuacion.setDraftCollege(bundle.getString("draftCollege"));
+                fbPuntuacion.setDraftCollege(bundle.getString("College"));
             }
 
             if (bundle.getString("Season").equals("") || bundle.getString("Season") == null) {
@@ -277,8 +280,14 @@ public class FirebaseMethods extends Activity {
                                 String draftCollege = firebasePuntuacion.getDraftCollege();
                                 String draftCollegeParam = paramsPartida.getString("College");
 
+
                                 String season = firebasePuntuacion.getSeason();
                                 String seasonParam = paramsPartida.getString("Season");
+
+                                //como temporada necesita estar en blanco para el WS, lo pasamos a 0 que es el valor equivalente
+                                if(seasonParam.equalsIgnoreCase("")){
+                                    seasonParam = "0";
+                                }
 
                                 String draftTeam = firebasePuntuacion.getDraftTeam();
                                 String draftTeamParam = paramsPartida.getString("Team");
