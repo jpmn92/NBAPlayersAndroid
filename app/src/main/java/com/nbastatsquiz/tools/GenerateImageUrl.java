@@ -1027,6 +1027,11 @@ public class GenerateImageUrl {
 
             //EUROPA
 
+
+            case "Paris Basket Racing":
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/c/c7/Paris_Basket_Racing_logo.gif";
+                break;
+
             case "FC Barcelona Basquet (Spain)":
                 urlImage = "https://i.pinimg.com/originals/4e/87/0c/4e870c6d61be9306bd9681554b0df83d.png";
                 break;
@@ -1035,7 +1040,91 @@ public class GenerateImageUrl {
                 urlImage = "https://upload.wikimedia.org/wikipedia/an/thumb/c/c7/Logo_Real_Madrid.svg/500px-Logo_Real_Madrid.svg.png";
                 break;
 
+            case "Limoges CSP (France)":
+                urlImage =
+                        "https://www.proballers.com/api/getTeamLogo?id=6 ";
+                break;
+
+            case "KK Olimpija (Slovenia)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/KK_Olimpija_logo.svg/1200px-KK_Olimpija_logo.svg.png";
+                break;
+
+            case "BC Lietuvos rytas (Lithuania)":
+                urlImage =
+                        "https://i.pinimg.com/originals/f3/3b/d1/f33bd10915be0a8ef261aaa34eacdb68.png";
+                break;
+
+            case "KK Partizan (Serbia)":
+                urlImage =
+                        "https://2.bp.blogspot.com/-GZCY8okzj7I/WYcqiGVhwxI/AAAAAAABN08/W_BY9yefW68ua-o_SXfm_eL-2JzRx4Y2ACLcBGAs/s1600/FK%2BPartizan.png";
+                break;
+
+            case "SIG Strasbourg (France)":
+                urlImage =
+                        "https://nakara-sport.com/wp-content/uploads/2017/09/SIG2-1.png";
+                break;
+
+            case "CB Gran Canaria (Spain)":
+                urlImage =
+                        "https://cdn.scores24.ru/upload/team/origin/701/daf/aad92bbce5b3e194eb675a80f054f72cb9.png";
+                break;
+
+            case "KK Vrsac (Serbia)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/c/c5/Kkvrsac.png";
+                break;
+
+            case "Red Star Belgrade (Serbia)":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/soccer/500/2290.png";
+                break;
+
+            case "Shanghai Sharks (China)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/3/38/Shanghai_Sharks_logo.png";
+                break;
+
+
+            //HIGH SCHOOL
+
+
+            case "Saint Vincent-Saint Mary":
+                urlImage = "https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/340/2017/12/20150221/stvm_leprechaun_white_outline_transparent_background.png";
+                break;
+
+            case "Lower Merion":
+                urlImage = "https://s3-us-west-2.amazonaws.com/scorestream-team-profile-pictures/14600/20181010205637_599_mascot720Near.png";
+                break;
+
+            case "Farragut Career Academy":
+                urlImage = "https://farragut.org/wp-content/uploads/2015/03/BluejacketsLogoVG_Tilt-Light-1.png";
+                break;
+            case "Mount Zion Christian Academy":
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/d/de/MZCS_Emblem.gift.gif/250px-MZCS_Emblem.gift.gif";
+                break;
+            case "Cypress Creek High School":
+                urlImage = "https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/1574/2018/02/09142848/logo_outline.png";
+                break;
+
+
             //NCAA
+
+            case "Santa Clara":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/2541.png";
+                break;
+
+            case "Connecticut":
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Connecticut_Huskies_logo.svg/1200px-Connecticut_Huskies_logo.svg.png";
+                break;
+
+            case "Georgetown":
+                urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Georgetown_Hoyas_logo.svg/598px-Georgetown_Hoyas_logo.svg.png";
+                break;
+
+            case "Marquette":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/269.png";
+                break;
 
             case "Arizona":
                 urlImage = "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F12.png";
@@ -1098,6 +1187,219 @@ public class GenerateImageUrl {
                 urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/238.png";
                 break;
 
+            case "Murray State":
+                urlImage = " https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F93.png ";
+                break;
+
+            case "Virginia":
+                urlImage =
+                        "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F258.png";
+                break;
+
+
+            case "North Carolina":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F153.png";
+                break;
+
+            case "Gonzaga":
+                urlImage =
+                        "https://a.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2250.png";
+                break;
+
+            case "Indiana":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F84.png";
+                break;
+
+            case "Auburn":
+                urlImage =
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2.png";
+                break;
+
+            case "Virginia Tech":
+                urlImage =
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2.png";
+                break;
+
+            case "Washington":
+                urlImage =
+                        "https://a.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F264.png";
+                break;
+
+            case "Tennessee":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/2633.png";
+                break;
+
+            case "Florida State":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/52.png";
+                break;
+
+            case "Michigan":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png";
+                break;
+
+            case "Southern California":
+                urlImage =
+                        "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F30.png";
+                break;
+
+
+            case "Georgia":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F61.png";
+                break;
+
+            case "Stanford":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/24.png";
+                break;
+
+            case "Purdue":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png";
+                break;
+
+            case "North Carolina State":
+                urlImage =
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F5642.pn";
+                break;
+
+            case "Arkansas":
+                urlImage =
+                        "https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/8.png";
+                break;
+
+
+            case "Wyoming":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/2751.png";
+                break;
+
+            case "Nebraska":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F158.png";
+                break;
+
+            case "Iowa State":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F66.png";
+                break;
+
+            case "Mississippi State":
+                urlImage =
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F344.png";
+                break;
+
+
+            case "College of Charleston":
+                urlImage =
+                        "https://a.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F232.png";
+                break;
+
+            case "San Diego":
+                urlImage =
+                        "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F21.png";
+                break;
+
+            case "Hofstra":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2275.png";
+                break;
+
+            case "California-Los Angeles":
+                urlImage =
+                        "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F26.png";
+                break;
+
+            case "Yale":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/43.png";
+                break;
+
+
+            case "Kansas":
+                urlImage =
+                        "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2305.png";
+                break;
+
+            case "Louisville":
+                urlImage =
+                        "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F97.png";
+                break;
+
+            case "Creighton":
+                urlImage =
+                        "https://a.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F156.png";
+                break;
+
+            case "Wake Forest":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/154.png";
+                break;
+
+            case "Syracuse":
+                urlImage =
+                        "https://a.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F183.png";
+                break;
+
+            case "Utah":
+                urlImage =
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F254.png";
+                break;
+
+            case "Colorado":
+                urlImage =
+                        "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F38.png";
+                break;
+
+            case "Kansas State":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/2306.png";
+                break;
+
+            case "California":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F25.png";
+                break;
+            case "Southern Methodist":
+                urlImage =
+                        "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2567.png";
+                break;
+
+            case "Oklahoma State":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/197.png";
+                break;
+
+            case "Houston":
+                urlImage =
+                        "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F17391.png";
+                break;
+
+            case "South Carolina":
+                urlImage =
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2579.png";
+                break;
+
+            case "Xavier":
+                urlImage =
+                        "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F5712.png";
+                break;
+
+            case "Valparaiso":
+                urlImage =
+                        "https://a.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2674.png";
+                break;
+
+
+            case "Clemson":
+                urlImage =
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F5629.png";
+                break;
 
 
             default:
@@ -1199,7 +1501,6 @@ public class GenerateImageUrl {
 
         return nbaPlayers.get(result).getUrlImage();
     }
-
 
 
 }
