@@ -69,6 +69,25 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:paddingRight="20dp"
+                    android:text="@string/liga"
+                    android:textColor="@color/material_black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+
+                    />
+
+                <Spinner
+                    android:id="@+id/spinnerLiga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Ligas"
+                    android:spinnerMode="dialog" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="20dp"
                     android:text="@string/season"
                     android:textColor="@color/material_black"
                     android:textSize="18dp"

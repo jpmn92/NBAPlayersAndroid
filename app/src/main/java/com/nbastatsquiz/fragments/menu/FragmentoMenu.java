@@ -37,7 +37,7 @@ public class FragmentoMenu extends Fragment {
 
     private static FragmentoMenu fragmentoMenu;
 
-    Spinner sSeason, sCategory, sSeasonType, sDataType;
+    Spinner sSeason, sCategory, sSeasonType, sDataType, sLiga;
     Button btnStart, btnRecords;
     Resources res;
     FirebaseMethods firebaseMethods;
@@ -118,6 +118,7 @@ public class FragmentoMenu extends Fragment {
         sDataType = view.findViewById(R.id.spinnerDataType);
         btnStart = view.findViewById(R.id.btnStart);
         btnRecords = view.findViewById(R.id.btnRecords);
+        sLiga = view.findViewById(R.id.spinnerLiga);
 
         btnStart.setOnClickListener(this::onClick);
 
@@ -224,6 +225,8 @@ public class FragmentoMenu extends Fragment {
         }
         paramsPartida.putString("modoJuego", "Stats");
 
+        paramsPartida.putString("liga", sLiga.getSelectedItem().toString());
+
         paramsPartida.putString("Season", temporada);
         paramsPartida.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
 
@@ -261,6 +264,9 @@ public class FragmentoMenu extends Fragment {
                     if (sSeason.getSelectedItemPosition() == 0) {
                         temporada = "MISC";
                     }
+
+                    params.putString("liga", sLiga.getSelectedItem().toString());
+
 
                     params.putString("Season", temporada);
                     params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs

@@ -63,6 +63,10 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+            //haseem thabeet
+            case 201934:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4016.png&w=350&h=254";
+                break;
 
             //jan vesely
             case 202686:
@@ -969,6 +973,45 @@ public class GenerateImageUrl {
 
             default:
                 urlImage = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/" + idJugador + ".png";
+
+        }
+
+
+        return urlImage;
+    }
+
+    public String checkWNBAPlayerImage(int idJugador) {
+
+
+        String urlImage = "";
+
+        switch (idJugador) {
+
+
+
+            default:
+                urlImage = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/wnba/" + idJugador + ".png";
+
+        }
+
+
+        return urlImage;
+    }
+    public String checkWNBATeamImage(String equipo) {
+
+        String urlImage = "";
+
+        switch (equipo) {
+
+            case "WNBA":
+//                urlImage = "https://www.goodvinilos.com/6444/pegatina-logo-nba.jpg";
+                urlImage = "https://cdn.bleacherreport.net/images/team_logos/328x328/nba.png";
+                break;
+
+
+
+            default:
+                urlImage = "https://a.espncdn.com/i/teamlogos/wnba/500/" + equipo + ".png";
 
         }
 

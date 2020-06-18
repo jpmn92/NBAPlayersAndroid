@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
     private OnLstLeagueLeaderListener onLstLeagueLeaderListener;
-    private String season, leagueID, perMode, scope, seasonType, statCategory, activeFlag;
+    private String season, leagueID, perMode, scope, seasonType, statCategory, activeFlag, liga;
     private JsonObject jsonObject;
     private LeagueLeader leagueLeader;
     private LeagueLeadersList leagueLeaderList;
@@ -40,6 +40,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
         this.statCategory = statCategory;
         this.activeFlag = activeFlag;
         this.bundle = params;
+
 
         new PeticionGetLeagueLeaders().execute();
 
@@ -60,16 +61,36 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
 
             String statsJson;
-            String url = "https://stats.nba.com/stats/";
 
             // recogemos del bundle los parametros para el WS
-            leagueID = "00";
             scope = "S";
             perMode = bundle.getString("PerMode");
             statCategory = bundle.getString("StatCategory");
             season = bundle.getString("Season");
             seasonType = bundle.getString("SeasonType");
             activeFlag = "YES";
+
+            leagueID = "00"; //PARA NBA ES "00", para WNBA es "10"
+
+            String url = "";
+            liga = bundle.getString("liga");
+
+            if (liga.equalsIgnoreCase("NBA")) {
+                url = "https://stats.nba.com/stats/";
+
+
+            }
+
+            if (liga.equalsIgnoreCase("WNBA")) {
+                url = "https://stats.wnba.com/stats/";
+
+                season = season.substring(0, season.length()-3);
+                leagueID = "10";
+
+
+
+
+            }
 
 
             Retrofit retrofit = new Retrofit.Builder()
@@ -141,28 +162,60 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                     }
 
                     //si no tiene equipo es ALLTIME, que le asocie NBA
-                    if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
-                        leagueLeader.setTEAM("NBA");
+
+                    if (liga.equalsIgnoreCase("NBA")) {
+                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+                            leagueLeader.setTEAM("NBA");
+                        }
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")) {
+                            leagueLeader.setTEAM("NO");
+                        }
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
+                            leagueLeader.setTEAM("UTAH");
+                        }
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
+                            leagueLeader.setTEAM("SAS");
+                        }
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("GOS")) {
+                            leagueLeader.setTEAM("GSW");
+                        }
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("PHL")) {
+                            leagueLeader.setTEAM("PHI");
+                        }
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("CHH")) {
+                            leagueLeader.setTEAM("CHA");
+                        }
+                    } else {
+
+                        //WNBA
                     }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")) {
-                        leagueLeader.setTEAM("NO");
-                    }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
-                        leagueLeader.setTEAM("UTAH");
-                    }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
-                        leagueLeader.setTEAM("SAS");
-                    }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("GOS")) {
-                        leagueLeader.setTEAM("GSW");
-                    }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("PHL")) {
-                        leagueLeader.setTEAM("PHI");
-                    }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("CHH")) {
-                        leagueLeader.setTEAM("CHA");
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("NYL")) {
+                        leagueLeader.setTEAM("ny");
                     }
 
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("LVA")) {
+                        leagueLeader.setTEAM("lv");
+                    }
+
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("LAS")) {
+                        leagueLeader.setTEAM("la");
+                    }
+
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("CON")) {
+                        leagueLeader.setTEAM("conn");
+                    }
+
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("PHO")) {
+                        leagueLeader.setTEAM("phx");
+                    }
+
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("MIN")) {
+                        leagueLeader.setTEAM("min");
+                    }
+
+                    if (leagueLeader.getTEAM().equalsIgnoreCase("ATL")) {
+                        leagueLeader.setTEAM("atl");
+                    }
 
 
                     leagueLeaders.add(leagueLeader);

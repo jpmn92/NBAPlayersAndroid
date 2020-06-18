@@ -151,6 +151,11 @@
         <item>1992-93</item>
     </string-array>
 
+    <string-array name="Ligas">
+        <item>NBA</item>
+        <item>WNBA</item>
+    </string-array>
+
     <string-array name="TipoTemporada">
         <item>Regular Season</item>
         <item>Playoffs</item>
@@ -190,6 +195,7 @@
     <string name="logInGoogle">Inicia sesión con Google</string>
     <string name="season">Temporada</string>
     <string name="season_type">Tipo Temporada</string>
+    <string name="liga">Liga</string>
     <string name="stat_category">Categoría estadística</string>
     <string name="stat_type">Tipo estadística</string>
     <string name="sign_up_google">Registrarse con Google</string>
