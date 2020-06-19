@@ -1003,7 +1003,7 @@ public class GenerateImageUrl {
 
         switch (equipo) {
 
-            case "WNBA":
+            case "wnba":
 //                urlImage = "https://www.goodvinilos.com/6444/pegatina-logo-nba.jpg";
                 urlImage = "https://logonoid.com/images/wnba-logo.png";
                 break;

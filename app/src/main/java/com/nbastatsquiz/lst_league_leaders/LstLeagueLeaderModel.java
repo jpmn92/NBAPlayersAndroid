@@ -190,7 +190,12 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                         //WNBA
 
+                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+                            leagueLeader.setTEAM("WNBA");
+                        }
+
                         leagueLeader.setTEAM(leagueLeader.getTEAM().toLowerCase());
+
 
                         if (leagueLeader.getTEAM().equalsIgnoreCase("nyl")) {
                             leagueLeader.setTEAM("ny");
