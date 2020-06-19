@@ -28,7 +28,7 @@ public class FragmentoPuntuaciones extends Fragment {
     private ArrayList<FirebasePuntuacion> listadoPuntuaciones, listadoPuntuacionesTop50, listadoRecordPersonal; // listadoRecordPersonal es de un único elemento
     TextView txtPuntuacion;
     String tipoTemporada;
-    String draftTeam, draftCollege, draftSeason;
+    String draftTeam, draftCollege, draftSeason, liga;
 
     private static FragmentoPuntuaciones fragmentoPuntuaciones;
     Bundle bundle;
@@ -84,7 +84,7 @@ public class FragmentoPuntuaciones extends Fragment {
                 } else {
                     tipoTemporada = "RS";
                 }
-                txtPuntuacion.setText(listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason() + " | " + tipoTemporada + " | " + listadoPuntuaciones.get(0).getPerMode());
+                txtPuntuacion.setText(listadoPuntuaciones.get(0).getLiga()+" | "+listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason() + " | " + tipoTemporada + " | " + listadoPuntuaciones.get(0).getPerMode());
 
             } else {
 

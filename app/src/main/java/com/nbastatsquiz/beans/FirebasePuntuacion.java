@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<FirebasePuntuacion> {
 
-    String username, season, seasonType, statCategory, perMode, date, image, uid, modoJuego, draftTeam, draftCollege;
+    String username, season, seasonType, statCategory, perMode, date, image, uid, modoJuego, draftTeam, draftCollege, liga;
     int points, ranking;
 
-    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String modoJuego, int points, String uid, int ranking, String draftTeam, String draftCollege) {
+    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String modoJuego, String liga, int points, String uid, int ranking, String draftTeam, String draftCollege) {
         this.username = username;
         this.season = season;
         this.seasonType = seasonType;
@@ -24,6 +24,7 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         this.modoJuego = modoJuego;
         this.draftTeam = draftTeam;
         this.draftCollege = draftCollege;
+        this.liga = liga;
     }
 
     //constructor para draft
@@ -55,6 +56,7 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         modoJuego = in.readString();
         draftTeam = in.readString();
         draftCollege = in.readString();
+        liga = in.readString();
     }
 
     public static final Creator<FirebasePuntuacion> CREATOR = new Creator<FirebasePuntuacion>() {
@@ -68,6 +70,14 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
             return new FirebasePuntuacion[size];
         }
     };
+
+    public String getLiga() {
+        return liga;
+    }
+
+    public void setLiga(String liga) {
+        this.liga = liga;
+    }
 
     public String getDraftCollege() {
         return draftCollege;
@@ -189,10 +199,11 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         dest.writeInt(points);
         dest.writeString(image);
         dest.writeString(uid);
-        dest.writeInt(ranking);
         dest.writeString(modoJuego);
         dest.writeString(draftTeam);
         dest.writeString(draftCollege);
+        dest.writeString(liga);
+        dest.writeInt(ranking);
     }
 
     @Override

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -47,6 +49,8 @@ public class FragmentoMenu extends Fragment {
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones;
     ImageView ivSound, imagenPrincipal;
+    ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA;
+
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
         return puntuaciones;
@@ -95,6 +99,9 @@ public class FragmentoMenu extends Fragment {
     private void initComponents(View view) {
 
         sessionManagement = new SessionManagement(getContext());
+        stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.Temporadas));
+        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.Years));
+
         ivSound = view.findViewById(R.id.ivSound);
         checkSound();
         ivSound.setOnClickListener(new View.OnClickListener(){
@@ -141,6 +148,34 @@ public class FragmentoMenu extends Fragment {
 
                 }
 
+
+            }
+        });
+
+        sLiga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(sLiga.getSelectedItemPosition() == 0){
+
+
+
+                    sSeason.setAdapter(stringArrayAdapterNBA);
+
+                }
+
+                if(sLiga.getSelectedItemPosition() == 1){
+
+
+                    sSeason.setAdapter(stringArrayAdapterWNBA);
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -264,6 +299,8 @@ public class FragmentoMenu extends Fragment {
                     if (sSeason.getSelectedItemPosition() == 0) {
                         temporada = "MISC";
                     }
+
+
 
                     params.putString("liga", sLiga.getSelectedItem().toString());
 

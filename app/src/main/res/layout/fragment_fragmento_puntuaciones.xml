@@ -20,7 +20,7 @@
             android:background="#FFE48C0E"
             android:text="PUNTUACIONES"
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="21dp"
             android:layout_marginBottom="5dp"/>
 
 

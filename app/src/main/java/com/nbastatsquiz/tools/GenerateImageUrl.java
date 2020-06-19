@@ -988,7 +988,6 @@ public class GenerateImageUrl {
         switch (idJugador) {
 
 
-
             default:
                 urlImage = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/wnba/" + idJugador + ".png";
 
@@ -997,6 +996,7 @@ public class GenerateImageUrl {
 
         return urlImage;
     }
+
     public String checkWNBATeamImage(String equipo) {
 
         String urlImage = "";
@@ -1005,9 +1005,32 @@ public class GenerateImageUrl {
 
             case "WNBA":
 //                urlImage = "https://www.goodvinilos.com/6444/pegatina-logo-nba.jpg";
-                urlImage = "https://cdn.bleacherreport.net/images/team_logos/328x328/nba.png";
+                urlImage = "https://logonoid.com/images/wnba-logo.png";
                 break;
 
+            case "orl":
+
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/d/d5/OrlandoMiracle.png";
+
+                break;
+
+            case "cle":
+
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/6/62/ClevelandRockers.png/220px-ClevelandRockers.png";
+
+                break;
+
+            case "mia":
+
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/MiamiSol.png/220px-MiamiSol.png";
+
+                break;
+
+            case "por":
+
+                urlImage = "https://sportsteamhistory.com/wp-content/uploads/2020/04/portland_fire_2000-2002.png";
+
+                break;
 
 
             default:

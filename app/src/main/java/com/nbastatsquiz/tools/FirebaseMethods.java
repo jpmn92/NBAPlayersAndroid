@@ -119,6 +119,7 @@ public class FirebaseMethods extends Activity {
             fbPuntuacion.setUid(uid);
             fbPuntuacion.setUsername(bundle.getString("userName"));
             fbPuntuacion.setModoJuego(bundle.getString("modoJuego"));
+            fbPuntuacion.setLiga(bundle.getString("liga"));
 
         }
 
@@ -220,7 +221,8 @@ public class FirebaseMethods extends Activity {
                                             && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
                                             && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory"))
                                             && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
-                                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"));
+                                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"))
+                                            && firebasePuntuacion.getLiga().equalsIgnoreCase(bundlePartida.getString("liga"));
 
                                     if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
                                         puntuacion = firebasePuntuacion.getPoints();
@@ -320,7 +322,9 @@ public class FirebaseMethods extends Activity {
                                         firebasePuntuacion.getPerMode().equalsIgnoreCase(paramsPartida.getString("PerMode"))
                                                 && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))
                                                 && firebasePuntuacion.getStatCategory().equalsIgnoreCase(paramsPartida.getString("StatCategory"))
-                                                && firebasePuntuacion.getSeasonType().equalsIgnoreCase(paramsPartida.getString("SeasonType"))) {
+                                                && firebasePuntuacion.getSeasonType().equalsIgnoreCase(paramsPartida.getString("SeasonType"))
+                                                && firebasePuntuacion.getLiga().equalsIgnoreCase(paramsPartida.getString("liga")))
+                                {
 
                                     listadoFinal.add(firebasePuntuacion);
 

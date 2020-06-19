@@ -84,7 +84,8 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             if (liga.equalsIgnoreCase("WNBA")) {
                 url = "https://stats.wnba.com/stats/";
 
-                season = season.substring(0, season.length()-3);
+                //con la anterior manera de obtener las temporadas recortabamos los valores
+//                season = season.substring(0, season.length()-3);
                 leagueID = "10";
 
 
@@ -188,34 +189,72 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                     } else {
 
                         //WNBA
-                    }
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("NYL")) {
-                        leagueLeader.setTEAM("ny");
+
+                        leagueLeader.setTEAM(leagueLeader.getTEAM().toLowerCase());
+
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("nyl")) {
+                            leagueLeader.setTEAM("ny");
+                        }
+
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("lva")) {
+                            leagueLeader.setTEAM("lv");
+                        }
+
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("las")) {
+                            leagueLeader.setTEAM("la");
+                        }
+
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("con")) {
+                            leagueLeader.setTEAM("conn");
+                        }
+
+                        if (leagueLeader.getTEAM().equalsIgnoreCase("pho")) {
+                            leagueLeader.setTEAM("phx");}
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("MIN")) {
+//                            leagueLeader.setTEAM("min");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("ATL")) {
+//                            leagueLeader.setTEAM("atl");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("CHI")) {
+//                            leagueLeader.setTEAM("chi");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("IND")) {
+//                            leagueLeader.setTEAM("ind");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SEA")) {
+//                            leagueLeader.setTEAM("sea");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("DAL")) {
+//                            leagueLeader.setTEAM("dal");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("TUL")) {
+//                            leagueLeader.setTEAM("tul");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
+//                            leagueLeader.setTEAM("sa");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("HOU")) {
+//                            leagueLeader.setTEAM("hou");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("HOU")) {
+//                            leagueLeader.setTEAM("hou");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAC")) {
+//                            leagueLeader.setTEAM("sac");
+//                        }
                     }
 
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("LVA")) {
-                        leagueLeader.setTEAM("lv");
-                    }
-
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("LAS")) {
-                        leagueLeader.setTEAM("la");
-                    }
-
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("CON")) {
-                        leagueLeader.setTEAM("conn");
-                    }
-
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("PHO")) {
-                        leagueLeader.setTEAM("phx");
-                    }
-
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("MIN")) {
-                        leagueLeader.setTEAM("min");
-                    }
-
-                    if (leagueLeader.getTEAM().equalsIgnoreCase("ATL")) {
-                        leagueLeader.setTEAM("atl");
-                    }
 
 
                     leagueLeaders.add(leagueLeader);
