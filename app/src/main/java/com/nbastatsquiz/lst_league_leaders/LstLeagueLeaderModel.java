@@ -75,23 +75,40 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             String url = "";
             liga = bundle.getString("liga");
 
-            if (liga.equalsIgnoreCase("NBA")) {
-                url = "https://stats.nba.com/stats/";
 
+            switch (liga) {
+
+                case "NBA":
+                    url = "https://stats.nba.com/stats/";
+                    break;
+
+                case "WNBA":
+                    url = "https://stats.wnba.com/stats/";
+                    leagueID = "10";
+                    break;
+
+                case "GLEAGUE":
+                    url = "https://stats.gleague.nba.com/stats/";
+                    leagueID = "20";
+                    break;
 
             }
 
-            if (liga.equalsIgnoreCase("WNBA")) {
-                url = "https://stats.wnba.com/stats/";
-
-                //con la anterior manera de obtener las temporadas recortabamos los valores
-//                season = season.substring(0, season.length()-3);
-                leagueID = "10";
-
-
-
-
-            }
+//            if (liga.equalsIgnoreCase("NBA")) {
+//                url = "https://stats.nba.com/stats/";
+//
+//
+//            }
+//
+//            if (liga.equalsIgnoreCase("WNBA")) {
+//                url = "https://stats.wnba.com/stats/";
+//
+//                //con la anterior manera de obtener las temporadas recortabamos los valores
+////                season = season.substring(0, season.length()-3);
+//                leagueID = "10";
+//
+//
+//            }
 
 
             Retrofit retrofit = new Retrofit.Builder()
@@ -164,101 +181,134 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                     //si no tiene equipo es ALLTIME, que le asocie NBA
 
-                    if (liga.equalsIgnoreCase("NBA")) {
-                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
-                            leagueLeader.setTEAM("NBA");
-                        }
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")) {
-                            leagueLeader.setTEAM("NO");
-                        }
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
-                            leagueLeader.setTEAM("UTAH");
-                        }
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
-                            leagueLeader.setTEAM("SAS");
-                        }
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("GOS")) {
-                            leagueLeader.setTEAM("GSW");
-                        }
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("PHL")) {
-                            leagueLeader.setTEAM("PHI");
-                        }
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("CHH")) {
-                            leagueLeader.setTEAM("CHA");
-                        }
-                    } else {
 
-                        //WNBA
+                    switch (liga) {
 
-                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
-                            leagueLeader.setTEAM("WNBA");
-                        }
+                        case "NBA":
 
-                        leagueLeader.setTEAM(leagueLeader.getTEAM().toLowerCase());
+                            if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+                                leagueLeader.setTEAM("NBA");
+                            }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")) {
+                                leagueLeader.setTEAM("NO");
+                            }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
+                                leagueLeader.setTEAM("UTAH");
+                            }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
+                                leagueLeader.setTEAM("SAS");
+                            }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("GOS")) {
+                                leagueLeader.setTEAM("GSW");
+                            }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("PHL")) {
+                                leagueLeader.setTEAM("PHI");
+                            }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("CHH")) {
+                                leagueLeader.setTEAM("CHA");
+                            }
+
+                            break;
+
+                        case "WNBA":
+
+                            if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+                                leagueLeader.setTEAM("WNBA");
+                            }
+
+                            leagueLeader.setTEAM(leagueLeader.getTEAM().toLowerCase());
 
 
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("nyl")) {
-                            leagueLeader.setTEAM("ny");
-                        }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("nyl")) {
+                                leagueLeader.setTEAM("ny");
+                            }
 
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("lva")) {
-                            leagueLeader.setTEAM("lv");
-                        }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("lva")) {
+                                leagueLeader.setTEAM("lv");
+                            }
 
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("las")) {
-                            leagueLeader.setTEAM("la");
-                        }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("las")) {
+                                leagueLeader.setTEAM("la");
+                            }
 
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("con")) {
-                            leagueLeader.setTEAM("conn");
-                        }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("con")) {
+                                leagueLeader.setTEAM("conn");
+                            }
 
-                        if (leagueLeader.getTEAM().equalsIgnoreCase("pho")) {
-                            leagueLeader.setTEAM("phx");}
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("MIN")) {
-//                            leagueLeader.setTEAM("min");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("ATL")) {
-//                            leagueLeader.setTEAM("atl");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("CHI")) {
-//                            leagueLeader.setTEAM("chi");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("IND")) {
-//                            leagueLeader.setTEAM("ind");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SEA")) {
-//                            leagueLeader.setTEAM("sea");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("DAL")) {
-//                            leagueLeader.setTEAM("dal");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("TUL")) {
-//                            leagueLeader.setTEAM("tul");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
-//                            leagueLeader.setTEAM("sa");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("HOU")) {
-//                            leagueLeader.setTEAM("hou");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("HOU")) {
-//                            leagueLeader.setTEAM("hou");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAC")) {
-//                            leagueLeader.setTEAM("sac");
-//                        }
+                            if (leagueLeader.getTEAM().equalsIgnoreCase("pho")) {
+                                leagueLeader.setTEAM("phx");
+                            }
+
+                            break;
+
+                        case "GLEAGUE":
+
+
+                            if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+                                leagueLeader.setTEAM("GLEAGUE");
+                            }
+
+                            leagueLeader.setTEAM(leagueLeader.getTEAM().toLowerCase());
+
+
+                            break;
+
                     }
 
+//                    if (liga.equalsIgnoreCase("NBA")) {
+//                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+//                            leagueLeader.setTEAM("NBA");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")) {
+//                            leagueLeader.setTEAM("NO");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
+//                            leagueLeader.setTEAM("UTAH");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
+//                            leagueLeader.setTEAM("SAS");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("GOS")) {
+//                            leagueLeader.setTEAM("GSW");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("PHL")) {
+//                            leagueLeader.setTEAM("PHI");
+//                        }
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("CHH")) {
+//                            leagueLeader.setTEAM("CHA");
+//                        }
+//                    } else {
+//
+//                        //WNBA
+//
+//                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
+//                            leagueLeader.setTEAM("WNBA");
+//                        }
+//
+//                        leagueLeader.setTEAM(leagueLeader.getTEAM().toLowerCase());
+//
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("nyl")) {
+//                            leagueLeader.setTEAM("ny");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("lva")) {
+//                            leagueLeader.setTEAM("lv");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("las")) {
+//                            leagueLeader.setTEAM("la");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("con")) {
+//                            leagueLeader.setTEAM("conn");
+//                        }
+//
+//                        if (leagueLeader.getTEAM().equalsIgnoreCase("pho")) {
+//                            leagueLeader.setTEAM("phx");
+//                        }
+////
+//                    }
 
 
                     leagueLeaders.add(leagueLeader);

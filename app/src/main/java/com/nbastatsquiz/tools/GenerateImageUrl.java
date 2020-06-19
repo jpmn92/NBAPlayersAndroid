@@ -55,6 +55,7 @@ public class GenerateImageUrl {
         return nbaPlayers;
     }
 
+    //NBA
 
     public String checkPlayerImage(int idJugador) {
 
@@ -980,6 +981,7 @@ public class GenerateImageUrl {
         return urlImage;
     }
 
+//WNBA
     public String checkWNBAPlayerImage(int idJugador) {
 
 
@@ -1005,7 +1007,7 @@ public class GenerateImageUrl {
 
             case "wnba":
 //                urlImage = "https://www.goodvinilos.com/6444/pegatina-logo-nba.jpg";
-                urlImage = "https://logonoid.com/images/wnba-logo.png";
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/wnba.png&w=288&h=288&transparent=true";
                 break;
 
             case "orl":
@@ -1041,6 +1043,9 @@ public class GenerateImageUrl {
 
         return urlImage;
     }
+
+    //NCAA
+
 
     public String checkTeamImage(String equipo) {
 
@@ -1470,6 +1475,48 @@ public class GenerateImageUrl {
 
             default:
                 urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/NCAA_logo.svg/1200px-NCAA_logo.svg.png";
+
+        }
+
+
+        return urlImage;
+    }
+
+    //GLEAGUE
+
+    public String checkGLeaguePlayerImage(int idJugador) {
+
+
+        String urlImage = "";
+
+        switch (idJugador) {
+
+
+            default:
+                urlImage = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/dleague/" + idJugador + ".png";
+
+        }
+
+
+        return urlImage;
+    }
+
+    public String checkGLeagueTeamImage(String equipo) {
+
+        String urlImage = "";
+
+        switch (equipo) {
+
+            case "gleague":
+//                urlImage = "https://www.goodvinilos.com/6444/pegatina-logo-nba.jpg";
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/wnba.png&w=288&h=288&transparent=true";
+                break;
+
+
+
+            default:
+                urlImage = "https://a.espncdn.com/i/teamlogos/nba-development/500-dark/" + equipo + ".png";
+
 
         }
 

@@ -224,7 +224,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(0);
 
-        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(GameActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Cargando...");
         progressDialog.show();
@@ -326,29 +326,69 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private void recogerDatos() {
 
-        String url_imageTeam1;
-        String url_imageTeam2;
-        String url_imagen1;
-        String url_imagen2;
+        String url_imageTeam1 = "";
+        String url_imageTeam2 = "";
+        String url_imagen1 = "";
+        String url_imagen2 = "";
 
         String liga = paramsIniciales.getString("liga");
 
-        if (paramsIniciales.getString("liga").equalsIgnoreCase("NBA")) {
-            url_imageTeam1 = generateImageUrl.checkTeamImage(leagueLeader1.getTEAM());
-            url_imageTeam2 = generateImageUrl.checkTeamImage(leagueLeader2.getTEAM());
 
 
-            url_imagen1 = generateImageUrl.checkPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
-            url_imagen2 = generateImageUrl.checkPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
-        } else {
+        switch (liga) {
 
-            url_imageTeam1 = generateImageUrl.checkWNBATeamImage(leagueLeader1.getTEAM());
-            url_imageTeam2 = generateImageUrl.checkWNBATeamImage(leagueLeader2.getTEAM());
+            case "NBA":
+
+                url_imageTeam1 = generateImageUrl.checkTeamImage(leagueLeader1.getTEAM());
+                url_imageTeam2 = generateImageUrl.checkTeamImage(leagueLeader2.getTEAM());
 
 
-            url_imagen1 = generateImageUrl.checkWNBAPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
-            url_imagen2 = generateImageUrl.checkWNBAPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
+                url_imagen1 = generateImageUrl.checkPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
+                url_imagen2 = generateImageUrl.checkPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
+
+                break;
+
+            case "WNBA":
+
+                url_imageTeam1 = generateImageUrl.checkWNBATeamImage(leagueLeader1.getTEAM());
+                url_imageTeam2 = generateImageUrl.checkWNBATeamImage(leagueLeader2.getTEAM());
+
+
+                url_imagen1 = generateImageUrl.checkWNBAPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
+                url_imagen2 = generateImageUrl.checkWNBAPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
+
+                break;
+
+            case "GLEAGUE":
+
+                url_imageTeam1 = generateImageUrl.checkGLeagueTeamImage(leagueLeader1.getTEAM());
+                url_imageTeam2 = generateImageUrl.checkGLeagueTeamImage(leagueLeader2.getTEAM());
+
+
+                url_imagen1 = generateImageUrl.checkGLeaguePlayerImage(leagueLeader1.getPLAYER_ID().intValue());
+                url_imagen2 = generateImageUrl.checkGLeaguePlayerImage(leagueLeader2.getPLAYER_ID().intValue());
+
+
+                break;
+
         }
+
+//        if (paramsIniciales.getString("liga").equalsIgnoreCase("NBA")) {
+//            url_imageTeam1 = generateImageUrl.checkTeamImage(leagueLeader1.getTEAM());
+//            url_imageTeam2 = generateImageUrl.checkTeamImage(leagueLeader2.getTEAM());
+//
+//
+//            url_imagen1 = generateImageUrl.checkPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
+//            url_imagen2 = generateImageUrl.checkPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
+//        } else {
+//
+//            url_imageTeam1 = generateImageUrl.checkWNBATeamImage(leagueLeader1.getTEAM());
+//            url_imageTeam2 = generateImageUrl.checkWNBATeamImage(leagueLeader2.getTEAM());
+//
+//
+//            url_imagen1 = generateImageUrl.checkWNBAPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
+//            url_imagen2 = generateImageUrl.checkWNBAPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
+//        }
 
 
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon

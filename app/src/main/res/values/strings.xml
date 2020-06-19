@@ -237,6 +237,8 @@
     <string-array name="Ligas">
         <item>NBA</item>
         <item>WNBA</item>
+        <item>GLEAGUE</item>
+
     </string-array>
 
     <string-array name="TipoTemporada">
