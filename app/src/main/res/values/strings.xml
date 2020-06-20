@@ -226,8 +226,22 @@
         <item>1999</item>
         <item>1998</item>
         <item>1997</item>
+        <item>1996</item>
+        <item>1995</item>
+        <item>1994</item>
+        <item>1993</item>
+        <item>1992</item>
+        <item>1991</item>
+        <item>1990</item>
+        <item>1989</item>
+        <item>1988</item>
+        <item>1987</item>
+        <item>1986</item>
+        <item>1985</item>
+        <item>1984</item>
 
     </string-array>
+
 
     <string-array name="Temporadas">
 
@@ -261,6 +275,9 @@
         <item>1994-95</item>
         <item>1993-94</item>
         <item>1992-93</item>
+        <item>1991-92</item>
+        <item>1990-91</item>
+        <item>1989-90</item>
     </string-array>
 
 
