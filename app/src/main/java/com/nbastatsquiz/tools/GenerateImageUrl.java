@@ -64,6 +64,33 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+
+            //claver
+            case 201964:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3972.png&w=350&h=254";
+                break;
+
+            //earl clark
+            case 201947:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3971.png&w=350&h=254";
+                break;
+
+            //byron mullens
+            case 201957:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4005.png";
+                break;
+
+
+            //beaubois
+            case 201958:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3963.png";
+                break;
+
+            //shasha pavlovic
+            case 2562:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2172.png";
+                break;
+
             //haseem thabeet
             case 201934:
                 urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4016.png&w=350&h=254";
