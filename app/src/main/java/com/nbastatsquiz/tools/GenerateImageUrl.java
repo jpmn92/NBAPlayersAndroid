@@ -1509,7 +1509,7 @@ public class GenerateImageUrl {
 
             case "gleague":
 //                urlImage = "https://www.goodvinilos.com/6444/pegatina-logo-nba.jpg";
-                urlImage = "https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/wnba.png&w=288&h=288&transparent=true";
+                urlImage = "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fleagues%2F500%2Fnba_gleague.png";
                 break;
 
 

@@ -49,7 +49,7 @@ public class FragmentoMenu extends Fragment {
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones;
     ImageView ivSound, imagenPrincipal;
-    ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA;
+    ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA, stringArrayAdapterGLEAGUE;
 
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
@@ -100,7 +100,8 @@ public class FragmentoMenu extends Fragment {
 
         sessionManagement = new SessionManagement(getContext());
         stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.Temporadas));
-        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.Years));
+        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasWNBA));
+        stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
 
         ivSound = view.findViewById(R.id.ivSound);
         checkSound();
@@ -168,6 +169,13 @@ public class FragmentoMenu extends Fragment {
 
 
                     sSeason.setAdapter(stringArrayAdapterWNBA);
+
+                }
+
+                if(sLiga.getSelectedItemPosition() == 2){
+
+
+                    sSeason.setAdapter(stringArrayAdapterGLEAGUE);
 
                 }
 

@@ -81,7 +81,7 @@
                     android:id="@+id/spinnerSeasonsDraft"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/Years"
+                    android:entries="@array/DraftYears"
                     android:spinnerMode="dialog" />
 
                 <TextView

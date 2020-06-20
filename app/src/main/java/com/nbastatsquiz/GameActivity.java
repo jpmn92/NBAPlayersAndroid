@@ -69,7 +69,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private float valueP1, valueP2;
     private boolean gameStarted, misc, miscStats, miscSeason, sound;
-    private String season, seasonType, statCategory, perMode, activeFlag, username;
+    private String season, seasonType, statCategory, perMode, activeFlag, username, liga;
     private SessionManagement sessionManagement;
 
     private GenerateImageUrl generateImageUrl;
@@ -105,6 +105,8 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         statCategory = params.getString("StatCategory");
         perMode = params.getString("PerMode");
         activeFlag = params.getString("ActiveFlag");
+
+        liga = paramsIniciales.getString("liga");
 
 
         res = getResources();
@@ -149,9 +151,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void mezclar() {
+
+
         if (miscStats) {
             Resources res = getResources();
             String[] categories = res.getStringArray(R.array.TipoCategoria);
+
 
             int random = (int) (Math.random() * (categories.length - 1) + 1);
 
@@ -170,6 +175,27 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         if (miscSeason) {
             Resources res = getResources();
             String[] categories = res.getStringArray(R.array.Temporadas);
+
+
+            switch (liga) {
+
+                case "NBA":
+                    categories = res.getStringArray(R.array.Temporadas);
+                    break;
+
+                case "WNBA":
+                    categories = res.getStringArray(R.array.TemporadasWNBA);
+                    break;
+
+                case "GLEAGUE":
+                    categories = res.getStringArray(R.array.TemporadasGLEAGUE);
+                    break;
+
+
+            }
+
+
+//            String[] categories = res.getStringArray(R.array.Temporadas);
 
             int random = (int) (Math.random() * (categories.length - 1) + 1);
 
@@ -334,7 +360,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         String liga = paramsIniciales.getString("liga");
 
 
-
         switch (liga) {
 
             case "NBA":
@@ -372,23 +397,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 break;
 
         }
-
-//        if (paramsIniciales.getString("liga").equalsIgnoreCase("NBA")) {
-//            url_imageTeam1 = generateImageUrl.checkTeamImage(leagueLeader1.getTEAM());
-//            url_imageTeam2 = generateImageUrl.checkTeamImage(leagueLeader2.getTEAM());
-//
-//
-//            url_imagen1 = generateImageUrl.checkPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
-//            url_imagen2 = generateImageUrl.checkPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
-//        } else {
-//
-//            url_imageTeam1 = generateImageUrl.checkWNBATeamImage(leagueLeader1.getTEAM());
-//            url_imageTeam2 = generateImageUrl.checkWNBATeamImage(leagueLeader2.getTEAM());
-//
-//
-//            url_imagen1 = generateImageUrl.checkWNBAPlayerImage(leagueLeader1.getPLAYER_ID().intValue());
-//            url_imagen2 = generateImageUrl.checkWNBAPlayerImage(leagueLeader2.getPLAYER_ID().intValue());
-//        }
 
 
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon

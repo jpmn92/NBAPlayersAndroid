@@ -255,60 +255,6 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                     }
 
-//                    if (liga.equalsIgnoreCase("NBA")) {
-//                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
-//                            leagueLeader.setTEAM("NBA");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("NOP")) {
-//                            leagueLeader.setTEAM("NO");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("UTA")) {
-//                            leagueLeader.setTEAM("UTAH");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("SAN")) {
-//                            leagueLeader.setTEAM("SAS");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("GOS")) {
-//                            leagueLeader.setTEAM("GSW");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("PHL")) {
-//                            leagueLeader.setTEAM("PHI");
-//                        }
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("CHH")) {
-//                            leagueLeader.setTEAM("CHA");
-//                        }
-//                    } else {
-//
-//                        //WNBA
-//
-//                        if (leagueLeader.getTEAM() == null || leagueLeader.getTEAM().equals("")) {
-//                            leagueLeader.setTEAM("WNBA");
-//                        }
-//
-//                        leagueLeader.setTEAM(leagueLeader.getTEAM().toLowerCase());
-//
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("nyl")) {
-//                            leagueLeader.setTEAM("ny");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("lva")) {
-//                            leagueLeader.setTEAM("lv");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("las")) {
-//                            leagueLeader.setTEAM("la");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("con")) {
-//                            leagueLeader.setTEAM("conn");
-//                        }
-//
-//                        if (leagueLeader.getTEAM().equalsIgnoreCase("pho")) {
-//                            leagueLeader.setTEAM("phx");
-//                        }
-////
-//                    }
 
 
                     leagueLeaders.add(leagueLeader);
