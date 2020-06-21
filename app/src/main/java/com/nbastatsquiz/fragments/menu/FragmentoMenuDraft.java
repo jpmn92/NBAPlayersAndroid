@@ -123,13 +123,13 @@ public class FragmentoMenuDraft extends Fragment {
                 if (checkInternetConnection() == true) {
 
 
-                    if (sSeason.getSelectedItemPosition() == 0 && sCollege.getSelectedItemPosition() == 0 && sTeam.getSelectedItemPosition() == 0) {
-                        Toast.makeText(getContext(), "Modo de juego prohibido", Toast.LENGTH_SHORT).show();
-                    } else {
+//                    if (sSeason.getSelectedItemPosition() == 0 && sCollege.getSelectedItemPosition() == 0 && sTeam.getSelectedItemPosition() == 0) {
+//                        Toast.makeText(getContext(), "Modo de juego prohibido", Toast.LENGTH_SHORT).show();
+//                    } else {
 
-                        juego = new Intent(getActivity().getBaseContext(), DraftActivity.class);
-                        params = new Bundle();
-                        //parametros del modo de juego
+                    juego = new Intent(getActivity().getBaseContext(), DraftActivity.class);
+                    params = new Bundle();
+                    //parametros del modo de juego
 //                        String temporada = sSeason.getSelectedItem().toString();
 //
 //                        if (sSeason.getSelectedItemPosition() == 0) {
@@ -324,10 +324,10 @@ public class FragmentoMenuDraft extends Fragment {
 //                        }
 //
 //                        params.putString("draftCollege", college);
-                        checkSession();
+                    checkSession();
 
 
-                    }
+//                    }
 
 
                 } else {
@@ -429,213 +429,211 @@ public class FragmentoMenuDraft extends Fragment {
 
         Bundle paramsPartida = new Bundle();
 
-        if (sSeason.getSelectedItemPosition() == 0 && sCollege.getSelectedItemPosition() == 0 && sTeam.getSelectedItemPosition() == 0) {
-            Toast.makeText(getContext(), "Modo de juego prohibido", Toast.LENGTH_SHORT).show();
-            paramsPartida = null;
-        } else {
+//        if (sSeason.getSelectedItemPosition() == 0 && sCollege.getSelectedItemPosition() == 0 && sTeam.getSelectedItemPosition() == 0) {
+//            Toast.makeText(getContext(), "Modo de juego prohibido", Toast.LENGTH_SHORT).show();
+//            paramsPartida = null;
+//        } else {
 
-            //parametros del modo de juego
+        //parametros del modo de juego
 
-            paramsPartida.putString("modoJuego", "Draft");
+        paramsPartida.putString("modoJuego", "Draft");
 
 
-            String temporada = "";
-            if (sSeason.getSelectedItemPosition() == 0) {
-                temporada = "";
-            } else {
-                temporada = sSeason.getSelectedItem().toString();
+        String temporada = "";
+//            if (sSeason.getSelectedItemPosition() == 0) {
+//                temporada = "";
+//            } else {
 
-            }
 
-            paramsPartida.putString("Season", temporada);
+        temporada = sSeason.getSelectedItem().toString();
 
 
-//                    String team = getParam(R.array.NBA_Teams, sTeam);
-            String team = sTeam.getSelectedItem().toString();
+        paramsPartida.putString("Season", temporada);
 
-            String teamParam = "0";
+        String team = sTeam.getSelectedItem().toString();
 
-            switch (team) {
-                case "Atlanta Hawks":
+        String teamParam = "0";
 
-                    teamParam = "1610612737";
+        switch (team) {
+            case "Atlanta Hawks":
 
-                    break;
+                teamParam = "1610612737";
 
-                case "Boston Celtics":
+                break;
 
-                    teamParam = "1610612738";
+            case "Boston Celtics":
 
-                    break;
+                teamParam = "1610612738";
 
-                case "Brooklyn Nets":
+                break;
 
-                    teamParam = "1610612751";
+            case "Brooklyn Nets":
 
-                    break;
+                teamParam = "1610612751";
 
-                case "Charlotte Hornets":
+                break;
 
-                    teamParam = "1610612766";
+            case "Charlotte Hornets":
 
-                    break;
+                teamParam = "1610612766";
 
-                case "Chicago Bulls":
+                break;
 
-                    teamParam = "1610612741";
+            case "Chicago Bulls":
 
-                    break;
+                teamParam = "1610612741";
 
-                case "Cleveland Cavaliers":
+                break;
 
-                    teamParam = "1610612739";
+            case "Cleveland Cavaliers":
 
-                    break;
+                teamParam = "1610612739";
 
-                case "Dallas Mavericks":
+                break;
 
-                    teamParam = "1610612742";
+            case "Dallas Mavericks":
 
-                    break;
+                teamParam = "1610612742";
 
-                case "Denver Nuggets":
+                break;
 
-                    teamParam = "1610612743";
+            case "Denver Nuggets":
 
-                    break;
+                teamParam = "1610612743";
 
-                case "Golden State Warriors":
+                break;
 
-                    teamParam = "1610612744";
+            case "Golden State Warriors":
 
-                    break;
-                case "Houston Rockets":
+                teamParam = "1610612744";
 
-                    teamParam = "1610612745";
+                break;
+            case "Houston Rockets":
 
-                    break;
-                case "Indiana Pacers":
+                teamParam = "1610612745";
 
-                    teamParam = "1610612754";
+                break;
+            case "Indiana Pacers":
 
-                    break;
-                case "LA Clippers":
+                teamParam = "1610612754";
 
-                    teamParam = "1610612746";
+                break;
+            case "LA Clippers":
 
-                    break;
-                case "Los Angeles Lakers":
+                teamParam = "1610612746";
 
-                    teamParam = "1610612747";
+                break;
+            case "Los Angeles Lakers":
 
-                    break;
-                case "Memphis Grizzlies":
+                teamParam = "1610612747";
 
-                    teamParam = "1610612763";
+                break;
+            case "Memphis Grizzlies":
 
-                    break;
-                case "Miami Heat":
+                teamParam = "1610612763";
 
-                    teamParam = "1610612748";
+                break;
+            case "Miami Heat":
 
-                    break;
+                teamParam = "1610612748";
 
-                case "Milwaukee Bucks":
+                break;
 
-                    teamParam = "1610612749";
+            case "Milwaukee Bucks":
 
-                    break;
+                teamParam = "1610612749";
 
-                case "Minnesota Timberwolves":
+                break;
 
-                    teamParam = "1610612750";
+            case "Minnesota Timberwolves":
 
-                    break;
+                teamParam = "1610612750";
 
-                case "New Orleans Pelicans":
+                break;
 
-                    teamParam = "1610612740";
+            case "New Orleans Pelicans":
 
-                    break;
+                teamParam = "1610612740";
 
+                break;
 
-                case "New York Knicks":
 
-                    teamParam = "1610612752";
+            case "New York Knicks":
 
-                    break;
-                case "Oklahoma City Thunder":
+                teamParam = "1610612752";
 
-                    teamParam = "1610612760";
+                break;
+            case "Oklahoma City Thunder":
 
-                    break;
-                case "Orlando Magic":
+                teamParam = "1610612760";
 
-                    teamParam = "1610612753";
+                break;
+            case "Orlando Magic":
 
-                    break;
-                case "Philadelphia 76ers":
+                teamParam = "1610612753";
 
-                    teamParam = "1610612755";
+                break;
+            case "Philadelphia 76ers":
 
-                    break;
-                case "Phoenix Suns":
+                teamParam = "1610612755";
 
-                    teamParam = "1610612748";
+                break;
+            case "Phoenix Suns":
 
-                    break;
+                teamParam = "1610612748";
 
-                case "Portland Trail Blazers":
+                break;
 
-                    teamParam = "1610612757";
+            case "Portland Trail Blazers":
 
-                    break;
-                case "Sacramento Kings":
+                teamParam = "1610612757";
 
-                    teamParam = "1610612758";
+                break;
+            case "Sacramento Kings":
 
-                    break;
-                case "San Antonio Spurs":
+                teamParam = "1610612758";
 
-                    teamParam = "1610612759";
+                break;
+            case "San Antonio Spurs":
 
-                    break;
-                case "Toronto Raptors":
+                teamParam = "1610612759";
 
-                    teamParam = "1610612761";
+                break;
+            case "Toronto Raptors":
 
-                    break;
-                case "Utah Jazz":
+                teamParam = "1610612761";
 
-                    teamParam = "1610612762";
+                break;
+            case "Utah Jazz":
 
-                    break;
+                teamParam = "1610612762";
 
-                case "Washington Wizards":
+                break;
 
-                    teamParam = "1610612764";
+            case "Washington Wizards":
 
-                    break;
+                teamParam = "1610612764";
 
+                break;
 
-            }
 
+        }
 
-            paramsPartida.putString("Team", teamParam);
+
+        paramsPartida.putString("Team", teamParam);
 
 
 //                    String college = getParam(R.array.Colleges, sCollege);
-            String college = "";
+        String college = "";
 
-            if (sCollege.getSelectedItemPosition() == 0) {
-                college = "0";
-            } else {
-                college = sCollege.getSelectedItem().toString();
-            }
-
-            paramsPartida.putString("College", college);
-
+        if (sCollege.getSelectedItemPosition() == 0) {
+            college = "0";
+        } else {
+            college = sCollege.getSelectedItem().toString();
         }
+
+        paramsPartida.putString("College", college);
+
 
         return paramsPartida;
 

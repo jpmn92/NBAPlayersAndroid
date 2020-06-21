@@ -99,9 +99,9 @@ public class FragmentoMenu extends Fragment {
     private void initComponents(View view) {
 
         sessionManagement = new SessionManagement(getContext());
-        stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.Temporadas));
-        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasWNBA));
-        stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
+        stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.Temporadas));
+        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasWNBA));
+        stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
 
         ivSound = view.findViewById(R.id.ivSound);
         checkSound();
@@ -152,6 +152,7 @@ public class FragmentoMenu extends Fragment {
 
             }
         });
+
 
         sLiga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

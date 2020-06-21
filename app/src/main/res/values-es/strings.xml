@@ -30,6 +30,9 @@
 
     <string name="glossary_paragraph">En la parte superior de la pantalla de partida podrás encontrar la pregunta indicada por la abreviatura de la categoría estadística en cuestión</string>
 
+    <!--    Textos about us-->
+
+    <string name="aboutUs_paragraph">Todas las estadísticas, nombres e imágenes pertenecen a stats.nba.com</string>
 
     <!--    Textos Toasts-->
     <string name="config_updated">CONFIGURACIÓN ACTUALIZADA</string>
@@ -69,6 +72,7 @@
 
     <string name="tab_reglas">REGLAS</string>
     <string name="tab_glosario">GLOSARIO</string>
+    <string name="tab_aboutUs">SOBRE NOSOTROS</string>
 
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Introduce Nombre de Usuario:</string>

@@ -321,7 +321,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
             // Poner ícono del drawer toggle
             ab.setHomeAsUpIndicator(R.drawable.ic_menu);
             ab.setDisplayHomeAsUpEnabled(true);
-//            ab.setTitle("NBA STATS QUIZ");
+            ab.setTitle("NBA STATS QUIZ"); //TODO: ÑAPA PARA EL TITULO
 
 
         }
