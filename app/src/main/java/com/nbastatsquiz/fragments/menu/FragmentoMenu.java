@@ -99,9 +99,12 @@ public class FragmentoMenu extends Fragment {
     private void initComponents(View view) {
 
         sessionManagement = new SessionManagement(getContext());
-        stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.Temporadas));
-        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasWNBA));
-        stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
+        stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.Temporadas));
+        stringArrayAdapterNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasWNBA));
+        stringArrayAdapterWNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
+        stringArrayAdapterGLEAGUE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         ivSound = view.findViewById(R.id.ivSound);
         checkSound();
@@ -159,8 +162,6 @@ public class FragmentoMenu extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if(sLiga.getSelectedItemPosition() == 0){
-
-
 
                     sSeason.setAdapter(stringArrayAdapterNBA);
 
