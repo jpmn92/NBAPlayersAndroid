@@ -1008,7 +1008,7 @@ public class GenerateImageUrl {
         return urlImage;
     }
 
-//WNBA
+    //WNBA
     public String checkWNBAPlayerImage(int idJugador) {
 
 
@@ -1501,9 +1501,13 @@ public class GenerateImageUrl {
 
 
             default:
-                urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/NCAA_logo.svg/1200px-NCAA_logo.svg.png";
+//                urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/NCAA_logo.svg/1200px-NCAA_logo.svg.png";
 
+                urlImage = "https://vignette.wikia.nocookie.net/logopedia/images/d/da/NBA_Draft_%281990s-2000%29.png";
+
+//                urlImage = "https://seeklogo.com/images/N/nba-draft-logo-510F0C293C-seeklogo.com.png";
         }
+
 
 
         return urlImage;
