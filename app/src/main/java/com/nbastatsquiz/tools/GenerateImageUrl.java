@@ -1540,9 +1540,66 @@ public class GenerateImageUrl {
                 break;
 
 
+            case "rno":
+
+                urlImage = "https://www.thesportsdb.com/images/media/team/badge/7hcet91586422790.png";
+                break;
+
+            case "spg":
+
+                urlImage = "https://www.proballers.com/api/getTeamLogo?id=2034&width=300";
+                break;
+
+            case "bak":
+
+                urlImage = "https://www.proballers.com/api/getTeamLogo?id=1755";
+                break;
+
+            case "lad":
+
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Los_Angeles_D-Fenders_logo.svg/220px-Los_Angeles_D-Fenders_logo.svg.png";
+                break;
+
+            case "tul":
+
+                urlImage = "https://vignette.wikia.nocookie.net/logopedia/images/8/81/Tulsa_66ers_logo.svg";
+                break;
+
+            case "ida":
+
+                urlImage = "https://www.proballers.com/api/getTeamLogo?id=868";
+                break;
+
+            case "abq":
+
+                urlImage = "https://content.sportslogos.net/logos/17/2122/full/legu604fgo658ktghphb.gif";
+                break;
+
+            case "ana":
+
+                urlImage = "https://vignette.wikia.nocookie.net/prosportsteams/images/7/7c/Anaheim_Arsenal.gif";
+                break;
+
+            case "dak":
+
+                urlImage = "https://content.sportslogos.net/logos/17/2126/full/e9jbrghodt1yfcfeuuwp.gif";
+                break;
+
+            case "col":
+
+                urlImage = "https://i.pinimg.com/originals/1a/80/be/1a80beacfa913064dd7795348029b637.gif";
+                break;
+
+            case "uta":
+
+                urlImage = "https://www.proballers.com/api/getTeamLogo?id=1753";
+                break;
+
 
             default:
                 urlImage = "https://a.espncdn.com/i/teamlogos/nba-development/500-dark/" + equipo + ".png";
+
+
 
 
         }
