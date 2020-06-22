@@ -70,13 +70,26 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="@string/help_season"
+            android:text="@string/help_league"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
             android:textSize="18dp"
 
 
             />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/help_season"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+
+
+            android:textSize="18dp" />
 
         <TextView
             android:layout_width="match_parent"

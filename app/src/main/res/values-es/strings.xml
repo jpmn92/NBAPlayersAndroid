@@ -16,11 +16,12 @@
     <string name="about_us">Para cualquier problema, duda o sugerencia puedes contactar con nosotros a traves del siguiente correo electrónico:\nnbastatsquiz@gmail.com</string>
 
     <!--    Textos help-->
-    <string name="help_paragraph">En el menú principal puedes escoger los parámetros de juego que desees, entre los que se encuentran los 4 siguientes:</string>
-    <string name="help_season">1 - Temporada</string>
-    <string name="help_season_type">2 - Temporada Regular / Playoffs</string>
-    <string name="help_stat">3 - Categoría estadística</string>
-    <string name="help_stat_type">4 - Por Partido / Totales</string>
+    <string name="help_paragraph">En el menú principal puedes escoger los parámetros de juego que desees, entre los que se encuentran los 5 siguientes:</string>
+    <string name="help_league">1 - Liga: NBA / WNBA / GLEAGUE</string>
+    <string name="help_season">2 - Temporada</string>
+    <string name="help_season_type">3 - Temporada Regular / Playoffs</string>
+    <string name="help_stat">4 - Categoría estadística</string>
+    <string name="help_stat_type">5 - Por Partido / Totales</string>
     <string name="help_paragraph2">Una vez inicias el juego, tendrás que pulsar sobre el jugador que mejor estadística tenga en la temporada correspondiente.  La estadística y temporada se indican en la parte superior de la pantalla</string>
 
     <string name="help_paragraph3">Tienes tres vidas, si eliges al jugador incorrecto, perderás una vida. Si eliges correctamente diez veces seguidas, puedes obtener una nueva vida, con un máximo de tres</string>

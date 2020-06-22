@@ -398,99 +398,7 @@
     <!--    </RelativeLayout>-->
 
 
-    <RelativeLayout
-        android:id="@+id/relFrontDraft"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
 
-
-        android:orientation="vertical"
-
-        tools:ignore="NotSibling">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="100">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="8"
-                android:orientation="vertical"
-                android:weightSum="100">
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_weight="92"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_weight="50"
-                    android:gravity="right"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txtP1Draft"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shapes"
-                        android:gravity="center"
-                        android:text="0.0"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/holo_red_dark"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:visibility="visible" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="right"
-                    android:layout_weight="50"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txtP2Draft"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shapes"
-                        android:gravity="center"
-                        android:text="0.0"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/holo_red_dark"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        tools:visibility="visible" />
-                </LinearLayout>
-
-
-
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
 
     <!--    <LinearLayout-->
     <!--        android:id="@+id/linFront"-->
@@ -591,6 +499,8 @@
 
     <!--    </LinearLayout>-->
 
+
+
     <RelativeLayout
         android:id="@+id/relVidasDraft"
         android:layout_width="match_parent"
@@ -641,11 +551,7 @@
                         android:layout_centerVertical="true"
                         android:layout_weight="8"
                         android:orientation="horizontal">
-                        <ImageView
-                            android:id="@+id/ivVidasDraft"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/vidas3" />
+
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -654,6 +560,11 @@
                         android:layout_centerVertical="true"
                         android:layout_weight="8"
                         android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/ivVidasDraft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/vidas3" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -668,6 +579,100 @@
             </LinearLayout>
 
         </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relFrontDraft"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+
+        android:orientation="vertical"
+
+        tools:ignore="NotSibling">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="92"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="50"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtP1Draft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shapes"
+                        android:gravity="center"
+                        android:text="0.0"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="right"
+                    android:layout_weight="50"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtP2Draft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shapes"
+                        android:gravity="center"
+                        android:text="0.0"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

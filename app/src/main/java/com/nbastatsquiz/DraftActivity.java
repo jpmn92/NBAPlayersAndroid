@@ -423,7 +423,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         //if (checkInternetConnection() == true) {
         switch (v.getId()) {
             case R.id.linJ2Draft:
-                if (valueP2 < valueP1) {
+                if (valueP2 <= valueP1) {
                     acierto();
                 } else {
                     fallo();
@@ -432,7 +432,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 break;
 
             case R.id.linJ1Draft:
-                if (valueP2 > valueP1) {
+                if (valueP2 >= valueP1) {
                     acierto();
                 } else {
                     fallo();

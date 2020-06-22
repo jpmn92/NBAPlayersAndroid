@@ -25,10 +25,11 @@
     <string name="about_us">If you have any questions, suggestions, or would like to report an error, do not hesitate to email us on:\nnbastatsquiz@gmail.com</string>
     <!--    Textos help-->
     <string name="help_paragraph">In the main menu you can choose the game parameters you want among:</string>
-    <string name="help_season">1 - Season</string>
-    <string name="help_season_type">2 - Regular Season / Playoffs</string>
-    <string name="help_stat">3 - Stat Category</string>
-    <string name="help_stat_type">4 - Per Game / Totals</string>
+    <string name="help_league">1 - League: NBA / WNBA / GLEAGUE</string>
+    <string name="help_season">2 - Season</string>
+    <string name="help_season_type">3 - Regular Season / Playoffs</string>
+    <string name="help_stat">4 - Stat Category</string>
+    <string name="help_stat_type">5 - Per Game / Totals</string>
     <string name="help_paragraph2">Once the game is started, you have to click on the player who had a better stat in the selected season. The stat and season are indicated on the top of the screen.</string>
     <string name="help_paragraph3">You have three lives, if you click on the wrong player, you\'ll lose a live. If you make ten hits in a row, you will get a new live up to three</string>
 
