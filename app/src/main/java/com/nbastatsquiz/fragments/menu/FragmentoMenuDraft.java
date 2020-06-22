@@ -123,211 +123,14 @@ public class FragmentoMenuDraft extends Fragment {
                 if (checkInternetConnection() == true) {
 
 
-//                    if (sSeason.getSelectedItemPosition() == 0 && sCollege.getSelectedItemPosition() == 0 && sTeam.getSelectedItemPosition() == 0) {
-//                        Toast.makeText(getContext(), "Modo de juego prohibido", Toast.LENGTH_SHORT).show();
-//                    } else {
+
 
                     juego = new Intent(getActivity().getBaseContext(), DraftActivity.class);
                     params = new Bundle();
-                    //parametros del modo de juego
-//                        String temporada = sSeason.getSelectedItem().toString();
-//
-//                        if (sSeason.getSelectedItemPosition() == 0) {
-//                            temporada = "";
-//                        }
-//
-//
-//                        params.putString("Season", temporada);
-//
-//
-////                    String team = getParam(R.array.NBA_Teams, sTeam);
-//                        String team = sTeam.getSelectedItem().toString();
-//
-//                        String teamParam = "";
-//
-//                        switch (team) {
-//                            case "Atlanta Hawks":
-//
-//                                teamParam = "1610612737";
-//
-//                                break;
-//
-//                            case "Boston Celtics":
-//
-//                                teamParam = "1610612738";
-//
-//                                break;
-//
-//                            case "Brooklyn Nets":
-//
-//                                teamParam = "1610612751";
-//
-//                                break;
-//
-//                            case "Charlotte Hornets":
-//
-//                                teamParam = "1610612766";
-//
-//                                break;
-//
-//                            case "Chicago Bulls":
-//
-//                                teamParam = "1610612741";
-//
-//                                break;
-//
-//                            case "Cleveland Cavaliers":
-//
-//                                teamParam = "1610612739";
-//
-//                                break;
-//
-//                            case "Dallas Mavericks":
-//
-//                                teamParam = "1610612742";
-//
-//                                break;
-//
-//                            case "Denver Nuggets":
-//
-//                                teamParam = "1610612743";
-//
-//                                break;
-//
-//                            case "Golden State Warriors":
-//
-//                                teamParam = "1610612744";
-//
-//                                break;
-//                            case "Houston Rockets":
-//
-//                                teamParam = "1610612745";
-//
-//                                break;
-//                            case "Indiana Pacers":
-//
-//                                teamParam = "1610612754";
-//
-//                                break;
-//                            case "LA Clippers":
-//
-//                                teamParam = "1610612746";
-//
-//                                break;
-//                            case "Los Angeles Lakers":
-//
-//                                teamParam = "1610612747";
-//
-//                                break;
-//                            case "Memphis Grizzlies":
-//
-//                                teamParam = "1610612763";
-//
-//                                break;
-//                            case "Miami Heat":
-//
-//                                teamParam = "1610612748";
-//
-//                                break;
-//
-//                            case "Milwaukee Bucks":
-//
-//                                teamParam = "1610612749";
-//
-//                                break;
-//
-//                            case "Minnesota Timberwolves":
-//
-//                                teamParam = "1610612750";
-//
-//                                break;
-//
-//                            case "New Orleans Pelicans":
-//
-//                                teamParam = "1610612740";
-//
-//                                break;
-//
-//
-//                            case "New York Knicks":
-//
-//                                teamParam = "1610612752";
-//
-//                                break;
-//                            case "Oklahoma City Thunder":
-//
-//                                teamParam = "1610612760";
-//
-//                                break;
-//                            case "Orlando Magic":
-//
-//                                teamParam = "1610612753";
-//
-//                                break;
-//                            case "Philadelphia 76ers":
-//
-//                                teamParam = "1610612755";
-//
-//                                break;
-//                            case "Phoenix Suns":
-//
-//                                teamParam = "1610612748";
-//
-//                                break;
-//
-//                            case "Portland Trail Blazers":
-//
-//                                teamParam = "1610612757";
-//
-//                                break;
-//                            case "Sacramento Kings":
-//
-//                                teamParam = "1610612758";
-//
-//                                break;
-//                            case "San Antonio Spurs":
-//
-//                                teamParam = "1610612759";
-//
-//                                break;
-//                            case "Toronto Raptors":
-//
-//                                teamParam = "1610612761";
-//
-//                                break;
-//                            case "Utah Jazz":
-//
-//                                teamParam = "1610612762";
-//
-//                                break;
-//
-//                            case "Washington Wizards":
-//
-//                                teamParam = "1610612764";
-//
-//                                break;
-//
-//
-//                        }
-//
-//
-//                        params.putString("draftTeam", teamParam);
-//
-//
-////                    String college = getParam(R.array.Colleges, sCollege);
-//                        String college = "";
-//
-//                        if (sCollege.getSelectedItemPosition() == 0) {
-//                            college = "";
-//                        } else {
-//                            college = sCollege.getSelectedItem().toString();
-//                        }
-//
-//                        params.putString("draftCollege", college);
+
                     checkSession();
 
 
-//                    }
 
 
                 } else {
@@ -439,16 +242,7 @@ public class FragmentoMenuDraft extends Fragment {
         paramsPartida.putString("modoJuego", "Draft");
 
 
-        String temporada = "";
-//            if (sSeason.getSelectedItemPosition() == 0) {
-//                temporada = "";
-//            } else {
 
-
-        temporada = sSeason.getSelectedItem().toString();
-
-
-        paramsPartida.putString("Season", temporada);
 
         String team = sTeam.getSelectedItem().toString();
 
@@ -631,6 +425,26 @@ public class FragmentoMenuDraft extends Fragment {
         } else {
             college = sCollege.getSelectedItem().toString();
         }
+
+        String temporada = "";
+//            if (sSeason.getSelectedItemPosition() == 0) {
+//                temporada = "";
+//            } else {
+
+
+        if(sSeason.getSelectedItemPosition() == 0){
+            temporada = "MISC";
+
+        }else{
+            temporada = sSeason.getSelectedItem().toString();
+
+        }
+
+        paramsPartida.putString("Season", temporada);
+
+
+
+
 
         paramsPartida.putString("College", college);
 

@@ -59,7 +59,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private Resources res;
 
     private int valueP1, valueP2;
-    private boolean gameStarted, misc, miscStats, miscSeason, sound;
+    private boolean gameStarted, misc, miscSeason, sound;
     private String season, seasonType, statCategory, perMode, activeFlag, username;
     private SessionManagement sessionManagement;
 
@@ -86,6 +86,8 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
 
+        misc = params.getString("Season").equalsIgnoreCase("MISC");
+
 
         res = getResources();
 
@@ -102,7 +104,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         draftPicksGlobal = new ArrayList<>();
 
         if (misc) {
-//            mezclar();
+            mezclar();
         } else {
             lstDraftsPresenter.getDrafts(params);
         }
@@ -116,39 +118,22 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
     }
 
-//    private void mezclar() {
-//        if (miscStats) {
-//            Resources res = getResources();
-//            String[] categories = res.getStringArray(R.array.TipoCategoria);
-//
-//            int random = (int) (Math.random() * (categories.length - 1) + 1);
-//
-//            String stat = getParam(R.array.TipoCategoria, random);
-//
-//            params.putString("StatCategory", stat);
-//            statCategory = params.getString("StatCategory");
-//        }
-//
-//        if (statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")) {
-//            params.putString("PerMode", "Totals");
-//        } else {
-//            params.putString("PerMode", perMode);
-//        }
-//
-//        if (miscSeason) {
-//            Resources res = getResources();
-//            String[] categories = res.getStringArray(R.array.Temporadas);
-//
-//            int random = (int) (Math.random() * (categories.length - 1) + 1);
-//
-//            params.putString("Season", categories[random]);
-//            season = params.getString("Season");
-//        }
-//
-//        tiempo = 15000;
-//        progressBar.setMax(14);
-//        lstDraftsPresenter.getDrafts(params);
-//    }
+    private void mezclar() {
+
+
+        Resources res = getResources();
+        String[] categories = res.getStringArray(R.array.DraftYears);
+
+        int random = (int) (Math.random() * (categories.length - 1) + 1);
+
+        params.putString("Season", categories[random]);
+        season = params.getString("Season");
+
+
+        tiempo = 15000;
+        progressBar.setMax(14);
+        lstDraftsPresenter.getDrafts(params);
+    }
 
     public String getParam(int arrayId, int pos) {
         TypedArray resourceIDS = res.obtainTypedArray(arrayId);
@@ -220,9 +205,18 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
     private void selectDraftPicks() {
 
-        int random = (int) (Math.random() * draftPicksGlobal.size());
-        draftPick1 = draftPicksGlobal.get(random);
-        selectDraftPick2();
+
+        //si draftpick 1 es null que le asigne un valor y llame al segundo metodo
+        if (draftPick1 == null) {
+            int random = (int) (Math.random() * draftPicksGlobal.size());
+            draftPick1 = draftPicksGlobal.get(random);
+            mezclar();
+//            selectDraftPick2();
+        } else {
+            //mezclamos y hacemos una segunda llamada si el 1 ya esta relleno
+            mezclar();
+
+        }
 
 
     }
@@ -230,6 +224,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private void selectDraftPick2() {
         int random = 0;
         do {
+
 
             random = (int) (Math.random() * draftPicksGlobal.size());
             draftPick2 = draftPicksGlobal.get(random);
@@ -487,11 +482,22 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         }
         comprobarVidas();
         points++;
+
+        deletePlayers();
+
         if (misc) {
-//            mezclar();
+            mezclar();
         } else {
             continueGame();
         }
+    }
+
+    private void deletePlayers() {
+
+        draftPick1 = null;
+        draftPick2 = null;
+
+
     }
 
     private void fallo() {
@@ -504,11 +510,14 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         iluminar(ColorApp.RED);
         vidas--;
         comprobarVidas();
+
+        deletePlayers();
+
         if (vidas <= 0) {
             finishGame();
         } else {
             if (misc) {
-//                mezclar();
+                mezclar();
             } else {
                 continueGame();
             }
@@ -551,7 +560,13 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     public void successListDrafts(ArrayList<DraftPick> draftPicks) {
 
         draftPicksGlobal = draftPicks;
-        selectDraftPicks();
+
+        if (draftPick1 == null) {
+            selectDraftPicks();
+
+        } else {
+            selectDraftPick2();
+        }
 
     }
 
