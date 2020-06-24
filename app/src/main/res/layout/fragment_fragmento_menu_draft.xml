@@ -125,6 +125,16 @@
                     android:entries="@array/NBA_Teams"
                     android:spinnerMode="dialog" />
 
+                <Button
+                    android:id="@+id/btnResetFilters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset Filters"
+                    android:textSize="30px"
+                    android:background="#FF4857">
+
+                </Button>
+
 <!--                <TextView-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content"-->

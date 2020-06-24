@@ -164,6 +164,8 @@ public class FragmentoMenu extends Fragment {
                 if(sLiga.getSelectedItemPosition() == 0){
 
                     sSeason.setAdapter(stringArrayAdapterNBA);
+                    imagenPrincipal.setImageResource(R.drawable.logo_ligero);
+
 
                 }
 
@@ -171,6 +173,9 @@ public class FragmentoMenu extends Fragment {
 
 
                     sSeason.setAdapter(stringArrayAdapterWNBA);
+                    imagenPrincipal.setImageResource(R.drawable.wnba_logo_jpg);
+
+
 
                 }
 
@@ -178,6 +183,7 @@ public class FragmentoMenu extends Fragment {
 
 
                     sSeason.setAdapter(stringArrayAdapterGLEAGUE);
+                    imagenPrincipal.setImageResource(R.drawable.gleague_logo);
 
                 }
 

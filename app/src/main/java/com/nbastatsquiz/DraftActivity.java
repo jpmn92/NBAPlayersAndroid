@@ -206,17 +206,25 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private void selectDraftPicks() {
 
 
-        //si draftpick 1 es null que le asigne un valor y llame al segundo metodo
-        if (draftPick1 == null) {
+        if(misc){
+            //si draftpick 1 es null que le asigne un valor y llame al segundo metodo
+            if (draftPick1 == null) {
+                int random = (int) (Math.random() * draftPicksGlobal.size());
+                draftPick1 = draftPicksGlobal.get(random);
+                mezclar();
+//            selectDraftPick2();
+            } else {
+                //mezclamos y hacemos una segunda llamada si el 1 ya esta relleno
+                mezclar();
+
+            }
+        }else{
+
             int random = (int) (Math.random() * draftPicksGlobal.size());
             draftPick1 = draftPicksGlobal.get(random);
-            mezclar();
-//            selectDraftPick2();
-        } else {
-            //mezclamos y hacemos una segunda llamada si el 1 ya esta relleno
-            mezclar();
-
+            selectDraftPick2();
         }
+
 
 
     }
