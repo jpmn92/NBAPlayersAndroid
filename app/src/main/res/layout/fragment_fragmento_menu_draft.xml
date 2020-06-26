@@ -129,9 +129,9 @@
                     android:id="@+id/btnResetFilters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reset Filters"
-                    android:textSize="30px"
-                    android:background="#FF4857">
+                    android:background="#E40E15"
+                    android:drawableLeft="@drawable/reset"
+                    android:text="@string/reset_filters">
 
                 </Button>
 

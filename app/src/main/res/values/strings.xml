@@ -63,6 +63,7 @@
     <string name="options">OPTIONS</string>
     <string name="goToRegister">Not a member yet? Sign Up Now!</string>
     <string name="goToLogin">Already a member? Log In Now!</string>
+    <string name="reset_filters">Reset filters</string>
 
 
     <!--    Textos tabs-->

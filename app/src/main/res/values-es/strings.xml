@@ -68,6 +68,7 @@
     <string name="options">OPCIONES</string>
     <string name="goToRegister">Aún no estoy registrado</string>
     <string name="goToLogin">Ya tengo una cuenta</string>
+    <string name="reset_filters">Reiniciar filtros</string>
 
     <!--    Textos tabs-->
 
