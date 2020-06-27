@@ -25,6 +25,11 @@
     <string name="help_paragraph2">Una vez inicias el juego, tendrás que pulsar sobre el jugador que mejor estadística tenga en la temporada correspondiente.  La estadística y temporada se indican en la parte superior de la pantalla</string>
 
     <string name="help_paragraph3">Tienes tres vidas, si eliges al jugador incorrecto, perderás una vida. Si eliges correctamente diez veces seguidas, puedes obtener una nueva vida, con un máximo de tres</string>
+    <string name="help_modes">NBA Stats Quiz dispone de dos modos de juego, Estadísticas y Draft</string>
+    <string name="help_draftMode">Consiste en escoger al jugador que fue seleccionado primero entre los que se presentan. (El Nº1 es el pick más alto).\nAdemás puedes añadir parámetros como universidad de procedencia o equipo NBA que lo drafteó.</string>
+    <string name="help_draftModeTitle">Modo Draft:</string>
+    <string name="help_statsModeTitle">Modo Estadísticas:</string>
+
 
 
     <!--    Textos glosario-->

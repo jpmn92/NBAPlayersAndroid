@@ -56,6 +56,65 @@
             android:paddingBottom="10dp"
             android:paddingTop="40dp"
 
+            android:text="@string/help_modes"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textStyle="bold"
+            android:text="@string/help_draftModeTitle"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+
+            android:text="@string/help_draftMode"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textStyle="bold"
+            android:text="@string/help_statsModeTitle"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="18dp"
+
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
             android:text="@string/help_paragraph"
             android:textAlignment="inherit"
             android:textColor="@color/material_black"
