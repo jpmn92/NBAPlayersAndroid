@@ -173,7 +173,7 @@ public class FragmentoMenu extends Fragment {
 
 
                     sSeason.setAdapter(stringArrayAdapterWNBA);
-                    imagenPrincipal.setImageResource(R.drawable.wnba_logo_jpg);
+                    imagenPrincipal.setImageResource(R.drawable.wnba_final);
 
 
 
