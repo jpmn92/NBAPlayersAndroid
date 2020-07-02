@@ -44,9 +44,9 @@
             <ImageView
 
                 android:id="@+id/imageViewPrincipal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo_ligero"
+                android:src="@drawable/wnba_logo"
                 android:layout_gravity="center_vertical"
 
                 app:layout_constraintStart_toStartOf="parent"
