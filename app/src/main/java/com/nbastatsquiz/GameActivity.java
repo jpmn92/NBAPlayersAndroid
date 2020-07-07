@@ -106,7 +106,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
         paramsIniciales.putString("userName", username);
-        paramsIniciales.putString("modoJuego", "Stats"); //TODO: NUEVO PARAM
+        paramsIniciales.putString("modoJuego", "Stats");
 
         // Si queremos que se guarde el id del telefono para no registrar usuarios de momento
         // paramsIniciales.putString("userName", username + Settings.Secure.getString(getBaseContext().getContentResolver(), Settings.Secure.ANDROID_ID));

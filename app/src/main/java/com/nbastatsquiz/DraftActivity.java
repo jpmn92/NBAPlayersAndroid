@@ -180,7 +180,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         progressBar = findViewById(R.id.progressBarDraft);
         progressBar.setProgress(0);
 
-        final ProgressDialog progressDialog = new ProgressDialog(DraftActivity.this, R.style.Theme_AppCompat_DayNight_Dialog); //TODO: RECIEN CAMBIADO 16/06
+        final ProgressDialog progressDialog = new ProgressDialog(DraftActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Cargando...");
         progressDialog.show();
@@ -198,7 +198,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
 //        txtPregunta.setText(statCategory + " " + season);
 
-        firebaseMethods = new FirebaseMethods(DraftActivity.this, paramsIniciales); //TODO: CREAR CONSTRUCTOR
+        firebaseMethods = new FirebaseMethods(DraftActivity.this, paramsIniciales);
         buscarRecord(); //TODO: AUN NO HAY RECORDS
     }
 

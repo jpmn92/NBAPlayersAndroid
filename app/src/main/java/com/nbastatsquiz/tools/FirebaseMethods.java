@@ -481,7 +481,8 @@ public class FirebaseMethods extends Activity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        //TODO: Inicias sesión correctamete
+
+                        //LOGIN CORRECTO
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         String urlAvatar = user.getPhotoUrl().toString();
@@ -493,7 +494,7 @@ public class FirebaseMethods extends Activity {
 
                     } else {
                         // If sign in fails, display a message to the user.
-                        //TODO: Error en inicio de sesión
+                        //LOGIN INCORRECTO
                         Toast.makeText(loginContext, getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
 
                     }
