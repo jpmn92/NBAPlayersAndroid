@@ -36,6 +36,9 @@
     <string name="help_draftMode">You have to click on the player who was selected first (Nº1 Pick is the highest).\nAlso you can filter by Team or College.</string>
         <string name="help_draftModeTitle">Draft Mode:</string>
     <string name="help_statsModeTitle">Stats Mode:</string>
+    <string name="help_forMoreInfo">For more information please visit the following links:</string>
+
+
 
 
 
@@ -77,6 +80,7 @@
     <string name="tab_reglas">GAME RULES</string>
     <string name="tab_glosario">GLOSSARY</string>
     <string name="tab_aboutUs">ABOUT US</string>
+
 
 
     <!--Textos Dialogs-->

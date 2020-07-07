@@ -17,11 +17,12 @@
             android:layout_marginBottom="0dp"
 
             android:orientation="horizontal">
-            <TextView
-                android:layout_marginTop="20dp"
 
+            <TextView
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="20dp"
@@ -29,6 +30,7 @@
                 android:textColor="@color/material_black"
                 android:textSize="26dp"
                 android:textStyle="bold" />
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -37,24 +39,22 @@
                 />
 
 
-
-
         </LinearLayout>
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="@color/material_black"/>
+            android:background="@color/material_black" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
+            android:paddingTop="40dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:paddingTop="40dp"
 
             android:text="@string/aboutUs_paragraph"
             android:textAlignment="inherit"
@@ -65,14 +65,99 @@
             />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="400px"
+            android:layout_height="400px"
             android:layout_gravity="center"
             android:src="@drawable/logo_bowl_300x300">
 
         </ImageView>
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/help_forMoreInfo"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+
+
+            />
+
+
+        <TextView
+
+            android:textColorLink="#006bb3"
+            android:autoLink="web"
+            android:clickable="true"
+            android:id="@+id/linkBowl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="https://bowlofricedev.jdevcloud.com"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="16dp"
+            android:textStyle="italic"
+
+
+            />
+
+        <TextView
+            android:textColorLink="#006bb3"
+
+            android:id="@+id/linkBowlTerms"
+            android:clickable="true"
+            android:autoLink="web"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="https://bowlofricedev.jdevcloud.com/terms-conditions-nba-stats-quiz/"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="16dp"
+            android:textStyle="italic"
+
+
+            />
+
+        <TextView
+            android:textColorLink="#006bb3"
+
+            android:id="@+id/linkBowlPrivacy"
+            android:clickable="true"
+            android:autoLink="web"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="https://bowlofricedev.jdevcloud.com/privacy-policy-nba-stats-quiz"
+            android:textAlignment="inherit"
+            android:textColor="@color/material_black"
+            android:textSize="16dp"
+            android:textStyle="italic"
+
+
+            />
 
 
     </LinearLayout>

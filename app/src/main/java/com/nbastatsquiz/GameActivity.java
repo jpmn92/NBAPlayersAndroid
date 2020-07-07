@@ -23,6 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.R;
@@ -46,6 +50,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private int points, record, vidas, contadorAciertos, tiempo;
     private boolean recordConseguido;
+    private InterstitialAd mInterstitialAd;
 
     private MyCountDownTimer myCountDownTimer;
     private NavigationDrawerActivity navigationDrawerActivity;
@@ -88,6 +93,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        inicializarPublicidad();
 
         sessionManagement = new SessionManagement(this);
 
@@ -157,6 +163,23 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             lstLeagueLeaderPresenter.getLeagueLeaders(params);
         }
 
+    }
+
+    private void inicializarPublicidad() {
+        MobileAds.initialize(this);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //Este es el de prueba
+//        ca-app-pub-5187656956047852/9787942336 - el de NBA STATS QUIZ
+        //mInterstitialAd.setAdUnitId("ca-app-pub-5187656956047852/2422488014"); //Este es el nuestro LALIGA
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                System.out.println("PUBLI CERRADA");
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                myCountDownTimer.start();
+            }
+        });
     }
 
     private void buscarRecord() {
@@ -836,6 +859,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                int random = (int) (Math.random() * 2) + 1;
+                if (mInterstitialAd.isLoaded() && random % 2 == 0) {
+                    mInterstitialAd.show();
+                }
                 vidas = 3;
                 points = 0;
                 contadorAciertos = 0;
@@ -851,6 +878,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 //                Intent menu = new Intent(GameActivity.this, NavigationDrawerActivity.class);
 //                GameActivity.this.startActivity(menu);
 //                GameActivity.this.finish();
+                int random = (int) (Math.random() * 2) + 1;
+                if (mInterstitialAd.isLoaded() && random % 2 == 0) {
+                    mInterstitialAd.show();
+                }
                 onBackPressed();
 
             }
