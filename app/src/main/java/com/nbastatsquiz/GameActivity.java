@@ -40,6 +40,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameActivity extends Activity implements View.OnClickListener, LstLeagueLeaderContract.View {
 
@@ -71,6 +72,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private boolean gameStarted, misc, miscStats, miscSeason, sound;
     private String season, seasonType, statCategory, perMode, activeFlag, username, liga;
     private SessionManagement sessionManagement;
+
+    private ArrayList<String> fg3mProhibidos;
+
 
     private GenerateImageUrl generateImageUrl;
 
@@ -135,6 +139,18 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         generateImageUrl = new GenerateImageUrl();
         leagueLeadersGlobal = new ArrayList<>();
 
+        fg3mProhibidos = new ArrayList<String>();
+        fg3mProhibidos.add("2008");
+        fg3mProhibidos.add("2009");
+        fg3mProhibidos.add("2010");
+        fg3mProhibidos.add("2011");
+        fg3mProhibidos.add("2012");
+        fg3mProhibidos.add("2013");
+        fg3mProhibidos.add("2014");
+        fg3mProhibidos.add("2009-10");
+        fg3mProhibidos.add("2010-11");
+        fg3mProhibidos.add("2011-12");
+
         if (misc) {
             mezclar();
         } else {
@@ -166,11 +182,13 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             statCategory = params.getString("StatCategory");
         }
 
+
         if (statCategory.equalsIgnoreCase("FG3_PCT") || statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FTM")) {
             params.putString("PerMode", "Totals");
         } else {
             params.putString("PerMode", perMode);
         }
+
 
         if (miscSeason) {
             Resources res = getResources();
@@ -195,17 +213,72 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
             }
 
 
-//            String[] categories = res.getStringArray(R.array.Temporadas);
+            String temporadaParam = "";
 
-            int random = (int) (Math.random() * (categories.length - 1) + 1);
+            temporadaParam = getRandomYear(categories);
 
-            params.putString("Season", categories[random]);
+
+            //si es wnba o gleague, si la temporada está en los arrays prohibidos
+
+            if(statCategory.equalsIgnoreCase("FG3M") && perMode.equalsIgnoreCase("PerGame")){
+                if (liga.equalsIgnoreCase("WNBA") || liga.equalsIgnoreCase("GLEAGUE")) {
+                    while (fg3mProhibidos.contains(temporadaParam)
+                    ) {
+
+                        temporadaParam = getRandomYear(categories);
+                    }
+                }
+            }
+
+
+
+
+            params.putString("Season", temporadaParam);
+
+//            params.putString("Season", categories[random]);
             season = params.getString("Season");
         }
 
         tiempo = 15000;
         progressBar.setMax(14);
         lstLeagueLeaderPresenter.getLeagueLeaders(params);
+    }
+
+    public String getRandomYear(String[] temporadas) {
+
+        int random = (int) (Math.random() * (temporadas.length - 1) + 1);
+
+
+        String seasonYear = temporadas[random];
+
+//        switch (liga) {
+//
+//            case "NBA":
+//                break;
+//
+//            case "WNBA":
+//
+//                if(seasonYear.equalsIgnoreCase("2008") || seasonYear.equalsIgnoreCase("2009") || seasonYear.equalsIgnoreCase("2010") ||
+//                        seasonYear.equalsIgnoreCase("2011") || seasonYear.equalsIgnoreCase("2012") || seasonYear.equalsIgnoreCase("2013") ||
+//                        seasonYear.equalsIgnoreCase("2014")){
+//                    params.putString("PerMode", "Totals");
+//                }
+//
+//                break;
+//
+//            case "GLEAGUE":
+//
+//                if(seasonYear.equalsIgnoreCase("2009-10") || seasonYear.equalsIgnoreCase("2010-11") || seasonYear.equalsIgnoreCase("2011-12")){
+//                    params.putString("PerMode", "Totals");
+//
+//                }
+//                break;
+//
+//
+//        }
+
+
+        return seasonYear;
     }
 
     public String getParam(int arrayId, int pos) {
@@ -703,6 +776,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     @Override
     public void failureListLeagueLeaders(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        String prueba = params.toString();
+        String prueba2 = paramsIniciales.toString();
+
         builder.setCancelable(false);
         builder.setTitle(R.string.no_data_found);
         builder.setPositiveButton(R.string.back_to_menu, new DialogInterface.OnClickListener() {
