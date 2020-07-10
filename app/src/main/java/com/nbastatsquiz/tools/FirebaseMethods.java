@@ -495,7 +495,7 @@ public class FirebaseMethods extends Activity {
                     } else {
                         // If sign in fails, display a message to the user.
                         //LOGIN INCORRECTO
-                        Toast.makeText(loginContext, getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(loginContext, getApplicationContext().getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -536,20 +536,33 @@ public class FirebaseMethods extends Activity {
 
 
         } else {
+
+            String prueba = "";
 //            //si viene de register que utilice su contexto
-//            if (fragmentoRegister != null) {
-//                fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.main_content, goToMenu, "findThisFragment")
-//                        .addToBackStack(null)
-//                        .commit();
-//                message = fragmentoRegister.getString(R.string.registro_correcto);
-//
-//                Toast.makeText(fragmentoRegister.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
+            if (fragmentoRegister != null) {
+                fragmentoRegister.getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, goToMenu, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+                message = fragmentoRegister.getString(R.string.registro_correcto);
+
+                Toast.makeText(fragmentoRegister.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
             // Toast.makeText(fragmentoRegister.getContext(), getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
 //
         }
-//        }
-    }
+
+            if (fragmentoLogin != null) {
+                fragmentoLogin.getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, goToMenu, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+                message = fragmentoLogin.getString(R.string.registro_correcto);
+
+                Toast.makeText(fragmentoLogin.getContext(), message + ", " + userName, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(fragmentoRegister.getContext(), getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
+//
+            }//        }
+    }}
 
     public void updateAvatar(String urlImage, Context avatarContext) {
         FirebaseAuth mAuth;
