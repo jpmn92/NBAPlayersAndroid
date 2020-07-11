@@ -8,10 +8,10 @@
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@drawable/icon_stats_quiz"
+        android:icon="@mipmap/ic_launcher_nbastats"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/icon_stats_quiz"
+        android:roundIcon="@mipmap/ic_launcher_nbastats_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAQUIZ"
         tools:targetApi="lollipop">
