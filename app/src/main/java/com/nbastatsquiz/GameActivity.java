@@ -276,31 +276,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         String seasonYear = temporadas[random];
 
-//        switch (liga) {
-//
-//            case "NBA":
-//                break;
-//
-//            case "WNBA":
-//
-//                if(seasonYear.equalsIgnoreCase("2008") || seasonYear.equalsIgnoreCase("2009") || seasonYear.equalsIgnoreCase("2010") ||
-//                        seasonYear.equalsIgnoreCase("2011") || seasonYear.equalsIgnoreCase("2012") || seasonYear.equalsIgnoreCase("2013") ||
-//                        seasonYear.equalsIgnoreCase("2014")){
-//                    params.putString("PerMode", "Totals");
-//                }
-//
-//                break;
-//
-//            case "GLEAGUE":
-//
-//                if(seasonYear.equalsIgnoreCase("2009-10") || seasonYear.equalsIgnoreCase("2010-11") || seasonYear.equalsIgnoreCase("2011-12")){
-//                    params.putString("PerMode", "Totals");
-//
-//                }
-//                break;
-//
-//
-//        }
 
 
         return seasonYear;

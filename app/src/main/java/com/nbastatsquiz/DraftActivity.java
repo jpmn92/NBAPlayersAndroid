@@ -93,6 +93,9 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
         res = getResources();
 
+        if(misc){
+            tiempo = 15000;
+        }
 
         myCountDownTimer = new MyCountDownTimer(tiempo, 1000);
 
