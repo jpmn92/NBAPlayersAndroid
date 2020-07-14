@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.nbastatsquiz.NavigationDrawerActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.NBAPlayer;
@@ -149,7 +150,7 @@ public class FragmentoAccount extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
-                Picasso.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
+                Glide.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
             }
 
             @Override
@@ -170,7 +171,7 @@ public class FragmentoAccount extends Fragment {
         spinnerProfile = view.findViewById(R.id.spinnerProfilePicture);
 //        ivAvatar = view.findViewById(R.id.ivAvatar);
         circleImageView = view.findViewById(R.id.ivAvatar);
-        Picasso.with(getContext()).load(sm.getSesionImage()).into(circleImageView);
+        Glide.with(getContext()).load(sm.getSesionImage()).into(circleImageView);
 
     }
 

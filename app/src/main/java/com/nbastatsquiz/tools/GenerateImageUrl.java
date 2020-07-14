@@ -65,6 +65,11 @@ public class GenerateImageUrl {
         switch (idJugador) {
 
 
+            //scalabrine
+            case 2243:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1021.png&w=350&h=254";
+                break;
+
             //claver
             case 201964:
                 urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3972.png&w=350&h=254";

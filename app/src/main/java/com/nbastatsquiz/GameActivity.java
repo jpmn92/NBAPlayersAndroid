@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -498,41 +500,41 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
         switch (leagueLeader1.getPLAYER_ID().intValue()) {
             case 1122:
-                Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1122).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
                 break;
             case 304:
-                Picasso.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_304).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
                 break;
             case 600015:
-                Picasso.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_600015).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
                 break;
             case 714:
-                Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_714).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
                 break;
             case 1763:
-                Picasso.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1763).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
                 break;
             case 764:
-                Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_764).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
                 break;
             case 2221:
-                Picasso.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_2221).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
                 break;
 
 
             default:
-                Picasso.with(this).load(url_imagen1).error(R.drawable.person)
+                Glide.with(this).load(url_imagen1).error(R.drawable.person)
                         //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
-                        .into(ivP1);
+                        .transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
 
 
         }
 
-        Picasso.with(this).load(url_imageTeam1)
+        Glide.with(this).load(url_imageTeam1)
                 //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
-                .into(ivT1);
+                .transition(DrawableTransitionOptions.withCrossFade()).into(ivT1);
 
         txtNameP1.setText(leagueLeader1.getPLAYER());
         txtNameP2.setText(leagueLeader2.getPLAYER());
@@ -541,40 +543,40 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
         switch (leagueLeader2.getPLAYER_ID().intValue()) {
             case 1122:
-                Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP2);
+                Glide.with(this).load(R.drawable.img_1122).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
                 break;
             case 304:
-                Picasso.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP2);
+                Glide.with(this).load(R.drawable.img_304).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
                 break;
             case 600015:
-                Picasso.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP2);
+                Glide.with(this).load(R.drawable.img_600015).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
                 break;
             case 714:
-                Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP2);
+                Glide.with(this).load(R.drawable.img_714).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
                 break;
             case 1763:
-                Picasso.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP2);
+                Glide.with(this).load(R.drawable.img_1763).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
                 break;
             case 764:
-                Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP2);
+                Glide.with(this).load(R.drawable.img_764).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
                 break;
             case 2221:
-                Picasso.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP2);
+                Glide.with(this).load(R.drawable.img_2221).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
                 break;
 
 
             default:
-                Picasso.with(this).load(url_imagen2).error(R.drawable.person)
+                Glide.with(this).load(url_imagen2).error(R.drawable.person)
                         //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
-                        .into(ivP2);
+                        .transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
 
 
         }
-        Picasso.with(this).load(url_imageTeam2)
+        Glide.with(this).load(url_imageTeam2)
                 //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
-                .into(ivT2);
+                .transition(DrawableTransitionOptions.withCrossFade()).into(ivT2);
 
         txtPoints.setText(String.valueOf(points));
 

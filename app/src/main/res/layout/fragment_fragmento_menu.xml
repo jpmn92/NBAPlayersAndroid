@@ -22,7 +22,7 @@
             android:layout_height="45dp"
             android:layout_weight="1"
 
-            app:srcCompat="@drawable/volume_on" />
+             />
 
     </RelativeLayout>
 

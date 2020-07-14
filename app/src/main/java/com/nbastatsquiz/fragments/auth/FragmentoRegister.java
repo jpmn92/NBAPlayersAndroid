@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.NBAPlayer;
 import com.nbastatsquiz.tools.FirebaseMethods;
@@ -147,7 +148,10 @@ public class FragmentoRegister extends FragmentoAutentificacion {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 NBAPlayer nbaPlayer = (NBAPlayer) spinner.getSelectedItem();
-                Picasso.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
+//                Picasso.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
+
+                Glide.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
+
             }
 
             @Override

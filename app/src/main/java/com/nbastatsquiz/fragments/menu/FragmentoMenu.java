@@ -46,6 +46,7 @@ public class FragmentoMenu extends Fragment {
     String userName;
     SessionManagement sessionManagement;
     Bundle params;
+    boolean sound;
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones;
     ImageView ivSound, imagenPrincipal;
@@ -98,7 +99,11 @@ public class FragmentoMenu extends Fragment {
 
     private void initComponents(View view) {
 
+
+        ivSound = view.findViewById(R.id.ivSound);
         sessionManagement = new SessionManagement(getContext());
+        sound = sessionManagement.getSound();
+
         stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.Temporadas));
         stringArrayAdapterNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasWNBA));
@@ -106,19 +111,32 @@ public class FragmentoMenu extends Fragment {
         stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
         stringArrayAdapterGLEAGUE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        ivSound = view.findViewById(R.id.ivSound);
-        checkSound();
-        ivSound.setOnClickListener(new View.OnClickListener(){
+//        ivSound = view.findViewById(R.id.ivSound);
+//        checkSound();
+
+        //dependiendo de si es true pintamos una imagen u otra
+
+        if (sound) {
+            ivSound.setImageResource(R.drawable.volume_on);
+
+        } else {
+            ivSound.setImageResource(R.drawable.volume_off);
+
+        }
+
+
+
+        ivSound.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if(sessionManagement.getSound()){
-                    sessionManagement.saveSession(false);
+                if (sound) {
+                    sound = false;
+                    ivSound.setImageResource(R.drawable.volume_off);
+                } else {
+                    sound = true;
+                    ivSound.setImageResource(R.drawable.volume_on);
                 }
-                else{
-                    sessionManagement.saveSession(true);
-                }
-                checkSound();
             }
         });
 
@@ -306,6 +324,9 @@ public class FragmentoMenu extends Fragment {
         if (checkInternetConnection() == true) {
             switch (v.getId()) {
                 case R.id.btnStart:
+
+
+                    sessionManagement.saveSession(sound); //NUEVO
                     juego = new Intent(getActivity().getBaseContext(), GameActivity.class);
                     params = new Bundle();
 
@@ -389,6 +410,7 @@ public class FragmentoMenu extends Fragment {
         if (firebaseUser != null) {
             userName = firebaseUser.getDisplayName();
             params.putBoolean("loged", true);
+            params.putBoolean("sound", sound);//NUEVO
             juego.putExtras(params);
             getActivity().startActivity(juego);
         } else {
@@ -404,8 +426,11 @@ public class FragmentoMenu extends Fragment {
                 public void onClick(DialogInterface dialog, int which) {
                     //userName = input.getText().toString();
                     params.putBoolean("loged", false);
+                    params.putBoolean("sound", sound); //NUEVO
                     sessionManagement.saveSession(userName);
+
                     juego.putExtras(params);
+
                     getActivity().startActivity(juego);
 
                 }
