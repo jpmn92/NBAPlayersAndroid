@@ -218,15 +218,6 @@ public class FragmentoMenuDraft extends Fragment {
             }
         });
 
-        imagenPrincipal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-            }
-        });
-
     }
 
 

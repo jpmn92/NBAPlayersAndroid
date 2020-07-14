@@ -22,7 +22,8 @@
             android:layout_height="45dp"
             android:layout_weight="1"
 
-             />
+            android:clickable="true"
+            app:srcCompat="@drawable/volume_on" />
 
     </RelativeLayout>
 
@@ -46,8 +47,9 @@
                 android:id="@+id/imageViewPrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/wnba_logo"
                 android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:src="@drawable/wnba_logo"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

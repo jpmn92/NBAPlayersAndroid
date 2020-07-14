@@ -101,6 +101,7 @@ public class FragmentoMenu extends Fragment {
 
 
         ivSound = view.findViewById(R.id.ivSound);
+        ivSound.setClickable(true);
         sessionManagement = new SessionManagement(getContext());
         sound = sessionManagement.getSound();
 
@@ -112,35 +113,29 @@ public class FragmentoMenu extends Fragment {
         stringArrayAdapterGLEAGUE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 //        ivSound = view.findViewById(R.id.ivSound);
-//        checkSound();
+        checkSound();
 
         //dependiendo de si es true pintamos una imagen u otra
-
-        if (sound) {
-            ivSound.setImageResource(R.drawable.volume_on);
-
-        } else {
-            ivSound.setImageResource(R.drawable.volume_off);
-
-        }
-
 
 
         ivSound.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                System.out.println("");
                 if (sound) {
                     sound = false;
-                    ivSound.setImageResource(R.drawable.volume_off);
+                    sessionManagement.saveSession(sound); //NUEVO
+                    checkSound();
                 } else {
                     sound = true;
-                    ivSound.setImageResource(R.drawable.volume_on);
+                    sessionManagement.saveSession(sound); //NUEVO
+                    checkSound();
                 }
             }
         });
 
-        imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
+                imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
         sSeason = view.findViewById(R.id.spinnerSeasons);
         sCategory = view.findViewById(R.id.spinnerCategory);
         sSeasonType = view.findViewById(R.id.spinnerSeasonType);
@@ -210,18 +205,6 @@ public class FragmentoMenu extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        imagenPrincipal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                draft = new Intent(getActivity().getBaseContext(), Main3Activity_pruebaDraft.class);
-//                ch = new Intent(getActivity().getBaseContext(), Main4Activity_pruebaCH.class);
-//
-//                getActivity().startActivity(ch);
-
 
             }
         });
@@ -324,9 +307,6 @@ public class FragmentoMenu extends Fragment {
         if (checkInternetConnection() == true) {
             switch (v.getId()) {
                 case R.id.btnStart:
-
-
-                    sessionManagement.saveSession(sound); //NUEVO
                     juego = new Intent(getActivity().getBaseContext(), GameActivity.class);
                     params = new Bundle();
 

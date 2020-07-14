@@ -44,11 +44,9 @@
 
 
     <!--    Textos glosario-->
-
     <string name="glossary_paragraph">On the top of the game screen you will find the abbreviated stat category asked. \nThe abbreviations are the following:</string>
 
     <!--    Textos about us-->
-
     <string name="aboutUs_paragraph">All the statistics, names and images are retrieved from stats.nba.com</string>
 
     <string name="sound">Sound</string>
@@ -98,8 +96,8 @@
     <string name="seleccionar_avatar">Choose your avatar</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
-    <string name="back_to_menu">BACK TO MENU</string>
     <string name="play_again">PLAY AGAIN</string>
+    <string name="back_to_menu">BACK TO MENU</string>
     <string name="game_finished">Game finished</string>
     <string name="new_record">New Record!</string>
     <string name="record">Record: </string>

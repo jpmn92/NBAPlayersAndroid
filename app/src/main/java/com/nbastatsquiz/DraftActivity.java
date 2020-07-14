@@ -726,5 +726,4 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
     }
 
-
 }
