@@ -531,7 +531,6 @@ public class FragmentoMenuDraft extends Fragment {
             paramsDraft = getParams();
             paramsDraft.putBoolean("loged", true);
             paramsDraft.putString("userName", userName);
-
             juego.putExtra("miBundle", paramsDraft);
             getActivity().startActivity(juego);
         } else {
@@ -549,7 +548,7 @@ public class FragmentoMenuDraft extends Fragment {
                     //userName = input.getText().toString();
                     paramsDraft.putBoolean("loged", false);
                     sessionManagement.saveSession(userName);
-                    juego.putExtras(paramsDraft);
+                    juego.putExtra("miBundle", paramsDraft);
                     getActivity().startActivity(juego);
 
                 }
