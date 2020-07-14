@@ -31,7 +31,6 @@ import com.nbastatsquiz.fragments.menu.FragmentoMenuDraft;
 import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.fragments.help.FragmentoTabsAyuda;
-import com.nbastatsquiz.pruebas.Main4Activity_pruebaCH;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
@@ -254,8 +253,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
             case R.id.nav_highs:
 
-                Intent ch = new Intent(this, Main4Activity_pruebaCH.class);
-                startActivity(ch);
+
 
                 break;
 
