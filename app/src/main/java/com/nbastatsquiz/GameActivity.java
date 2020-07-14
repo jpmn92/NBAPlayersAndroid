@@ -174,7 +174,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 //        ca-app-pub-5187656956047852/9787942336 - el de NBA STATS QUIZ
         //mInterstitialAd.setAdUnitId("ca-app-pub-5187656956047852/2422488014"); //Este es el nuestro LALIGA
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener(){
+        mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
                 System.out.println("PUBLI CERRADA");
@@ -245,7 +245,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
             //si es wnba o gleague, si la temporada está en los arrays prohibidos
 
-            if(statCategory.equalsIgnoreCase("FG3M") && perMode.equalsIgnoreCase("PerGame")){
+            if (statCategory.equalsIgnoreCase("FG3M") && perMode.equalsIgnoreCase("PerGame")) {
                 if (liga.equalsIgnoreCase("WNBA") || liga.equalsIgnoreCase("GLEAGUE")) {
                     while (fg3mProhibidos.contains(temporadaParam)
                     ) {
@@ -254,8 +254,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                     }
                 }
             }
-
-
 
 
             params.putString("Season", temporadaParam);
@@ -275,7 +273,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
         String seasonYear = temporadas[random];
-
 
 
         return seasonYear;
@@ -369,8 +366,16 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void iluminar(String color) {
-        txtP1.setText(String.valueOf(df.format(valueP1)));
-        txtP2.setText(String.valueOf(df.format(valueP2)));
+
+        if(statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FG3_PCT")){
+            txtP1.setText(String.valueOf(df.format(valueP1))+"%");
+            txtP2.setText(String.valueOf(df.format(valueP2))+"%");
+        }else{
+            txtP1.setText(String.valueOf(df.format(valueP1)));
+            txtP2.setText(String.valueOf(df.format(valueP2)));
+        }
+
+
         relFront.setBackgroundColor(Color.parseColor(color));
         relFront.setVisibility(View.VISIBLE);
         relFront.postDelayed(new Runnable() {
