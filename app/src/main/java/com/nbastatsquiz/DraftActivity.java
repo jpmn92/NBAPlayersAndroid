@@ -322,45 +322,45 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
         switch (draftPick1.getPERSON_ID()) {
             case 1122:
-                Glide.with(this).load(R.drawable.img_1122).into(ivP1);
+//                Glide.with(this).load(R.drawable.img_1122).into(ivP1);
 
-//                Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
                 break;
             case 304:
-                Glide.with(this).load(R.drawable.img_304).into(ivP1);
+//                Glide.with(this).load(R.drawable.img_304).into(ivP1);
 
-//                Picasso.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP1);
                 break;
             case 600015:
-                Glide.with(this).load(R.drawable.img_600015).into(ivP1);
+//                Glide.with(this).load(R.drawable.img_600015).into(ivP1);
 
-//                Picasso.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP1);
                 break;
             case 714:
-                Glide.with(this).load(R.drawable.img_714).into(ivP1);
+//                Glide.with(this).load(R.drawable.img_714).into(ivP1);
 
-//                Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
                 break;
             case 1763:
-                Glide.with(this).load(R.drawable.img_1763).into(ivP1);
+//                Glide.with(this).load(R.drawable.img_1763).into(ivP1);
 
-//                Picasso.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP1);
                 break;
             case 764:
-                Glide.with(this).load(R.drawable.img_764).into(ivP1);
+//                Glide.with(this).load(R.drawable.img_764).into(ivP1);
 
-//                Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
                 break;
             case 2221:
-                Glide.with(this).load(R.drawable.img_2221).into(ivP1);
+//                Glide.with(this).load(R.drawable.img_2221).into(ivP1);
 
-//                Picasso.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP1);
                 break;
 
 
             default:
                 Glide.with(this).load(url_imagen1).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP1);
-//                Picasso.with(this).load(url_imagen1).error(R.drawable.person)
+//                Glide.with(this).load(url_imagen1).error(R.drawable.person)
 //                        //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 //                        //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
 //                        .into(ivP1);
@@ -369,12 +369,12 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         }
         Glide.with(this).load(url_imageTeam1).transition(DrawableTransitionOptions.withCrossFade()).into(ivT1);
 
-//        Picasso.with(this).load(url_imageTeam1)
+//        Glide.with(this).load(url_imageTeam1)
 //                //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 //                //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
 //                .into(ivT1);
 
-//        Picasso.with(this).load(url_imageCollege1)
+//        Glide.with(this).load(url_imageCollege1)
 //                .into(ivC1);
         Glide.with(this).load(url_imageCollege1).transition(DrawableTransitionOptions.withCrossFade()).into(ivC1);
 
@@ -387,39 +387,39 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
         switch (draftPick2.getPERSON_ID()) {
             case 1122:
-                Glide.with(this).load(R.drawable.img_1122).into(ivP2);
+//                Glide.with(this).load(R.drawable.img_1122).into(ivP2);
 
-//                Picasso.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
                 break;
             case 304:
-                Glide.with(this).load(R.drawable.img_304).into(ivP2);
+//                Glide.with(this).load(R.drawable.img_304).into(ivP2);
 
-//                Picasso.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP1);
                 break;
             case 600015:
-                Glide.with(this).load(R.drawable.img_600015).into(ivP2);
+//                Glide.with(this).load(R.drawable.img_600015).into(ivP2);
 
-//                Picasso.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP1);
                 break;
             case 714:
-                Glide.with(this).load(R.drawable.img_714).into(ivP2);
+//                Glide.with(this).load(R.drawable.img_714).into(ivP2);
 
-//                Picasso.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
                 break;
             case 1763:
-                Glide.with(this).load(R.drawable.img_1763).into(ivP2);
+//                Glide.with(this).load(R.drawable.img_1763).into(ivP2);
 
-//                Picasso.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP1);
                 break;
             case 764:
-                Glide.with(this).load(R.drawable.img_764).into(ivP2);
+//                Glide.with(this).load(R.drawable.img_764).into(ivP2);
 
-//                Picasso.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
                 break;
             case 2221:
-                Glide.with(this).load(R.drawable.img_2221).into(ivP2);
+//                Glide.with(this).load(R.drawable.img_2221).into(ivP2);
 
-//                Picasso.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP1);
                 break;
 
 
@@ -427,7 +427,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 Glide.with(this).load(url_imagen2).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
 
 
-//                Picasso.with(this).load(url_imagen2).error(R.drawable.person)
+//                Glide.with(this).load(url_imagen2).error(R.drawable.person)
 //                        //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 //                        //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
 //                        .into(ivP2);
@@ -436,20 +436,20 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         }
         Glide.with(this).load(url_imageTeam2).transition(DrawableTransitionOptions.withCrossFade()).into(ivT2);
 
-//        Picasso.with(this).load(url_imageTeam1)
+//        Glide.with(this).load(url_imageTeam1)
 //                //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 //                //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
 //                .into(ivT1);
 
-//        Picasso.with(this).load(url_imageCollege1)
+//        Glide.with(this).load(url_imageCollege1)
 //                .into(ivC1);
         Glide.with(this).load(url_imageCollege2).transition(DrawableTransitionOptions.withCrossFade()).into(ivC2);
-//        Picasso.with(this).load(url_imageTeam2)
+//        Glide.with(this).load(url_imageTeam2)
 //                //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 //                //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
 //                .into(ivT2);
 //
-//        Picasso.with(this).load(url_imageCollege2)
+//        Glide.with(this).load(url_imageCollege2)
 //                .into(ivC2);
 
         txtPoints.setText(String.valueOf(points));

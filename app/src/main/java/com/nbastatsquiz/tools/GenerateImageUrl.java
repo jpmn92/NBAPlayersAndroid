@@ -64,7 +64,14 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
-
+            //Carlisle
+            case 76342:
+                urlImage = "https://usathoopshype.files.wordpress.com/2017/01/i_ff_01_2e_rick-carlisle.png?w=190";
+                break;
+            //harangody
+            case 202376:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4276.png";
+                break;
             //scalabrine
             case 2243:
                 urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1021.png&w=350&h=254";
