@@ -15,10 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAQUIZ"
         tools:targetApi="lollipop">
-        <activity android:name=".pruebas.Main4Activity_pruebaCH"></activity>
         <activity android:name=".DraftActivity"></activity>
 
-        <activity android:name=".pruebas.Main3Activity_pruebaDraft" />
         <activity android:name=".NavigationDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

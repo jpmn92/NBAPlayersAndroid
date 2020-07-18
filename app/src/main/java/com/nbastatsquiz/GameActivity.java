@@ -170,9 +170,8 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); //Este es el de prueba
+        mInterstitialAd.setAdUnitId("ca-app-pub-5187656956047852/9787942336"); //Este es el de prueba
 //        ca-app-pub-5187656956047852/9787942336 - el de NBA STATS QUIZ
-        //mInterstitialAd.setAdUnitId("ca-app-pub-5187656956047852/2422488014"); //Este es el nuestro LALIGA
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
