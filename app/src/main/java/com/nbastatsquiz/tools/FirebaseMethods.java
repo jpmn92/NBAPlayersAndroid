@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -495,8 +496,9 @@ public class FirebaseMethods extends Activity {
                     } else {
                         // If sign in fails, display a message to the user.
                         //LOGIN INCORRECTO
-                        Toast.makeText(loginContext, getApplicationContext().getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
-
+                        //Toast.makeText(loginContext, getApplicationContext().getString(R.string.login_incorrecto), Toast.LENGTH_SHORT).show();
+                        fragmentoLogin.getTxtErrorLogIn().setText(loginContext.getString(R.string.login_incorrecto));
+                        fragmentoLogin.getTxtErrorLogIn().setVisibility(View.VISIBLE);
                     }
 
                 }
