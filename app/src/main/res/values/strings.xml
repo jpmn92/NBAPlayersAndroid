@@ -126,11 +126,11 @@
     <!--        Totals-->
 
     <string name="FG3_PCT">3POINT PERCENTAGE</string>
-    <string name="FG3_PCT_RES">3POINT PERCENTAGE</string>
+    <string name="FG3_PCT_RES">3POINT %</string>
     <string name="FG3M">3POINT MADE</string>
     <string name="FG3M_RES">3POINT MADE</string>
     <string name="FT_PCT">FREE THROW PERCENTAGE</string>
-    <string name="FT_PCT_RES">FREE THROW PERCENTAGE</string>
+    <string name="FT_PCT_RES">FT PERCENTAGE</string>
     <string name="FTM">FREE THROW MADE</string>
     <string name="FTM_RES">FT MADE</string>
 
