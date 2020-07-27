@@ -117,7 +117,7 @@
     <string name="OREB">OFENSIVE REBOUNDS</string>
     <string name="OREB_RES">OFENSIVE REB</string>
     <string name="DREB">DEFENSIVE REB</string>
-    <string name="DREB_RES">DEFENSIVE REBOUNDS</string>
+    <string name="DREB_RES">DEFENSIVE REB</string>
     <string name="STL">STEALS</string>
     <string name="BLK">BLOCKS</string>
     <string name="TOV">TURNOVERS</string>
