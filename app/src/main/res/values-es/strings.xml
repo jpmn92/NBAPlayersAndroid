@@ -117,7 +117,9 @@
     <string name="REB">REBOTES</string>
     <string name="AST">ASISTENCIAS</string>
     <string name="OREB">REBOTES OFENSIVOS</string>
+    <string name="OREB_RES">REB OFENSIVOS</string>
     <string name="DREB">REBOTES DEFENSIVOS</string>
+    <string name="DREB_RES">REB DEFENSIVOS</string>
     <string name="STL">ROBOS</string>
     <string name="BLK">TAPONES</string>
     <string name="TOV">PÉRDIDAS</string>
@@ -126,9 +128,13 @@
     <!--        Totals-->
 
     <string name="FG3_PCT">PORCENTAJE DE TRIPLES</string>
+    <string name="FG3_PCT_RES">TRIPLES %</string>
     <string name="FG3M">TRIPLES ANOTADOS</string>
+    <string name="FG3M_RES">TRIPLES ANOTADOS</string>
     <string name="FT_PCT">PORCENTAJE DE TIROS LIBRES</string>
+    <string name="FT_PCT_RES">TIROS LIBRES %</string>
     <string name="FTM">TIROS LIBRES ANOTADOS</string>
+    <string name="FTM_RES">TL ANOTADOS</string>
 
     <string-array name="Temporadas">
 

@@ -335,7 +335,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         relFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircle);
 
-        txtPregunta.setText(statCategory + " " + season);
+        txtPregunta.setText(traducirEstadistica(statCategory) + " " + season);
 
         firebaseMethods = new FirebaseMethods(this, paramsIniciales);
         buscarRecord();
@@ -772,7 +772,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         //pasamos a arraylist global el arraygenerado
         leagueLeadersGlobal = leagueLeaders;
         selectPlayers();
-        txtPregunta.setText(statCategory + " " + season);
+        txtPregunta.setText(traducirEstadistica(statCategory) + " " + season);
 
 
     }
@@ -885,6 +885,60 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         return connected;
 
+    }
+
+    private String traducirEstadistica(String statCategory){
+        String stat = statCategory;
+        if(statCategory.equalsIgnoreCase("PTS")){
+            stat = getString(R.string.PTS);
+        }
+        else if(statCategory.equalsIgnoreCase("REB")){
+            stat = getString(R.string.REB);
+        }
+        else if(statCategory.equalsIgnoreCase("AST")){
+            stat = getString(R.string.AST);
+        }
+
+        else if(statCategory.equalsIgnoreCase("OREB")){
+            stat = getString(R.string.OREB_RES);
+        }
+        else if(statCategory.equalsIgnoreCase("DREB")){
+            stat = getString(R.string.DREB_RES);
+        }
+        else if(statCategory.equalsIgnoreCase("STL")){
+
+            stat = getString(R.string.STL);
+        }
+        else if(statCategory.equalsIgnoreCase("BLK")){
+
+            stat = getString(R.string.BLK);
+        }
+        else if(statCategory.equalsIgnoreCase("TOV")){
+
+            stat = getString(R.string.TOV);
+        }
+        else if(statCategory.equalsIgnoreCase("MIN")){
+
+            stat = getString(R.string.MIN);
+        }
+        else if(statCategory.equalsIgnoreCase("FG3_PCT")){
+
+            stat = getString(R.string.FG3_PCT_RES);
+        }
+        else if(statCategory.equalsIgnoreCase("FG3M")){
+
+            stat = getString(R.string.FG3M_RES);
+        }
+        else if(statCategory.equalsIgnoreCase("FT_PCT")){
+
+            stat = getString(R.string.FT_PCT_RES);
+        }
+        else if(statCategory.equalsIgnoreCase("FTM")){
+
+            stat = getString(R.string.FTM_RES);
+        }
+
+        return stat;
     }
 
 

@@ -115,7 +115,9 @@
     <string name="REB">REBOUNDS</string>
     <string name="AST">ASISTS</string>
     <string name="OREB">OFENSIVE REBOUNDS</string>
-    <string name="DREB">DEFENSIVE REBOUNDS</string>
+    <string name="OREB_RES">OFENSIVE REB</string>
+    <string name="DREB">DEFENSIVE REB</string>
+    <string name="DREB_RES">DEFENSIVE REB</string>
     <string name="STL">STEALS</string>
     <string name="BLK">BLOCKS</string>
     <string name="TOV">TURNOVERS</string>
@@ -124,9 +126,13 @@
     <!--        Totals-->
 
     <string name="FG3_PCT">3POINT PERCENTAGE</string>
+    <string name="FG3_PCT_RES">3POINT %</string>
     <string name="FG3M">3POINT MADE</string>
+    <string name="FG3M_RES">3POINT MADE</string>
     <string name="FT_PCT">FREE THROW PERCENTAGE</string>
+    <string name="FT_PCT_RES">FT PERCENTAGE</string>
     <string name="FTM">FREE THROW MADE</string>
+    <string name="FTM_RES">FT MADE</string>
 
     <string-array name="NBA_Teams">
 
