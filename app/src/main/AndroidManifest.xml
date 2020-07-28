@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAQUIZ"
         tools:targetApi="lollipop">
-        <activity android:name=".DraftActivity"></activity>
+        <activity android:name=".DraftActivity" android:screenOrientation="portrait"></activity>
 
         <activity android:name=".NavigationDrawerActivity">
             <intent-filter>
@@ -24,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity" />
+        <activity android:name=".GameActivity"   android:screenOrientation="portrait"
+            />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
