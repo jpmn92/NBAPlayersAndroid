@@ -169,7 +169,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                     for (int i = 1; i < headersArray.size(); i++) {
                         jsonPlayer = intoString(jsonPlayer, headersArray.get(i) + ":", posicion);
                         posicion = jsonPlayer.indexOf(',', posicion + 1) + 1;
-                        System.out.println(jsonPlayer);
+                        //System.out.println(jsonPlayer);
                     }
                     LeagueLeader leagueLeader = new Gson().fromJson(jsonPlayer, LeagueLeader.class);
 

@@ -176,7 +176,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
-                System.out.println("PUBLI CERRADA");
+                //System.out.println("PUBLI CERRADA");
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 myCountDownTimer.start();
             }
@@ -476,6 +476,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         }
 
 
+        ivP1.setImageDrawable(null);
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
         switch (leagueLeader1.getPLAYER_ID().intValue()) {
             case 1122:
@@ -509,7 +510,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
         }
-
+        ivT1.setImageDrawable(null);
         Glide.with(this).load(url_imageTeam1)
                 //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
@@ -520,6 +521,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
         //si es alguno de los que no tenemos url de la imagen, que la meta a capon
+        ivP2.setImageDrawable(null);
         switch (leagueLeader2.getPLAYER_ID().intValue()) {
             case 1122:
                 Glide.with(this).load(R.drawable.img_1122).error(R.drawable.person).transition(DrawableTransitionOptions.withCrossFade()).into(ivP2);
@@ -552,6 +554,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
         }
+        ivT2.setImageDrawable(null);
         Glide.with(this).load(url_imageTeam2)
                 //.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 //.networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
