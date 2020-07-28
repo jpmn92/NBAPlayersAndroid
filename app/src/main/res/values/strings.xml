@@ -383,5 +383,11 @@
     <string name="college">College</string>
     <string name="draft_question">Which pick was higher?</string>
 
+<!--    BLOQUES PUBLICIDAD-->
+    <string name="banner_puntuaciones_real" translatable="false">ca-app-pub-5187656956047852/7011375800</string>
+    <string name="banner_puntuaciones_prueba" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="bloque_publicidad_intersticial_prueba" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="bloque_publicidad_intersticial_draft" translatable="false">ca-app-pub-5187656956047852/5587162239</string>
+    <string name="bloque_publicidad_intersticial_gameactivity" translatable="false">ca-app-pub-5187656956047852/9787942336</string>
 
 </resources>

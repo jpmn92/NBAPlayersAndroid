@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<FirebasePuntuacion> {
 
-    String username, season, seasonType, statCategory, perMode, date, image, uid, modoJuego, draftTeam, draftCollege, liga;
+    String username, season, seasonType, statCategory, perMode, date, image, uid, modoJuego, draftTeam, draftCollege, liga, hour;
     int points, ranking;
 
     public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String modoJuego, String liga, int points, String uid, int ranking, String draftTeam, String draftCollege) {
@@ -25,6 +25,25 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         this.draftTeam = draftTeam;
         this.draftCollege = draftCollege;
         this.liga = liga;
+    }
+
+    //Constructor con hora
+    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String uid, String modoJuego, String draftTeam, String draftCollege, String liga, String hour, int points, int ranking) {
+        this.username = username;
+        this.season = season;
+        this.seasonType = seasonType;
+        this.statCategory = statCategory;
+        this.perMode = perMode;
+        this.date = date;
+        this.image = image;
+        this.uid = uid;
+        this.modoJuego = modoJuego;
+        this.draftTeam = draftTeam;
+        this.draftCollege = draftCollege;
+        this.liga = liga;
+        this.hour = hour;
+        this.points = points;
+        this.ranking = ranking;
     }
 
     //constructor para draft
@@ -181,6 +200,14 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 
     @Override

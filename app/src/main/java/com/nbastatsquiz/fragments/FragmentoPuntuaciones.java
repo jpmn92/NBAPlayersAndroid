@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.adaptador.AdapterPuntuaciones;
@@ -31,6 +35,8 @@ public class FragmentoPuntuaciones extends Fragment {
     String draftTeam, draftCollege, draftSeason, liga;
 
     private static FragmentoPuntuaciones fragmentoPuntuaciones;
+
+    private AdView mAdView;
     Bundle bundle;
 
 
@@ -63,6 +69,7 @@ public class FragmentoPuntuaciones extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_fragmento_puntuaciones, container, false);
 
+        inicializarPublicidad(view);
 
         bundle = fragmentoPuntuaciones.getArguments();
         tipoTemporada = "";
@@ -214,5 +221,18 @@ public class FragmentoPuntuaciones extends Fragment {
                 }
             }
         }
+    }
+
+    private void inicializarPublicidad( View view) {
+        MobileAds.initialize(getContext());
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                mAdView.loadAd(new AdRequest.Builder().build());
+            }
+        });
     }
 }

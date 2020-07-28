@@ -32,6 +32,7 @@ import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 import com.nbastatsquiz.fragments.menu.FragmentoMenuDraft;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -99,6 +100,12 @@ public class FirebaseMethods extends Activity {
 
     public void createFbPuntuacion(Bundle bundle) {
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String hour = "";
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDateTime  currentHour = LocalDateTime.now();
+            hour = currentHour.getHour() + ":" + currentHour.getMinute() + ":" + currentHour.getSecond();
+        }
 
         reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
 
@@ -112,6 +119,7 @@ public class FirebaseMethods extends Activity {
         if (bundle.getString("modoJuego").equalsIgnoreCase("Stats")) {
             fbPuntuacion.setPoints(bundle.getInt("puntos"));
             fbPuntuacion.setDate(currentDate);
+            fbPuntuacion.setHour(hour);
             fbPuntuacion.setPerMode(bundle.getString("PerMode"));
             fbPuntuacion.setSeason(bundle.getString("Season"));
             fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
@@ -127,6 +135,7 @@ public class FirebaseMethods extends Activity {
         if (bundle.getString("modoJuego").equalsIgnoreCase("Draft")) {
             fbPuntuacion.setPoints(bundle.getInt("puntos"));
             fbPuntuacion.setDate(currentDate);
+            fbPuntuacion.setHour(hour);
             fbPuntuacion.setImage(bundle.getString("image"));
             fbPuntuacion.setUid(uid);
             fbPuntuacion.setUsername(bundle.getString("userName"));

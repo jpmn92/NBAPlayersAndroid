@@ -21,6 +21,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nbastatsquiz.beans.DraftPick;
@@ -40,6 +44,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
     private int points, record, vidas, contadorAciertos, tiempo;
     private boolean recordConseguido;
+    private InterstitialAd mInterstitialAd;
 
     private MyCountDownTimer myCountDownTimer;
     private NavigationDrawerActivity navigationDrawerActivity;
@@ -78,6 +83,8 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draft);
 
+        inicializarPublicidad();
+
         sessionManagement = new SessionManagement(this);
 
         tiempo = 10000;
@@ -114,6 +121,21 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
             lstDraftsPresenter.getDrafts(params);
         }
 
+    }
+
+    private void inicializarPublicidad() {
+        MobileAds.initialize(this);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //Este es el de prueba, cambiar por bloque_publicidad_intersticial_draft
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                //System.out.println("PUBLI CERRADA");
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                myCountDownTimer.start();
+            }
+        });
     }
 
     private void buscarRecord() {
@@ -389,37 +411,37 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
             case 1122:
 //                Glide.with(this).load(R.drawable.img_1122).into(ivP2);
 
-                Glide.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1122).error(R.drawable.person).into(ivP2);
                 break;
             case 304:
 //                Glide.with(this).load(R.drawable.img_304).into(ivP2);
 
-                Glide.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_304).error(R.drawable.person).into(ivP2);
                 break;
             case 600015:
 //                Glide.with(this).load(R.drawable.img_600015).into(ivP2);
 
-                Glide.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_600015).error(R.drawable.person).into(ivP2);
                 break;
             case 714:
 //                Glide.with(this).load(R.drawable.img_714).into(ivP2);
 
-                Glide.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_714).error(R.drawable.person).into(ivP2);
                 break;
             case 1763:
 //                Glide.with(this).load(R.drawable.img_1763).into(ivP2);
 
-                Glide.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_1763).error(R.drawable.person).into(ivP2);
                 break;
             case 764:
 //                Glide.with(this).load(R.drawable.img_764).into(ivP2);
 
-                Glide.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_764).error(R.drawable.person).into(ivP2);
                 break;
             case 2221:
 //                Glide.with(this).load(R.drawable.img_2221).into(ivP2);
 
-                Glide.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP1);
+                Glide.with(this).load(R.drawable.img_2221).error(R.drawable.person).into(ivP2);
                 break;
 
 
@@ -689,7 +711,9 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         builder.setPositiveButton(R.string.play_again, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 vidas = 3;
                 points = 0;
                 contadorAciertos = 0;
@@ -705,6 +729,9 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 //                Intent menu = new Intent(GameActivity.this, NavigationDrawerActivity.class);
 //                GameActivity.this.startActivity(menu);
 //                GameActivity.this.finish();
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                }
                 onBackPressed();
 
             }

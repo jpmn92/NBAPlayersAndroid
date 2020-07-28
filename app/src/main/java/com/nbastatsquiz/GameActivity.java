@@ -170,8 +170,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-5187656956047852/9787942336"); //Este es el de prueba
-//        ca-app-pub-5187656956047852/9787942336 - el de NBA STATS QUIZ
+        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //Este es el de prueba, cambiar por bloque_publicidad_intersticial_gameactivity
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -842,9 +841,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         builder.setPositiveButton(R.string.play_again, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                int random = (int) (Math.random() * 2) + 1;
-                if (mInterstitialAd.isLoaded() && random % 2 == 0) {
+                if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
                 vidas = 3;
@@ -862,8 +859,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 //                Intent menu = new Intent(GameActivity.this, NavigationDrawerActivity.class);
 //                GameActivity.this.startActivity(menu);
 //                GameActivity.this.finish();
-                int random = (int) (Math.random() * 2) + 1;
-                if (mInterstitialAd.isLoaded() && random % 2 == 0) {
+                if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
                 onBackPressed();
