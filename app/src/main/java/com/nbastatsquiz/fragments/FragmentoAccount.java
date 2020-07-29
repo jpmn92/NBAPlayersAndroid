@@ -50,6 +50,7 @@ public class FragmentoAccount extends Fragment {
     FirebaseMethods firebaseMethods;
     EditText txtCodgio;
     String urlCode;
+    ArrayList<NBAPlayer> nbaPlayers;
     boolean codigo;
     int inicializacion;
 
@@ -95,7 +96,7 @@ public class FragmentoAccount extends Fragment {
         txtUserName.setEnabled(false);
 
 
-        ArrayList<NBAPlayer> nbaPlayers = generateImageUrl.getNBAPlayers();
+        nbaPlayers = generateImageUrl.getNBAPlayers();
 
         //ordenamos array
         if (nbaPlayers.size() > 0) {
@@ -236,8 +237,16 @@ public class FragmentoAccount extends Fragment {
     }
 
     public void urlCode(String url){
-        Glide.with(getContext()).load(url).into(circleImageView);
-        urlCode = url;
-        codigo = true;
+        if(!url.equalsIgnoreCase(nbaPlayers.get(nbaPlayers.size() - 1).getUrlImage())){
+            NBAPlayer newNbaPlayer = new NBAPlayer(nbaPlayers.size(), txtCodgio.getText().toString().toUpperCase(), url);
+            nbaPlayers.add(newNbaPlayer);
+            ArrayAdapter<NBAPlayer> adapter = new ArrayAdapter<NBAPlayer>(getContext(), R.layout.support_simple_spinner_dropdown_item, nbaPlayers);
+            spinnerProfile.setAdapter(adapter);
+            spinnerProfile.setSelection(nbaPlayers.size() - 1);
+            Glide.with(getContext()).load(url).into(circleImageView);
+            urlCode = url;
+            codigo = true;
+        }
+
     }
 }

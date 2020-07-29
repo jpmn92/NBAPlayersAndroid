@@ -775,25 +775,35 @@ public class FirebaseMethods extends Activity {
     }
 
     public void readCode(String codigo, FragmentoAccount fragmentoAccount){
+        processDone = false;
         final String[] url = {""};
         reference = FirebaseDatabase.getInstance().getReference().child("Codigo");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!processDone){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Object object = snapshot.getValue(Object.class);
+                        String json = new Gson().toJson(object);
+                        Codigo fbCodigo = new Gson().fromJson(json, Codigo.class);
 
-                    Object object = snapshot.getValue(Object.class);
-                    String json = new Gson().toJson(object);
-                    Codigo fbCodigo = new Gson().fromJson(json, Codigo.class);
+                        if(fbCodigo.getCodigo().equals(codigo)){
+                            url[0] = fbCodigo.getUrl();
+                            fbCodigo.setUsado(fbCodigo.getUsado() + 1);
+                            DatabaseReference recordRef = reference.child(snapshot.getKey());
+                            Map<String, Object> usadoUpdates = new HashMap<>();
+                            usadoUpdates.put("/usado", String.valueOf(fbCodigo.getUsado()));
+                            recordRef.updateChildren(usadoUpdates);
+                        }
 
-                    if(fbCodigo.getCodigo().equals(codigo)){
-                        url[0] = fbCodigo.getUrl();
+                    }
+                    processDone = true;
+                    if(!"".equalsIgnoreCase(url[0])){
+                        fragmentoAccount.urlCode(url[0]);
                     }
                 }
-                if(!"".equalsIgnoreCase(url[0])){
-                    fragmentoAccount.urlCode(url[0]);
-                }
+
             }
 
             @Override

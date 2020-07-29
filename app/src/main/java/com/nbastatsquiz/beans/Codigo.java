@@ -3,13 +3,15 @@ package com.nbastatsquiz.beans;
 public class Codigo {
     private String codigo;
     private String url;
+    private int usado;
 
     public Codigo() {
     }
 
-    public Codigo(String codigo, String url) {
+    public Codigo(String codigo, String url, int usado) {
         this.codigo = codigo;
         this.url = url;
+        this.usado = usado;
     }
 
     public String getCodigo() {
@@ -26,5 +28,13 @@ public class Codigo {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getUsado() {
+        return usado;
+    }
+
+    public void setUsado(int usado) {
+        this.usado = usado;
     }
 }
