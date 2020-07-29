@@ -104,8 +104,7 @@
     <string name="record">Record: </string>
     <string name="puntuacion">Puntuación: </string>
     <string name="actualizar">ACTUALIZAR</string>
-
-
+    <string name="codigo">INTRODUCE TU CODIGO</string>
 
     <!--Textos spiners-->
     <string name="MISC">Mezcla</string>

@@ -103,6 +103,7 @@
     <string name="record">Record: </string>
     <string name="puntuacion">Points: </string>
     <string name="actualizar">UPDATE</string>
+    <string name="codigo">ENTER YOUR CODE</string>
 
 
     <!--Textos spiners-->

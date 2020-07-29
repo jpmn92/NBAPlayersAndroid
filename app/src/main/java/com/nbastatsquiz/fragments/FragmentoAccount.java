@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,6 +48,10 @@ public class FragmentoAccount extends Fragment {
     CircleImageView circleImageView;
     NavigationDrawerActivity navigationDrawerActivity;
     FirebaseMethods firebaseMethods;
+    EditText txtCodgio;
+    String urlCode;
+    boolean codigo;
+    int inicializacion;
 
     private static FragmentoAccount fragmentoAccount;
 
@@ -125,14 +132,26 @@ public class FragmentoAccount extends Fragment {
                 if (checkInternetConnection() == true) {
 
                     //cogemos jugador seleccionado y pasamos la url de su imagen
-                    NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
+
 
                     String userName = txtUserName.getText().toString();
                     String email = sm.getSessionEmail();
 
-                    sm.saveSession(txtUserName.getText().toString(), email, nbaPlayer.getUrlImage());
+                    if(codigo){
+                        sm.saveSession(txtUserName.getText().toString(), email, urlCode);
 
-                    firebaseMethods.updateAvatar(nbaPlayer.getUrlImage(),getContext());
+                        firebaseMethods.updateAvatar(urlCode,getContext());
+                    }
+                    else{
+                        NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
+
+                        sm.saveSession(txtUserName.getText().toString(), email, nbaPlayer.getUrlImage());
+
+
+                        firebaseMethods.updateAvatar(nbaPlayer.getUrlImage(),getContext());
+                    }
+
+
 
 
 
@@ -149,8 +168,11 @@ public class FragmentoAccount extends Fragment {
         spinnerProfile.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
-                Glide.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
+                if(++inicializacion > 1){
+                    NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
+                    Glide.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
+                    codigo = false;
+                }
             }
 
             @Override
@@ -159,15 +181,35 @@ public class FragmentoAccount extends Fragment {
             }
         });
 
+        txtCodgio.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                firebaseMethods.readCode(s.toString(), fragmentoAccount);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        //inicializacion = false;
 
         return view;
     }
 
 
     private void initComponents(View view) {
-
+        inicializacion = 0;
+        codigo = false;
         btnSetOptions = view.findViewById(R.id.btnSetOptions);
         txtUserName = view.findViewById(R.id.txtUserNameOptions);
+        txtCodgio = view.findViewById(R.id.txtCode);
         spinnerProfile = view.findViewById(R.id.spinnerProfilePicture);
 //        ivAvatar = view.findViewById(R.id.ivAvatar);
         circleImageView = view.findViewById(R.id.ivAvatar);
@@ -191,5 +233,11 @@ public class FragmentoAccount extends Fragment {
 
         return connected;
 
+    }
+
+    public void urlCode(String url){
+        Glide.with(getContext()).load(url).into(circleImageView);
+        urlCode = url;
+        codigo = true;
     }
 }

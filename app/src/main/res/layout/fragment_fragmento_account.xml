@@ -66,6 +66,26 @@
             android:spinnerMode="dialog"
             />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtCode"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingLeft="15dp"
+                android:text="@string/codigo"
+                android:textColor="@color/material_black" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnSetOptions"
             android:layout_width="match_parent"

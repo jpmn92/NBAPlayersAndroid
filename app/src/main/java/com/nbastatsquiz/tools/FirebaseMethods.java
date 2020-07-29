@@ -24,7 +24,9 @@ import com.google.gson.Gson;
 import com.nbastatsquiz.DraftActivity;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
+import com.nbastatsquiz.beans.Codigo;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
+import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.fragments.auth.FragmentoAutentificacion;
 import com.nbastatsquiz.fragments.auth.FragmentoLogin;
 import com.nbastatsquiz.fragments.menu.FragmentoMenu;
@@ -768,6 +770,35 @@ public class FirebaseMethods extends Activity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
 
+
+        });
+    }
+
+    public void readCode(String codigo, FragmentoAccount fragmentoAccount){
+        final String[] url = {""};
+        reference = FirebaseDatabase.getInstance().getReference().child("Codigo");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    Object object = snapshot.getValue(Object.class);
+                    String json = new Gson().toJson(object);
+                    Codigo fbCodigo = new Gson().fromJson(json, Codigo.class);
+
+                    if(fbCodigo.getCodigo().equals(codigo)){
+                        url[0] = fbCodigo.getUrl();
+                    }
+                }
+                if(!"".equalsIgnoreCase(url[0])){
+                    fragmentoAccount.urlCode(url[0]);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
 
         });
     }
