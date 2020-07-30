@@ -51,7 +51,7 @@ import java.util.Arrays;
 public class GameActivity extends Activity implements View.OnClickListener, LstLeagueLeaderContract.View {
 
     private int points, record, vidas, contadorAciertos, tiempo;
-    private boolean recordConseguido;
+    private boolean recordConseguido, otraPartida;
     private InterstitialAd mInterstitialAd;
 
     private MyCountDownTimer myCountDownTimer;
@@ -170,14 +170,19 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //Este es el de prueba, cambiar por bloque_publicidad_intersticial_gameactivity
+        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
-                //System.out.println("PUBLI CERRADA");
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                myCountDownTimer.start();
+                if(otraPartida){
+                    reiniciar();
+                }
+                else{
+                    finish();
+                }
+                //myCountDownTimer.start();
             }
         });
     }
@@ -290,7 +295,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
     private void initComponents() {
-
+        otraPartida = false;
         txtPregunta = findViewById(R.id.txtPregunta);
         txtP1 = findViewById(R.id.txtP1);
         txtP1.setTextColor(Color.RED);
@@ -809,6 +814,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         this.record = record;
     }
 
+    private void reiniciar(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -841,14 +852,13 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         builder.setPositiveButton(R.string.play_again, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                otraPartida = true;
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
-                vidas = 3;
-                points = 0;
-                contadorAciertos = 0;
-                comprobarVidas();
-                selectPlayers();
+                else{
+                    reiniciar();
+                }
             }
         });
         builder.setNegativeButton(R.string.back_to_menu, new DialogInterface.OnClickListener() {
@@ -862,8 +872,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
                 }
-                onBackPressed();
-
+                else{
+                    finish();
+                }
             }
         });
         builder.show();
