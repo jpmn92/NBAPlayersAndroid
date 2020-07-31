@@ -47,7 +47,7 @@ public class FragmentoMenuDraft extends Fragment {
     Bundle params, paramsDraft;
     Intent juego;
     ArrayList<FirebasePuntuacion> puntuaciones;
-    ImageView ivSound, imagenPrincipal;
+    ImageView ivSound, ivCrono, imagenPrincipal;
 
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
@@ -99,16 +99,31 @@ public class FragmentoMenuDraft extends Fragment {
         sessionManagement = new SessionManagement(getContext());
         ivSound = view.findViewById(R.id.ivSoundDraft);
         checkSound();
+        ivCrono = view.findViewById(R.id.ivCronoDraft);
+        checkCrono();
         ivSound.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (sessionManagement.getSound()) {
-                    sessionManagement.saveSession(false);
+                    sessionManagement.saveSession(false, "sound");
                 } else {
-                    sessionManagement.saveSession(true);
+                    sessionManagement.saveSession(true, "sound");
                 }
                 checkSound();
+            }
+        });
+
+        ivCrono.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (sessionManagement.getCrono()) {
+                    sessionManagement.saveSession(false, "crono");
+                } else {
+                    sessionManagement.saveSession(true, "crono");
+                }
+                checkCrono();
             }
         });
 
@@ -227,6 +242,16 @@ public class FragmentoMenuDraft extends Fragment {
             ivSound.setImageResource(R.drawable.volume_on);
         } else {
             ivSound.setImageResource(R.drawable.volume_off);
+        }
+    }
+
+    private void checkCrono() {
+
+        if(sessionManagement.getCrono()){
+            ivCrono.setImageResource(R.drawable.temp_on);
+        }
+        else{
+            ivCrono.setImageResource(R.drawable.temp_off);
         }
     }
 
@@ -526,13 +551,40 @@ public class FragmentoMenuDraft extends Fragment {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         if (firebaseUser != null) {
-            userName = firebaseUser.getDisplayName();
+            if (!sessionManagement.getCrono()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.temporizador_off);
+                builder.setMessage(R.string.aviso_temporizador);
+                builder.setPositiveButton(R.string.empezar_partida, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userName = firebaseUser.getDisplayName();
 
-            paramsDraft = getParams();
-            paramsDraft.putBoolean("loged", true);
-            paramsDraft.putString("userName", userName);
-            juego.putExtra("miBundle", paramsDraft);
-            getActivity().startActivity(juego);
+                        paramsDraft = getParams();
+                        paramsDraft.putBoolean("loged", true);
+                        paramsDraft.putString("userName", userName);
+                        juego.putExtra("miBundle", paramsDraft);
+                        getActivity().startActivity(juego);
+
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+            else{
+                userName = firebaseUser.getDisplayName();
+
+                paramsDraft = getParams();
+                paramsDraft.putBoolean("loged", true);
+                paramsDraft.putString("userName", userName);
+                juego.putExtra("miBundle", paramsDraft);
+                getActivity().startActivity(juego);
+            }
         } else {
 
             paramsDraft = getParams();

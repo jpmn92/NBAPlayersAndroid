@@ -76,7 +76,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private DecimalFormat df;
 
     private float valueP1, valueP2;
-    private boolean gameStarted, misc, miscStats, miscSeason, sound;
+    private boolean gameStarted, misc, miscStats, miscSeason, sound, crono;
     private String season, seasonType, statCategory, perMode, activeFlag, username, liga;
     private SessionManagement sessionManagement;
 
@@ -107,6 +107,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         paramsIniciales = (Bundle) params.clone();
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
+        crono = sessionManagement.getCrono();
         paramsIniciales.putString("userName", username);
         paramsIniciales.putString("modoJuego", "Stats");
 
@@ -188,7 +189,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     }
 
     private void buscarRecord() {
-        if (params.getBoolean("loged")) {
+        if (params.getBoolean("loged") && crono) {
             firebaseMethods.getRecord();
         }
 
@@ -394,8 +395,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         if (checkInternetConnection() == true) {
             String message;
-            boolean logeado = params.getBoolean("loged");
-            if (params.getBoolean("loged")) {
+            if (params.getBoolean("loged") && crono) {
                 FirebaseAuth mAuth;
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -645,7 +645,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         if (myCountDownTimer != null) {
             myCountDownTimer.cancel();
         }
-        myCountDownTimer.start();
+        if(crono){
+            myCountDownTimer.start();
+        }
     }
 
     @Override

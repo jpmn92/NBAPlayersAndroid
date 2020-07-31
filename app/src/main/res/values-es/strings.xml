@@ -105,6 +105,8 @@
     <string name="puntuacion">Puntuación: </string>
     <string name="actualizar">ACTUALIZAR</string>
     <string name="codigo">INTRODUCE TU CODIGO</string>
+    <string name="temporizador_off">TEMPORIZADOR DESACTIVADO</string>
+    <string name="aviso_temporizador">Si el temporizador esta desactivado no se guardarán tus puntuaciones</string>
 
     <!--Textos spiners-->
     <string name="MISC">Mezcla</string>

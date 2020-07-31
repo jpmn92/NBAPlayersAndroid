@@ -104,6 +104,8 @@
     <string name="puntuacion">Points: </string>
     <string name="actualizar">UPDATE</string>
     <string name="codigo">ENTER YOUR CODE</string>
+    <string name="temporizador_off">TIMER OFF</string>
+    <string name="aviso_temporizador">If timer is off your game record won\'t be saved</string>
 
 
     <!--Textos spiners-->

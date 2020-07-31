@@ -13,6 +13,7 @@ public class SessionManagement {
     String SESSION_EMAIL = "session_email";
     String SESSION_SOUND = "session_sound";
     String SESSION_IMAGE = "session_image";
+    String SESSION_CRONO = "session_CRONO";
 
 
     public SessionManagement(Context context) {
@@ -26,9 +27,14 @@ public class SessionManagement {
         editor.putString(SESSION_USERNAME, userName).commit();
     }
 
-    public void saveSession(boolean sound) {
+    public void saveSession(boolean cronoOrSound, String valor) {
         editor.putInt(SESSION_KEY, 1);
-        editor.putBoolean(SESSION_SOUND, sound).commit();
+        if(valor.equals("sound")) {
+            editor.putBoolean(SESSION_SOUND, cronoOrSound).commit();
+        }
+        else{
+            editor.putBoolean(SESSION_CRONO, cronoOrSound).commit();
+        }
     }
 
     public void saveSession(String userName, boolean sound) {
@@ -81,6 +87,10 @@ public class SessionManagement {
 
     public boolean getSound(){
         return sharedPreferences.getBoolean(SESSION_SOUND, false);
+    }
+
+    public boolean getCrono(){
+        return sharedPreferences.getBoolean(SESSION_CRONO, true);
     }
 
     public void removeSession() {

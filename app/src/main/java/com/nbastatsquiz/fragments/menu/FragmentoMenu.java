@@ -46,10 +46,10 @@ public class FragmentoMenu extends Fragment {
     String userName;
     SessionManagement sessionManagement;
     Bundle params;
-    boolean sound;
+    boolean sound, crono;
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones;
-    ImageView ivSound, imagenPrincipal;
+    ImageView ivSound, ivCrono, imagenPrincipal;
     ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA, stringArrayAdapterGLEAGUE;
 
 
@@ -102,8 +102,11 @@ public class FragmentoMenu extends Fragment {
 
         ivSound = view.findViewById(R.id.ivSound);
         ivSound.setClickable(true);
+        ivCrono = view.findViewById(R.id.ivCrono);
+        ivCrono.setClickable(true);
         sessionManagement = new SessionManagement(getContext());
         sound = sessionManagement.getSound();
+        crono = sessionManagement.getCrono();
 
         stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.Temporadas));
         stringArrayAdapterNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -114,6 +117,7 @@ public class FragmentoMenu extends Fragment {
 
 //        ivSound = view.findViewById(R.id.ivSound);
         checkSound();
+        checkCrono();
 
         //dependiendo de si es true pintamos una imagen u otra
 
@@ -125,12 +129,28 @@ public class FragmentoMenu extends Fragment {
                 System.out.println("");
                 if (sound) {
                     sound = false;
-                    sessionManagement.saveSession(sound); //NUEVO
+                    sessionManagement.saveSession(sound, "sound"); //NUEVO
                     checkSound();
                 } else {
                     sound = true;
-                    sessionManagement.saveSession(sound); //NUEVO
+                    sessionManagement.saveSession(sound, "sound"); //NUEVO
                     checkSound();
+                }
+            }
+        });
+
+        ivCrono.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (crono) {
+                    crono = false;
+                    sessionManagement.saveSession(crono, "crono"); //NUEVO
+                    checkCrono();
+                } else {
+                    crono = true;
+                    sessionManagement.saveSession(crono, "crono"); //NUEVO
+                    checkCrono();
                 }
             }
         });
@@ -223,12 +243,19 @@ public class FragmentoMenu extends Fragment {
         }
     }
 
-    public void goToRegister() {
-        // puntuaciones.sort();
+    private void checkCrono() {
 
+        if(sessionManagement.getCrono()){
+            ivCrono.setImageResource(R.drawable.temp_on);
+        }
+        else{
+            ivCrono.setImageResource(R.drawable.temp_off);
+        }
+    }
+
+    public void goToRegister() {
 
         FragmentoRegister fragmentoRegister = FragmentoRegister.newInstance(null);
-
 
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_content, fragmentoRegister, "findThisFragment")
@@ -388,25 +415,53 @@ public class FragmentoMenu extends Fragment {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         if (firebaseUser != null) {
-            userName = firebaseUser.getDisplayName();
-            params.putBoolean("loged", true);
-            params.putBoolean("sound", sound);//NUEVO
-            juego.putExtras(params);
-            getActivity().startActivity(juego);
+            if (!crono) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.temporizador_off);
+                builder.setMessage(R.string.aviso_temporizador);
+                builder.setPositiveButton(R.string.empezar_partida, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        params.putBoolean("loged", true);
+                        params.putBoolean("sound", sound); //NUEVO
+                        params.putBoolean("crono", crono);
+                        sessionManagement.saveSession(userName);
+
+                        juego.putExtras(params);
+
+                        getActivity().startActivity(juego);
+
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+            else{
+                userName = firebaseUser.getDisplayName();
+                params.putBoolean("loged", true);
+                params.putBoolean("sound", sound);//NUEVO
+                params.putBoolean("crono", crono);//NUEVO
+                juego.putExtras(params);
+                getActivity().startActivity(juego);
+            }
+
         } else {
 
             //No logueados
-
-            //le pedimos username y despues guardamos la sesion
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.registrarse);
             builder.setMessage(R.string.sugerencia_registro);
             builder.setPositiveButton(R.string.empezar_partida, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //userName = input.getText().toString();
                     params.putBoolean("loged", false);
                     params.putBoolean("sound", sound); //NUEVO
+                    params.putBoolean("crono", crono);
                     sessionManagement.saveSession(userName);
 
                     juego.putExtras(params);

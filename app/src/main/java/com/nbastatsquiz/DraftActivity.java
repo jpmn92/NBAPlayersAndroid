@@ -66,7 +66,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private Resources res;
 
     private int valueP1, valueP2;
-    private boolean gameStarted, misc, miscSeason, sound;
+    private boolean gameStarted, misc, miscSeason, sound, crono;
     private String season, seasonType, statCategory, perMode, activeFlag, username;
     private SessionManagement sessionManagement;
 
@@ -94,6 +94,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         paramsIniciales = (Bundle) params.clone();
         username = sessionManagement.getSessionUserName();
         sound = sessionManagement.getSound();
+        crono = sessionManagement.getCrono();
 
         misc = params.getString("Season").equalsIgnoreCase("MISC");
 
@@ -133,13 +134,15 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
             public void onAdClosed() {
                 //System.out.println("PUBLI CERRADA");
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                myCountDownTimer.start();
+                if(crono){
+                    myCountDownTimer.start();
+                }
             }
         });
     }
 
     private void buscarRecord() {
-        if (params.getBoolean("loged")) {
+        if (params.getBoolean("loged") && crono) {
             firebaseMethods.getRecord();
         }
 
@@ -288,8 +291,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
         if (checkInternetConnection() == true) {
             String message;
-            boolean logeado = params.getBoolean("loged");
-            if (params.getBoolean("loged")) {
+            if (params.getBoolean("loged") && crono) {
                 FirebaseAuth mAuth;
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -492,7 +494,9 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         if (myCountDownTimer != null) {
             myCountDownTimer.cancel();
         }
-        myCountDownTimer.start();
+        if(crono){
+            myCountDownTimer.start();
+        }
     }
 
     @Override

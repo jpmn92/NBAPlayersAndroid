@@ -16,13 +16,29 @@
         android:layout_height="wrap_content"
         android:gravity="right">
 
-        <ImageView
-            android:id="@+id/ivSoundDraft"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            app:srcCompat="@drawable/volume_on" />
+            <ImageView
+                android:id="@+id/ivSoundDraft"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+
+                android:clickable="true"
+                app:srcCompat="@drawable/volume_on" />
+
+            <ImageView
+                android:id="@+id/ivCronoDraft"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+
+                android:clickable="true"
+                app:srcCompat="@drawable/temp_on" />
+        </LinearLayout>
 
     </RelativeLayout>
 
