@@ -171,7 +171,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
+        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_gameactivity)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
@@ -402,6 +402,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 paramsIniciales.putString("userName", firebaseUser.getDisplayName());
                 paramsIniciales.putInt("puntos", points);
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
+                //TODO: SOLO GUARDAR SI ES MAYOR DEL RECORD
                 firebaseMethods.createFbPuntuacion(paramsIniciales);
                 if (points > record) {
                     record = points;

@@ -127,7 +127,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //Este es el de prueba, cambiar por bloque_publicidad_intersticial_draft
+        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_draft)); //Este es el de prueba, cambiar por bloque_publicidad_intersticial_draft
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override

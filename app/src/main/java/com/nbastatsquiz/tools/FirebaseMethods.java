@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import com.nbastatsquiz.DraftActivity;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
@@ -33,11 +42,25 @@ import com.nbastatsquiz.fragments.menu.FragmentoMenu;
 import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 import com.nbastatsquiz.fragments.menu.FragmentoMenuDraft;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -299,6 +322,70 @@ public class FirebaseMethods extends Activity {
         });
     }
 
+
+    public void getAllRecord() {
+        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
+        listadoFinal = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        processDone = false;
+        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                if (!processDone) {
+
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        Object object = snapshot.getValue(Object.class);
+                        String json = new Gson().toJson(object);
+                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+//                        fbPuntuacionList.add(fbPuntuacion);
+
+                        db.collection("Puntuacion")
+                                .add(fbPuntuacion)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("TAG", "Error adding document", e);
+                                    }
+                                });
+
+                    }
+
+
+
+
+
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//
+//                        Object object = snapshot.getValue(Object.class);
+//                        String json = new Gson().toJson(object);
+//                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+//                        fbPuntuacionList.add(fbPuntuacion);
+//                    }
+//
+//                    for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
+//                        Map<String, Object> docData = new HashMap<>();
+//                        docData.put("puntuacion", firebasePuntuacion.getPoints());
+//                        db.collection("Puntuacion").add(docData);
+//                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     //SI LO HACEMOS ARRAYLIST NO VA
     public void getTopPuntuaciones(Bundle paramsPartida) {
 
@@ -422,54 +509,81 @@ public class FirebaseMethods extends Activity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     String id = mAuth.getCurrentUser().getUid();
-                    //AQUI CREAMOS LOS PARAMETROS A NUESTRO ANTOJO, POR EJEMPLO URL DE IMAGEN DEL USUARIO O LO QUE SEA
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("uid", id);
-                    map.put("email", email);
-                    map.put("name", username);
 
-
-                    reference.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task2) {
-                            if (task2.isSuccessful()) {
-
-
-                                //Una vez creado el usuario, le ponemos displayName
-                                FirebaseUser myUser = mAuth.getCurrentUser();
+                    FirebaseUser myUser = mAuth.getCurrentUser();
 
 //                                myUser.sendEmailVerification();
 
 
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(username).setPhotoUri(Uri.parse(urlImage)).build();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(username).setPhotoUri(Uri.parse(urlImage)).build();
 
-                                myUser.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task3) {
-                                                if (task3.isSuccessful()) {
-                                                    //USERNAME ACTUALIZADO
-                                                    String OK = "OK";
-                                                    //TODO: loguear de otra manera mas limpia
-                                                    logIn(myUser, RegisterContext);
-
-
-                                                } else {
-                                                    //no se le ha asignado el username
-                                                    String NOOK = "NOOK";
-                                                }
-                                            }
-                                        });
+                    myUser.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task3) {
+                                    if (task3.isSuccessful()) {
+                                        //USERNAME ACTUALIZADO
+                                        String OK = "OK";
+                                        //TODO: loguear de otra manera mas limpia
+                                        logIn(myUser, RegisterContext);
 
 
-                            } else {
-                                //no se ha creado correctamente
-                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.error_ocurred));
-                            }
+                                    } else {
+                                        //no se le ha asignado el username
+                                        String NOOK = "NOOK";
+                                    }
+                                }
+                            });
 
-                        }
-                    });
+                    //AQUI CREAMOS LOS PARAMETROS A NUESTRO ANTOJO, POR EJEMPLO URL DE IMAGEN DEL USUARIO O LO QUE SEA
+//                    Map<String, Object> map = new HashMap<>();
+//                    map.put("uid", id);
+//                    map.put("email", email);
+//                    map.put("name", username);
+
+
+//                    reference.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task2) {
+//                            if (task2.isSuccessful()) {
+//
+//
+//                                //Una vez creado el usuario, le ponemos displayName
+//                                FirebaseUser myUser = mAuth.getCurrentUser();
+//
+////                                myUser.sendEmailVerification();
+//
+//
+//                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                                        .setDisplayName(username).setPhotoUri(Uri.parse(urlImage)).build();
+//
+//                                myUser.updateProfile(profileUpdates)
+//                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<Void> task3) {
+//                                                if (task3.isSuccessful()) {
+//                                                    //USERNAME ACTUALIZADO
+//                                                    String OK = "OK";
+//                                                    //TODO: loguear de otra manera mas limpia
+//                                                    logIn(myUser, RegisterContext);
+//
+//
+//                                                } else {
+//                                                    //no se le ha asignado el username
+//                                                    String NOOK = "NOOK";
+//                                                }
+//                                            }
+//                                        });
+//
+//
+//                            } else {
+//                                //no se ha creado correctamente
+//                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.error_ocurred));
+//                            }
+//
+//                        }
+//                    });
 
                 } else {
 

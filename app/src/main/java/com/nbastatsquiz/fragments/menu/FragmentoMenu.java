@@ -31,6 +31,7 @@ import com.nbastatsquiz.beans.FirebasePuntuacion;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.SessionManagement;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -176,6 +177,7 @@ public class FragmentoMenu extends Fragment {
 //                sessionManagement.removeSession();
 
                 if (checkInternetConnection() == true) {
+
 
                     firebaseMethods.getTopPuntuaciones(getParams());
 
@@ -422,6 +424,8 @@ public class FragmentoMenu extends Fragment {
                 builder.setPositiveButton(R.string.empezar_partida, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+
                         params.putBoolean("loged", true);
                         params.putBoolean("sound", sound); //NUEVO
                         params.putBoolean("crono", crono);
@@ -464,6 +468,7 @@ public class FragmentoMenu extends Fragment {
                     params.putBoolean("crono", crono);
                     sessionManagement.saveSession(userName);
 
+
                     juego.putExtras(params);
 
                     getActivity().startActivity(juego);
@@ -499,6 +504,13 @@ public class FragmentoMenu extends Fragment {
         }
 
         return connected;
+
+    }
+
+    private void buscarRecord() {
+        if (params.getBoolean("loged") && crono) {
+            firebaseMethods.getRecord();
+        }
 
     }
 }
