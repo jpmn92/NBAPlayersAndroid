@@ -176,11 +176,15 @@ public class FragmentoMenu extends Fragment {
 //                sessionManagement = new SessionManagement(getBaseContext());
 //                sessionManagement.removeSession();
 
+                //firebaseMethods.getAllRecord();
+
                 if (checkInternetConnection() == true) {
 
 
 //                    firebaseMethods.getTopPuntuaciones(getParams());
-                    firebaseMethods.getPersonalRecordFS();
+//                    firebaseMethods.getPersonalRecordFS();
+                    //pruebaCrearPuntuacion();
+                    pruebaRecogerPuntuacion();
 
 
                 } else {
@@ -234,6 +238,13 @@ public class FragmentoMenu extends Fragment {
 
     }
 
+    private void pruebaCrearPuntuacion() {
+        firebaseMethods.createFbPuntuacionFS(getParams());
+    }
+
+    private void pruebaRecogerPuntuacion() {
+        firebaseMethods.getPersonalRecordFS(getParams());
+    }
 
 
     private void checkSound() {

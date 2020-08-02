@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -955,8 +957,8 @@ public class FirebaseMethods extends Activity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String formatedDate = simpleDateFormat.format(new Date());
 
-        Map<String, String> timestamp = ServerValue.TIMESTAMP;
-
+        // Map<String, String> timestamp = ServerValue.TIMESTAMP;
+        Timestamp timestamp = new Timestamp(new Date());
 
 
         FirebaseAuth mAuth;
@@ -976,7 +978,8 @@ public class FirebaseMethods extends Activity {
             fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
             fbPuntuacion.setImage(bundle.getString("image"));
             fbPuntuacion.setUid(uid);
-            fbPuntuacion.setUsername(bundle.getString("userName"));
+//            fbPuntuacion.setUsername(bundle.getString("userName"));
+            fbPuntuacion.setUsername("esto es una prueba");
             fbPuntuacion.setModoJuego(bundle.getString("modoJuego"));
             fbPuntuacion.setLiga(bundle.getString("liga"));
             fbPuntuacion.setTimestamp(timestamp);
@@ -1038,7 +1041,7 @@ public class FirebaseMethods extends Activity {
     }
 
 
-    public void getPersonalRecordFS() {
+    public void getPersonalRecordFS(Bundle bundle) {
 
 
         ArrayList<FirebasePuntuacion> mArrayList = new ArrayList<>();
@@ -1046,8 +1049,16 @@ public class FirebaseMethods extends Activity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
         CollectionReference puntuacionesRef = db.collection("Puntuacion");
-        puntuacionesRef.whereEqualTo("season", "1989-90").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+        puntuacionesRef.whereEqualTo("season", bundle.getString("Season"))
+                .whereEqualTo("perMode", bundle.getString("PerMode"))
+                .whereEqualTo("seasonType", bundle.getString("SeasonType"))
+                .whereEqualTo("statCategory", bundle.getString("StatCategory"))
+                .whereEqualTo("uid", mAuth.getUid()).whereGreaterThan("points", -1)
+                .orderBy("points", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots.isEmpty()) {

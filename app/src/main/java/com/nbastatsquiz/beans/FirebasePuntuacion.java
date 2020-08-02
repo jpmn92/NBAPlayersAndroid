@@ -3,6 +3,7 @@ package com.nbastatsquiz.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.Timestamp;
 import com.google.type.Date;
 
 import java.io.Serializable;
@@ -12,7 +13,8 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
 
     String username, season, seasonType, statCategory, perMode, date, image, uid, modoJuego, draftTeam, draftCollege, liga, hour;
     int points, ranking;
-    Map<String, String> timestamp;
+
+    Timestamp timestamp;
 
     public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String modoJuego, String liga, int points, String uid, int ranking, String draftTeam, String draftCollege) {
         this.username = username;
@@ -34,7 +36,7 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
     // Constructor con nueva fecha
 
 
-    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String uid, String modoJuego, String draftTeam, String draftCollege, String liga, String hour, int points, int ranking, Map<String, String> timestamp) {
+    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String uid, String modoJuego, String draftTeam, String draftCollege, String liga, String hour, int points, int ranking, Timestamp timestamp) {
         this.username = username;
         this.season = season;
         this.seasonType = seasonType;
@@ -119,7 +121,11 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
     //TODO: EL GETTER TIENE QUE SER CASTEADO A LONG
 
 
-    public void setTimestamp(Map<String, String> timestamp) {
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
