@@ -22,9 +22,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -323,68 +326,6 @@ public class FirebaseMethods extends Activity {
     }
 
 
-    public void getAllRecord() {
-        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
-        listadoFinal = new ArrayList<>();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        processDone = false;
-        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                if (!processDone) {
-
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        Object object = snapshot.getValue(Object.class);
-                        String json = new Gson().toJson(object);
-                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
-//                        fbPuntuacionList.add(fbPuntuacion);
-
-                        db.collection("Puntuacion")
-                                .add(fbPuntuacion)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("TAG", "Error adding document", e);
-                                    }
-                                });
-
-                    }
-
-
-
-
-
-//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//
-//                        Object object = snapshot.getValue(Object.class);
-//                        String json = new Gson().toJson(object);
-//                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
-//                        fbPuntuacionList.add(fbPuntuacion);
-//                    }
-//
-//                    for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-//                        Map<String, Object> docData = new HashMap<>();
-//                        docData.put("puntuacion", firebasePuntuacion.getPoints());
-//                        db.collection("Puntuacion").add(docData);
-//                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     //SI LO HACEMOS ARRAYLIST NO VA
     public void getTopPuntuaciones(Bundle paramsPartida) {
@@ -925,6 +866,306 @@ public class FirebaseMethods extends Activity {
             }
 
         });
+    }
+
+
+    //METODOS POST FIRESTORE
+
+
+    public void getAllRecord() {
+        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
+        listadoFinal = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        processDone = false;
+        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                if (!processDone) {
+
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        Object object = snapshot.getValue(Object.class);
+                        String json = new Gson().toJson(object);
+                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+//                        fbPuntuacionList.add(fbPuntuacion);
+
+                        db.collection("Puntuacion")
+                                .add(fbPuntuacion)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("TAG", "Error adding document", e);
+                                    }
+                                });
+
+                    }
+
+
+
+
+
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//
+//                        Object object = snapshot.getValue(Object.class);
+//                        String json = new Gson().toJson(object);
+//                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+//                        fbPuntuacionList.add(fbPuntuacion);
+//                    }
+//
+//                    for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
+//                        Map<String, Object> docData = new HashMap<>();
+//                        docData.put("puntuacion", firebasePuntuacion.getPoints());
+//                        db.collection("Puntuacion").add(docData);
+//                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
+    public void createFbPuntuacionFS(Bundle bundle) {
+
+
+        //TODO: SER CAPACES DE PASAR LA HORA EN TIMESTAMP
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String hour = "";
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDateTime  currentHour = LocalDateTime.now();
+            hour = currentHour.getHour() + ":" + currentHour.getMinute() + ":" + currentHour.getSecond();
+        }
+
+        //NUEVO FORMATO DE FECHA
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String formatedDate = simpleDateFormat.format(new Date());
+
+        Map<String, String> timestamp = ServerValue.TIMESTAMP;
+
+
+
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        String uid = mAuth.getUid();
+
+
+        fbPuntuacion = new FirebasePuntuacion();
+
+        if (bundle.getString("modoJuego").equalsIgnoreCase("Stats")) {
+            fbPuntuacion.setPoints(bundle.getInt("puntos"));
+            fbPuntuacion.setDate(currentDate);
+            fbPuntuacion.setHour(hour);
+            fbPuntuacion.setPerMode(bundle.getString("PerMode"));
+            fbPuntuacion.setSeason(bundle.getString("Season"));
+            fbPuntuacion.setSeasonType(bundle.getString("SeasonType"));
+            fbPuntuacion.setStatCategory(bundle.getString("StatCategory"));
+            fbPuntuacion.setImage(bundle.getString("image"));
+            fbPuntuacion.setUid(uid);
+            fbPuntuacion.setUsername(bundle.getString("userName"));
+            fbPuntuacion.setModoJuego(bundle.getString("modoJuego"));
+            fbPuntuacion.setLiga(bundle.getString("liga"));
+            fbPuntuacion.setTimestamp(timestamp);
+
+        }
+
+        if (bundle.getString("modoJuego").equalsIgnoreCase("Draft")) {
+            fbPuntuacion.setPoints(bundle.getInt("puntos"));
+            fbPuntuacion.setDate(currentDate);
+            fbPuntuacion.setHour(hour);
+            fbPuntuacion.setImage(bundle.getString("image"));
+            fbPuntuacion.setUid(uid);
+            fbPuntuacion.setUsername(bundle.getString("userName"));
+
+            if (bundle.getString("Team").equals("") || bundle.getString("Team") == null) {
+                String draftTeam = "0";
+                fbPuntuacion.setDraftTeam(draftTeam);
+            } else {
+                fbPuntuacion.setDraftTeam(bundle.getString("Team"));
+            }
+
+            if (bundle.getString("College").equals("") || bundle.getString("College") == null) {
+                String draftCollege = "0";
+                fbPuntuacion.setDraftCollege(draftCollege);
+            } else {
+                fbPuntuacion.setDraftCollege(bundle.getString("College"));
+            }
+
+            if (bundle.getString("Season").equals("") || bundle.getString("Season") == null) {
+                String season = "0";
+                fbPuntuacion.setSeason(season);
+            } else {
+                fbPuntuacion.setSeason(bundle.getString("Season"));
+            }
+
+
+            fbPuntuacion.setModoJuego(bundle.getString("modoJuego"));
+
+        }
+
+
+
+        db.collection("Puntuacion")
+                .add(fbPuntuacion)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                    }
+                });
+//        reference.push().setValue(fbPuntuacion);
+
+    }
+
+
+    public void getPersonalRecordFS() {
+
+
+        ArrayList<FirebasePuntuacion> mArrayList = new ArrayList<>();
+//        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        CollectionReference puntuacionesRef = db.collection("Puntuacion");
+        puntuacionesRef.whereEqualTo("season", "1989-90").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (queryDocumentSnapshots.isEmpty()) {
+                    Log.d("TAG", "onSuccess: LIST EMPTY");
+                    return;
+                } else {
+                    // Convert the whole Query Snapshot to a list
+                    // of objects directly! No need to fetch each
+                    // document.
+                    List<FirebasePuntuacion> fbPuntuaciones = queryDocumentSnapshots.toObjects(FirebasePuntuacion.class);
+
+                    // Add all to your list
+                    mArrayList.addAll(fbPuntuaciones);
+                    Log.d("TAG", "onSuccess: " + mArrayList);
+                }
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
+
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//
+//                    Object object = snapshot.getValue(Object.class);
+//                    String json = new Gson().toJson(object);
+//                    FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
+//                    fbPuntuacionList.add(fbPuntuacion);
+//
+//                    if (fbPuntuacionList.size() == 0 || fbPuntuacionList == null) {
+//
+//                        puntuacion = 0;
+//
+//                    } else {
+//
+//                        for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
+//
+//                            if (firebasePuntuacion.getModoJuego().equalsIgnoreCase(modoJuego)) {
+//
+//                                if (modoJuego.equalsIgnoreCase("Stats")) {
+//
+//                                    boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode"))
+//                                            && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
+//                                            && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory"))
+//                                            && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
+//                                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"))
+//                                            && firebasePuntuacion.getLiga().equalsIgnoreCase(bundlePartida.getString("liga"));
+//
+//                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
+//                                        puntuacion = firebasePuntuacion.getPoints();
+//                                    }
+//                                }
+//
+//                                if (modoJuego.equalsIgnoreCase("Draft")) {
+//
+//
+//                                    String draftUser = firebasePuntuacion.getUsername();
+//                                    String draftUserParam = bundlePartida.getString("userName");
+//
+//                                    String draftCollege = firebasePuntuacion.getDraftCollege();
+//                                    String draftCollegeParam = bundlePartida.getString("College");
+//
+//
+//                                    String season = firebasePuntuacion.getSeason();
+//                                    String seasonParam = bundlePartida.getString("Season");
+//
+//                                    //como temporada necesita estar en blanco para el WS, lo pasamos a 0 que es el valor equivalente
+//                                    if (seasonParam.equalsIgnoreCase("")) {
+//                                        seasonParam = "0";
+//                                    }
+//
+//                                    String draftTeam = firebasePuntuacion.getDraftTeam();
+//                                    String draftTeamParam = bundlePartida.getString("Team");
+//
+//                                    boolean datosIguales = draftCollege.equalsIgnoreCase(draftCollegeParam)
+//                                            && draftTeam.equalsIgnoreCase(draftTeamParam)
+//                                            && season.equalsIgnoreCase(seasonParam)
+//                                            && draftUser.equalsIgnoreCase(draftUserParam);
+//
+//                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
+//                                        puntuacion = firebasePuntuacion.getPoints();
+//                                    }
+//
+//                                }
+//
+//
+//                            }
+//
+//
+//                        }
+//
+//                    }
+//                }
+//
+//                if(modoJuego.equalsIgnoreCase("Draft")){
+//                    draftActivity.setRecord(puntuacion);
+//                }
+//                if(modoJuego.equalsIgnoreCase("Stats")){
+//                    gameActivity.setRecord(puntuacion);
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//
+//        });
     }
 
 }

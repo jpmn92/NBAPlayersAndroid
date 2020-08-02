@@ -403,7 +403,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 paramsIniciales.putInt("puntos", points);
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
                 //TODO: SOLO GUARDAR SI ES MAYOR DEL RECORD
-                firebaseMethods.createFbPuntuacion(paramsIniciales);
+                firebaseMethods.createFbPuntuacionFS(paramsIniciales);
                 if (points > record) {
                     record = points;
                     message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;

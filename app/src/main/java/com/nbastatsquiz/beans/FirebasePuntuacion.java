@@ -3,12 +3,16 @@ package com.nbastatsquiz.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.type.Date;
+
 import java.io.Serializable;
+import java.util.Map;
 
 public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<FirebasePuntuacion> {
 
     String username, season, seasonType, statCategory, perMode, date, image, uid, modoJuego, draftTeam, draftCollege, liga, hour;
     int points, ranking;
+    Map<String, String> timestamp;
 
     public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String modoJuego, String liga, int points, String uid, int ranking, String draftTeam, String draftCollege) {
         this.username = username;
@@ -25,6 +29,28 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
         this.draftTeam = draftTeam;
         this.draftCollege = draftCollege;
         this.liga = liga;
+    }
+
+    // Constructor con nueva fecha
+
+
+    public FirebasePuntuacion(String username, String season, String seasonType, String statCategory, String perMode, String date, String image, String uid, String modoJuego, String draftTeam, String draftCollege, String liga, String hour, int points, int ranking, Map<String, String> timestamp) {
+        this.username = username;
+        this.season = season;
+        this.seasonType = seasonType;
+        this.statCategory = statCategory;
+        this.perMode = perMode;
+        this.date = date;
+        this.image = image;
+        this.uid = uid;
+        this.modoJuego = modoJuego;
+        this.draftTeam = draftTeam;
+        this.draftCollege = draftCollege;
+        this.liga = liga;
+        this.hour = hour;
+        this.points = points;
+        this.ranking = ranking;
+        this.timestamp = timestamp;
     }
 
     //Constructor con hora
@@ -89,6 +115,13 @@ public class FirebasePuntuacion implements Parcelable, Serializable, Comparable<
             return new FirebasePuntuacion[size];
         }
     };
+
+    //TODO: EL GETTER TIENE QUE SER CASTEADO A LONG
+
+
+    public void setTimestamp(Map<String, String> timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public String getLiga() {
         return liga;

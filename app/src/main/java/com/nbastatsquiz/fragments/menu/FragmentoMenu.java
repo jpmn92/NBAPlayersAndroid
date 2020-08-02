@@ -179,7 +179,8 @@ public class FragmentoMenu extends Fragment {
                 if (checkInternetConnection() == true) {
 
 
-                    firebaseMethods.getTopPuntuaciones(getParams());
+//                    firebaseMethods.getTopPuntuaciones(getParams());
+                    firebaseMethods.getPersonalRecordFS();
 
 
                 } else {
