@@ -248,6 +248,7 @@ public class FirebaseMethods extends Activity {
 
         puntuacionesRef.whereEqualTo("season", bundlePartida.getString("Season"))
                 .whereEqualTo("perMode", bundlePartida.getString("PerMode"))
+                .whereEqualTo("liga", bundlePartida.getString("liga"))
                 .whereEqualTo("seasonType", bundlePartida.getString("SeasonType"))
                 .whereEqualTo("statCategory", bundlePartida.getString("StatCategory"))
                 .whereEqualTo("modoJuego", modoJuego)
@@ -301,6 +302,7 @@ public class FirebaseMethods extends Activity {
 
         puntuacionesRef.whereEqualTo("season", bundle.getString("Season"))
                 .whereEqualTo("perMode", bundle.getString("PerMode"))
+                .whereEqualTo("liga", bundle.getString("liga"))
                 .whereEqualTo("seasonType", bundle.getString("SeasonType"))
                 .whereEqualTo("statCategory", bundle.getString("StatCategory"))
                 .whereEqualTo("modoJuego", modoJuego)
@@ -931,6 +933,7 @@ public class FirebaseMethods extends Activity {
 
         puntuacionesRef.whereEqualTo("season", bundle.getString("Season"))
                 .whereEqualTo("perMode", bundle.getString("PerMode"))
+                .whereEqualTo("liga", bundle.getString("liga"))
                 .whereEqualTo("seasonType", bundle.getString("SeasonType"))
                 .whereEqualTo("statCategory", bundle.getString("StatCategory"))
                 .whereEqualTo("modoJuego", modoJuego)
