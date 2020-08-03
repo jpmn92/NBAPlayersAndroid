@@ -49,7 +49,7 @@ public class FragmentoMenu extends Fragment {
     Bundle params;
     boolean sound, crono;
     Intent juego, draft, ch;
-    ArrayList<FirebasePuntuacion> puntuaciones;
+    ArrayList<FirebasePuntuacion> puntuaciones, puntuacionPersonal;
     ImageView ivSound, ivCrono, imagenPrincipal;
     ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA, stringArrayAdapterGLEAGUE;
 
@@ -60,6 +60,10 @@ public class FragmentoMenu extends Fragment {
 
     public void setPuntuaciones(ArrayList<FirebasePuntuacion> puntuaciones) {
         this.puntuaciones = puntuaciones;
+    }
+
+    public void setPuntuacionPersonal(ArrayList<FirebasePuntuacion> puntuacionPersonal) {
+        this.puntuacionPersonal = puntuacionPersonal;
     }
 
     public FragmentoMenu() {
@@ -171,20 +175,10 @@ public class FragmentoMenu extends Fragment {
         btnRecords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                firebaseMethods.createFbPuntuacion();
-
-//                sessionManagement = new SessionManagement(getBaseContext());
-//                sessionManagement.removeSession();
-
-                //firebaseMethods.getAllRecord();
 
                 if (checkInternetConnection() == true) {
-
-
-//                    firebaseMethods.getTopPuntuaciones(getParams());
-//                    firebaseMethods.getPersonalRecordFS();
-                    //pruebaCrearPuntuacion();
-                    pruebaRecogerPuntuacion();
+;
+                    firebaseMethods.getTopPuntuaciones(getParams());
 
 
                 } else {
@@ -294,6 +288,8 @@ public class FragmentoMenu extends Fragment {
 
         params.putParcelableArrayList("puntuaciones", puntuaciones);
 
+        params.putParcelableArrayList("puntuacionPersonal", puntuacionPersonal);
+
         FragmentoPuntuaciones fragmentoPuntuaciones = FragmentoPuntuaciones.newInstance(params);
 
 
@@ -301,9 +297,6 @@ public class FragmentoMenu extends Fragment {
                 .replace(R.id.main_content, fragmentoPuntuaciones, "findThisFragment")
                 .addToBackStack(null)
                 .commit();
-
-
-
     }
 
     public Bundle getParams() {

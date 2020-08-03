@@ -46,7 +46,7 @@ public class FragmentoMenuDraft extends Fragment {
     SessionManagement sessionManagement;
     Bundle params, paramsDraft;
     Intent juego;
-    ArrayList<FirebasePuntuacion> puntuaciones;
+    ArrayList<FirebasePuntuacion> puntuaciones, puntuacionPeronal;
     ImageView ivSound, ivCrono, imagenPrincipal;
 
 
@@ -56,6 +56,10 @@ public class FragmentoMenuDraft extends Fragment {
 
     public void setPuntuaciones(ArrayList<FirebasePuntuacion> puntuaciones) {
         this.puntuaciones = puntuaciones;
+    }
+
+    public void setPuntuacionPeronal(ArrayList<FirebasePuntuacion> puntuacionPeronal){
+        this.puntuacionPeronal = puntuacionPeronal;
     }
 
     public FragmentoMenuDraft() {
@@ -284,6 +288,8 @@ public class FragmentoMenuDraft extends Fragment {
         Collections.sort(puntuaciones, Collections.reverseOrder());
 
         params.putParcelableArrayList("puntuaciones", puntuaciones);
+
+        params.putParcelableArrayList("puntuacionPersonal", puntuacionPeronal);
 
         FragmentoPuntuaciones fragmentoPuntuaciones = FragmentoPuntuaciones.newInstance(params);
 

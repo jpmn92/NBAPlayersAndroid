@@ -70,6 +70,9 @@ import java.util.Locale;
 import java.util.Map;
 
 public class FirebaseMethods extends Activity {
+
+    private final int LIMITE_PUNTUACIONES = 100;
+
     GameActivity gameActivity;
     DraftActivity draftActivity;
     FragmentoMenu fragmentoMenu;
@@ -232,82 +235,35 @@ public class FirebaseMethods extends Activity {
 
         String modoJuego = bundlePartida.getString("modoJuego");
 
-        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
-        reference.addValueEventListener(new ValueEventListener() {
+        ArrayList<FirebasePuntuacion> mArrayList = new ArrayList<>();
+//        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        CollectionReference puntuacionesRef = db.collection("Puntuacion");
+
+        puntuacionesRef.whereEqualTo("season", bundlePartida.getString("Season"))
+                .whereEqualTo("perMode", bundlePartida.getString("PerMode"))
+                .whereEqualTo("seasonType", bundlePartida.getString("SeasonType"))
+                .whereEqualTo("statCategory", bundlePartida.getString("StatCategory"))
+                .whereEqualTo("modoJuego", modoJuego)
+                .whereEqualTo("uid", mAuth.getUid()).whereGreaterThan("points", -1)
+                .orderBy("points", Query.Direction.DESCENDING).limit(1).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                // Convert the whole Query Snapshot to a list
+                // of objects directly! No need to fetch each
+                // document.
+                List<FirebasePuntuacion> fbPuntuaciones = queryDocumentSnapshots.toObjects(FirebasePuntuacion.class);
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                if(fbPuntuaciones.size() > 0 ) {
+                    puntuacion = fbPuntuaciones.get(0).getPoints();
+                }
 
-                    Object object = snapshot.getValue(Object.class);
-                    String json = new Gson().toJson(object);
-                    FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
-                    fbPuntuacionList.add(fbPuntuacion);
-
-                    if (fbPuntuacionList.size() == 0 || fbPuntuacionList == null) {
-
-                        puntuacion = 0;
-
-                    } else {
-
-                        for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-
-                            if (firebasePuntuacion.getModoJuego().equalsIgnoreCase(modoJuego)) {
-
-                                if (modoJuego.equalsIgnoreCase("Stats")) {
-
-                                    boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode"))
-                                            && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
-                                            && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory"))
-                                            && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
-                                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"))
-                                            && firebasePuntuacion.getLiga().equalsIgnoreCase(bundlePartida.getString("liga"));
-
-                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
-                                        puntuacion = firebasePuntuacion.getPoints();
-                                    }
-                                }
-
-                                if (modoJuego.equalsIgnoreCase("Draft")) {
-
-
-                                        String draftUser = firebasePuntuacion.getUsername();
-                                        String draftUserParam = bundlePartida.getString("userName");
-
-                                        String draftCollege = firebasePuntuacion.getDraftCollege();
-                                        String draftCollegeParam = bundlePartida.getString("College");
-
-
-                                        String season = firebasePuntuacion.getSeason();
-                                        String seasonParam = bundlePartida.getString("Season");
-
-                                        //como temporada necesita estar en blanco para el WS, lo pasamos a 0 que es el valor equivalente
-                                        if (seasonParam.equalsIgnoreCase("")) {
-                                            seasonParam = "0";
-                                        }
-
-                                        String draftTeam = firebasePuntuacion.getDraftTeam();
-                                        String draftTeamParam = bundlePartida.getString("Team");
-
-                                    boolean datosIguales = draftCollege.equalsIgnoreCase(draftCollegeParam)
-                                            && draftTeam.equalsIgnoreCase(draftTeamParam)
-                                            && season.equalsIgnoreCase(seasonParam)
-                                            && draftUser.equalsIgnoreCase(draftUserParam);
-
-                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
-                                        puntuacion = firebasePuntuacion.getPoints();
-                                    }
-
-                                }
-
-
-                            }
-
-
-                        }
-
-                    }
+                else {
+                    puntuacion = 0;
                 }
 
                 if(modoJuego.equalsIgnoreCase("Draft")){
@@ -317,128 +273,67 @@ public class FirebaseMethods extends Activity {
                     gameActivity.setRecord(puntuacion);
                 }
 
-
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-
-        });
+        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 
 
     //SI LO HACEMOS ARRAYLIST NO VA
-    public void getTopPuntuaciones(Bundle paramsPartida) {
+    public void getTopPuntuaciones(Bundle bundle) {
 
-        processDone = false;
+        String modoJuego = bundle.getString("modoJuego");
 
-        String modoJuego = paramsPartida.getString("modoJuego");
+        ArrayList<FirebasePuntuacion> mArrayList = new ArrayList<>();
 
-        ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
-        listadoFinal = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
-        reference.addValueEventListener(new ValueEventListener() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        CollectionReference puntuacionesRef = db.collection("Puntuacion");
+
+        puntuacionesRef.whereEqualTo("season", bundle.getString("Season"))
+                .whereEqualTo("perMode", bundle.getString("PerMode"))
+                .whereEqualTo("seasonType", bundle.getString("SeasonType"))
+                .whereEqualTo("statCategory", bundle.getString("StatCategory"))
+                .whereEqualTo("modoJuego", modoJuego)
+                .whereGreaterThan("points", -1)
+                .orderBy("points", Query.Direction.DESCENDING).limit(LIMITE_PUNTUACIONES).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                    // Convert the whole Query Snapshot to a list
+                    // of objects directly! No need to fetch each
+                    // document.
+                    List<FirebasePuntuacion> fbPuntuaciones = queryDocumentSnapshots.toObjects(FirebasePuntuacion.class);
 
-                if (!processDone) {
-
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                        Object object = snapshot.getValue(Object.class);
-                        String json = new Gson().toJson(object);
-                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
-                        fbPuntuacionList.add(fbPuntuacion);
-                    }
-
-                    for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-
-                        if (firebasePuntuacion.getModoJuego().equalsIgnoreCase(modoJuego)) {
-
-                            if (modoJuego.equalsIgnoreCase("Stats")) {
-
-                                if (
-                                        firebasePuntuacion.getPerMode().equalsIgnoreCase(paramsPartida.getString("PerMode"))
-                                                && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))
-                                                && firebasePuntuacion.getStatCategory().equalsIgnoreCase(paramsPartida.getString("StatCategory"))
-                                                && firebasePuntuacion.getSeasonType().equalsIgnoreCase(paramsPartida.getString("SeasonType"))
-                                                && firebasePuntuacion.getLiga().equalsIgnoreCase(paramsPartida.getString("liga")))
-                                {
-
-                                    listadoFinal.add(firebasePuntuacion);
-
-
-                                }
-                            }
-
-                            if (modoJuego.equalsIgnoreCase("Draft")) {
-
-                                String draftCollege = firebasePuntuacion.getDraftCollege();
-                                String draftCollegeParam = paramsPartida.getString("College");
-
-
-                                String season = firebasePuntuacion.getSeason();
-                                String seasonParam = paramsPartida.getString("Season");
-
-                                //como temporada necesita estar en blanco para el WS, lo pasamos a 0 que es el valor equivalente
-                                if (seasonParam.equalsIgnoreCase("")) {
-                                    seasonParam = "0";
-                                }
-
-                                String draftTeam = firebasePuntuacion.getDraftTeam();
-                                String draftTeamParam = paramsPartida.getString("Team");
-
-
-                                if (
-                                        draftCollege.equalsIgnoreCase(draftCollegeParam)
-                                                && draftTeam.equalsIgnoreCase(draftTeamParam)
-                                                && season.equalsIgnoreCase(seasonParam)
-
-//                                        firebasePuntuacion.getDraftCollege().equalsIgnoreCase(paramsPartida.getString("draftCollege"))
-//                                                && firebasePuntuacion.getSeason().equalsIgnoreCase(paramsPartida.getString("Season"))
-//                                                && firebasePuntuacion.getDraftTeam().equalsIgnoreCase(paramsPartida.getString("draftTeam"))
-                                ) {
-
-                                    listadoFinal.add(firebasePuntuacion);
-
-
-                                }
-                            }
-                        }
-
-
-                    }
-                    processDone = true;
-//                    menu.setPuntuaciones(listadoFinal);
-//                    menu.goToPuntuaciones();
+                    // Add all to your list
+                    mArrayList.addAll(fbPuntuaciones);
+                    Log.d("TAG", "onSuccess: " + mArrayList);
 
                     if (modoJuego.equalsIgnoreCase("Draft")) {
-                        fragmentoMenuDraft.setPuntuaciones(listadoFinal);
-                        fragmentoMenuDraft.goToPuntuaciones();
+                        fragmentoMenuDraft.setPuntuaciones(mArrayList);
                     }
 
                     if (modoJuego.equalsIgnoreCase("Stats")) {
-                        fragmentoMenu.setPuntuaciones(listadoFinal);
-                        fragmentoMenu.goToPuntuaciones();
+                        fragmentoMenu.setPuntuaciones(mArrayList);
                     }
 
-
-                }
-
+                    getPersonalRecordFS(bundle);
 
             }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-
-
-        });
-
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+                    }
+                });
 
     }
 
@@ -832,42 +727,43 @@ public class FirebaseMethods extends Activity {
     }
 
     public void readCode(String codigo, FragmentoAccount fragmentoAccount){
-        processDone = false;
-        final String[] url = {""};
-        reference = FirebaseDatabase.getInstance().getReference().child("Codigo");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!processDone){
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                        Object object = snapshot.getValue(Object.class);
-                        String json = new Gson().toJson(object);
-                        Codigo fbCodigo = new Gson().fromJson(json, Codigo.class);
-
-                        if(fbCodigo.getCodigo().equals(codigo)){
-                            url[0] = fbCodigo.getUrl();
-                            fbCodigo.setUsado(fbCodigo.getUsado() + 1);
-                            DatabaseReference recordRef = reference.child(snapshot.getKey());
-                            Map<String, Object> usadoUpdates = new HashMap<>();
-                            usadoUpdates.put("/usado", String.valueOf(fbCodigo.getUsado()));
-                            recordRef.updateChildren(usadoUpdates);
-                        }
-
-                    }
-                    processDone = true;
-                    if(!"".equalsIgnoreCase(url[0])){
-                        fragmentoAccount.urlCode(url[0]);
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-
-        });
+//        processDone = false;
+//        final String[] url = {""};
+//        reference = FirebaseDatabase.getInstance().getReference().child("Codigo");
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(!processDone){
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//
+//                        Object object = snapshot.getValue(Object.class);
+//                        String json = new Gson().toJson(object);
+//                        Codigo fbCodigo = new Gson().fromJson(json, Codigo.class);
+//
+//                        if(fbCodigo.getCodigo().equals(codigo)){
+//                            url[0] = fbCodigo.getUrl();
+//                            fbCodigo.setUsado(fbCodigo.getUsado() + 1);
+//                            DatabaseReference recordRef = reference.child(snapshot.getKey());
+//                            Map<String, Object> usadoUpdates = new HashMap<>();
+//                            usadoUpdates.put("/usado", String.valueOf(fbCodigo.getUsado()));
+//                            recordRef.updateChildren(usadoUpdates);
+//                        }
+//
+//                    }
+//                    processDone = true;
+//                    if(!"".equalsIgnoreCase(url[0])){
+//                        fragmentoAccount.urlCode(url[0]);
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//
+//        });
     }
 
 
@@ -1043,6 +939,7 @@ public class FirebaseMethods extends Activity {
 
     public void getPersonalRecordFS(Bundle bundle) {
 
+        String modoJuego = bundle.getString("modoJuego");
 
         ArrayList<FirebasePuntuacion> mArrayList = new ArrayList<>();
 //        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
@@ -1057,14 +954,11 @@ public class FirebaseMethods extends Activity {
                 .whereEqualTo("perMode", bundle.getString("PerMode"))
                 .whereEqualTo("seasonType", bundle.getString("SeasonType"))
                 .whereEqualTo("statCategory", bundle.getString("StatCategory"))
+                .whereEqualTo("modoJuego", modoJuego)
                 .whereEqualTo("uid", mAuth.getUid()).whereGreaterThan("points", -1)
-                .orderBy("points", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .orderBy("points", Query.Direction.DESCENDING).limit(1).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.isEmpty()) {
-                    Log.d("TAG", "onSuccess: LIST EMPTY");
-                    return;
-                } else {
                     // Convert the whole Query Snapshot to a list
                     // of objects directly! No need to fetch each
                     // document.
@@ -1073,7 +967,17 @@ public class FirebaseMethods extends Activity {
                     // Add all to your list
                     mArrayList.addAll(fbPuntuaciones);
                     Log.d("TAG", "onSuccess: " + mArrayList);
-                }
+
+                    if (modoJuego.equalsIgnoreCase("Draft")) {
+                        fragmentoMenuDraft.setPuntuacionPeronal(mArrayList);
+                        fragmentoMenuDraft.goToPuntuaciones();
+                    }
+
+                    if (modoJuego.equalsIgnoreCase("Stats")) {
+                        fragmentoMenu.setPuntuacionPersonal(mArrayList);
+                        fragmentoMenu.goToPuntuaciones();
+                    }
+
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -1083,100 +987,6 @@ public class FirebaseMethods extends Activity {
                     }
                 });
 
-
-
-
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//
-//                    Object object = snapshot.getValue(Object.class);
-//                    String json = new Gson().toJson(object);
-//                    FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
-//                    fbPuntuacionList.add(fbPuntuacion);
-//
-//                    if (fbPuntuacionList.size() == 0 || fbPuntuacionList == null) {
-//
-//                        puntuacion = 0;
-//
-//                    } else {
-//
-//                        for (FirebasePuntuacion firebasePuntuacion : fbPuntuacionList) {
-//
-//                            if (firebasePuntuacion.getModoJuego().equalsIgnoreCase(modoJuego)) {
-//
-//                                if (modoJuego.equalsIgnoreCase("Stats")) {
-//
-//                                    boolean datosIguales = firebasePuntuacion.getPerMode().equalsIgnoreCase(bundlePartida.getString("PerMode"))
-//                                            && firebasePuntuacion.getSeason().equalsIgnoreCase(bundlePartida.getString("Season"))
-//                                            && firebasePuntuacion.getStatCategory().equalsIgnoreCase(bundlePartida.getString("StatCategory"))
-//                                            && firebasePuntuacion.getSeasonType().equalsIgnoreCase(bundlePartida.getString("SeasonType"))
-//                                            && firebasePuntuacion.getUsername().equalsIgnoreCase(bundlePartida.getString("userName"))
-//                                            && firebasePuntuacion.getLiga().equalsIgnoreCase(bundlePartida.getString("liga"));
-//
-//                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
-//                                        puntuacion = firebasePuntuacion.getPoints();
-//                                    }
-//                                }
-//
-//                                if (modoJuego.equalsIgnoreCase("Draft")) {
-//
-//
-//                                    String draftUser = firebasePuntuacion.getUsername();
-//                                    String draftUserParam = bundlePartida.getString("userName");
-//
-//                                    String draftCollege = firebasePuntuacion.getDraftCollege();
-//                                    String draftCollegeParam = bundlePartida.getString("College");
-//
-//
-//                                    String season = firebasePuntuacion.getSeason();
-//                                    String seasonParam = bundlePartida.getString("Season");
-//
-//                                    //como temporada necesita estar en blanco para el WS, lo pasamos a 0 que es el valor equivalente
-//                                    if (seasonParam.equalsIgnoreCase("")) {
-//                                        seasonParam = "0";
-//                                    }
-//
-//                                    String draftTeam = firebasePuntuacion.getDraftTeam();
-//                                    String draftTeamParam = bundlePartida.getString("Team");
-//
-//                                    boolean datosIguales = draftCollege.equalsIgnoreCase(draftCollegeParam)
-//                                            && draftTeam.equalsIgnoreCase(draftTeamParam)
-//                                            && season.equalsIgnoreCase(seasonParam)
-//                                            && draftUser.equalsIgnoreCase(draftUserParam);
-//
-//                                    if (datosIguales && firebasePuntuacion.getPoints() > puntuacion) {
-//                                        puntuacion = firebasePuntuacion.getPoints();
-//                                    }
-//
-//                                }
-//
-//
-//                            }
-//
-//
-//                        }
-//
-//                    }
-//                }
-//
-//                if(modoJuego.equalsIgnoreCase("Draft")){
-//                    draftActivity.setRecord(puntuacion);
-//                }
-//                if(modoJuego.equalsIgnoreCase("Stats")){
-//                    gameActivity.setRecord(puntuacion);
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//
-//        });
     }
 
 }

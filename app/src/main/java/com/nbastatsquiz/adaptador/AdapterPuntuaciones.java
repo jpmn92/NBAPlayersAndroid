@@ -96,7 +96,21 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
             viewHolder.circleImageView.setFillColor(Color.parseColor("#FF9800"));
         }
 
-        viewHolder.posicion.setText(Integer.toString(firebasePuntuacion.getRanking()));
+        if(firebasePuntuacion.getRanking() == 0){
+            viewHolder.posicion.setText("\uD83C\uDFC0");
+        }
+        else if(firebasePuntuacion.getRanking() == 1){
+            viewHolder.posicion.setText("\uD83E\uDD47");
+        }
+        else if(firebasePuntuacion.getRanking() == 2){
+            viewHolder.posicion.setText("\uD83E\uDD48");
+        }
+        else if(firebasePuntuacion.getRanking() == 3){
+            viewHolder.posicion.setText("\uD83E\uDD49");
+        }
+        else{
+            viewHolder.posicion.setText(Integer.toString(firebasePuntuacion.getRanking()));
+        }
         viewHolder.username.setText(firebasePuntuacion.getUsername());
         viewHolder.fecha.setText(firebasePuntuacion.getDate());
         viewHolder.puntos.setText("Pts: " + Integer.toString(firebasePuntuacion.getPoints()));
@@ -114,7 +128,6 @@ public class AdapterPuntuaciones extends RecyclerView.Adapter<AdapterPuntuacione
             return listadoPuntuaciones.size();
         }
     }
-
 
 }
 

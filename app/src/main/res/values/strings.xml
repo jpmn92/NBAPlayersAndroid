@@ -66,7 +66,7 @@
     <!--Textos botones-->
     <string name="app_name">NBA STATS QUIZ</string>
     <string name="btnComenzar">START GAME</string>
-    <string name="btnRecords">BEST SCORES</string>
+    <string name="btnRecords">🏆 BEST SCORES 🏆</string>
     <string name="options">OPTIONS</string>
     <string name="goToRegister">Not a member yet? Sign Up Now!</string>
     <string name="goToLogin">Already a member? Log In Now!</string>
