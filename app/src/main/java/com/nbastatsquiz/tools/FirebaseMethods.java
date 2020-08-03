@@ -29,6 +29,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -68,6 +69,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class FirebaseMethods extends Activity {
 
@@ -565,82 +567,32 @@ public class FirebaseMethods extends Activity {
         ArrayList<DataSnapshot> dataSnapshotArrayList = new ArrayList<>();
         FirebasePuntuacion miPuntacion;
         listadoFinal = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
-        reference.addValueEventListener(new ValueEventListener() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference puntuacionesRef = db.collection("Puntuacion");
+
+        puntuacionesRef
+                .whereEqualTo("uid", user.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                // Convert the whole Query Snapshot to a list
+                // of objects directly! No need to fetch each
+                // document.
 
-
-                if (!processDone) {
-
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                        Object object = snapshot.getValue(Object.class);
-                        String json = new Gson().toJson(object);
-                        FirebasePuntuacion fbPuntuacion = new Gson().fromJson(json, FirebasePuntuacion.class);
-                        fbPuntuacionList.add(fbPuntuacion);
-                        dataSnapshotArrayList.add(dataSnapshot.child(snapshot.getKey()));
-
-
-                    }
-
-                    for (int i = 0; i < fbPuntuacionList.size(); i++) {
-
-                        fbPuntuacionList.get(i);
-
-                        String uidActual = user.getUid();
-                        String uidPuntuacion = fbPuntuacionList.get(i).getUid();
-//                        String namePuntuacion = fbPuntuacionList.get(i).getUsername();
-
-                        if (uidActual.equals(uidPuntuacion)) {
-
-                            DatabaseReference recordRef = reference.child(dataSnapshotArrayList.get(i).getKey());
-                            Map<String, Object> photoUpdates = new HashMap<>();
-                            photoUpdates.put("/image", String.valueOf(user.getPhotoUrl()));
-                            recordRef.updateChildren(photoUpdates);
-                        }
-
-
-                    }
-
-//                    for (FirebasePuntuacion firebasePuntuacionImage : fbPuntuacionList) {
-//
-//                        String uidActual = user.getUid();
-//                        String uidPuntuacion = firebasePuntuacionImage.getUid();
-//                        String namePuntuacion = firebasePuntuacionImage.getUsername();
-//                        int pointPuntuacion = firebasePuntuacionImage.getPoints();
-//
-//
-//                        if (uidActual.equals(uidPuntuacion)) {
-//                            String h = "";
-////                            DatabaseReference recordRef = reference.child(snapshot.getKey());
-////                            Map<String, Object> photoUpdates = new HashMap<>();
-////                            photoUpdates.put("/image", String.valueOf(user.getPhotoUrl()));
-////                            recordRef.updateChildren(photoUpdates);
-//                        }
-//
-//                    }
-
-
-                    processDone = true;
-//                    menu.setPuntuaciones(listadoFinal);
-//                    menu.goToPuntuaciones();
-//                    fragmentoMenu.setPuntuaciones(listadoFinal);
-//                    fragmentoMenu.goToPuntuaciones();
-
+                for(QueryDocumentSnapshot querySnapshot: queryDocumentSnapshots){
+                    Map puntuacionCambio = new HashMap<String, Object>();
+                    puntuacionCambio.put("image", String.valueOf(user.getPhotoUrl()));
+                    db.collection("Puntuacion").document(querySnapshot.getId()).update(puntuacionCambio);
 
                 }
 
-
             }
+        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+                    }
+                });
 
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-
-
-        });
     }
 
     //METODO PARA RECOGER LAS IMAGENES DE LOS USUARIOS
@@ -728,6 +680,33 @@ public class FirebaseMethods extends Activity {
 
     public void readCode(String codigo, FragmentoAccount fragmentoAccount){
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        final String[] url = {""};
+
+        CollectionReference codigosRef = db.collection("Codigo");
+
+        codigosRef.whereEqualTo("codigo", codigo)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Codigo> codigos = queryDocumentSnapshots.toObjects(Codigo.class);
+                if(codigos.size() > 0){
+                    url[0] = codigos.get(0).getUrl();
+
+                    if(!"".equalsIgnoreCase(url[0])){
+                        fragmentoAccount.urlCode(url[0]);
+                    }
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+                    }
+                });
 //        processDone = false;
 //        final String[] url = {""};
 //        reference = FirebaseDatabase.getInstance().getReference().child("Codigo");
