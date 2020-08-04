@@ -870,6 +870,8 @@ public class FirebaseMethods extends Activity {
             fbPuntuacion.setImage(bundle.getString("image"));
             fbPuntuacion.setUid(uid);
             fbPuntuacion.setUsername(bundle.getString("userName"));
+            fbPuntuacion.setTimestamp(timestamp);
+
 
             if (bundle.getString("Team").equals("") || bundle.getString("Team") == null) {
                 String draftTeam = "0";

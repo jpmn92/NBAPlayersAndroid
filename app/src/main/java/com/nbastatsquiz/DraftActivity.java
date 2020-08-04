@@ -289,7 +289,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
 
     private void finishGame() {
 
-        if (checkInternetConnection() == true) {
+        if (checkInternetConnection()) {
             String message;
             if (params.getBoolean("loged") && crono) {
                 FirebaseAuth mAuth;
@@ -300,8 +300,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
                 paramsIniciales.putString("modoJuego", "Draft");
 
-
-                firebaseMethods.createFbPuntuacion(paramsIniciales);
+                firebaseMethods.createFbPuntuacionFS(paramsIniciales);
                 if (points > record) {
                     record = points;
                     message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;
