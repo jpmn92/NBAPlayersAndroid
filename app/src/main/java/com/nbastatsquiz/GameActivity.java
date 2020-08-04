@@ -171,16 +171,15 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
+        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_gameactivity)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                if(otraPartida){
+                if (otraPartida) {
                     reiniciar();
-                }
-                else{
+                } else {
                     finish();
                 }
                 //myCountDownTimer.start();
@@ -371,10 +370,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private void iluminar(String color) {
 
-        if(statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FG3_PCT")){
-            txtP1.setText(String.valueOf(df.format(valueP1))+"%");
-            txtP2.setText(String.valueOf(df.format(valueP2))+"%");
-        }else{
+        if (statCategory.equalsIgnoreCase("FT_PCT") || statCategory.equalsIgnoreCase("FG3_PCT")) {
+            txtP1.setText(String.valueOf(df.format(valueP1)) + "%");
+            txtP2.setText(String.valueOf(df.format(valueP2)) + "%");
+        } else {
             txtP1.setText(String.valueOf(df.format(valueP1)));
             txtP2.setText(String.valueOf(df.format(valueP2)));
         }
@@ -402,8 +401,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 paramsIniciales.putString("userName", firebaseUser.getDisplayName());
                 paramsIniciales.putInt("puntos", points);
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
-                //TODO: SOLO GUARDAR SI ES MAYOR DEL RECORD
-                firebaseMethods.createFbPuntuacionFS(paramsIniciales);
+
+                if (points > 0 && points > record - 10) {
+                    firebaseMethods.createFbPuntuacionFS(paramsIniciales);
+
+                }
+
                 if (points > record) {
                     record = points;
                     message = getString(R.string.new_record) + "\n" + getString(R.string.puntuacion) + points;
@@ -646,7 +649,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         if (myCountDownTimer != null) {
             myCountDownTimer.cancel();
         }
-        if(crono){
+        if (crono) {
             myCountDownTimer.start();
         }
     }
@@ -817,7 +820,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         this.record = record;
     }
 
-    private void reiniciar(){
+    private void reiniciar() {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
@@ -858,8 +861,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 otraPartida = true;
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
-                }
-                else{
+                } else {
                     reiniciar();
                 }
             }
@@ -874,8 +876,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 //                GameActivity.this.finish();
                 if (mInterstitialAd.isLoaded()) {
                     mInterstitialAd.show();
-                }
-                else{
+                } else {
                     finish();
                 }
             }
@@ -900,53 +901,40 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     }
 
-    private String traducirEstadistica(String statCategory){
+    private String traducirEstadistica(String statCategory) {
         String stat = statCategory;
-        if(statCategory.equalsIgnoreCase("PTS")){
+        if (statCategory.equalsIgnoreCase("PTS")) {
             stat = getString(R.string.PTS);
-        }
-        else if(statCategory.equalsIgnoreCase("REB")){
+        } else if (statCategory.equalsIgnoreCase("REB")) {
             stat = getString(R.string.REB);
-        }
-        else if(statCategory.equalsIgnoreCase("AST")){
+        } else if (statCategory.equalsIgnoreCase("AST")) {
             stat = getString(R.string.AST);
-        }
-
-        else if(statCategory.equalsIgnoreCase("OREB")){
+        } else if (statCategory.equalsIgnoreCase("OREB")) {
             stat = getString(R.string.OREB_RES);
-        }
-        else if(statCategory.equalsIgnoreCase("DREB")){
+        } else if (statCategory.equalsIgnoreCase("DREB")) {
             stat = getString(R.string.DREB_RES);
-        }
-        else if(statCategory.equalsIgnoreCase("STL")){
+        } else if (statCategory.equalsIgnoreCase("STL")) {
 
             stat = getString(R.string.STL);
-        }
-        else if(statCategory.equalsIgnoreCase("BLK")){
+        } else if (statCategory.equalsIgnoreCase("BLK")) {
 
             stat = getString(R.string.BLK);
-        }
-        else if(statCategory.equalsIgnoreCase("TOV")){
+        } else if (statCategory.equalsIgnoreCase("TOV")) {
 
             stat = getString(R.string.TOV);
-        }
-        else if(statCategory.equalsIgnoreCase("MIN")){
+        } else if (statCategory.equalsIgnoreCase("MIN")) {
 
             stat = getString(R.string.MIN);
-        }
-        else if(statCategory.equalsIgnoreCase("FG3_PCT")){
+        } else if (statCategory.equalsIgnoreCase("FG3_PCT")) {
 
             stat = getString(R.string.FG3_PCT_RES);
-        }
-        else if(statCategory.equalsIgnoreCase("FG3M")){
+        } else if (statCategory.equalsIgnoreCase("FG3M")) {
 
             stat = getString(R.string.FG3M_RES);
-        }
-        else if(statCategory.equalsIgnoreCase("FT_PCT")){
+        } else if (statCategory.equalsIgnoreCase("FT_PCT")) {
 
             stat = getString(R.string.FT_PCT_RES);
-        }
-        else if(statCategory.equalsIgnoreCase("FTM")){
+        } else if (statCategory.equalsIgnoreCase("FTM")) {
 
             stat = getString(R.string.FTM_RES);
         }
