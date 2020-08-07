@@ -32,10 +32,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.nbastatsquiz.DraftActivity;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.R;
@@ -48,19 +44,6 @@ import com.nbastatsquiz.fragments.menu.FragmentoMenu;
 import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 import com.nbastatsquiz.fragments.menu.FragmentoMenuDraft;
 
-import org.json.JSONArray;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -69,7 +52,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class FirebaseMethods extends Activity {
 
@@ -823,7 +805,6 @@ public class FirebaseMethods extends Activity {
     public void createFbPuntuacionFS(Bundle bundle) {
 
 
-        //TODO: SER CAPACES DE PASAR LA HORA EN TIMESTAMP
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
