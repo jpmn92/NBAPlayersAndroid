@@ -92,9 +92,6 @@ public class FragmentoAccount extends Fragment {
         firebaseMethods = new FirebaseMethods(getContext());
 
         txtUserName.setText(sm.getSessionUserName());
-//TODO: no permitimos cambiar el username de momento
-        txtUserName.setEnabled(false);
-
 
         nbaPlayers = generateImageUrl.getNBAPlayers();
 
@@ -139,17 +136,17 @@ public class FragmentoAccount extends Fragment {
                     String email = sm.getSessionEmail();
 
                     if(codigo){
-                        sm.saveSession(txtUserName.getText().toString(), email, urlCode);
+                        sm.saveSession(userName, email, urlCode);
 
-                        firebaseMethods.updateAvatar(urlCode,getContext());
+                        firebaseMethods.updateUser(userName, urlCode,getContext());
                     }
                     else{
                         NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
 
-                        sm.saveSession(txtUserName.getText().toString(), email, nbaPlayer.getUrlImage());
+                        sm.saveSession(userName, email, nbaPlayer.getUrlImage());
 
 
-                        firebaseMethods.updateAvatar(nbaPlayer.getUrlImage(),getContext());
+                        firebaseMethods.updateUser(userName, nbaPlayer.getUrlImage(),getContext());
                     }
 
 

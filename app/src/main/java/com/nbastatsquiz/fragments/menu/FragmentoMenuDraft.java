@@ -503,7 +503,7 @@ public class FragmentoMenuDraft extends Fragment {
 
 
             }
-            temporada = "";
+            temporada = "0";
         }
 
 
@@ -516,7 +516,7 @@ public class FragmentoMenuDraft extends Fragment {
             college = "0";
         } else {
             college = sCollege.getSelectedItem().toString();
-            temporada = "";
+            temporada = "0";
 
         }
 
