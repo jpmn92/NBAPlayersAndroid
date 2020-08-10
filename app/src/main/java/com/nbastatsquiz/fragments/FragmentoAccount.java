@@ -1,9 +1,14 @@
 package com.nbastatsquiz.fragments;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -25,8 +30,10 @@ import com.bumptech.glide.Glide;
 import com.nbastatsquiz.NavigationDrawerActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.NBAPlayer;
+import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.GenerateImageUrl;
+import com.nbastatsquiz.tools.SelectorImagenActivity;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
 
@@ -37,12 +44,11 @@ import java.util.Comparator;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class FragmentoAccount extends Fragment {
+public class FragmentoAccount extends Fragment{
 
     Button btnSetOptions;
     TextView txtUserName;
     SessionManagement sm;
-    Spinner spinnerProfile;
     GenerateImageUrl generateImageUrl;
     ImageView ivAvatar;
     CircleImageView circleImageView;
@@ -53,6 +59,7 @@ public class FragmentoAccount extends Fragment {
     ArrayList<NBAPlayer> nbaPlayers;
     boolean codigo;
     int inicializacion;
+    private String urlFromDialog;
 
     private static FragmentoAccount fragmentoAccount;
 
@@ -105,24 +112,6 @@ public class FragmentoAccount extends Fragment {
             });
         }
 
-        ArrayAdapter<NBAPlayer> adapter = new ArrayAdapter<NBAPlayer>(getContext(), R.layout.support_simple_spinner_dropdown_item, nbaPlayers);
-        spinnerProfile.setAdapter(adapter);
-
-        //si el perfil tiene imagen, que busque de quien es esa imagen y la ponga como valor por defecto del spinner
-        if (sm.getSesionImage() != "") {
-
-            for (int i = 0; i < nbaPlayers.size(); i++) {
-
-                if (nbaPlayers.get(i).getUrlImage().equalsIgnoreCase(sm.getSesionImage())) {
-                    spinnerProfile.setSelection(i);
-                }
-
-            }
-
-
-        }
-
-
         btnSetOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,17 +130,25 @@ public class FragmentoAccount extends Fragment {
                         firebaseMethods.updateUser(userName, urlCode,getContext());
                     }
                     else{
-                        NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
 
-                        sm.saveSession(userName, email, nbaPlayer.getUrlImage());
+                        if(urlFromDialog != null && !"".equalsIgnoreCase(urlFromDialog)){
+                            sm.saveSession(userName, email, urlFromDialog);
+                            firebaseMethods.updateUser(userName, urlFromDialog,getContext());
+                        }
 
+                        else if (sm.getSesionImage() != "") {
 
-                        firebaseMethods.updateUser(userName, nbaPlayer.getUrlImage(),getContext());
+                            for (int i = 0; i < nbaPlayers.size(); i++) {
+
+                                if (nbaPlayers.get(i).getUrlImage().equalsIgnoreCase(sm.getSesionImage())) {
+                                    sm.saveSession(userName, email, nbaPlayers.get(i).getUrlImage());
+                                    firebaseMethods.updateUser(userName, nbaPlayers.get(i).getUrlImage(),getContext());
+                                }
+
+                            }
+
+                        }
                     }
-
-
-
-
 
 //                    Toast.makeText(getContext(), R.string.config_updated, Toast.LENGTH_SHORT).show();
                 } else {
@@ -163,19 +160,21 @@ public class FragmentoAccount extends Fragment {
             }
         });
 
-        spinnerProfile.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(++inicializacion > 1){
-                    NBAPlayer nbaPlayer = (NBAPlayer) spinnerProfile.getSelectedItem();
-                    Glide.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
-                    codigo = false;
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                FragmentoSelectorImagen fragmentoSelectorImagen = FragmentoSelectorImagen.newInstance(null);
+//
+//
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.main_content, fragmentoSelectorImagen, "findThisFragment")
+//                        .addToBackStack(null)
+//                        .commit();
+
+                DialogFragment dialog = new SelectorImagenActivity(fragmentoAccount);
+                dialog.show(getFragmentManager(), "NoticeDialogFragment");
             }
         });
 
@@ -208,7 +207,6 @@ public class FragmentoAccount extends Fragment {
         btnSetOptions = view.findViewById(R.id.btnSetOptions);
         txtUserName = view.findViewById(R.id.txtUserNameOptions);
         txtCodgio = view.findViewById(R.id.txtCode);
-        spinnerProfile = view.findViewById(R.id.spinnerProfilePicture);
 //        ivAvatar = view.findViewById(R.id.ivAvatar);
         circleImageView = view.findViewById(R.id.ivAvatar);
         Glide.with(getContext()).load(sm.getSesionImage()).into(circleImageView);
@@ -238,12 +236,34 @@ public class FragmentoAccount extends Fragment {
             NBAPlayer newNbaPlayer = new NBAPlayer(nbaPlayers.size(), txtCodgio.getText().toString().toUpperCase(), url);
             nbaPlayers.add(newNbaPlayer);
             ArrayAdapter<NBAPlayer> adapter = new ArrayAdapter<NBAPlayer>(getContext(), R.layout.support_simple_spinner_dropdown_item, nbaPlayers);
-            spinnerProfile.setAdapter(adapter);
-            spinnerProfile.setSelection(nbaPlayers.size() - 1);
             Glide.with(getContext()).load(url).into(circleImageView);
             urlCode = url;
             codigo = true;
         }
 
+    }
+
+    public String getUrlFromDialog() {
+        return urlFromDialog;
+    }
+
+    public void setUrlFromDialog(String urlFromDialog) {
+        this.urlFromDialog = urlFromDialog;
+    }
+
+    public CircleImageView getCircleImageView() {
+        return circleImageView;
+    }
+
+    public void setCircleImageView(CircleImageView circleImageView) {
+        this.circleImageView = circleImageView;
+    }
+
+    public ArrayList<NBAPlayer> getNbaPlayers() {
+        return nbaPlayers;
+    }
+
+    public void setNbaPlayers(ArrayList<NBAPlayer> nbaPlayers) {
+        this.nbaPlayers = nbaPlayers;
     }
 }

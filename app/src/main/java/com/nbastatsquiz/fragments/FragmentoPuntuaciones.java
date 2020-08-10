@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.adaptador.AdapterPuntuaciones;
 import com.nbastatsquiz.beans.FirebasePuntuacion;
+import com.nbastatsquiz.tools.ConfigApp;
 
 import java.util.ArrayList;
 
@@ -185,6 +187,7 @@ public class FragmentoPuntuaciones extends Fragment {
         MobileAds.initialize(getContext());
         mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
+        System.out.println(mAdView.getAdUnitId());
         mAdView.loadAd(adRequest);
         mAdView.setAdListener(new AdListener(){
             @Override

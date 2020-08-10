@@ -305,10 +305,18 @@ public class FragmentoMenu extends Fragment {
 
         //parametros del modo de juego
         String temporada = sSeason.getSelectedItem().toString();
-
-        if (sSeason.getSelectedItemPosition() == 0) {
+        if(sSeason.getSelectedItemPosition() == 1){
+            temporada = "All Time";
+        }
+        else if (sSeason.getSelectedItemPosition() == 0) {
             temporada = "MISC";
         }
+
+
+        paramsPartida.putBoolean("loged", true);
+        paramsPartida.putBoolean("sound", sound);//NUEVO
+        paramsPartida.putBoolean("crono", crono);//NUEVO
+
         paramsPartida.putString("modoJuego", "Stats");
 
         paramsPartida.putString("liga", sLiga.getSelectedItem().toString());
@@ -342,7 +350,8 @@ public class FragmentoMenu extends Fragment {
             switch (v.getId()) {
                 case R.id.btnStart:
                     juego = new Intent(getActivity().getBaseContext(), GameActivity.class);
-                    params = new Bundle();
+                    // params = new Bundle();
+                    params = getParams();
 
                     //parametros del modo de juego
                     String temporada = sSeason.getSelectedItem().toString();
@@ -436,7 +445,7 @@ public class FragmentoMenu extends Fragment {
                         params.putBoolean("crono", crono);
                         sessionManagement.saveSession(userName);
 
-                        juego.putExtras(params);
+                        juego.putExtras(getParams());
 
                         getActivity().startActivity(juego);
 
@@ -455,7 +464,7 @@ public class FragmentoMenu extends Fragment {
                 params.putBoolean("loged", true);
                 params.putBoolean("sound", sound);//NUEVO
                 params.putBoolean("crono", crono);//NUEVO
-                juego.putExtras(params);
+                juego.putExtras(getParams());
                 getActivity().startActivity(juego);
             }
 
@@ -474,7 +483,7 @@ public class FragmentoMenu extends Fragment {
                     sessionManagement.saveSession(userName);
 
 
-                    juego.putExtras(params);
+                    juego.putExtras(getParams());
 
                     getActivity().startActivity(juego);
 

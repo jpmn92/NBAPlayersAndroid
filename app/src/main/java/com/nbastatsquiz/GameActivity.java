@@ -37,6 +37,7 @@ import com.nbastatsquiz.beans.LeagueLeader;
 import com.nbastatsquiz.lst_league_leaders.LstLeagueLeaderContract;
 import com.nbastatsquiz.lst_league_leaders.LstLeagueLeaderPresenter;
 import com.nbastatsquiz.tools.ColorApp;
+import com.nbastatsquiz.tools.ConfigApp;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.GenerateImageUrl;
 import com.nbastatsquiz.tools.SessionManagement;
@@ -171,7 +172,13 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_gameactivity)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
+        if(ConfigApp.PUBLICIDAD_DEVELOPER){
+            mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //ESTE ES EL DE PRUEBA
+        }
+        else{
+            mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_gameactivity)); // ESTE ES EL DE VERDAD
+        }
+//        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_gameactivity)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
