@@ -15,8 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAQUIZ"
         tools:targetApi="lollipop">
-        <activity android:name=".DraftActivity" android:screenOrientation="portrait"></activity>
-
+        <activity android:name=".tools.SelectorImagenActivity"></activity>
+        <activity
+            android:name=".DraftActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".NavigationDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity"   android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".GameActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".tools.MyFirebaseMessagingService"
@@ -37,9 +40,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5187656956047852~1007434185"/>
+            android:value="ca-app-pub-5187656956047852~1007434185" />
     </application>
-
-
 
 </manifest>

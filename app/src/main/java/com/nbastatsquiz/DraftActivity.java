@@ -32,6 +32,7 @@ import com.nbastatsquiz.lst_drafts.LstDraftsContract;
 import com.nbastatsquiz.lst_drafts.LstDraftsPresenter;
 
 import com.nbastatsquiz.tools.ColorApp;
+import com.nbastatsquiz.tools.ConfigApp;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.GenerateImageUrl;
 import com.nbastatsquiz.tools.SessionManagement;
@@ -127,7 +128,13 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_draft)); //Este es el de prueba, cambiar por bloque_publicidad_intersticial_draft
+
+        if(ConfigApp.PUBLICIDAD_DEVELOPER){
+            mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //ESTE ES EL DE PRUEBA
+        }
+        else{
+            mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_draft)); // ESTE ES EL DE VERDAD
+        }
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             @Override

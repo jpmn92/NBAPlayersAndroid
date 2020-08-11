@@ -110,6 +110,7 @@
 
     <!--Textos spiners-->
     <string name="MISC">Mezcla</string>
+    <string name="ALL_TIME">ALL TIME - CARRERA</string>
 
     <string name="PerGame">Por partido</string>
     <string name="Totals">Totales</string>
@@ -140,7 +141,7 @@
     <string-array name="Temporadas">
 
         <item>@string/MISC</item>
-        <item>All Time</item>
+        <item>@string/ALL_TIME</item>
         <item>2019-20</item>
         <item>2018-19</item>
         <item>2017-18</item>
@@ -177,7 +178,7 @@
     <string-array name="TemporadasWNBA">
 
         <item>@string/MISC</item>
-        <item>All Time</item>
+        <item>@string/ALL_TIME</item>
         <item>2019</item>
         <item>2018</item>
         <item>2017</item>

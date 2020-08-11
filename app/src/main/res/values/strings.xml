@@ -34,13 +34,9 @@
     <string name="help_paragraph3">You have three lives, if you click on the wrong player, you\'ll lose a live. If you make ten hits in a row, you will get a new live up to three</string>
     <string name="help_modes">NBA Stats Quiz allows you to play two diferent modes, Stats and Draft:</string>
     <string name="help_draftMode">You have to click on the player who was selected first (Nº1 Pick is the highest).\nAlso you can filter by Team or College.</string>
-        <string name="help_draftModeTitle">Draft Mode:</string>
+    <string name="help_draftModeTitle">Draft Mode:</string>
     <string name="help_statsModeTitle">Stats Mode:</string>
     <string name="help_forMoreInfo">For more information please visit the following links:</string>
-
-
-
-
 
 
     <!--    Textos glosario-->
@@ -80,7 +76,6 @@
     <string name="tab_aboutUs">ABOUT US</string>
 
 
-
     <!--Textos Dialogs-->
     <string name="introduce_user_name">Type your username here</string>
     <string name="introduce_email">Type your email here</string>
@@ -110,6 +105,7 @@
 
     <!--Textos spiners-->
     <string name="MISC">MIX</string>
+    <string name="ALL_TIME">ALL TIME - CAREER</string>
 
     <string name="PerGame">Per game</string>
     <string name="Totals">Totals</string>
@@ -386,11 +382,14 @@
     <string name="college">College</string>
     <string name="draft_question">Which pick was higher?</string>
 
-<!--    BLOQUES PUBLICIDAD-->
+    <!--    BLOQUES PUBLICIDAD-->
     <string name="banner_puntuaciones_real" translatable="false">ca-app-pub-5187656956047852/7011375800</string>
     <string name="banner_puntuaciones_prueba" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="bloque_publicidad_intersticial_prueba" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="bloque_publicidad_intersticial_draft" translatable="false">ca-app-pub-5187656956047852/5587162239</string>
     <string name="bloque_publicidad_intersticial_gameactivity" translatable="false">ca-app-pub-5187656956047852/9787942336</string>
+
+
+    <string name="nombre_transicion_imagen" translatable="false">imagen_compartida</string>
 
 </resources>
