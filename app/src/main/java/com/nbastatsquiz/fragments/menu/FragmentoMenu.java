@@ -35,6 +35,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import hotchemi.android.rate.AppRate;
+
 
 public class FragmentoMenu extends Fragment {
 
@@ -95,6 +97,20 @@ public class FragmentoMenu extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragmento_menu, container, false);
 
+        //rating
+
+        AppRate.with(this.getContext())
+                .setInstallDays(2) // minimo dos dias de la instalacion
+                .setLaunchTimes(3) //minimo haberla abierto 3 veces
+                .setRemindInterval(2) // si le da a recordar mas tarde pasan X dias
+                .monitor();
+
+        try{
+            AppRate.showRateDialogIfMeetsConditions(this.getActivity());
+
+        }catch (Exception e){
+
+        }
 
         initComponents(view);
         res = getResources();

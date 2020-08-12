@@ -158,7 +158,30 @@
 
 
             />
+        <View
+            android:layout_marginTop="70px"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorNegro"/>
+        <ImageView
 
+            android:id="@+id/rateGP"
+            android:layout_marginTop="30px"
+            android:layout_gravity="center"
+            android:layout_width="500px"
+            android:layout_height="200px"
+            android:src="@drawable/gprating"/>
+        <ImageView
+
+            android:id="@+id/followIG"
+            android:layout_gravity="center"
+            android:layout_width="500px"
+            android:layout_height="200px"
+            android:src="@drawable/followusoninstagram"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorNegro"/>
 
     </LinearLayout>
 

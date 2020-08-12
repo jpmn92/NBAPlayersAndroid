@@ -20,11 +20,25 @@
             android:layout_height="160dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/doncic"
             app:civ_border_width="4dp"
             app:civ_fill_color="@color/colorPrimary"
             app:civ_border_color="@color/material_black"/>
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/txtCambiaAvatar"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Cambiar Avatar "
+            android:textColor="@color/material_black"
+            android:textSize="16dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="25dp"
+
+            />
 
         <TextView
             android:paddingLeft="15dp"
@@ -57,14 +71,16 @@
             android:text="@string/seleccionar_avatar"
             android:textStyle="bold"
             android:textSize="18sp" />
-        <Spinner
-            android:paddingLeft="15dp"
+<!--        <Spinner-->
+<!--            android:paddingLeft="15dp"-->
 
-            android:id="@+id/spinnerProfilePicture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dialog"
-            />
+<!--            android:id="@+id/spinnerProfilePicture"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:spinnerMode="dialog"-->
+<!--            />-->
+
+
 
 
         <LinearLayout

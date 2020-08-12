@@ -1,6 +1,13 @@
 <resources>
 
 
+<!--    rating-->
+    <string name="rate_dialog_title">¡Valora la App!</string>
+    <string name="rate_dialog_message">Si te ha gustado la app, ¿Tendrías un minuto para valorar en Google Play? Nos ayudaría a seguir creciendo 🙏 ¡Gracias!</string>
+    <string name="rate_dialog_ok">Valorar ahora</string>
+    <string name="rate_dialog_cancel">Recuérdamelo más tarde</string>
+    <string name="rate_dialog_no">No, Gracias</string>
+
     <!--    Textos Menu Lateral-->
 
     <string name="nav_about_us">Acerca de</string>

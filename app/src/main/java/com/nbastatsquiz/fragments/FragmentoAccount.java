@@ -47,14 +47,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FragmentoAccount extends Fragment{
 
     Button btnSetOptions;
-    TextView txtUserName;
+    TextView txtUserName, txtCambiaAvatar;
     SessionManagement sm;
     GenerateImageUrl generateImageUrl;
     ImageView ivAvatar;
     CircleImageView circleImageView;
+    Spinner spinnerProfile;
     NavigationDrawerActivity navigationDrawerActivity;
     FirebaseMethods firebaseMethods;
-    EditText txtCodgio;
+    EditText txtCodigo;
     String urlCode;
     ArrayList<NBAPlayer> nbaPlayers;
     boolean codigo;
@@ -95,6 +96,8 @@ public class FragmentoAccount extends Fragment{
         generateImageUrl = new GenerateImageUrl();
 
         initComponents(view);
+
+
 
         firebaseMethods = new FirebaseMethods(getContext());
 
@@ -162,6 +165,14 @@ public class FragmentoAccount extends Fragment{
 
 
 
+        txtCambiaAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialog = new SelectorImagenActivity(fragmentoAccount);
+                dialog.show(getFragmentManager(), "NoticeDialogFragment");
+            }
+        });
+
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +189,7 @@ public class FragmentoAccount extends Fragment{
             }
         });
 
-        txtCodgio.addTextChangedListener(new TextWatcher() {
+        txtCodigo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -206,10 +217,12 @@ public class FragmentoAccount extends Fragment{
         codigo = false;
         btnSetOptions = view.findViewById(R.id.btnSetOptions);
         txtUserName = view.findViewById(R.id.txtUserNameOptions);
-        txtCodgio = view.findViewById(R.id.txtCode);
+        txtCodigo = view.findViewById(R.id.txtCode);
 //        ivAvatar = view.findViewById(R.id.ivAvatar);
         circleImageView = view.findViewById(R.id.ivAvatar);
+        txtCambiaAvatar = view.findViewById(R.id.txtCambiaAvatar);
         Glide.with(getContext()).load(sm.getSesionImage()).into(circleImageView);
+
 
     }
 
@@ -233,7 +246,7 @@ public class FragmentoAccount extends Fragment{
 
     public void urlCode(String url){
         if(!url.equalsIgnoreCase(nbaPlayers.get(nbaPlayers.size() - 1).getUrlImage())){
-            NBAPlayer newNbaPlayer = new NBAPlayer(nbaPlayers.size(), txtCodgio.getText().toString().toUpperCase(), url);
+            NBAPlayer newNbaPlayer = new NBAPlayer(nbaPlayers.size(), txtCodigo.getText().toString().toUpperCase(), url);
             nbaPlayers.add(newNbaPlayer);
             ArrayAdapter<NBAPlayer> adapter = new ArrayAdapter<NBAPlayer>(getContext(), R.layout.support_simple_spinner_dropdown_item, nbaPlayers);
             Glide.with(getContext()).load(url).into(circleImageView);
