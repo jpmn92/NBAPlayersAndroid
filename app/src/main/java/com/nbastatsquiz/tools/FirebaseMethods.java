@@ -585,7 +585,6 @@ public class FirebaseMethods extends Activity {
     }
 
     private void changeImageRecord(FirebaseUser user) {
-        processDone = false;
         ArrayList<FirebasePuntuacion> fbPuntuacionList = new ArrayList<>();
         ArrayList<DataSnapshot> dataSnapshotArrayList = new ArrayList<>();
         FirebasePuntuacion miPuntacion;
@@ -705,8 +704,6 @@ public class FirebaseMethods extends Activity {
     public void readCode(String codigo, FragmentoAccount fragmentoAccount){
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         final String[] url = {""};
 

@@ -31,7 +31,7 @@ public class FragmentoPuntuaciones extends Fragment {
     private RecyclerView myrv, rvPuntuacionPersonal;
     private RecyclerView.Adapter adapter, adapterPersonal;
     private RecyclerView.LayoutManager lManager, lManagerPersonal;
-    private ArrayList<FirebasePuntuacion> listadoPuntuaciones, listadoPuntuacionesTop50, listadoRecordPersonal, puntuacionPersonal; // listadoRecordPersonal es de un único elemento
+    private ArrayList<FirebasePuntuacion> listadoPuntuaciones, listadoPuntuacionesTop50, puntuacionPersonal; // listadoRecordPersonal es de un único elemento
     TextView txtPuntuacion;
     String tipoTemporada;
     String draftTeam, draftCollege, draftSeason, liga;
@@ -143,8 +143,6 @@ public class FragmentoPuntuaciones extends Fragment {
         adapter = new AdapterPuntuaciones(listadoPuntuacionesTop50);
         lManager = new LinearLayoutManager(getContext());
         lManagerPersonal = new LinearLayoutManager(getContext());
-
-        // buscarRecordPersonal();
 
         adapterPersonal = new AdapterPuntuaciones(puntuacionPersonal);
         rvPuntuacionPersonal.setLayoutManager(lManagerPersonal);

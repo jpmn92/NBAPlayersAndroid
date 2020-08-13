@@ -183,7 +183,7 @@ public class FragmentoAccount extends Fragment{
 //                        .replace(R.id.main_content, fragmentoSelectorImagen, "findThisFragment")
 //                        .addToBackStack(null)
 //                        .commit();
-
+                codigo = false;
                 DialogFragment dialog = new SelectorImagenActivity(fragmentoAccount);
                 dialog.show(getFragmentManager(), "NoticeDialogFragment");
             }
