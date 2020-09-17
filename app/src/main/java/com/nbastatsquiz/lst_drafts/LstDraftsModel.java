@@ -86,6 +86,11 @@ public class LstDraftsModel implements LstDraftsContract.Model {
 
             teamID = bundle.getString("Team");
             season = bundle.getString("Season");
+
+            // si es 0 lo cambiamos a "", sino la peticion peta
+            if(season.equalsIgnoreCase("0")){
+                season = "";
+            }
 //            college = "";
             leagueID = "00";
             overallPick = "";

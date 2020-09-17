@@ -81,6 +81,8 @@ public class GenerateImageUrl {
         nbaPlayers.add(new NBAPlayer(68, "D'Angelo Russell", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612750/2019/260x190/1626156.png"));
         nbaPlayers.add(new NBAPlayer(69, "Steven Adams", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612760/2019/260x190/203500.png"));
         nbaPlayers.add(new NBAPlayer(70, "Zach Lavine", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612741/2019/260x190/203897.png"));
+        nbaPlayers.add(new NBAPlayer(71, "TJ Warren", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612754/2019/260x190/203933.png"));
+        nbaPlayers.add(new NBAPlayer(72, "Ricky Rubio", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612756/2019/260x190/201937.png"));
 
 
 

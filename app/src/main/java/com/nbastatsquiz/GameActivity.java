@@ -172,10 +172,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void inicializarPublicidad() {
         MobileAds.initialize(this);
         mInterstitialAd = new InterstitialAd(this);
-        if(ConfigApp.PUBLICIDAD_DEVELOPER){
+        if (ConfigApp.PUBLICIDAD_DEVELOPER) {
             mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_prueba)); //ESTE ES EL DE PRUEBA
-        }
-        else{
+        } else {
             mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_gameactivity)); // ESTE ES EL DE VERDAD
         }
 //        mInterstitialAd.setAdUnitId(getString(R.string.bloque_publicidad_intersticial_gameactivity)); //ESTE ES EL DE PRUEBA, cambiar por bloque_publicidad_intersticial_gameactivity
@@ -400,7 +399,10 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private void finishGame() {
 
         if (checkInternetConnection() == true) {
+            boolean logeed = params.getBoolean("loged");
+            boolean cronom = params.getBoolean("crono");
             String message;
+
             if (params.getBoolean("loged") && crono) {
                 FirebaseAuth mAuth;
                 mAuth = FirebaseAuth.getInstance();
@@ -409,7 +411,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 paramsIniciales.putInt("puntos", points);
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
 
-                if (points > 0 && points > record - 10) {
+//                if (points > 0 && points > record - 10) {
+                if (points > 0) {
+
                     firebaseMethods.createFbPuntuacionFS(paramsIniciales);
 
                 }

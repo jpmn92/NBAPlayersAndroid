@@ -49,7 +49,7 @@ public class FragmentoMenu extends Fragment {
     String userName;
     SessionManagement sessionManagement;
     Bundle params;
-    boolean sound, crono;
+    boolean sound, crono, loged;
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones, puntuacionPersonal;
     ImageView ivSound, ivCrono, imagenPrincipal;
@@ -195,6 +195,7 @@ public class FragmentoMenu extends Fragment {
                 if (checkInternetConnection() == true) {
 ;
                     firebaseMethods.getTopPuntuaciones(getParams());
+//                    firebaseMethods.getUserTop100_Admin("XqcUJErnXsNz0HGeQC3A1I0aRbG3");
 
 
                 } else {
@@ -329,7 +330,7 @@ public class FragmentoMenu extends Fragment {
         }
 
 
-        paramsPartida.putBoolean("loged", true);
+        paramsPartida.putBoolean("loged", loged);
         paramsPartida.putBoolean("sound", sound);//NUEVO
         paramsPartida.putBoolean("crono", crono);//NUEVO
 
@@ -447,6 +448,9 @@ public class FragmentoMenu extends Fragment {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         if (firebaseUser != null) {
+
+            loged = true;
+
             if (!crono) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle(R.string.temporizador_off);
@@ -456,7 +460,7 @@ public class FragmentoMenu extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
 
 
-                        params.putBoolean("loged", true);
+                        params.putBoolean("loged", loged);
                         params.putBoolean("sound", sound); //NUEVO
                         params.putBoolean("crono", crono);
                         sessionManagement.saveSession(userName);
@@ -487,13 +491,14 @@ public class FragmentoMenu extends Fragment {
         } else {
 
             //No logueados
+            loged = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.registrarse);
             builder.setMessage(R.string.sugerencia_registro);
             builder.setPositiveButton(R.string.empezar_partida, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    params.putBoolean("loged", false);
+                    params.putBoolean("loged", loged);
                     params.putBoolean("sound", sound); //NUEVO
                     params.putBoolean("crono", crono);
                     sessionManagement.saveSession(userName);

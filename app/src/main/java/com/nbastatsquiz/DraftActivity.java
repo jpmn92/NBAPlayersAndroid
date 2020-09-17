@@ -307,7 +307,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 paramsIniciales.putString("image", String.valueOf(firebaseUser.getPhotoUrl()));
                 paramsIniciales.putString("modoJuego", "Draft");
 
-                if (points > 0 && points > record - 10) {
+                if (points > 0) {
                     firebaseMethods.createFbPuntuacionFS(paramsIniciales);
 
                 }

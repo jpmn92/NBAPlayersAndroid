@@ -25,6 +25,9 @@ public class SelectorImagenActivity extends DialogFragment {
     private static GridView grid;
     private FragmentoAccount fragmentoAccount;
 
+    public SelectorImagenActivity() {
+    }
+
     public SelectorImagenActivity(FragmentoAccount fragmentoAccount){
         this.fragmentoAccount = fragmentoAccount;
     }

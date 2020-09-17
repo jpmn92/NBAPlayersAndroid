@@ -31,6 +31,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.nbastatsquiz.DraftActivity;
 import com.nbastatsquiz.GameActivity;
@@ -802,7 +804,6 @@ public class FirebaseMethods extends Activity {
     public void createFbPuntuacionFS(Bundle bundle) {
 
 
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String hour = "";
@@ -954,5 +955,69 @@ public class FirebaseMethods extends Activity {
                 });
 
     }
+
+
+    //ADMIN METHODS
+
+    /**
+     *     metodo para obtener token para notificaciones de prueba
+     */
+    public void getMyToken(){
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, instanceIdResult -> {
+            String newToken = instanceIdResult.getToken();
+            Log.e("newToken", newToken);
+            this.getPreferences(Context.MODE_PRIVATE).edit().putString("fb", newToken).apply();
+        });
+
+        Log.d("newToken", this.getPreferences(Context.MODE_PRIVATE).getString("fb", "empty :("));
+
+    }
+
+    /**
+     * Metodo para obtener las 100 puntuaciones mejores puntuaciones de un usuario en concreto
+     */
+
+    public void getUserTop100_Admin(String username) {
+
+
+        ArrayList<FirebasePuntuacion> mArrayList = new ArrayList<>();
+//        reference = FirebaseDatabase.getInstance().getReference().child("Puntuacion");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+        CollectionReference puntuacionesRef = db.collection("Puntuacion");
+
+        puntuacionesRef.whereEqualTo("uid", username).whereGreaterThan("points", -1)
+                .orderBy("points", Query.Direction.DESCENDING).limit(100).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                // Convert the whole Query Snapshot to a list
+                // of objects directly! No need to fetch each
+                // document.
+                List<FirebasePuntuacion> fbPuntuaciones = queryDocumentSnapshots.toObjects(FirebasePuntuacion.class);
+
+                if(fbPuntuaciones.size() > 0 ) {
+                    puntuacion = fbPuntuaciones.get(0).getPoints();
+                }
+
+                else {
+                    puntuacion = 0;
+                }
+
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+
 
 }
