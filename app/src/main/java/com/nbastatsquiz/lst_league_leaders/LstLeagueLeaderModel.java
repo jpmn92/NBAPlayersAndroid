@@ -2,11 +2,13 @@ package com.nbastatsquiz.lst_league_leaders;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.LeagueLeader;
 import com.nbastatsquiz.beans.LeagueLeadersList;
 import com.nbastatsquiz.tools.wsNBA;
@@ -75,6 +77,12 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             String url = "";
             liga = bundle.getString("liga");
 
+            //comprobamos si es alltime y ajustamos el param
+
+            if(season.equals("ALL TIME - CARRERA") || season.equals("ALL TIME - CAREER")){
+                season = "All Time";
+            }
+
 
             switch (liga) {
 
@@ -123,13 +131,22 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
             try {
 
+
                 statsJson = new Gson().toJson(response.execute().body());
 
                 if (statsJson == null) {
                     return false;
                 }
 
-                jsonObject = new Gson().fromJson(statsJson, JsonObject.class).getAsJsonObject();
+
+                try {
+
+                    jsonObject = new Gson().fromJson(statsJson, JsonObject.class).getAsJsonObject();
+
+                } catch (Exception e) {
+                    Log.d("LOG_ERROR", "PETICION ERRONEA: " + leagueID + " " + perMode + " " + scope + " " + season + " " + seasonType + " " + statCategory + " " + activeFlag);
+
+                }
 
 
                 JsonElement resultSet = jsonObject.get("resultSet");
@@ -255,13 +272,15 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
 
                     }
 
-
-
+//                    Log.d("LOG_ERROR", "PETICION CORRECTA: " + leagueID + " " + perMode + " " + scope + " " + season + " " + seasonType + " " + statCategory + " " + activeFlag);
                     leagueLeaders.add(leagueLeader);
                 }
 
 
-            } catch (IOException e) {
+//            } catch (IOException e) {
+            } catch (Exception e) {
+                Log.d("LOG_ERROR", "PETICION ERRONEA: " + leagueID + " " + perMode + " " + scope + " " + season + " " + seasonType + " " + statCategory + " " + activeFlag);
+
                 e.printStackTrace();
             }
 

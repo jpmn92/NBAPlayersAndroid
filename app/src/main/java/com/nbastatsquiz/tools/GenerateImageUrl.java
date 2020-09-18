@@ -85,11 +85,6 @@ public class GenerateImageUrl {
         nbaPlayers.add(new NBAPlayer(72, "Ricky Rubio", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612756/2019/260x190/201937.png"));
 
 
-
-
-
-
-
         return nbaPlayers;
     }
 
@@ -101,6 +96,61 @@ public class GenerateImageUrl {
         String urlImage = "";
 
         switch (idJugador) {
+
+            //17-09/2020
+
+            //jarron collins
+            case 2260:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/988.png";
+                break;
+            //willie green
+            case 2584:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/2004.png";
+                break;
+            //dominic mcguire
+            case 201187:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3246.png";
+                break;
+            //brad dougherty
+            case 921:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Brad-Daugherty-2K.png";
+                break;
+            //ime udoka
+            case 2137:
+                urlImage = "https://hoopshype.com/wp-content/uploads/sites/92/2018/04/i_eb_d4_7e_ime-udoka.png?w=190";
+                break;
+
+            //bob petit
+            case 77847:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Bob-Pettit-2K.png";
+                break;
+
+            //charlie bell
+            case 2294:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1034.png";
+                break;
+            //rod higgings
+            case 77019:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Rod-Higgins-2K.png";
+                break;
+
+            //adam keefe
+            case 228:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Adam-Keefe-2K.png";
+                break;
+
+            //antoine carr
+            case 156:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Antoine-Carr-2K.png";
+                break;
+
+            //adrian griffin
+            case 1559:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Adrian-Griffin-2K.png";
+                break;
+
+
+            //FIN
 
             //Carlisle
             case 76342:
@@ -1559,7 +1609,6 @@ public class GenerateImageUrl {
         }
 
 
-
         return urlImage;
     }
 
@@ -1652,8 +1701,6 @@ public class GenerateImageUrl {
 
             default:
                 urlImage = "https://a.espncdn.com/i/teamlogos/nba-development/500-dark/" + equipo + ".png";
-
-
 
 
         }

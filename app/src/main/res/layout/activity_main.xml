@@ -20,6 +20,8 @@
             android:layout_weight="8"
             android:orientation="vertical">
 
+
+
             <TextView
                 android:id="@+id/txtPregunta"
                 android:layout_width="match_parent"
@@ -29,7 +31,56 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:text="PREGUNTA"
 
+
+
                 android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/txtPreguntaPO"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="#C0C0C0"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="PREGUNTA"
+                android:drawableRight="@drawable/nbaplayofflogo"
+                android:paddingRight="10dp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/txtPreguntaWNBA"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="#A475F6"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="PREGUNTA"
+                android:drawableRight="@drawable/wnbaquestionsmall"
+                android:paddingRight="10dp"
+                android:visibility="invisible"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/txtPreguntaGLEAGUE"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="#333333"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="PREGUNTA"
+                android:drawableRight="@drawable/gleaguequestionsmall"
+                android:paddingRight="10dp"
+                android:visibility="invisible"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+
+                android:textSize="21dp" />
 
         </LinearLayout>
 
@@ -600,6 +651,8 @@
                 android:layout_weight="8"
                 android:orientation="vertical"
                 android:weightSum="100">
+
+
 
             </LinearLayout>
 

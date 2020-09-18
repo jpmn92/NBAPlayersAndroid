@@ -58,7 +58,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private MyCountDownTimer myCountDownTimer;
     private NavigationDrawerActivity navigationDrawerActivity;
 
-    private TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2;
+    private TextView txtP1, txtP2, txtPoints, txtPregunta, txtNameP1, txtNameP2, txtPreguntaPO, txtPreguntaWNBA, txtPreguntaGLEAGUE;
     private ImageView ivP1, ivP2, ivT1, ivT2, ivVidas;
     private LinearLayout linJ1, linJ2, linLoad;
     private RelativeLayout relCircle, relFront;
@@ -136,6 +136,8 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         if (misc) {
             tiempo = 15000;
+//            tiempo = 2000; POCO TIEMPO PARA HACER PRUEBAS Y QUE VAYA AUTOMATICO
+
         }
 
         myCountDownTimer = new MyCountDownTimer(tiempo, 1000);
@@ -301,8 +303,28 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
     private void initComponents() {
+
+        linJ1 = findViewById(R.id.linJ1);
+        linJ1.setOnClickListener(this);
+        linJ2 = findViewById(R.id.linJ2);
+        linJ2.setOnClickListener(this);
+
+        //definimos el fondo distinto si es PO
+        if (seasonType.equals("Playoffs")) {
+
+
+            linJ1.setBackgroundResource(R.drawable.playoffcourt);
+            linJ2.setBackgroundResource(R.drawable.playoffcourt);
+
+
+        }
+
         otraPartida = false;
         txtPregunta = findViewById(R.id.txtPregunta);
+        txtPreguntaPO = findViewById(R.id.txtPreguntaPO);
+        txtPreguntaWNBA = findViewById(R.id.txtPreguntaWNBA);
+        txtPreguntaGLEAGUE = findViewById(R.id.txtPreguntaGLEAGUE);
+
         txtP1 = findViewById(R.id.txtP1);
         txtP1.setTextColor(Color.RED);
         txtP2 = findViewById(R.id.txtP2);
@@ -315,10 +337,6 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         ivT1 = findViewById(R.id.ivTeam1);
         ivT2 = findViewById(R.id.ivTeam2);
         ivVidas = findViewById(R.id.ivVidas);
-        linJ1 = findViewById(R.id.linJ1);
-        linJ1.setOnClickListener(this);
-        linJ2 = findViewById(R.id.linJ2);
-        linJ2.setOnClickListener(this);
         relFront.setOnClickListener(this);
         linLoad = findViewById(R.id.linLoad);
         linLoad.setOnClickListener(this);
@@ -345,7 +363,20 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         relFront.setVisibility(View.GONE);
         relCircle = findViewById(R.id.relCircle);
 
-        txtPregunta.setText(traducirEstadistica(statCategory) + " " + season);
+        setQuestionPanel();
+//        if (seasonType.equals("Regular Season")) {
+//
+//            txtPreguntaPO.setVisibility(View.GONE);
+//            txtPregunta.setText(traducirEstadistica(statCategory) + " " + season);
+//
+//        } else if (seasonType.equals("Playoffs")) {
+//
+//            txtPregunta.setVisibility(View.GONE);
+//            txtPreguntaPO.setVisibility(View.VISIBLE);
+//            txtPreguntaPO.setText(traducirEstadistica(statCategory) + " " + season);
+//
+//
+//        }
 
         firebaseMethods = new FirebaseMethods(this, paramsIniciales);
         buscarRecord();
@@ -678,6 +709,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                     acierto();
                 } else {
                     fallo();
+
                 }
 
                 break;
@@ -686,6 +718,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
                 if (valueP2 <= valueP1) {
                     acierto();
                 } else {
+
                     fallo();
                 }
                 break;
@@ -796,8 +829,48 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         //pasamos a arraylist global el arraygenerado
         leagueLeadersGlobal = leagueLeaders;
         selectPlayers();
-        txtPregunta.setText(traducirEstadistica(statCategory) + " " + season);
 
+        setQuestionPanel();
+//        txtPregunta.setText(traducirEstadistica(statCategory) + " " + season);
+
+
+    }
+
+    //METODO QUE ASIGNA EL PANEL SUPERIOR
+    private void setQuestionPanel() {
+        if (seasonType.equals("Regular Season") && liga.equals("NBA")) {
+
+            txtPreguntaPO.setVisibility(View.GONE);
+            txtPreguntaWNBA.setVisibility(View.GONE);
+            txtPreguntaGLEAGUE.setVisibility(View.GONE);
+            txtPregunta.setText(traducirEstadistica(statCategory) + " " + season);
+
+        } else if (seasonType.equals("Playoffs") && liga.equals("NBA")) {
+
+
+            txtPregunta.setVisibility(View.GONE);
+            txtPreguntaWNBA.setVisibility(View.GONE);
+            txtPreguntaGLEAGUE.setVisibility(View.GONE);
+            txtPreguntaPO.setVisibility(View.VISIBLE);
+            txtPreguntaPO.setText(traducirEstadistica(statCategory) + " " + season);
+
+
+        } else if (liga.equals("WNBA")) {
+            txtPregunta.setVisibility(View.GONE);
+            txtPreguntaPO.setVisibility(View.GONE);
+            txtPreguntaWNBA.setVisibility(View.VISIBLE);
+            txtPreguntaWNBA.setText(traducirEstadistica(statCategory) + " " + season);
+
+
+        } else if (liga.equals("GLEAGUE")) {
+            txtPregunta.setVisibility(View.GONE);
+            txtPreguntaPO.setVisibility(View.GONE);
+            txtPreguntaWNBA.setVisibility(View.GONE);
+            txtPreguntaGLEAGUE.setVisibility(View.VISIBLE);
+            txtPreguntaGLEAGUE.setText(traducirEstadistica(statCategory) + " " + season);
+
+
+        }
 
     }
 
