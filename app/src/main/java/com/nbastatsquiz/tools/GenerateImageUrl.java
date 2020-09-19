@@ -97,8 +97,81 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
-            //17-09/2020
 
+            //19-09-2020
+
+            //leon powe
+            case 200796:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3023.png";
+                break;
+            //renaldo balkman
+            case 200764:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2986.png";
+                break;
+            //shannon brown
+            case 200769:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2992.png&w=350&h=254";
+                break;
+            //jerome jordan
+            case 202366:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4280.png&w=350&h=254";
+                break;
+            //daniel orton
+            case 202350:
+                urlImage = "https://a.espncdn.com/i/headshots/nba/players/full/4263.png";
+                break;
+
+            //marquis teague
+            case 203104:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6626.png";
+                break;
+
+            //taylor griffin
+            case 201981:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3990.png";
+                break;
+
+            //lester hudson
+            case 201991:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3996.png";
+                break;
+
+            //nando de colo
+            case 201986:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3977.png";
+                break;
+
+            //gelaballe
+            case 101153:
+                urlImage = "https://www.thesportsdb.com/images/media/player/cutout/23kumh1591438553.png";
+                break;
+
+
+            //17-09-2020
+
+            //sergio llull
+            case 201968:
+                urlImage = "https://www.thesportsdb.com/images/media/player/cutout/e26ibj1586263033.png";
+                break;
+
+            //desagana diop
+            case 2205:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/992.png";
+                break;
+
+            //JC Navarro
+            case 2434:
+                urlImage = "https://www.abc.es/especiales/eurobasket/2011/archivos/201108/navarro-300xXx80.png";
+                break;
+
+            //dexter pittman
+            case 202354:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Dexter-Pittman-2K.png";
+                break;
+            //xavier henry
+            case 202333:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4241.png";
+                break;
             //jarron collins
             case 2260:
                 urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/988.png";
@@ -1225,6 +1298,21 @@ public class GenerateImageUrl {
 
             //EUROPA
 
+            case "CB Estudiantes (Spain)":
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/5/5f/Logo_of_CB_Estudiantes.png";
+                break;
+
+            case "Basket Zaragoza 2002 (Spain)":
+                urlImage = "https://cbgrancanaria.net/wp-content/uploads/2015/02/CAI-zaragoza-2014-2015-logo.png";
+                break;
+
+            case "Anadolu Efes S.K. (Turkey)":
+                urlImage = "https://www.thesportsdb.com/images/media/team/badge/55wtm81544212863.png";
+                break;
+
+            case "CB Sevilla (Spain)":
+                urlImage = "https://cbgrancanaria.net/wp-content/uploads/2015/02/baloncesto-sevilla-2014-2015-logo.png";
+                break;
 
             case "Paris Basket Racing":
                 urlImage = "https://upload.wikimedia.org/wikipedia/en/c/c7/Paris_Basket_Racing_logo.gif";
@@ -1283,9 +1371,183 @@ public class GenerateImageUrl {
                         "https://upload.wikimedia.org/wikipedia/en/3/38/Shanghai_Sharks_logo.png";
                 break;
 
+            //19-09-2020
+            case "Cholet Basket (France)":
+                urlImage =
+                        "https://www.cholet-basket.com/themes/choletbasket/images/logo_resize.png";
+                break;
+
+            case "BC Zalgiris (Lithuania)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/0/0e/BC_%C5%BDalgiris_logo.svg/1200px-BC_%C5%BDalgiris_logo.svg.png";
+                break;
+
+            case "Basketball Lowen Braunschweig (Germany)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/f/fe/L%C3%B6wen_Braunschweig_logo_2020.png/220px-L%C3%B6wen_Braunschweig_logo_2020.png";
+                break;
+
+            case "CB Cornella (Spain)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/2/28/CB_Cornell%C3%A0.gif";
+                break;
+
+            case "DJK Wurzburg (Germany)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/d/de/DJK_W%C3%BCrzburg_logo.png";
+                break;
+
+            case "Elan Bearnais Pau-Orthez (France)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/3/3a/%C3%89lan_B%C3%A9arnais_Pau-Orthez_logo_2013.png";
+                break;
+
+            case "Elan Chalon (France)":
+                urlImage =
+                        "https://www.elanchalon.com/wp-content/uploads/2016/03/Logo-premier-HD.png";
+                break;
+
+            case "FC Bayern Muenchen":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/FC_Bayern_M%C3%BCnchen_%28Basketball%29_Logo.svg/1200px-FC_Bayern_M%C3%BCnchen_%28Basketball%29_Logo.svg.png";
+                break;
+
+            case "Fortitudo Pallacanestro Bologna (Italy)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/0/08/BC_Fortitudo_Bologna_logo.gif";
+                break;
+
+            case "KK Mega Vizura":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/8/84/Mega-bemax-logo2018.png";
+                break;
+
+            case "KK Mega Leks (Serbia)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/sr/b/bb/KK_Mega_Leks.png";
+                break;
+
+            case "KK FMP (Serbia)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/d/d7/KK_FMP_Beograd.png";
+                break;
+
+            case "KK Cibona (Croatia)":
+                urlImage =
+                        "https://alchetron.com/cdn/kk-cibona-7dbe9723-8766-4677-9029-8f471b359f9-resize-750.png";
+                break;
+
+            case "Joventut Badalona (Spain)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/ca/a/ae/Club_Joventut_Badalona.gif";
+                break;
+
+            case "Guangdong Southern Tigers (China)":
+                urlImage =
+                        "https://tmssl.akamaized.net/images/wappen/big/38865.png?lm=1552050856";
+                break;
+
+            case "Poitiers Basket 86 (France)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/c/ce/Poitiers_Basket_logo_18.png";
+                break;
+
+            case "Panathinaikos B.C. (Greece)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Panathinaikos_BC_logo.svg/1200px-Panathinaikos_BC_logo.svg.png";
+                break;
+
+            case "Pallalcesto Amatori Udine (Italy)":
+                urlImage =
+                        "https://bilder.bild.de/sportdaten/static/global/gfx/emblem/common/150x150/25311.png";
+                break;
+
+            case "Pallacanestro Virtus Roma (Italy)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/an/thumb/7/78/Logo_Virtus_Roma.png/1200px-Logo_Virtus_Roma.png";
+                break;
+
+            case "Pallacanestro Varese (Italy)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/commons/3/35/Pallacanestro_Varese_logo_2014.png";
+                break;
+
+            case "PBC CSKA Moscow (Russia)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/PBC_CSKA_Moscow_logo.svg/1200px-PBC_CSKA_Moscow_logo.svg.png";
+                break;
+
+            case "P.A.O.K. B.C. (Greece)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/8/86/P.A.O.K._B.C._logo.png";
+                break;
+
+            case "Olympiacos B.C. (Greece)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/7/7f/Olympiacos_BC_logo.svg/1200px-Olympiacos_BC_logo.svg.png";
+                break;
+
+            case "Olimpia Milano (Italy)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/thumb/3/3d/Pallacanestro_Olimpia_Milano_logo.svg/1200px-Pallacanestro_Olimpia_Milano_logo.svg.png";
+                break;
+
+            case "Movistar Estudiantes":
+                urlImage =
+                        "https://cdn.clubestudiantes.com/wp-content/uploads/2019/09/logoestudiantes.png";
+                break;
+
+            case "Le Mans Sarthe Basket (France)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/d/d9/Le_Mans_Sarthe_Basket_logo_2009.png";
+                break;
+
+            case "KK Split (Croatia)":
+                urlImage =
+                        "https://assets.b365api.com/images/team/b/6646.png";
+                break;
+
+            case "Virtus Pallacanestro Bologna (Italy)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/commons/6/63/Virtus_Bologna_Logo.png";
+                break;
+            case "Valencia BC (Spain)":
+                urlImage =
+                        "https://www.valenciabasket.com/plantilla/images/LogoValenciaBasket.PNG";
+                break;
+            case "Universo Treviso Basket (Italy)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/1/13/Treviso_Basket_logo_2019.png";
+                break;
+            case "Ulkerspor (Turkey)":
+                urlImage =
+                        "https://marketplace.ehalal.io/wp-content/uploads/2019/10/1456843264_ulker-logo.png";
+                break;
+            case "Saski Baskonia (Spain)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/6/6a/Saski_Baskonia.png";
+                break;
+            case "San Sebastian Gipuzkoa BC (Spain)":
+                urlImage =
+                        "https://upload.wikimedia.org/wikipedia/en/6/6a/Saski_Baskonia.png";
+                break;
+
+
+
 
             //HIGH SCHOOL
 
+            case "Saint Benedict's Preparatory School":
+                urlImage = "https://www.sbp.org/uploaded/Migration_Images_and_Documents_2017/About_SBP/photo73333173.gif";
+                break;
+
+            case "South Kent School":
+                urlImage = "https://seeklogo.com/images/S/south-kent-school-logo-0B287AB485-seeklogo.com.png";
+                break;
+
+            case "Princeton":
+                urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Princeton_Tigers_logo.svg/1200px-Princeton_Tigers_logo.svg.png";
+                break;
 
             case "Saint Vincent-Saint Mary":
                 urlImage = "https://s3-us-west-2.amazonaws.com/sportshub2-uploads-prod/files/sites/340/2017/12/20150221/stvm_leprechaun_white_outline_transparent_background.png";
@@ -1308,6 +1570,74 @@ public class GenerateImageUrl {
 
             //NCAA
 
+            case "Illinois":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/356.png";
+                break;
+
+            case "New Mexico":
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/167.png";
+                break;
+
+            case "Pittsburgh":
+                urlImage = "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F221.png";
+                break;
+            case "Delaware 87ers (D-League)":
+                urlImage = "https://chs.udel.edu/wp-content/uploads/2016/03/87ers-Logo-1024x1024.png";
+                break;
+
+            case "Providence":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/2507.png";
+                break;
+
+            case "Maccabi Tel Aviv B.C. (Israel)":
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Maccabi_Tel_Aviv_BC_logo.svg/1200px-Maccabi_Tel_Aviv_BC_logo.svg.png";
+                break;
+
+
+            case "New Mexico State":
+                urlImage = "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F166.png";
+                break;
+
+            case "Louisiana State":
+                urlImage = "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F99.png";
+                break;
+
+            case "SPO Rouen Basket":
+                urlImage = "https://rouenmetrobasket.com/wp-content/uploads/2019/02/logo-sm.png";
+                break;
+
+            case "Saint Joseph's":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/2603.png";
+                break;
+
+            case "Nevada-Las Vegas":
+                urlImage = "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2439.png";
+                break;
+
+            case "Baylor":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/239.png";
+                break;
+
+            case "Cincinnati":
+                urlImage = "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2132.png";
+                break;
+
+            case "Marshall":
+                urlImage = "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F276.png";
+                break;
+
+            case "Fresno State":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/278.png";
+                break;
+
+            case "Butler":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/2086.png";
+                break;
+
+            case "Ohio State":
+                urlImage = "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F194.png";
+                break;
+
             case "Santa Clara":
                 urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/2541.png";
                 break;
@@ -1326,6 +1656,10 @@ public class GenerateImageUrl {
 
             case "Arizona":
                 urlImage = "https://a3.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F12.png";
+                break;
+
+            case "Arizona State":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/9.png";
                 break;
 
             case "Duke":
@@ -1603,9 +1937,9 @@ public class GenerateImageUrl {
             default:
 //                urlImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/NCAA_logo.svg/1200px-NCAA_logo.svg.png";
 
-                urlImage = "https://vignette.wikia.nocookie.net/logopedia/images/d/da/NBA_Draft_%281990s-2000%29.png";
+//                urlImage = "https://vignette.wikia.nocookie.net/logopedia/images/d/da/NBA_Draft_%281990s-2000%29.png";
 
-//                urlImage = "https://seeklogo.com/images/N/nba-draft-logo-510F0C293C-seeklogo.com.png";
+                urlImage = "https://seeklogo.com/images/N/nba-draft-logo-510F0C293C-seeklogo.com.png";
         }
 
 
