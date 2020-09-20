@@ -97,8 +97,93 @@ public class GenerateImageUrl {
 
         switch (idJugador) {
 
+            //20-09/2020
+
+            //maurice evans
+            case 2230:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1031.png&w=350&h=254";
+                break;
+
+            //fat lever
+            case 77376:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Fat-Lever-2K.png";
+                break;
+
+            //reggie lewis
+            case 77384:
+                urlImage = "http://bostonceltics.pl/historia/The%20Story%20of%20Marcus%20Smart%20%20%27I%20Love%20Boston,%20Boston%20Loves%20Me%27%20%20%20Boston%20Celtics_pliki/reggie-lewis.png";
+                break;
+
+            //alvin robertson
+            case 926:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Alvin-Robertson-2K-550x401.png";
+                break;
+
+            //sarunas marciulionis
+            case 36:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Sarunas-Marciulionis-2K.png";
+                break;
+
+            //bernard king
+            case 77264:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Bernard-King-2K.png";
+                break;
+
+            //jerome kersey
+            case 760:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Jerome-Kersey-2K.png";
+                break;
+
+            //tyrone corbin
+            case 895:
+                urlImage = "https://hoopshype.com/wp-content/uploads/sites/92/2018/06/i_b5_2d_be_tyrone-corbin.png";
+                break;
+
+            //robert parish
+            case 305:
+                urlImage = "https://www.2kratings.com/wp-content/uploads/Robert-Parish-2K.png";
+                break;
 
             //19-09-2020
+
+            //marcus thorton
+            case 201977:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4017.png";
+                break;
+
+            //jon brockman
+            case 201972:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3966.png&w=350&h=254";
+                break;
+            //terrence williams
+            case 201944:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4019.png&w=350&h=254";
+                break;
+            //daniel diez
+            case 1626229:
+                urlImage = "https://4.bp.blogspot.com/-lqZ4rKa8vaI/U7KwK0UXvoI/AAAAAAABD5c/IF7k1UdJprQ/s1600/Satellite.png";
+                break;
+            //marcus eriksson
+            case 1626226:
+                urlImage = "https://statistik.easycredit-bbl.de/images/imageCreator/players/2019/png/45452_200.png";
+                break;
+
+            //nick calathes
+            case 201979:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3969.png";
+                break;
+            //elonu
+            case 201992:
+                urlImage = "https://s.lnb.fr/img/player/photo/46727/46727_37.png";
+                break;
+            //eyenga
+            case 201963:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3984.png";
+                break;
+            //maynor
+            case 201953:
+                urlImage = "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4001.png&w=350&h=254";
+                break;
 
             //leon powe
             case 200796:
@@ -1533,8 +1618,6 @@ public class GenerateImageUrl {
                 break;
 
 
-
-
             //HIGH SCHOOL
 
             case "Saint Benedict's Preparatory School":
@@ -1569,6 +1652,18 @@ public class GenerateImageUrl {
 
 
             //NCAA
+
+            case "St. Mary's (CA)":
+                urlImage = "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2608.png";
+                break;
+
+            case "Davidson":
+                urlImage = "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F2166.png";
+                break;
+
+            case "Memphis":
+                urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/235.png";
+                break;
 
             case "Illinois":
                 urlImage = "https://a.espncdn.com/i/teamlogos/ncaa/500/356.png";
@@ -1720,7 +1815,7 @@ public class GenerateImageUrl {
                 break;
 
             case "Murray State":
-                urlImage = " https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F93.png ";
+                urlImage = "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F93.png";
                 break;
 
             case "Virginia":
@@ -1732,6 +1827,11 @@ public class GenerateImageUrl {
             case "North Carolina":
                 urlImage =
                         "https://a2.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fncaa%2F500%2F153.png";
+                break;
+
+            case "Georgia State":
+                urlImage =
+                        "https://a.espncdn.com/i/teamlogos/ncaa/500/2247.png";
                 break;
 
             case "Gonzaga":
@@ -1797,7 +1897,7 @@ public class GenerateImageUrl {
 
             case "North Carolina State":
                 urlImage =
-                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F5642.pn";
+                        "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F5642.png";
                 break;
 
             case "Arkansas":

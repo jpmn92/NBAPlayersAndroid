@@ -85,6 +85,23 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+<!--                <Switch-->
+<!--                    android:id="@+id/switch1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:switchMinWidth="56dp"-->
+<!--                    android:text="🎁 CONCURSO 🎁"-->
+<!--                    android:checked="true"-->
+<!--                    android:textOff="OFF"-->
+<!--                    android:textOn="ON"-->
+<!--                    android:paddingLeft="5dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:textSize="20dp"-->
+<!--                    -->
+<!--                    android:visibility="invisible"-->
+
+<!--                    />-->
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

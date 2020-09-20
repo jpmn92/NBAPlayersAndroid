@@ -77,14 +77,16 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
     private DecimalFormat df;
 
     private float valueP1, valueP2;
-    private boolean gameStarted, misc, miscStats, miscSeason, sound, crono;
+    private boolean gameStarted, misc, miscStats, miscSeason, sound, crono, concurso;
     private String season, seasonType, statCategory, perMode, activeFlag, username, liga;
     private SessionManagement sessionManagement;
+    private int randomSeason;
 
     private ArrayList<String> fg3mProhibidos;
 
 
     private GenerateImageUrl generateImageUrl;
+
 
     @Override
     protected void onStart() {
@@ -97,6 +99,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inicializarPublicidad();
+
 
         sessionManagement = new SessionManagement(this);
 
@@ -122,6 +125,8 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
         liga = paramsIniciales.getString("liga");
 
+        concurso = paramsIniciales.getBoolean("concurso");
+
 
         res = getResources();
 
@@ -130,8 +135,9 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         }
 
         miscStats = statCategory.equalsIgnoreCase("MISC");
-        miscSeason = season.equalsIgnoreCase("MISC");
+        miscSeason = season.equalsIgnoreCase("MISC") || season.equals("10´s (2010 a 2020)") || season.equals("00´s (2000 a 2010)") || season.equals("90's (1990 a 2000)");
 
+        //si se cumple cualquier de estas será misc
         misc = (miscStats || miscSeason);
 
         if (misc) {
@@ -204,15 +210,25 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
     private void mezclar() {
 
+        String temporadaParam = "";
+        Resources res = getResources();
+        String[] categories = res.getStringArray(R.array.TipoCategoria);
 
         if (miscStats) {
-            Resources res = getResources();
-            String[] categories = res.getStringArray(R.array.TipoCategoria);
+            res = getResources();
+            categories = res.getStringArray(R.array.TipoCategoria);
 
 
-            int random = (int) (Math.random() * (categories.length - 1) + 1);
+            if (concurso) {
+                randomSeason = (int) (Math.random() * (categories.length - 10) + 1);
 
-            String stat = getParam(R.array.TipoCategoria, random);
+            } else {
+                randomSeason = (int) (Math.random() * (categories.length - 1) + 1);
+
+            }
+
+
+            String stat = getParam(R.array.TipoCategoria, randomSeason);
 
             params.putString("StatCategory", stat);
             statCategory = params.getString("StatCategory");
@@ -227,8 +243,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
         if (miscSeason) {
-            Resources res = getResources();
-            String[] categories = res.getStringArray(R.array.Temporadas);
+            categories = res.getStringArray(R.array.Temporadas);
 
 
             switch (liga) {
@@ -248,8 +263,52 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
             }
 
+            final String decada10 = getResources().getString(R.string.decada10);
+            final String decada00 = getResources().getString(R.string.decada00);
+            final String decada90 = getResources().getString(R.string.decada90);
 
-            String temporadaParam = "";
+
+            //SI SON RANGOS, QUE BUSQUE EN LISTADOS DISTINTOS
+
+            String decadaEscogida = paramsIniciales.getString("Season");
+
+            if (decadaEscogida.equals(decada10)) {
+                categories = res.getStringArray(R.array.Temporadas10);
+
+            } else if (decadaEscogida.equals(decada00)) {
+                categories = res.getStringArray(R.array.Temporadas00);
+
+            } else if (decadaEscogida.equals(decada90)) {
+                categories = res.getStringArray(R.array.Temporadas90);
+            }
+
+            String decada = paramsIniciales.getString("season");
+
+
+//            switch (paramsIniciales.getString("Season")){
+//                case decada10:
+//
+//
+//
+//
+//                    break;
+//
+//                case "00´s (2000 a 2010)":
+//
+//                    categories = res.getStringArray(R.array.Temporadas00);
+//
+//
+//                    break;
+//
+//                case "90's (1990 a 2000)":
+//
+//                    categories = res.getStringArray(R.array.Temporadas90);
+//
+//
+//                    break;
+//
+//            }
+
 
             temporadaParam = getRandomYear(categories);
 

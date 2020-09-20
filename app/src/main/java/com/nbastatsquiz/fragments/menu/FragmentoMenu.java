@@ -17,8 +17,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,11 +51,12 @@ public class FragmentoMenu extends Fragment {
     String userName;
     SessionManagement sessionManagement;
     Bundle params;
-    boolean sound, crono, loged;
+    boolean sound, crono, loged, concurso;
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones, puntuacionPersonal;
     ImageView ivSound, ivCrono, imagenPrincipal;
     ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA, stringArrayAdapterGLEAGUE;
+    Switch swConcurso;
 
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
@@ -105,10 +108,10 @@ public class FragmentoMenu extends Fragment {
                 .setRemindInterval(2) // si le da a recordar mas tarde pasan X dias
                 .monitor();
 
-        try{
+        try {
             AppRate.showRateDialogIfMeetsConditions(this.getActivity());
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -121,6 +124,7 @@ public class FragmentoMenu extends Fragment {
     private void initComponents(View view) {
 
 
+//        swConcurso = view.findViewById(R.id.switch1);
         ivSound = view.findViewById(R.id.ivSound);
         ivSound.setClickable(true);
         ivCrono = view.findViewById(R.id.ivCrono);
@@ -176,7 +180,7 @@ public class FragmentoMenu extends Fragment {
             }
         });
 
-                imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
+        imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
         sSeason = view.findViewById(R.id.spinnerSeasons);
         sCategory = view.findViewById(R.id.spinnerCategory);
         sSeasonType = view.findViewById(R.id.spinnerSeasonType);
@@ -193,7 +197,7 @@ public class FragmentoMenu extends Fragment {
             public void onClick(View v) {
 
                 if (checkInternetConnection() == true) {
-;
+                    ;
                     firebaseMethods.getTopPuntuaciones(getParams());
 //                    firebaseMethods.getUserTop100_Admin("XqcUJErnXsNz0HGeQC3A1I0aRbG3");
 
@@ -212,7 +216,7 @@ public class FragmentoMenu extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(sLiga.getSelectedItemPosition() == 0){
+                if (sLiga.getSelectedItemPosition() == 0) {
 
                     sSeason.setAdapter(stringArrayAdapterNBA);
                     imagenPrincipal.setImageResource(R.drawable.logo_ligero);
@@ -220,17 +224,16 @@ public class FragmentoMenu extends Fragment {
 
                 }
 
-                if(sLiga.getSelectedItemPosition() == 1){
+                if (sLiga.getSelectedItemPosition() == 1) {
 
 
                     sSeason.setAdapter(stringArrayAdapterWNBA);
                     imagenPrincipal.setImageResource(R.drawable.wnba_logo);
 
 
-
                 }
 
-                if(sLiga.getSelectedItemPosition() == 2){
+                if (sLiga.getSelectedItemPosition() == 2) {
 
 
                     sSeason.setAdapter(stringArrayAdapterGLEAGUE);
@@ -247,6 +250,34 @@ public class FragmentoMenu extends Fragment {
             }
         });
 
+
+//        swConcurso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                if (isChecked) {
+//                    //esta habilitado
+//
+//                    concurso = true;
+//                    sSeason.setEnabled(false);
+//                    sCategory.setEnabled(false);
+//                    sDataType.setEnabled(false);
+//                    sLiga.setEnabled(false);
+//                    sSeasonType.setEnabled(false);
+//
+//                } else {
+//                    //No lo esta
+//
+//                    concurso = false;
+//                    sSeason.setEnabled(true);
+//                    sCategory.setEnabled(true);
+//                    sDataType.setEnabled(true);
+//                    sLiga.setEnabled(true);
+//                    sSeasonType.setEnabled(true);
+//
+//                }
+//            }
+//        });
+
     }
 
     private void pruebaCrearPuntuacion() {
@@ -260,20 +291,18 @@ public class FragmentoMenu extends Fragment {
 
     private void checkSound() {
 
-        if(sessionManagement.getSound()){
+        if (sessionManagement.getSound()) {
             ivSound.setImageResource(R.drawable.volume_on);
-        }
-        else{
+        } else {
             ivSound.setImageResource(R.drawable.volume_off);
         }
     }
 
     private void checkCrono() {
 
-        if(sessionManagement.getCrono()){
+        if (sessionManagement.getCrono()) {
             ivCrono.setImageResource(R.drawable.temp_on);
-        }
-        else{
+        } else {
             ivCrono.setImageResource(R.drawable.temp_off);
         }
     }
@@ -293,6 +322,7 @@ public class FragmentoMenu extends Fragment {
 //        startActivity(activityPuntuaciones);
 
     }
+
     public void goToPuntuaciones() {
         // puntuaciones.sort();
 
@@ -322,10 +352,9 @@ public class FragmentoMenu extends Fragment {
 
         //parametros del modo de juego
         String temporada = sSeason.getSelectedItem().toString();
-        if(sSeason.getSelectedItemPosition() == 1){
+        if (sSeason.getSelectedItemPosition() == 1) {
             temporada = "All Time";
-        }
-        else if (sSeason.getSelectedItemPosition() == 0) {
+        } else if (sSeason.getSelectedItemPosition() == 0) {
             temporada = "MISC";
         }
 
@@ -333,34 +362,52 @@ public class FragmentoMenu extends Fragment {
         paramsPartida.putBoolean("loged", loged);
         paramsPartida.putBoolean("sound", sound);//NUEVO
         paramsPartida.putBoolean("crono", crono);//NUEVO
+        paramsPartida.putBoolean("concurso", concurso);
 
         paramsPartida.putString("modoJuego", "Stats");
-
-        paramsPartida.putString("liga", sLiga.getSelectedItem().toString());
-
-        paramsPartida.putString("Season", temporada);
-        paramsPartida.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
-
         String stat = getParam(R.array.TipoCategoria, sCategory);
 
-        paramsPartida.putString("StatCategory", stat); //PTS para puntos
-        // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
+
+        if (concurso) {
+
+            temporada = "MISC";
+
+            paramsPartida.putString("liga", "NBA");
+            paramsPartida.putString("Season", "MISC");
+            paramsPartida.putString("SeasonType", "Regular Season");
+            paramsPartida.putString("StatCategory", "MISC"); //PTS para puntos
+            paramsPartida.putString("PerMode", "PerGame");
+            paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
 
-        // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
-        String statMode = getParam(R.array.TipoDatos, sDataType);
-        paramsPartida.putString("PerMode", statMode); //PerGame para por partido
+        } else {
+            paramsPartida.putString("liga", sLiga.getSelectedItem().toString());
+
+            paramsPartida.putString("Season", temporada);
+            paramsPartida.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
+
+
+            paramsPartida.putString("StatCategory", stat); //PTS para puntos
+            // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
+
+
+            // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
+            String statMode = getParam(R.array.TipoDatos, sDataType);
+            paramsPartida.putString("PerMode", statMode); //PerGame para por partido
 //                params.putString("PerMode", "PerGame"); //PerGame para por partido
 
-        paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
+            paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
 //        paramsPartida.putBoolean("Sound", sound);
+        }
+
 
         return paramsPartida;
 
 
     }
 
+    // LISTENER BOTON COMENZAR
     public void onClick(View v) {
 
         if (checkInternetConnection() == true) {
@@ -373,37 +420,49 @@ public class FragmentoMenu extends Fragment {
                     //parametros del modo de juego
                     String temporada = sSeason.getSelectedItem().toString();
 
+                    String stat = getParam(R.array.TipoCategoria, sCategory);
+
+
                     if (sSeason.getSelectedItemPosition() == 0) {
                         temporada = "MISC";
                     }
 
+                    if (concurso) {
+
+                        params.putString("liga", "NBA");
+                        params.putString("Season", "MISC");
+                        params.putString("SeasonType", "Regular Season");
+                        params.putString("StatCategory", "MISC");
+                        params.putString("PerMode", "PerGame");
+                        params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
+
+                    } else {
+                        params.putString("liga", sLiga.getSelectedItem().toString());
 
 
-                    params.putString("liga", sLiga.getSelectedItem().toString());
+                        params.putString("Season", temporada);
+                        params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
 
 
-                    params.putString("Season", temporada);
-                    params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
-
-                    String stat = getParam(R.array.TipoCategoria, sCategory);
-
-                    params.putString("StatCategory", stat); //PTS para puntos
-                    // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
+                        params.putString("StatCategory", "MISC"); //PTS para puntos
+                        // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
 
 
-                    // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
-                    String statMode = getParam(R.array.TipoDatos, sDataType);
-                    params.putString("PerMode", statMode); //PerGame para por partido
+                        // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
+                        String statMode = getParam(R.array.TipoDatos, sDataType);
+                        params.putString("PerMode", statMode); //PerGame para por partido
 //                params.putString("PerMode", "PerGame"); //PerGame para por partido
 
-                    params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
+                        params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
 //                params.putBoolean("Sound", sound);
+                    }
+
 
                     checkSession();
+
+
                     break;
-
-
 
 
             }
@@ -463,6 +522,7 @@ public class FragmentoMenu extends Fragment {
                         params.putBoolean("loged", loged);
                         params.putBoolean("sound", sound); //NUEVO
                         params.putBoolean("crono", crono);
+                        params.putBoolean("concurso", concurso);
                         sessionManagement.saveSession(userName);
 
                         juego.putExtras(getParams());
@@ -478,8 +538,7 @@ public class FragmentoMenu extends Fragment {
                     }
                 });
                 builder.show();
-            }
-            else{
+            } else {
                 userName = firebaseUser.getDisplayName();
                 params.putBoolean("loged", true);
                 params.putBoolean("sound", sound);//NUEVO
@@ -501,6 +560,7 @@ public class FragmentoMenu extends Fragment {
                     params.putBoolean("loged", loged);
                     params.putBoolean("sound", sound); //NUEVO
                     params.putBoolean("crono", crono);
+                    params.putBoolean("concurso", concurso);
                     sessionManagement.saveSession(userName);
 
 
