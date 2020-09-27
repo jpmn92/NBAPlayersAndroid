@@ -16,29 +16,31 @@
         android:layout_height="wrap_content"
         android:gravity="right">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-            <ImageView
-                android:id="@+id/ivSound"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
+<!--            <ImageView-->
+<!--                android:id="@+id/ivSound"-->
+<!--                android:layout_width="45dp"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:layout_weight="1"-->
 
-                android:clickable="true"
-                app:srcCompat="@drawable/volume_on" />
+<!--                android:visibility="invisible"-->
+<!--                android:clickable="true"-->
+<!--                app:srcCompat="@drawable/volume_on" />-->
 
-            <ImageView
-                android:id="@+id/ivCrono"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
+<!--            <ImageView-->
+<!--                android:id="@+id/ivCrono"-->
+<!--                android:layout_width="45dp"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:visibility="invisible"-->
 
-                android:clickable="true"
-                app:srcCompat="@drawable/temp_on" />
-        </LinearLayout>
+<!--                android:clickable="true"-->
+<!--                app:srcCompat="@drawable/temp_on" />-->
+<!--        </LinearLayout>-->
 
     </RelativeLayout>
 

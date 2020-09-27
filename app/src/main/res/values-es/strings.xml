@@ -12,13 +12,17 @@
 
     <string name="nav_about_us">Acerca de</string>
     <string name="nav_contact_with_us">Contacto</string>
-    <string name="nav_settings">Configuración</string>
+    <string name="nav_settings">Ajustes</string>
     <string name="nav_help">Ayuda</string>
     <string name="nav_home">Inicio</string>
     <string name="nav_login">Iniciar Sesión</string>
     <string name="nav_register">Registrarse</string>
     <string name="nav_logout">Cerrar sesión</string>
     <string name="nav_account">Mi Perfil</string>
+    <string name="nav_sonido">Sonido</string>
+    <string name="nav_cuenta">Cuenta</string>
+
+
     <string name="home_item">Inicio</string>
     <string name="about_us">Para cualquier problema, duda o sugerencia puedes contactar con nosotros a traves del siguiente correo electrónico:\nnbastatsquiz@gmail.com</string>
 

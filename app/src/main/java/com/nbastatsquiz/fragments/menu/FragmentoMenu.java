@@ -1,12 +1,16 @@
 package com.nbastatsquiz.fragments.menu;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,14 +21,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.nbastatsquiz.GameActivity;
 import com.nbastatsquiz.fragments.FragmentoPuntuaciones;
 import com.nbastatsquiz.fragments.auth.FragmentoRegister;
@@ -33,9 +39,12 @@ import com.nbastatsquiz.beans.FirebasePuntuacion;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.SessionManagement;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import hotchemi.android.rate.AppRate;
 
@@ -44,6 +53,8 @@ public class FragmentoMenu extends Fragment {
 
     private static FragmentoMenu fragmentoMenu;
 
+    public boolean concurso;
+
     Spinner sSeason, sCategory, sSeasonType, sDataType, sLiga;
     Button btnStart, btnRecords;
     Resources res;
@@ -51,12 +62,19 @@ public class FragmentoMenu extends Fragment {
     String userName;
     SessionManagement sessionManagement;
     Bundle params;
-    boolean sound, crono, loged, concurso;
+    boolean sound, crono, loged;
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones, puntuacionPersonal;
     ImageView ivSound, ivCrono, imagenPrincipal;
     ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA, stringArrayAdapterGLEAGUE;
     Switch swConcurso;
+
+
+    //REMOTE CONFIG
+    int version; //version de nuestra app
+    FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+    List<String> temporadasNBASorteo;
+
 
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
@@ -77,6 +95,7 @@ public class FragmentoMenu extends Fragment {
 
 
     public static FragmentoMenu newInstance(Bundle datos) {
+
         if (fragmentoMenu == null) {
             fragmentoMenu =
                     new FragmentoMenu();
@@ -88,9 +107,115 @@ public class FragmentoMenu extends Fragment {
         return fragmentoMenu;
     }
 
+    //en el onresume comprobamos que esta en la ultima version
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        comprobacionUltimaVersion();
+//        comprobacionModoSorteo();
+
+
+    }
+
+    private void comprobacionModoSorteo() {
+
+        remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(true).build());
+        Task<Void> recogerInfoFbRc = remoteConfig.fetch(0);
+        recogerInfoFbRc.addOnSuccessListener((Activity) getContext(), aVoid -> {
+
+            remoteConfig.activateFetched();
+            gestionSorteo();
+
+        });
+
+    }
+
+    private void gestionSorteo() {
+
+        boolean sorteoActivo =  remoteConfig.getBoolean("sorteoActivo");
+        concurso = sorteoActivo;
+        temporadasNBASorteo = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.Temporadas)));
+
+
+        //AQUI LA LOGICA DE SI EL SORTEO ESTA ACTIVO
+        if (concurso) {
+
+            temporadasNBASorteo.add(0, "MODO CONCURSO");
+
+
+//            Toast.makeText(getContext(), "SORTEO ACTIVO - " + sorteoActivo, Toast.LENGTH_SHORT).show();
+
+
+//            sSeason.setEnabled(false);
+//            sCategory.setEnabled(false);
+//            sDataType.setEnabled(false);
+//            sLiga.setEnabled(false);
+//            sSeasonType.setEnabled(false);
+
+        } else {
+//            Toast.makeText(getContext(), "NO HAY SORTEO - " + sorteoActivo, Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+    //metodo que comprueba la ultima version
+    private void comprobacionUltimaVersion() {
+
+
+        //comprobaciones de version
+        PackageInfo packageInfo;
+
+        try {
+            packageInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            version = packageInfo.versionCode; //version actual instalada
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //configuracion firebase remote config
+
+        remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(true).build());
+        HashMap<String, Object> actualizacion = new HashMap<>();
+        actualizacion.put("versioncode", version);
+        Task<Void> recogerInfoFbRc = remoteConfig.fetch(0);
+        recogerInfoFbRc.addOnSuccessListener((Activity) getContext(), aVoid -> {
+
+            remoteConfig.activateFetched();
+            checkVersion(version);
+
+        });
+
+    }
+
+    //metodo que compara las versiones
+    private void checkVersion(int version) {
+
+        int newerVersion = (int) remoteConfig.getLong("versioncode");
+        String urlApp = remoteConfig.getString("web");
+        String newerVersionName = remoteConfig.getString("versionname");
+//        boolean sorteoActivo =  remoteConfig.getBoolean("sorteoActivo");
+
+        if (newerVersion > version) {
+            mostrarDialogVersion(urlApp, newerVersionName);
+
+//            Toast.makeText(getContext(), "Existe una nueva version", Toast.LENGTH_SHORT).show();
+        } else {
+//            Toast.makeText(getContext(), "NO HAY VERSIONES DISPONIBLES ", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        comprobacionModoSorteo();
+
+
 
     }
 
@@ -99,6 +224,7 @@ public class FragmentoMenu extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragmento_menu, container, false);
+
 
         //rating
 
@@ -115,70 +241,129 @@ public class FragmentoMenu extends Fragment {
 
         }
 
+
+
         initComponents(view);
         res = getResources();
         firebaseMethods = new FirebaseMethods(this);
         return view;
     }
 
+    //metodo que salta si no estas en la version mas moderna
+    private void mostrarDialogVersion(String urlApp, String versionName) {
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Actualización Disponible")
+                .setMessage("¿Quieres Actualizar NBA STATS QUIZ a la versión " + versionName + "?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // si damos a aceptar
+
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getActivity().getPackageName())));
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
+                        }
+
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
     private void initComponents(View view) {
 
 
 //        swConcurso = view.findViewById(R.id.switch1);
-        ivSound = view.findViewById(R.id.ivSound);
-        ivSound.setClickable(true);
-        ivCrono = view.findViewById(R.id.ivCrono);
-        ivCrono.setClickable(true);
+//        ivSound = view.findViewById(R.id.ivSound);
+//        ivSound.setClickable(true);
+//        ivCrono = view.findViewById(R.id.ivCrono);
+//        ivCrono.setClickable(true);
+
         sessionManagement = new SessionManagement(getContext());
         sound = sessionManagement.getSound();
         crono = sessionManagement.getCrono();
 
-        stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.Temporadas));
-        stringArrayAdapterNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasWNBA));
-        stringArrayAdapterWNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
-        stringArrayAdapterGLEAGUE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        if (concurso) {
+
+            Toast.makeText(getContext(), "HAY SORTEO - " + concurso, Toast.LENGTH_SHORT).show();
+
+
+            //SI HAY CONCURSO, CARGA EL LISTADO AÑADIENDOLE EL MODO CONCURSO
+            temporadasNBASorteo.add(0, "CONCURSO");
+
+
+            stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, temporadasNBASorteo);
+            stringArrayAdapterNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+            //temporadas intactas
+            stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasWNBA));
+            stringArrayAdapterWNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
+            stringArrayAdapterGLEAGUE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        } else {
+
+            Toast.makeText(getContext(), "NO HAY SORTEO - " + concurso, Toast.LENGTH_SHORT).show();
+
+            //SI NO HAY CONCURSO, CARGA LAS TEMPORADAS NORMALES
+            stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.Temporadas));
+            stringArrayAdapterNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasWNBA));
+            stringArrayAdapterWNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            stringArrayAdapterGLEAGUE = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasGLEAGUE));
+            stringArrayAdapterGLEAGUE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        }
+
 
 //        ivSound = view.findViewById(R.id.ivSound);
-        checkSound();
-        checkCrono();
+//        checkSound();
+//        checkCrono();
 
         //dependiendo de si es true pintamos una imagen u otra
 
 
-        ivSound.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                System.out.println("");
-                if (sound) {
-                    sound = false;
-                    sessionManagement.saveSession(sound, "sound"); //NUEVO
-                    checkSound();
-                } else {
-                    sound = true;
-                    sessionManagement.saveSession(sound, "sound"); //NUEVO
-                    checkSound();
-                }
-            }
-        });
-
-        ivCrono.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (crono) {
-                    crono = false;
-                    sessionManagement.saveSession(crono, "crono"); //NUEVO
-                    checkCrono();
-                } else {
-                    crono = true;
-                    sessionManagement.saveSession(crono, "crono"); //NUEVO
-                    checkCrono();
-                }
-            }
-        });
+//        ivSound.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                System.out.println("");
+//                if (sound) {
+//                    sound = false;
+//                    sessionManagement.saveSession(sound, "sound"); //NUEVO
+//                    checkSound();
+//                } else {
+//                    sound = true;
+//                    sessionManagement.saveSession(sound, "sound"); //NUEVO
+//                    checkSound();
+//                }
+//            }
+//        });
+//
+//        ivCrono.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (crono) {
+//                    crono = false;
+//                    sessionManagement.saveSession(crono, "crono"); //NUEVO
+//                    checkCrono();
+//                } else {
+//                    crono = true;
+//                    sessionManagement.saveSession(crono, "crono"); //NUEVO
+//                    checkCrono();
+//                }
+//            }
+//        });
 
         imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
         sSeason = view.findViewById(R.id.spinnerSeasons);
@@ -251,32 +436,6 @@ public class FragmentoMenu extends Fragment {
         });
 
 
-//        swConcurso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                if (isChecked) {
-//                    //esta habilitado
-//
-//                    concurso = true;
-//                    sSeason.setEnabled(false);
-//                    sCategory.setEnabled(false);
-//                    sDataType.setEnabled(false);
-//                    sLiga.setEnabled(false);
-//                    sSeasonType.setEnabled(false);
-//
-//                } else {
-//                    //No lo esta
-//
-//                    concurso = false;
-//                    sSeason.setEnabled(true);
-//                    sCategory.setEnabled(true);
-//                    sDataType.setEnabled(true);
-//                    sLiga.setEnabled(true);
-//                    sSeasonType.setEnabled(true);
-//
-//                }
-//            }
-//        });
 
     }
 
@@ -289,23 +448,23 @@ public class FragmentoMenu extends Fragment {
     }
 
 
-    private void checkSound() {
-
-        if (sessionManagement.getSound()) {
-            ivSound.setImageResource(R.drawable.volume_on);
-        } else {
-            ivSound.setImageResource(R.drawable.volume_off);
-        }
-    }
-
-    private void checkCrono() {
-
-        if (sessionManagement.getCrono()) {
-            ivCrono.setImageResource(R.drawable.temp_on);
-        } else {
-            ivCrono.setImageResource(R.drawable.temp_off);
-        }
-    }
+//    private void checkSound() {
+//
+//        if (sessionManagement.getSound()) {
+//            ivSound.setImageResource(R.drawable.volume_on);
+//        } else {
+//            ivSound.setImageResource(R.drawable.volume_off);
+//        }
+//    }
+//
+//    private void checkCrono() {
+//
+//        if (sessionManagement.getCrono()) {
+//            ivCrono.setImageResource(R.drawable.temp_on);
+//        } else {
+//            ivCrono.setImageResource(R.drawable.temp_off);
+//        }
+//    }
 
     public void goToRegister() {
 
@@ -506,6 +665,8 @@ public class FragmentoMenu extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
+        crono = sessionManagement.getCrono();
+        sound = sessionManagement.getSound();
         if (firebaseUser != null) {
 
             loged = true;

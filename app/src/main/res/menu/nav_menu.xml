@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -32,12 +33,38 @@
             android:icon="@android:drawable/ic_dialog_email"
             android:title="@string/nav_contact_with_us" />
 
+        <!--        seccion de ajustes-->
+
+        <item
+            android:id="@+id/ajustes_section"
+            android:title="@string/nav_settings">
+            <!--            android:title="Settings">-->
+
+            <menu>
+
+                <item
+                    android:id="@+id/nav_switch_sonido"
+                    android:title="@string/sound"
+                    android:icon="@drawable/ic_baseline_volume_up_24"
+                    app:actionLayout="@layout/layout_switch_volume"
+
+                    />
+                <item
+                    android:id="@+id/nav_switch_crono"
+                    android:title="Crono"
+                    android:icon="@drawable/ic_baseline_timer_24"
+                    app:actionLayout="@layout/layout_switch_volume"
+                    />
+
+
+            </menu>
+        </item>
 
         <!-- Sección de configuración -->
         <item
             android:id="@+id/configuration_section"
-            android:title="Other">
-<!--            android:title="Settings">-->
+            android:title="@string/nav_cuenta">
+            <!--            android:title="Settings">-->
 
             <menu>
                 <item
@@ -59,10 +86,10 @@
                     android:title="@string/nav_logout" />
 
 
-<!--                <item-->
-<!--                    android:id="@+id/nav_log_out"-->
-<!--                    android:icon="@android:drawable/ic_lock_power_off"-->
-<!--                    android:title="Logout" />-->
+                <!--                <item-->
+                <!--                    android:id="@+id/nav_log_out"-->
+                <!--                    android:icon="@android:drawable/ic_lock_power_off"-->
+                <!--                    android:title="Logout" />-->
 
             </menu>
         </item>
