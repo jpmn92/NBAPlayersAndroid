@@ -13,8 +13,10 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,13 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.review.testing.FakeReviewManager;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.android.play.core.tasks.OnFailureListener;
+import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -59,22 +68,22 @@ public class FragmentoMenu extends Fragment {
     Button btnStart, btnRecords;
     Resources res;
     FirebaseMethods firebaseMethods;
-    String userName;
+    String userName, selectedSeason;
     SessionManagement sessionManagement;
     Bundle params;
     boolean sound, crono, loged;
     Intent juego, draft, ch;
     ArrayList<FirebasePuntuacion> puntuaciones, puntuacionPersonal;
-    ImageView ivSound, ivCrono, imagenPrincipal;
+    ImageView imagenPrincipal;
     ArrayAdapter<String> stringArrayAdapterNBA, stringArrayAdapterWNBA, stringArrayAdapterGLEAGUE;
-    Switch swConcurso;
 
 
     //REMOTE CONFIG
     int version; //version de nuestra app
     FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
     List<String> temporadasNBASorteo;
-
+    ReviewManager rwManager;
+    ReviewInfo reviewInfo;
 
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
@@ -107,6 +116,15 @@ public class FragmentoMenu extends Fragment {
         return fragmentoMenu;
     }
 
+
+    public void compruebaConcurso(){
+
+        sessionManagement = new SessionManagement(getContext());
+        concurso = sessionManagement.getConcurso();
+
+
+
+    }
     //en el onresume comprobamos que esta en la ultima version
     @Override
     public void onResume() {
@@ -114,52 +132,55 @@ public class FragmentoMenu extends Fragment {
 
 
         comprobacionUltimaVersion();
+        compruebaConcurso();
+
+
+    }
+
+    public void onStart() {
+        super.onStart();
+        compruebaConcurso();
+
 //        comprobacionModoSorteo();
 
-
     }
 
-    private void comprobacionModoSorteo() {
-
-        remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(true).build());
-        Task<Void> recogerInfoFbRc = remoteConfig.fetch(0);
-        recogerInfoFbRc.addOnSuccessListener((Activity) getContext(), aVoid -> {
-
-            remoteConfig.activateFetched();
-            gestionSorteo();
-
-        });
-
-    }
-
-    private void gestionSorteo() {
-
-        boolean sorteoActivo =  remoteConfig.getBoolean("sorteoActivo");
-        concurso = sorteoActivo;
-        temporadasNBASorteo = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.Temporadas)));
-
-
-        //AQUI LA LOGICA DE SI EL SORTEO ESTA ACTIVO
-        if (concurso) {
-
-            temporadasNBASorteo.add(0, "MODO CONCURSO");
-
-
-//            Toast.makeText(getContext(), "SORTEO ACTIVO - " + sorteoActivo, Toast.LENGTH_SHORT).show();
-
-
-//            sSeason.setEnabled(false);
-//            sCategory.setEnabled(false);
-//            sDataType.setEnabled(false);
-//            sLiga.setEnabled(false);
-//            sSeasonType.setEnabled(false);
-
-        } else {
+//    private void comprobacionModoSorteo() {
+//
+//        remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(true).build());
+//        Task<Void> recogerInfoFbRc = remoteConfig.fetch(0);
+//        recogerInfoFbRc.addOnSuccessListener((Activity) getContext(), aVoid -> {
+//
+//            remoteConfig.activateFetched();
+//            gestionSorteo();
+//
+//        });
+//
+//    }
+//
+//    private void gestionSorteo() {
+//
+//        boolean sorteoActivo = remoteConfig.getBoolean("sorteoActivo");
+//        concurso = sorteoActivo;
+//        temporadasNBASorteo = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.Temporadas)));
+//
+//
+//        //AQUI LA LOGICA DE SI EL SORTEO ESTA ACTIVO
+//        if (concurso) {
+//
+////            temporadasNBASorteo.add(0, "MODO CONCURSO");
+//
+//
+////            Toast.makeText(getContext(), "SORTEO ACTIVO - " + sorteoActivo, Toast.LENGTH_SHORT).show();
+//
+//
+//        } else {
 //            Toast.makeText(getContext(), "NO HAY SORTEO - " + sorteoActivo, Toast.LENGTH_SHORT).show();
+//
+//        }
+//
+//    }
 
-        }
-
-    }
 
     //metodo que comprueba la ultima version
     private void comprobacionUltimaVersion() {
@@ -213,7 +234,8 @@ public class FragmentoMenu extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        comprobacionModoSorteo();
+//        comprobacionModoSorteo();
+        compruebaConcurso();
 
 
 
@@ -241,12 +263,46 @@ public class FragmentoMenu extends Fragment {
 
         }
 
+        //INAPP RATING
+
+//        rwManager = ReviewManagerFactory.create(getContext());
+//        com.google.android.play.core.tasks.Task<ReviewInfo> request = rwManager.requestReviewFlow();
+//
+//        request.addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
+//            @Override
+//            public void onComplete(@NonNull com.google.android.play.core.tasks.Task<ReviewInfo> task) {
+//
+//                if(task.isSuccessful()){
+//                    reviewInfo = task.getResult();
+//                    com.google.android.play.core.tasks.Task<Void> flow = rwManager.launchReviewFlow(getActivity(), reviewInfo);
+//
+//                    flow.addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void result) {
+//
+//                        }
+//                    });
+//                }else{
+//                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
 
 
         initComponents(view);
         res = getResources();
         firebaseMethods = new FirebaseMethods(this);
+
         return view;
+    }
+
+    public void ProgressManagement() {
+
+        com.google.android.play.core.tasks.Task<Void> flow = rwManager.launchReviewFlow(this.getActivity(), reviewInfo);
+        flow.addOnCompleteListener(task -> {
+            Log.d("myTag", "Review process completed");
+        });
     }
 
     //metodo que salta si no estas en la version mas moderna
@@ -279,29 +335,23 @@ public class FragmentoMenu extends Fragment {
 
     private void initComponents(View view) {
 
-
-//        swConcurso = view.findViewById(R.id.switch1);
-//        ivSound = view.findViewById(R.id.ivSound);
-//        ivSound.setClickable(true);
-//        ivCrono = view.findViewById(R.id.ivCrono);
-//        ivCrono.setClickable(true);
-
-        sessionManagement = new SessionManagement(getContext());
+//        sessionManagement = new SessionManagement(getContext());
+        concurso = sessionManagement.getConcurso();
         sound = sessionManagement.getSound();
         crono = sessionManagement.getCrono();
+        temporadasNBASorteo = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.Temporadas)));
 
         if (concurso) {
 
-            Toast.makeText(getContext(), "HAY SORTEO - " + concurso, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "HAY SORTEO MENU " + concurso, Toast.LENGTH_SHORT).show();
 
 
             //SI HAY CONCURSO, CARGA EL LISTADO AÑADIENDOLE EL MODO CONCURSO
-            temporadasNBASorteo.add(0, "CONCURSO");
+            temporadasNBASorteo.add(0, "CONCURSO \uD83C\uDF81");
 
 
             stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, temporadasNBASorteo);
             stringArrayAdapterNBA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 
             //temporadas intactas
             stringArrayAdapterWNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.TemporadasWNBA));
@@ -312,7 +362,7 @@ public class FragmentoMenu extends Fragment {
 
         } else {
 
-            Toast.makeText(getContext(), "NO HAY SORTEO - " + concurso, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "NO HAY SORTEO MENU " + concurso, Toast.LENGTH_SHORT).show();
 
             //SI NO HAY CONCURSO, CARGA LAS TEMPORADAS NORMALES
             stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.Temporadas));
@@ -325,46 +375,6 @@ public class FragmentoMenu extends Fragment {
         }
 
 
-//        ivSound = view.findViewById(R.id.ivSound);
-//        checkSound();
-//        checkCrono();
-
-        //dependiendo de si es true pintamos una imagen u otra
-
-
-//        ivSound.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println("");
-//                if (sound) {
-//                    sound = false;
-//                    sessionManagement.saveSession(sound, "sound"); //NUEVO
-//                    checkSound();
-//                } else {
-//                    sound = true;
-//                    sessionManagement.saveSession(sound, "sound"); //NUEVO
-//                    checkSound();
-//                }
-//            }
-//        });
-//
-//        ivCrono.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                if (crono) {
-//                    crono = false;
-//                    sessionManagement.saveSession(crono, "crono"); //NUEVO
-//                    checkCrono();
-//                } else {
-//                    crono = true;
-//                    sessionManagement.saveSession(crono, "crono"); //NUEVO
-//                    checkCrono();
-//                }
-//            }
-//        });
-
         imagenPrincipal = view.findViewById(R.id.imageViewPrincipal);
         sSeason = view.findViewById(R.id.spinnerSeasons);
         sCategory = view.findViewById(R.id.spinnerCategory);
@@ -376,6 +386,44 @@ public class FragmentoMenu extends Fragment {
 
         btnStart.setOnClickListener(this::onClick);
 
+        //SI HAY CONCURSO ACTIVO PONEMOS LISTENER QUE DESACTIVA LAS DEMAS OPCIONES
+        if(concurso){
+            sSeason.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    if(sLiga.getSelectedItemPosition() == 0){
+
+                        if (sSeason.getSelectedItemPosition() == 0) {
+
+                            sLiga.setEnabled(false);
+                            sCategory.setEnabled(false);
+                            sSeasonType.setEnabled(false);
+                            sDataType.setEnabled(false);
+
+
+                        }else{
+                            sLiga.setEnabled(true);
+                            sCategory.setEnabled(true);
+                            sSeasonType.setEnabled(true);
+                            sDataType.setEnabled(true);
+                        }
+                    }else{
+                        sLiga.setEnabled(true);
+                        sCategory.setEnabled(true);
+                        sSeasonType.setEnabled(true);
+                        sDataType.setEnabled(true);
+                    }
+
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
 
         btnRecords.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -436,7 +484,6 @@ public class FragmentoMenu extends Fragment {
         });
 
 
-
     }
 
     private void pruebaCrearPuntuacion() {
@@ -447,24 +494,6 @@ public class FragmentoMenu extends Fragment {
         firebaseMethods.getPersonalRecordFS(getParams());
     }
 
-
-//    private void checkSound() {
-//
-//        if (sessionManagement.getSound()) {
-//            ivSound.setImageResource(R.drawable.volume_on);
-//        } else {
-//            ivSound.setImageResource(R.drawable.volume_off);
-//        }
-//    }
-//
-//    private void checkCrono() {
-//
-//        if (sessionManagement.getCrono()) {
-//            ivCrono.setImageResource(R.drawable.temp_on);
-//        } else {
-//            ivCrono.setImageResource(R.drawable.temp_off);
-//        }
-//    }
 
     public void goToRegister() {
 
@@ -517,29 +546,54 @@ public class FragmentoMenu extends Fragment {
             temporada = "MISC";
         }
 
+        if(concurso && sLiga.getSelectedItemPosition() == 0){
+            if (sSeason.getSelectedItemPosition() == 0) {
+                temporada = "CONCURSO";
+                selectedSeason = "CONCURSO";
+            }
+            if (sSeason.getSelectedItemPosition() == 1) {
+                temporada = "MISC";
+                selectedSeason = "MISC";
+            }
+            if(sSeason.getSelectedItemPosition() == 2){
+                temporada = "All Time";
+                selectedSeason = "All Time";
+
+            }
+        }else{
+
+            if (sSeason.getSelectedItemPosition() == 0) {
+                temporada = "MISC";
+                selectedSeason = "MISC";
+            }
+            if (sSeason.getSelectedItemPosition() == 1) {
+                temporada = "All Time";
+                selectedSeason = "All Time";
+            }
+        }
 
         paramsPartida.putBoolean("loged", loged);
         paramsPartida.putBoolean("sound", sound);//NUEVO
         paramsPartida.putBoolean("crono", crono);//NUEVO
         paramsPartida.putBoolean("concurso", concurso);
 
+
         paramsPartida.putString("modoJuego", "Stats");
-        String stat = getParam(R.array.TipoCategoria, sCategory);
 
-
-        if (concurso) {
-
-            temporada = "MISC";
+        if (temporada.equals("CONCURSO") && sLiga.getSelectedItemPosition() == 0) {
 
             paramsPartida.putString("liga", "NBA");
-            paramsPartida.putString("Season", "MISC");
+            paramsPartida.putString("Season", "CONCURSO");
             paramsPartida.putString("SeasonType", "Regular Season");
-            paramsPartida.putString("StatCategory", "MISC"); //PTS para puntos
+            paramsPartida.putString("StatCategory", "MISC");
             paramsPartida.putString("PerMode", "PerGame");
             paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
+        }else{
+            String stat = getParam(R.array.TipoCategoria, sCategory);
 
-        } else {
+
+
             paramsPartida.putString("liga", sLiga.getSelectedItem().toString());
 
             paramsPartida.putString("Season", temporada);
@@ -559,6 +613,9 @@ public class FragmentoMenu extends Fragment {
 
 //        paramsPartida.putBoolean("Sound", sound);
         }
+
+
+
 
 
         return paramsPartida;
@@ -582,14 +639,38 @@ public class FragmentoMenu extends Fragment {
                     String stat = getParam(R.array.TipoCategoria, sCategory);
 
 
-                    if (sSeason.getSelectedItemPosition() == 0) {
-                        temporada = "MISC";
+                    if(concurso && sLiga.getSelectedItemPosition() == 0){
+                        if (sSeason.getSelectedItemPosition() == 0) {
+                            temporada = "CONCURSO";
+                            selectedSeason = "CONCURSO";
+                        }
+                        if (sSeason.getSelectedItemPosition() == 1) {
+                            temporada = "MISC";
+                            selectedSeason = "MISC";
+                        }
+                        if(sSeason.getSelectedItemPosition() == 2){
+                            temporada = "All Time";
+                            selectedSeason = "All Time";
+
+                        }
+                    }else{
+
+                        if (sSeason.getSelectedItemPosition() == 0) {
+                            temporada = "MISC";
+                            selectedSeason = "MISC";
+                        }
+                        if (sSeason.getSelectedItemPosition() == 1) {
+                            temporada = "All Time";
+                            selectedSeason = "All Time";
+                        }
                     }
 
-                    if (concurso) {
+
+
+                    if (temporada.equals("CONCURSO") && sLiga.getSelectedItemPosition() == 0) {
 
                         params.putString("liga", "NBA");
-                        params.putString("Season", "MISC");
+                        params.putString("Season", "CONCURSO");
                         params.putString("SeasonType", "Regular Season");
                         params.putString("StatCategory", "MISC");
                         params.putString("PerMode", "PerGame");
@@ -597,24 +678,13 @@ public class FragmentoMenu extends Fragment {
 
                     } else {
                         params.putString("liga", sLiga.getSelectedItem().toString());
-
-
                         params.putString("Season", temporada);
                         params.putString("SeasonType", sSeasonType.getSelectedItem().toString()); //Playoffs
-
-
                         params.putString("StatCategory", "MISC"); //PTS para puntos
-                        // params.putString("StatCategory", sCategory.getSelectedItem().toString()); //PTS para puntos
-
-
-                        // String statMode = res.getResourceEntryName(resIds[(sDataType.getSelectedItemPosition())]);
                         String statMode = getParam(R.array.TipoDatos, sDataType);
                         params.putString("PerMode", statMode); //PerGame para por partido
-//                params.putString("PerMode", "PerGame"); //PerGame para por partido
-
                         params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
-//                params.putBoolean("Sound", sound);
                     }
 
 

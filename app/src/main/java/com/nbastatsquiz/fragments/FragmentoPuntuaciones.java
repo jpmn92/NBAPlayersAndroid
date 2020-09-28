@@ -94,7 +94,14 @@ public class FragmentoPuntuaciones extends Fragment {
                 } else {
                     tipoTemporada = "RS";
                 }
-                txtPuntuacion.setText(listadoPuntuaciones.get(0).getLiga()+" | "+listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason() + " | " + tipoTemporada + " | " + listadoPuntuaciones.get(0).getPerMode());
+
+                if(listadoPuntuaciones.get(0).getSeason().equals("CONCURSO")){
+                    txtPuntuacion.setText("CONCURSO CAMISETA NBA");
+
+                }else{
+                    txtPuntuacion.setText(listadoPuntuaciones.get(0).getLiga()+" | "+listadoPuntuaciones.get(0).getStatCategory() + " | " + listadoPuntuaciones.get(0).getSeason() + " | " + tipoTemporada + " | " + listadoPuntuaciones.get(0).getPerMode());
+
+                }
 
             } else {
 

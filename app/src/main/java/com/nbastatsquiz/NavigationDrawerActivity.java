@@ -9,7 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -25,9 +27,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.nbastatsquiz.fragments.auth.FragmentoLogin;
 import com.nbastatsquiz.fragments.menu.FragmentoMenu;
 import com.nbastatsquiz.fragments.menu.FragmentoMenuDraft;
@@ -36,6 +41,9 @@ import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.fragments.help.FragmentoTabsAyuda;
 import com.nbastatsquiz.tools.SessionManagement;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
 
@@ -58,6 +66,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     Toast backToast;
     private Boolean logueado, sound, crono;
     private SwitchCompat soundSwitch, cronoSwitch;
+
+    FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
 
 
     @Override
@@ -98,6 +108,38 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         checkInternetConnection();
         checkSession();
+        comprobacionModoSorteo();
+    }
+
+
+    private void comprobacionModoSorteo() {
+
+        remoteConfig.setConfigSettings(new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(true).build());
+        Task<Void> recogerInfoFbRc = remoteConfig.fetch(0);
+        recogerInfoFbRc.addOnSuccessListener((Activity) this, aVoid -> {
+
+            remoteConfig.activateFetched();
+            gestionSorteo();
+
+        });
+
+    }
+
+    private void gestionSorteo() {
+
+        boolean sorteoActivo = remoteConfig.getBoolean("sorteoActivo");
+
+        if(sorteoActivo){
+            Toast.makeText(getBaseContext(), "HAY SORTEO - ND ", Toast.LENGTH_SHORT).show();
+
+        }else{
+            Toast.makeText(getBaseContext(), "NO HAY SORTEO - ND ", Toast.LENGTH_SHORT).show();
+
+        }
+        sessionManagement.saveSessionConcurso(sorteoActivo);
+
+
+
     }
 
     private Boolean checkInternetConnection() {
@@ -122,6 +164,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         checkSession();
+        comprobacionModoSorteo();
+
     }
 
     private void checkPrefs() {
@@ -160,6 +204,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         checkSession();
+        comprobacionModoSorteo();
 
 
     }

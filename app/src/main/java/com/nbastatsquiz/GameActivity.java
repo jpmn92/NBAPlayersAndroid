@@ -135,7 +135,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         }
 
         miscStats = statCategory.equalsIgnoreCase("MISC");
-        miscSeason = season.equalsIgnoreCase("MISC") || season.equals("10´s (2010 a 2020)") || season.equals("00´s (2000 a 2010)") || season.equals("90's (1990 a 2000)");
+        miscSeason = season.equalsIgnoreCase("MISC") || season.equals("10´s (2010 a 2020)") || season.equals("00´s (2000 a 2010)") || season.equals("90's (1990 a 2000)") || season.equals("CONCURSO");
 
         //si se cumple cualquier de estas será misc
         misc = (miscStats || miscSeason);
@@ -280,34 +280,12 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
             } else if (decadaEscogida.equals(decada90)) {
                 categories = res.getStringArray(R.array.Temporadas90);
+                //SI ES CONCURSO METER VARIAS DECADAS
+            } else if(decadaEscogida.equals("CONCURSO")){
+                categories = res.getStringArray(R.array.TemporadasConcurso);
             }
 
-            String decada = paramsIniciales.getString("season");
 
-
-//            switch (paramsIniciales.getString("Season")){
-//                case decada10:
-//
-//
-//
-//
-//                    break;
-//
-//                case "00´s (2000 a 2010)":
-//
-//                    categories = res.getStringArray(R.array.Temporadas00);
-//
-//
-//                    break;
-//
-//                case "90's (1990 a 2000)":
-//
-//                    categories = res.getStringArray(R.array.Temporadas90);
-//
-//
-//                    break;
-//
-//            }
 
 
             temporadaParam = getRandomYear(categories);

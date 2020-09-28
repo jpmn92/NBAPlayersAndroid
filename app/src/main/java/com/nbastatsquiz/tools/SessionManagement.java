@@ -14,6 +14,7 @@ public class SessionManagement {
     String SESSION_SOUND = "session_sound";
     String SESSION_IMAGE = "session_image";
     String SESSION_CRONO = "session_CRONO";
+    String SESSION_CONCURSO = "session_CONCURSO";
 
 
     public SessionManagement(Context context) {
@@ -35,6 +36,12 @@ public class SessionManagement {
         else{
             editor.putBoolean(SESSION_CRONO, cronoOrSound).commit();
         }
+    }
+
+    public void saveSessionConcurso(boolean concurso) {
+        editor.putInt(SESSION_KEY, 1);
+        editor.putBoolean(SESSION_CONCURSO, concurso).commit();
+
     }
 
     public void saveSession(String userName, boolean sound) {
@@ -66,6 +73,8 @@ public class SessionManagement {
 
     }
 
+
+
     public int getSession() {
 
         return sharedPreferences.getInt(SESSION_KEY, -1);
@@ -92,6 +101,11 @@ public class SessionManagement {
     public boolean getCrono(){
         return sharedPreferences.getBoolean(SESSION_CRONO, true);
     }
+
+    public boolean getConcurso(){
+        return sharedPreferences.getBoolean(SESSION_CONCURSO, false);
+    }
+
 
     public void removeSession() {
         editor.putInt(SESSION_KEY, -1).commit();
