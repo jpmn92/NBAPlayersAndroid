@@ -129,13 +129,13 @@ public class NavigationDrawerActivity extends AppCompatActivity {
 
         boolean sorteoActivo = remoteConfig.getBoolean("sorteoActivo");
 
-        if(sorteoActivo){
-            Toast.makeText(getBaseContext(), "HAY SORTEO - ND ", Toast.LENGTH_SHORT).show();
-
-        }else{
-            Toast.makeText(getBaseContext(), "NO HAY SORTEO - ND ", Toast.LENGTH_SHORT).show();
-
-        }
+//        if(sorteoActivo){
+//            Toast.makeText(getBaseContext(), "HAY SORTEO - ND ", Toast.LENGTH_SHORT).show();
+//
+//        }else{
+//            Toast.makeText(getBaseContext(), "NO HAY SORTEO - ND ", Toast.LENGTH_SHORT).show();
+//
+//        }
         sessionManagement.saveSessionConcurso(sorteoActivo);
 
 
@@ -214,6 +214,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+        comprobacionModoSorteo();
 
 
         sessionManagement = new SessionManagement(getApplication().getBaseContext());
@@ -274,14 +275,14 @@ public class NavigationDrawerActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (!isChecked) {
                     // Switch is unchecked - Do something
-                    Toast.makeText(getApplicationContext(), "crono OFF", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "crono OFF", Toast.LENGTH_SHORT).show();
 
                     crono = false;
                     sessionManagement.saveSession(crono, "crono");
 
                 } else {
                     // Switch is checked - Do something
-                    Toast.makeText(getApplicationContext(), "crono ON", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "crono ON", Toast.LENGTH_SHORT).show();
 
                     crono = true;
                     sessionManagement.saveSession(crono, "crono");
@@ -296,14 +297,14 @@ public class NavigationDrawerActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (!isChecked) {
                     // Switch is unchecked - Do something
-                    Toast.makeText(getApplicationContext(), "sound OFF", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "sound OFF", Toast.LENGTH_SHORT).show();
 
                     sound = false;
                     sessionManagement.saveSession(sound, "sound");
 
                 } else {
                     // Switch is checked - Do something
-                    Toast.makeText(getApplicationContext(), "sound ON", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "sound ON", Toast.LENGTH_SHORT).show();
 
                     sound = true;
                     sessionManagement.saveSession(sound, "sound");

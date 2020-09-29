@@ -343,7 +343,7 @@ public class FragmentoMenu extends Fragment {
 
         if (concurso) {
 
-            Toast.makeText(getContext(), "HAY SORTEO MENU " + concurso, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "HAY SORTEO MENU " + concurso, Toast.LENGTH_SHORT).show();
 
 
             //SI HAY CONCURSO, CARGA EL LISTADO AÑADIENDOLE EL MODO CONCURSO
@@ -362,7 +362,7 @@ public class FragmentoMenu extends Fragment {
 
         } else {
 
-            Toast.makeText(getContext(), "NO HAY SORTEO MENU " + concurso, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "NO HAY SORTEO MENU " + concurso, Toast.LENGTH_SHORT).show();
 
             //SI NO HAY CONCURSO, CARGA LAS TEMPORADAS NORMALES
             stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.Temporadas));
