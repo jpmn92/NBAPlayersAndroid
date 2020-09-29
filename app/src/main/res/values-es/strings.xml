@@ -1,7 +1,12 @@
 <resources>
 
 
-<!--    rating-->
+    <string name="menu_concurso">CONCURSO 🎁</string>
+    <string name="texto_puntuaciones_concurso">CONCURSO CAMISETA NBA 🎁</string>
+
+
+
+    <!--    rating-->
     <string name="rate_dialog_title">¡Valora la App!</string>
     <string name="rate_dialog_message">Si te ha gustado la app, ¿Tendrías un minuto para valorar en Google Play? Nos ayudaría a seguir creciendo 🙏 ¡Gracias!</string>
     <string name="rate_dialog_ok">Valorar ahora</string>

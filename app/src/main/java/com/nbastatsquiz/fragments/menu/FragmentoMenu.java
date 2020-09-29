@@ -84,7 +84,7 @@ public class FragmentoMenu extends Fragment {
     List<String> temporadasNBASorteo;
     ReviewManager rwManager;
     ReviewInfo reviewInfo;
-
+    String concurso_str;
 
     public ArrayList<FirebasePuntuacion> getPuntuaciones() {
         return puntuaciones;
@@ -335,6 +335,7 @@ public class FragmentoMenu extends Fragment {
 
     private void initComponents(View view) {
 
+         final String concurso_str = getResources().getString(R.string.menu_concurso);
 //        sessionManagement = new SessionManagement(getContext());
         concurso = sessionManagement.getConcurso();
         sound = sessionManagement.getSound();
@@ -347,7 +348,7 @@ public class FragmentoMenu extends Fragment {
 
 
             //SI HAY CONCURSO, CARGA EL LISTADO AÑADIENDOLE EL MODO CONCURSO
-            temporadasNBASorteo.add(0, "CONCURSO \uD83C\uDF81");
+            temporadasNBASorteo.add(0, concurso_str);
 
 
             stringArrayAdapterNBA = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, temporadasNBASorteo);
@@ -537,6 +538,7 @@ public class FragmentoMenu extends Fragment {
     public Bundle getParams() {
 
         Bundle paramsPartida = new Bundle();
+        final String concurso_str = getResources().getString(R.string.menu_concurso);
 
         //parametros del modo de juego
         String temporada = sSeason.getSelectedItem().toString();
@@ -548,8 +550,8 @@ public class FragmentoMenu extends Fragment {
 
         if(concurso && sLiga.getSelectedItemPosition() == 0){
             if (sSeason.getSelectedItemPosition() == 0) {
-                temporada = "CONCURSO";
-                selectedSeason = "CONCURSO";
+                temporada = concurso_str;
+                selectedSeason = concurso_str;
             }
             if (sSeason.getSelectedItemPosition() == 1) {
                 temporada = "MISC";
@@ -580,7 +582,7 @@ public class FragmentoMenu extends Fragment {
 
         paramsPartida.putString("modoJuego", "Stats");
 
-        if (temporada.equals("CONCURSO") && sLiga.getSelectedItemPosition() == 0) {
+        if (temporada.equals(concurso_str) && sLiga.getSelectedItemPosition() == 0) {
 
             paramsPartida.putString("liga", "NBA");
             paramsPartida.putString("Season", "CONCURSO");
@@ -637,12 +639,13 @@ public class FragmentoMenu extends Fragment {
                     String temporada = sSeason.getSelectedItem().toString();
 
                     String stat = getParam(R.array.TipoCategoria, sCategory);
+                    final String concurso_str = getResources().getString(R.string.menu_concurso);
 
 
                     if(concurso && sLiga.getSelectedItemPosition() == 0){
                         if (sSeason.getSelectedItemPosition() == 0) {
-                            temporada = "CONCURSO";
-                            selectedSeason = "CONCURSO";
+                            temporada = concurso_str;
+                            selectedSeason = concurso_str;
                         }
                         if (sSeason.getSelectedItemPosition() == 1) {
                             temporada = "MISC";
@@ -667,7 +670,7 @@ public class FragmentoMenu extends Fragment {
 
 
 
-                    if (temporada.equals("CONCURSO") && sLiga.getSelectedItemPosition() == 0) {
+                    if (temporada.equals(concurso_str) && sLiga.getSelectedItemPosition() == 0) {
 
                         params.putString("liga", "NBA");
                         params.putString("Season", "CONCURSO");
