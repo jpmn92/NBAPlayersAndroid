@@ -613,8 +613,27 @@ public class FragmentoMenu extends Fragment {
 
             paramsPartida.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
+
 //        paramsPartida.putBoolean("Sound", sound);
         }
+
+        final String decada10 = getResources().getString(R.string.decada10);
+        final String decada00 = getResources().getString(R.string.decada00);
+        final String decada90 = getResources().getString(R.string.decada90);
+
+
+        //SI SON RANGOS, QUE BUSQUE EN LISTADOS DISTINTOS
+
+        if (temporada.equals(decada10)) {
+            paramsPartida.putString("Season", "10s");
+
+        } else if (temporada.equals(decada00)) {
+            paramsPartida.putString("Season", "00s");
+
+        } else if (temporada.equals(decada90)) {
+            paramsPartida.putString("Season", "90s");
+        }
+
 
 
 
@@ -689,6 +708,25 @@ public class FragmentoMenu extends Fragment {
                         params.putString("ActiveFlag", "No"); //si se activa solo aparecen jugadores en activo
 
                     }
+
+                    final String decada10 = getResources().getString(R.string.decada10);
+                    final String decada00 = getResources().getString(R.string.decada00);
+                    final String decada90 = getResources().getString(R.string.decada90);
+
+
+                    //SI SON RANGOS, QUE BUSQUE EN LISTADOS DISTINTOS
+
+                    if (temporada.equals(decada10)) {
+                        params.putString("Season", "10s");
+
+                    } else if (temporada.equals(decada00)) {
+                        params.putString("Season", "00s");
+
+                    } else if (temporada.equals(decada90)) {
+                        params.putString("Season", "90s");
+                    }
+
+
 
 
                     checkSession();

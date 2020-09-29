@@ -135,7 +135,7 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
         }
 
         miscStats = statCategory.equalsIgnoreCase("MISC");
-        miscSeason = season.equalsIgnoreCase("MISC") || season.equals("10´s (2010 a 2020)") || season.equals("00´s (2000 a 2010)") || season.equals("90's (1990 a 2000)") || season.equals("CONCURSO");
+        miscSeason = season.equalsIgnoreCase("MISC") || season.equals("10s") || season.equals("00s") || season.equals("90s") || season.equals("CONCURSO");
 
         //si se cumple cualquier de estas será misc
         misc = (miscStats || miscSeason);
@@ -263,22 +263,22 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
             }
 
-            final String decada10 = getResources().getString(R.string.decada10);
-            final String decada00 = getResources().getString(R.string.decada00);
-            final String decada90 = getResources().getString(R.string.decada90);
+//            final String decada10 = getResources().getString(R.string.decada10);
+//            final String decada00 = getResources().getString(R.string.decada00);
+//            final String decada90 = getResources().getString(R.string.decada90);
 
 
             //SI SON RANGOS, QUE BUSQUE EN LISTADOS DISTINTOS
 
             String decadaEscogida = paramsIniciales.getString("Season");
 
-            if (decadaEscogida.equals(decada10)) {
+            if (decadaEscogida.equals("10s")) {
                 categories = res.getStringArray(R.array.Temporadas10);
 
-            } else if (decadaEscogida.equals(decada00)) {
+            } else if (decadaEscogida.equals("00s")) {
                 categories = res.getStringArray(R.array.Temporadas00);
 
-            } else if (decadaEscogida.equals(decada90)) {
+            } else if (decadaEscogida.equals("90s")) {
                 categories = res.getStringArray(R.array.Temporadas90);
                 //SI ES CONCURSO METER VARIAS DECADAS
             } else if(decadaEscogida.equals("CONCURSO")){
