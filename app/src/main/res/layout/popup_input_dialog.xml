@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view_1"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:lottie_autoPlay="true"
+
+        app:lottie_fileName="677-trophy.json"
+        app:lottie_loop="true" />
+        <TextView
+
+            android:id="@+id/txtGanador"
+            android:layout_marginTop="5dp"
+            android:text="¡ENHORABUENA !"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textColor="@color/colorNegro"
+            android:textStyle="bold"
+
+
+            />
+
+
+</TableLayout>

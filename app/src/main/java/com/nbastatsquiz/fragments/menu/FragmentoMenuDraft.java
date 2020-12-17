@@ -101,35 +101,6 @@ public class FragmentoMenuDraft extends Fragment {
     private void initComponents(View view) {
 
         sessionManagement = new SessionManagement(getContext());
-        ivSound = view.findViewById(R.id.ivSoundDraft);
-        checkSound();
-        ivCrono = view.findViewById(R.id.ivCronoDraft);
-        checkCrono();
-        ivSound.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (sessionManagement.getSound()) {
-                    sessionManagement.saveSession(false, "sound");
-                } else {
-                    sessionManagement.saveSession(true, "sound");
-                }
-                checkSound();
-            }
-        });
-
-        ivCrono.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (sessionManagement.getCrono()) {
-                    sessionManagement.saveSession(false, "crono");
-                } else {
-                    sessionManagement.saveSession(true, "crono");
-                }
-                checkCrono();
-            }
-        });
 
         imagenPrincipal = view.findViewById(R.id.imageViewPrincipalDraft);
         sSeason = view.findViewById(R.id.spinnerSeasonsDraft);
@@ -240,24 +211,24 @@ public class FragmentoMenuDraft extends Fragment {
     }
 
 
-    private void checkSound() {
-
-        if (sessionManagement.getSound()) {
-            ivSound.setImageResource(R.drawable.volume_on);
-        } else {
-            ivSound.setImageResource(R.drawable.volume_off);
-        }
-    }
-
-    private void checkCrono() {
-
-        if(sessionManagement.getCrono()){
-            ivCrono.setImageResource(R.drawable.temp_on);
-        }
-        else{
-            ivCrono.setImageResource(R.drawable.temp_off);
-        }
-    }
+//    private void checkSound() {
+//
+//        if (sessionManagement.getSound()) {
+//            ivSound.setImageResource(R.drawable.volume_on);
+//        } else {
+//            ivSound.setImageResource(R.drawable.volume_off);
+//        }
+//    }
+//
+//    private void checkCrono() {
+//
+//        if(sessionManagement.getCrono()){
+//            ivCrono.setImageResource(R.drawable.temp_on);
+//        }
+//        else{
+//            ivCrono.setImageResource(R.drawable.temp_off);
+//        }
+//    }
 
     public void goToRegister() {
         // puntuaciones.sort();

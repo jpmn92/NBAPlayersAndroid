@@ -243,13 +243,13 @@ public class GameActivity extends Activity implements View.OnClickListener, LstL
 
 
         if (miscSeason) {
-            categories = res.getStringArray(R.array.Temporadas);
+            categories = res.getStringArray(R.array.TemporadasMisc);
 
 
             switch (liga) {
 
                 case "NBA":
-                    categories = res.getStringArray(R.array.Temporadas);
+                    categories = res.getStringArray(R.array.TemporadasMisc);
                     break;
 
                 case "WNBA":

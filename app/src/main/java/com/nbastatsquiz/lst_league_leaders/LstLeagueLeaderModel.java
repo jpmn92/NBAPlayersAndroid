@@ -70,7 +70,7 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
             statCategory = bundle.getString("StatCategory");
             season = bundle.getString("Season");
             seasonType = bundle.getString("SeasonType");
-            activeFlag = "YES";
+            activeFlag = "";
 
             leagueID = "00"; //PARA NBA ES "00", para WNBA es "10"
 
@@ -83,6 +83,11 @@ public class LstLeagueLeaderModel implements LstLeagueLeaderContract.Model {
                 season = "All Time";
             }
 
+//            if(season.equals("All Time")){
+//                activeFlag = "YES";
+//            }else{
+//                activeFlag = "";
+//            }
 
             switch (liga) {
 

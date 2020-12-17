@@ -131,7 +131,7 @@ public class FragmentoPuntuaciones extends Fragment {
                         || listadoPuntuaciones.get(0).getSeason() == null
                 ){
 
-                     draftSeason = "MIX";
+                    draftSeason = "MIX";
                 }else{
                     draftSeason = listadoPuntuaciones.get(0).getSeason();
 

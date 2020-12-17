@@ -335,7 +335,7 @@ public class FragmentoMenu extends Fragment {
 
     private void initComponents(View view) {
 
-         final String concurso_str = getResources().getString(R.string.menu_concurso);
+        final String concurso_str = getResources().getString(R.string.menu_concurso);
 //        sessionManagement = new SessionManagement(getContext());
         concurso = sessionManagement.getConcurso();
         sound = sessionManagement.getSound();

@@ -83,6 +83,17 @@ public class GenerateImageUrl {
         nbaPlayers.add(new NBAPlayer(70, "Zach Lavine", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612741/2019/260x190/203897.png"));
         nbaPlayers.add(new NBAPlayer(71, "TJ Warren", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612754/2019/260x190/203933.png"));
         nbaPlayers.add(new NBAPlayer(72, "Ricky Rubio", "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/1610612756/2019/260x190/201937.png"));
+        nbaPlayers.add(new NBAPlayer(73, "Lamelo Ball", "https://cdn.nba.com/headshots/nba/latest/1040x760/1630163.png"));
+        nbaPlayers.add(new NBAPlayer(74, "Facu Campazzo", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2968334.png"));
+        nbaPlayers.add(new NBAPlayer(75, "Anthony Edwards", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4594268.png"));
+        nbaPlayers.add(new NBAPlayer(76, "James Wiseman", "https://cdn.nba.com/headshots/nba/latest/1040x760/1630164.png"));
+        nbaPlayers.add(new NBAPlayer(77, "Jamal Murray", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3936299.png"));
+        nbaPlayers.add(new NBAPlayer(78, "Gordon Hayward", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4249.png"));
+        nbaPlayers.add(new NBAPlayer(79, "Rajon Rondo", "https://cdn.nba.com/headshots/nba/latest/1040x760/200765.png"));
+        nbaPlayers.add(new NBAPlayer(80, "John Wall", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4237.png"));
+        nbaPlayers.add(new NBAPlayer(81, "Demarcus Cousins", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4258.png"));
+        nbaPlayers.add(new NBAPlayer(82, "Demar DeRozan", "https://cdn.nba.com/headshots/nba/latest/1040x760/201942.png"));
+        nbaPlayers.add(new NBAPlayer(83, "Patty Mills", "https://cdn.nba.com/headshots/nba/latest/1040x760/201988.png"));
 
 
         return nbaPlayers;
@@ -1553,6 +1564,10 @@ public class GenerateImageUrl {
         switch (college) {
 
             //EUROPA
+
+            case "Illawarra (Australia)":
+                urlImage = "https://upload.wikimedia.org/wikipedia/en/thumb/0/00/The_Hawks_%28NBL%29_logo.svg/1200px-The_Hawks_%28NBL%29_logo.svg.png";
+                break;
 
             case "CB Estudiantes (Spain)":
                 urlImage = "https://upload.wikimedia.org/wikipedia/en/5/5f/Logo_of_CB_Estudiantes.png";
