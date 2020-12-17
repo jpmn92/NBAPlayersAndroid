@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,6 +47,8 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
     private int points, record, vidas, contadorAciertos, tiempo;
     private boolean recordConseguido;
     private InterstitialAd mInterstitialAd;
+    private AdView adViewGameDraft;
+
 
     private MyCountDownTimer myCountDownTimer;
     private NavigationDrawerActivity navigationDrawerActivity;
@@ -85,6 +88,7 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
         setContentView(R.layout.activity_draft);
 
         inicializarPublicidad();
+        inicializarPublicidadBanner((LinearLayout) findViewById(R.id.lndraftad));
 
         sessionManagement = new SessionManagement(this);
 
@@ -144,6 +148,20 @@ public class DraftActivity extends Activity implements View.OnClickListener, Lst
                 if(crono){
                     myCountDownTimer.start();
                 }
+            }
+        });
+    }
+
+    private void inicializarPublicidadBanner( View view) {
+        MobileAds.initialize(this);
+        adViewGameDraft = view.findViewById(R.id.adViewGameDraft);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        System.out.println(adViewGameDraft.getAdUnitId());
+        adViewGameDraft.loadAd(adRequest);
+        adViewGameDraft.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                adViewGameDraft.loadAd(new AdRequest.Builder().build());
             }
         });
     }

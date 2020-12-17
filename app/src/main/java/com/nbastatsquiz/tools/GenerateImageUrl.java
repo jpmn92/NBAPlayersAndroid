@@ -94,6 +94,8 @@ public class GenerateImageUrl {
         nbaPlayers.add(new NBAPlayer(81, "Demarcus Cousins", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4258.png"));
         nbaPlayers.add(new NBAPlayer(82, "Demar DeRozan", "https://cdn.nba.com/headshots/nba/latest/1040x760/201942.png"));
         nbaPlayers.add(new NBAPlayer(83, "Patty Mills", "https://cdn.nba.com/headshots/nba/latest/1040x760/201988.png"));
+        nbaPlayers.add(new NBAPlayer(84, "Obi Toppin", "https://images.ctfassets.net/u31h9rzvvynu/5M5BJQTL3VFPszLleelqS0/c42a128cd97009a43a06673fd53e552a/Toppin-Obi-Headshot-2021.png"));
+        nbaPlayers.add(new NBAPlayer(85, "Isaac Okoro", "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4432822.png"));
 
 
         return nbaPlayers;

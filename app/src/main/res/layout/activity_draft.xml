@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rldraft"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="clip_vertical"
-
     tools:context="com.nbastatsquiz.DraftActivity">
 
     <LinearLayout
@@ -69,21 +69,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="68"
-                        android:weightSum="100"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:weightSum="100">
 
                         <ImageView
-                            android:layout_weight="50"
                             android:id="@+id/ivTeam1Draft"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/nba" />
-                        <ImageView
                             android:layout_weight="50"
+                            android:src="@drawable/nba" />
+
+                        <ImageView
                             android:id="@+id/ivCollege1Draft"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="3dp"
+                            android:layout_weight="50"
                             android:src="@drawable/nba" />
 
                     </LinearLayout>
@@ -181,8 +182,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="68"
-                        android:weightSum="100"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:weightSum="100">
 
                         <ImageView
                             android:id="@+id/ivTeam2Draft"
@@ -190,12 +191,13 @@
                             android:layout_height="match_parent"
                             android:layout_weight="50"
                             android:src="@drawable/nba" />
+
                         <ImageView
                             android:id="@+id/ivCollege2Draft"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="50"
                             android:layout_marginRight="3dp"
+                            android:layout_weight="50"
                             android:src="@drawable/nba" />
 
                     </LinearLayout>
@@ -239,8 +241,6 @@
                 android:weightSum="100">
 
 
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -255,8 +255,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shapes"
-                    ></ImageView>
+                    android:background="@drawable/shapes"></ImageView>
 
             </LinearLayout>
 
@@ -291,7 +290,6 @@
                 android:weightSum="100">
 
 
-
             </LinearLayout>
 
             <LinearLayout
@@ -314,7 +312,6 @@
                     android:max="9"
                     android:progress="0"
                     android:progressDrawable="@drawable/circular_progress_bar" />
-
 
 
             </LinearLayout>
@@ -350,7 +347,6 @@
                 android:weightSum="100">
 
 
-
             </LinearLayout>
 
             <LinearLayout
@@ -375,9 +371,6 @@
                     tools:ignore="RtlCompat" />
 
 
-
-
-
             </LinearLayout>
 
         </LinearLayout>
@@ -399,8 +392,6 @@
     <!--            android:textAlignment="center"-->
     <!--            android:textSize="30dp" />-->
     <!--    </RelativeLayout>-->
-
-
 
 
     <!--    <LinearLayout-->
@@ -503,7 +494,6 @@
     <!--    </LinearLayout>-->
 
 
-
     <RelativeLayout
         android:id="@+id/relVidasDraft"
         android:layout_width="match_parent"
@@ -556,6 +546,7 @@
                         android:orientation="horizontal">
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -563,6 +554,7 @@
                         android:layout_centerVertical="true"
                         android:layout_weight="8"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/ivVidasDraft"
                             android:layout_width="wrap_content"
@@ -570,14 +562,14 @@
                             android:src="@drawable/vidas3" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_weight="92"
-                    android:orientation="vertical">
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
 
             </LinearLayout>
 
@@ -609,7 +601,6 @@
                 android:layout_weight="8"
                 android:orientation="vertical"
                 android:weightSum="100">
-
 
 
             </LinearLayout>
@@ -650,8 +641,8 @@
                     android:layout_height="0dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:gravity="right"
                     android:layout_weight="50"
+                    android:gravity="right"
                     android:orientation="vertical">
 
                     <TextView
@@ -669,7 +660,23 @@
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:id="@+id/lndraftad"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
+                    android:orientation="vertical">
 
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adViewGameDraft"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/floor_load_dark"
+                        app:adSize="BANNER"
+                        app:adUnitId="ca-app-pub-5187656956047852/4172485043" />
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -685,7 +692,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/floor_load_dark"
         android:orientation="vertical"
-        tools:visibility="invisible">
-    </LinearLayout>
+        tools:visibility="invisible"></LinearLayout>
 
 </RelativeLayout>

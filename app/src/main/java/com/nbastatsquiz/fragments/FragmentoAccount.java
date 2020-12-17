@@ -27,6 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.nbastatsquiz.NavigationDrawerActivity;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.NBAPlayer;
@@ -64,6 +68,8 @@ public class FragmentoAccount extends Fragment{
 
     private static FragmentoAccount fragmentoAccount;
 
+    private AdView adViewProfile;
+
     public FragmentoAccount() {
         // Required empty public constructor
     }
@@ -91,6 +97,8 @@ public class FragmentoAccount extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragmento_account, container, false);
+
+        inicializarPublicidad(view);
 
         sm = new SessionManagement(getContext());
         generateImageUrl = new GenerateImageUrl();
@@ -254,6 +262,20 @@ public class FragmentoAccount extends Fragment{
             codigo = true;
         }
 
+    }
+
+    private void inicializarPublicidad( View view) {
+        MobileAds.initialize(getContext());
+        adViewProfile = view.findViewById(R.id.adViewProfile);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        System.out.println(adViewProfile.getAdUnitId());
+        adViewProfile.loadAd(adRequest);
+        adViewProfile.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                adViewProfile.loadAd(new AdRequest.Builder().build());
+            }
+        });
     }
 
     public String getUrlFromDialog() {

@@ -109,9 +109,26 @@
             android:background="#FF9800"
             android:text="@string/actualizar" />
 
+        <LinearLayout
+            android:id="@+id/lnprofilead"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                app:adSize="BANNER"
+                app:adUnitId="ca-app-pub-5187656956047852/9812852200" />
+        </LinearLayout>
 
 
     </LinearLayout>
+
 
 
 

@@ -250,44 +250,44 @@ public class FragmentoMenu extends Fragment {
 
         //rating
 
-        AppRate.with(this.getContext())
-                .setInstallDays(2) // minimo dos dias de la instalacion
-                .setLaunchTimes(3) //minimo haberla abierto 3 veces
-                .setRemindInterval(2) // si le da a recordar mas tarde pasan X dias
-                .monitor();
-
-        try {
-            AppRate.showRateDialogIfMeetsConditions(this.getActivity());
-
-        } catch (Exception e) {
-
-        }
+//        AppRate.with(this.getContext())
+//                .setInstallDays(2) // minimo dos dias de la instalacion
+//                .setLaunchTimes(3) //minimo haberla abierto 3 veces
+//                .setRemindInterval(2) // si le da a recordar mas tarde pasan X dias
+//                .monitor();
+//
+//        try {
+//            AppRate.showRateDialogIfMeetsConditions(this.getActivity());
+//
+//        } catch (Exception e) {
+//
+//        }
 
         //INAPP RATING
 
-//        rwManager = ReviewManagerFactory.create(getContext());
-//        com.google.android.play.core.tasks.Task<ReviewInfo> request = rwManager.requestReviewFlow();
-//
-//        request.addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
-//            @Override
-//            public void onComplete(@NonNull com.google.android.play.core.tasks.Task<ReviewInfo> task) {
-//
-//                if(task.isSuccessful()){
-//                    reviewInfo = task.getResult();
-//                    com.google.android.play.core.tasks.Task<Void> flow = rwManager.launchReviewFlow(getActivity(), reviewInfo);
-//
-//                    flow.addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void result) {
-//
-//                        }
-//                    });
-//                }else{
-//                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }
-//        });
+        rwManager = ReviewManagerFactory.create(getContext());
+        com.google.android.play.core.tasks.Task<ReviewInfo> request = rwManager.requestReviewFlow();
+
+        request.addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
+            @Override
+            public void onComplete(@NonNull com.google.android.play.core.tasks.Task<ReviewInfo> task) {
+
+                if(task.isSuccessful()){
+                    reviewInfo = task.getResult();
+                    com.google.android.play.core.tasks.Task<Void> flow = rwManager.launchReviewFlow(getActivity(), reviewInfo);
+
+                    flow.addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void result) {
+
+                        }
+                    });
+                }else{
+//                    Toast.makeText(getContext(), "Se ha producido un error", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
 
         initComponents(view);
