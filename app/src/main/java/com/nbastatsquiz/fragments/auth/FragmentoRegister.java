@@ -13,11 +13,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.bumptech.glide.Glide;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.beans.NBAPlayer;
 import com.nbastatsquiz.tools.FirebaseMethods;
 import com.nbastatsquiz.tools.GenerateImageUrl;
+import com.nbastatsquiz.tools.SelectorImagenActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,15 +36,16 @@ public class FragmentoRegister extends FragmentoAutentificacion {
 
 
     private EditText email, passwd, passwd2, username;
-    private TextView txtError;
+    private TextView txtError, txtCambiaAvatar;
     private Button btnRegister, btnGoogle;
     private FirebaseMethods firebaseMethods;
     private String mensaje;
     private static FragmentoRegister fragmentoRegister;
     private CircleImageView circleImageView;
     private GenerateImageUrl generateImageUrl;
-    private Spinner spinner;
     private TextView goToLogin;
+    private ArrayList<NBAPlayer> nbaPlayers;
+    NBAPlayer nbaPlayer;
 
 
     public FragmentoRegister() {
@@ -84,12 +88,36 @@ public class FragmentoRegister extends FragmentoAutentificacion {
             }
         });
 
+        txtCambiaAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialog = new SelectorImagenActivity(fragmentoRegister);
+                dialog.show(getFragmentManager(), "NoticeDialogFragment");
+            }
+        });
+
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                FragmentoSelectorImagen fragmentoSelectorImagen = FragmentoSelectorImagen.newInstance(null);
+//
+//
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.main_content, fragmentoSelectorImagen, "findThisFragment")
+//                        .addToBackStack(null)
+//                        .commit();
+
+                DialogFragment dialog = new SelectorImagenActivity(fragmentoRegister);
+                dialog.show(getFragmentManager(), "NoticeDialogFragment");
+            }
+        });
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //cogemos jugador seleccionado y pasamos la url de su imagen
-                NBAPlayer nbaPlayer = (NBAPlayer) spinner.getSelectedItem();
+                //NBAPlayer nbaPlayer = (NBAPlayer) spinner.getSelectedItem();
 
                 txtError.setVisibility(View.GONE);
                 if (isEmailValid(email.getText().toString())) {
@@ -98,26 +126,32 @@ public class FragmentoRegister extends FragmentoAutentificacion {
                         //6 es el minimo de seguridad de firebase
                         if (passwd.getText().toString().length() >= 6) {
                             //registrar
-
-                            final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
-                            progressDialog.setIndeterminate(true);
-                            progressDialog.setMessage("Iniciando...");
-                            progressDialog.show();
+                            if(nbaPlayer != null) {
 
 
-                            new android.os.Handler().postDelayed(
-                                    new Runnable() {
-                                        public void run() {
-                                            firebaseMethods.registerUser(email.getText().toString(), passwd.getText().toString(), username.getText().toString(), nbaPlayer.getUrlImage(), getContext());
-                                            progressDialog.dismiss();
-                                        }
-                                    }, 1000);
+                                final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
+                                progressDialog.setIndeterminate(true);
+                                progressDialog.setMessage("Iniciando...");
+                                progressDialog.show();
 
-                            //mostrarError(mensaje);
+
+                                new android.os.Handler().postDelayed(
+                                        new Runnable() {
+                                            public void run() {
+                                                firebaseMethods.registerUser(email.getText().toString(), passwd.getText().toString(), username.getText().toString(), nbaPlayer.getUrlImage(), getContext());
+                                                progressDialog.dismiss();
+                                            }
+                                        }, 1000);
+
+                                //mostrarError(mensaje);
 //                            getActivity().getSupportFragmentManager()
 //                                    .beginTransaction()
 //                                    .replace(R.id.main_content, FragmentoMenu.newInstance(null))
 //                                    .commit();
+                            }
+                            else{
+                                mostrarError(getString(R.string.seleccionar_avatar));
+                            }
                         } else {
 //                        La contraseña minimo son 6 caracteres para firebase
                             mostrarError(getString(R.string.password_characters));
@@ -144,21 +178,7 @@ public class FragmentoRegister extends FragmentoAutentificacion {
             }
         });
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                NBAPlayer nbaPlayer = (NBAPlayer) spinner.getSelectedItem();
-//                Picasso.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
 
-                Glide.with(getContext()).load(nbaPlayer.getUrlImage()).into(circleImageView);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         return view;
     }
@@ -166,7 +186,7 @@ public class FragmentoRegister extends FragmentoAutentificacion {
     private void populateSpinner() {
         generateImageUrl = new GenerateImageUrl();
 
-        ArrayList<NBAPlayer> nbaPlayers = generateImageUrl.getNBAPlayers();
+        nbaPlayers = generateImageUrl.getNBAPlayers();
 
         //ordenamos array
         if (nbaPlayers.size() > 0) {
@@ -179,7 +199,7 @@ public class FragmentoRegister extends FragmentoAutentificacion {
         }
 
         ArrayAdapter<NBAPlayer> adapter = new ArrayAdapter<NBAPlayer>(getContext(), R.layout.support_simple_spinner_dropdown_item, nbaPlayers);
-        spinner.setAdapter(adapter);
+
 
 
     }
@@ -205,9 +225,10 @@ public class FragmentoRegister extends FragmentoAutentificacion {
         txtError = view.findViewById(R.id.txtErrorRegister);
         username = view.findViewById(R.id.txtRegisterUserName);
         circleImageView = view.findViewById(R.id.ivAvatarRegister);
-        spinner = view.findViewById(R.id.spinnerRegisterAvatar);
+
         goToLogin = view.findViewById(R.id.txtGoToLogin);
         btnGoogle = view.findViewById(R.id.btnLogInGoogle);
+        txtCambiaAvatar = view.findViewById(R.id.txtCambiaAvatarRegister);
 
 
     }
@@ -236,5 +257,29 @@ public class FragmentoRegister extends FragmentoAutentificacion {
                 .replace(R.id.main_content, fragmentoLogin, "findThisFragment")
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public CircleImageView getCircleImageView() {
+        return circleImageView;
+    }
+
+    public void setCircleImageView(CircleImageView circleImageView) {
+        this.circleImageView = circleImageView;
+    }
+
+    public ArrayList<NBAPlayer> getNbaPlayers() {
+        return nbaPlayers;
+    }
+
+    public void setNbaPlayers(ArrayList<NBAPlayer> nbaPlayers) {
+        this.nbaPlayers = nbaPlayers;
+    }
+
+    public NBAPlayer getNbaPlayer() {
+        return nbaPlayer;
+    }
+
+    public void setNbaPlayer(NBAPlayer nbaPlayer) {
+        this.nbaPlayer = nbaPlayer;
     }
 }

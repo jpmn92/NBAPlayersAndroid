@@ -401,54 +401,7 @@ public class FirebaseMethods extends Activity {
                                 }
                             });
 
-                    //AQUI CREAMOS LOS PARAMETROS A NUESTRO ANTOJO, POR EJEMPLO URL DE IMAGEN DEL USUARIO O LO QUE SEA
-//                    Map<String, Object> map = new HashMap<>();
-//                    map.put("uid", id);
-//                    map.put("email", email);
-//                    map.put("name", username);
 
-
-//                    reference.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task2) {
-//                            if (task2.isSuccessful()) {
-//
-//
-//                                //Una vez creado el usuario, le ponemos displayName
-//                                FirebaseUser myUser = mAuth.getCurrentUser();
-//
-////                                myUser.sendEmailVerification();
-//
-//
-//                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                                        .setDisplayName(username).setPhotoUri(Uri.parse(urlImage)).build();
-//
-//                                myUser.updateProfile(profileUpdates)
-//                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<Void> task3) {
-//                                                if (task3.isSuccessful()) {
-//                                                    //USERNAME ACTUALIZADO
-//                                                    String OK = "OK";
-//                                                    //TODO: loguear de otra manera mas limpia
-//                                                    logIn(myUser, RegisterContext);
-//
-//
-//                                                } else {
-//                                                    //no se le ha asignado el username
-//                                                    String NOOK = "NOOK";
-//                                                }
-//                                            }
-//                                        });
-//
-//
-//                            } else {
-//                                //no se ha creado correctamente
-//                                fragmentoRegister.setMensaje(fragmentoRegister.getString(R.string.error_ocurred));
-//                            }
-//
-//                        }
-//                    });
 
                 } else {
 

@@ -469,6 +469,7 @@
     <string name="team">Equipo NBA</string>
     <string name="college">Universidad</string>
     <string name="draft_question">¿Qué pick fue más alto?</string>
+    <string name="busca_jugador">Busca Jugador</string>
 
 
 </resources>

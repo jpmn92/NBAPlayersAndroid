@@ -528,5 +528,6 @@
 
 
     <string name="nombre_transicion_imagen" translatable="false">imagen_compartida</string>
+    <string name="busca_jugador">Search Player</string>
 
 </resources>

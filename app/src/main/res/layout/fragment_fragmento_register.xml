@@ -32,6 +32,20 @@
             app:civ_fill_color="@color/colorPrimary"
             app:civ_border_color="@color/material_black"/>
 
+        <Button
+            android:id="@+id/txtCambiaAvatarRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/seleccionar_avatar"
+            android:textColor="@color/material_black"
+            android:textSize="16dp"
+
+            />
+
         <EditText
             android:paddingLeft="15dp"
             android:id="@+id/txtRegisterEmail"
@@ -74,23 +88,6 @@
             android:inputType="textPassword"
             android:hint="@string/introduce_passwd2"
             android:layout_marginBottom="10dp"/>
-        <TextView
-            android:paddingLeft="15dp"
-            android:id="@+id/txtRegisterAvatar"
-            android:textColor="@color/material_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/seleccionar_avatar"
-            android:textStyle="bold"
-            android:textSize="18sp" />
-        <Spinner
-            android:paddingLeft="15dp"
-
-            android:id="@+id/spinnerRegisterAvatar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dialog"
-            />
 
         <TextView
             android:id="@+id/txtErrorRegister"
