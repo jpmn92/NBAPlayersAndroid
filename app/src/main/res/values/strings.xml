@@ -520,6 +520,11 @@
     <string name="bloque_publicidad_intersticial_prueba" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="bloque_publicidad_intersticial_draft" translatable="false">ca-app-pub-5187656956047852/5587162239</string>
     <string name="bloque_publicidad_intersticial_gameactivity" translatable="false">ca-app-pub-5187656956047852/9787942336</string>
+    <string name="banner_profile" translatable="false">ca-app-pub-5187656956047852/9812852200</string>
+    <string name="banner_partida" translatable="false">ca-app-pub-5187656956047852/1942101042</string>
+    <string name="banner_partida_draft" translatable="false">ca-app-pub-5187656956047852/4172485043</string>
+
+
 
 
     <string name="nombre_transicion_imagen" translatable="false">imagen_compartida</string>
