@@ -59,7 +59,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:adSize="BANNER"
-            app:adUnitId="@string/banner_prueba"> <!-- TODO: IMPORTANTE Poner banner_puntuaciones -->
+            app:adUnitId="@string/banner_puntuaciones"> <!-- TODO: IMPORTANTE Poner banner_puntuaciones -->
 
         </com.google.android.gms.ads.AdView>
     </LinearLayout>

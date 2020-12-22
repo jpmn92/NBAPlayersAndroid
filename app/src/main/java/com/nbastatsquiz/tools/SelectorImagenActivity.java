@@ -17,13 +17,18 @@ import android.widget.EditText;
 import android.widget.GridView;
 
 import com.bumptech.glide.Glide;
+import com.google.common.reflect.TypeToken;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.gson.Gson;
 import com.nbastatsquiz.R;
 import com.nbastatsquiz.adaptador.AdapterAvatar;
 import com.nbastatsquiz.beans.NBAPlayer;
 import com.nbastatsquiz.fragments.FragmentoAccount;
 import com.nbastatsquiz.fragments.auth.FragmentoRegister;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SelectorImagenActivity extends DialogFragment {
 
@@ -34,6 +39,8 @@ public class SelectorImagenActivity extends DialogFragment {
     private EditText txtSearchAvatar;
     private ArrayList<NBAPlayer> nbaPlayers;
     private ArrayList<NBAPlayer> avatares;
+    FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+    String avataresRemote;
 
     public SelectorImagenActivity() {
     }
@@ -64,13 +71,24 @@ public class SelectorImagenActivity extends DialogFragment {
         avatares = new ArrayList<>();
         grid = view.findViewById(R.id.grid);
 
+        avataresRemote = remoteConfig.getString("avatares");
+
         if(fragmentoAccount != null){
-            nbaPlayers.addAll(fragmentoAccount.getNbaPlayers());
-            avatares.addAll(fragmentoAccount.getNbaPlayers());
+            if(avataresRemote.equalsIgnoreCase("")) {
+                nbaPlayers.addAll(fragmentoAccount.getNbaPlayers());
+                avatares.addAll(fragmentoAccount.getNbaPlayers());
+            }
+            else{
+                avataresRemotos();
+            }
         }
         else if (fragmentoRegister != null){
-            nbaPlayers.addAll(fragmentoRegister.getNbaPlayers());
-            avatares.addAll(fragmentoRegister.getNbaPlayers());
+            if(avataresRemote.equalsIgnoreCase("")) {
+                nbaPlayers.addAll(fragmentoRegister.getNbaPlayers());
+                avatares.addAll(fragmentoRegister.getNbaPlayers());
+            } else{
+                avataresRemotos();
+            }
         }
 
         txtSearchAvatar = view.findViewById(R.id.txtSearchAvatar);
@@ -150,5 +168,13 @@ public class SelectorImagenActivity extends DialogFragment {
         }
 
         return nbaPlayersAux;
+    }
+
+    private void avataresRemotos() {
+        Type listType = new TypeToken<List<NBAPlayer>>() {
+        }.getType();
+        ArrayList<NBAPlayer> avataresRemoteList = new Gson().fromJson(avataresRemote, listType);
+        nbaPlayers.addAll(avataresRemoteList);
+        avatares.addAll(avataresRemoteList);
     }
 }
