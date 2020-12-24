@@ -392,7 +392,7 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 break;
             case R.id.nav_about_us:
                 try {
-                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "bowlofricedev@gmail.com", null));
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "hello@bowlofricedev.com", null));
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "NBA Stats Season - ");
                     startActivity(Intent.createChooser(emailIntent, getString(R.string.enviar_mail)));
                 } catch (ActivityNotFoundException e) {

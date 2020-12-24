@@ -506,7 +506,7 @@
     <string name="login">Log In</string>
     <string name="no_puntuaciones">No records yet</string>
     <string name="enviar_mail">Send mail</string>
-    <string name="contact_mail">Can contact with us sending a mail to bowlofricedev@gmail.com</string>
+    <string name="contact_mail">Can contact with us sending a mail to hello@bowlofricedev.com</string>
 
 
     <!--    DRAFT MODE-->
@@ -523,8 +523,6 @@
     <string name="banner_profile" translatable="false">ca-app-pub-5187656956047852/9812852200</string>
     <string name="banner_partida" translatable="false">ca-app-pub-5187656956047852/1942101042</string>
     <string name="banner_partida_draft" translatable="false">ca-app-pub-5187656956047852/4172485043</string>
-
-
 
 
     <string name="nombre_transicion_imagen" translatable="false">imagen_compartida</string>
